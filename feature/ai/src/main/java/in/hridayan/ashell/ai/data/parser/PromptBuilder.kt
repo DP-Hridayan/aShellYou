@@ -9,12 +9,28 @@ package `in`.hridayan.ashell.ai.data.parser
 object PromptBuilder {
 
     private const val NATURAL_LANGUAGE = "NATURAL_LANGUAGE"
+    private const val VALID = "VALID"
+    private const val PARTIAL = "PARTIAL"
+    private const val INVALID = "INVALID"
+    private const val GIBBERISH = "GIBBERISH"
+    private const val SAFE = "SAFE"
+    private const val LOW_RISK = "LOW_RISK"
+    private const val MODERATE = "MODERATE"
+    private const val DANGEROUS = "DANGEROUS"
+    private const val CRITICAL = "CRITICAL"
+    private const val COMMAND = "command"
+    private const val STATUS = "status"
+    private const val DESCRIPTION = "description"
+    private const val FEEDBACK = "feedback"
     private const val SUGGESTED_CORRECTION = "suggestedCorrection"
+    private const val AUTOCOMPLETE = "autocomplete"
+    private const val USE_CASES = "useCases"
+    private const val DANGER_LEVEL = "dangerLevel"
 
     private val CRITICAL_INSTRUCTION = """
         CRITICAL: In your JSON 'description', you MUST explicitly mention the exact package names, file paths, or parameters.
         Do NOT give a generic description.
-        If input is natural language, set status to NATURAL_LANGUAGE and put the generated command in $SUGGESTED_CORRECTION.
+        If input is natural language, set status to $NATURAL_LANGUAGE and put the generated command in $SUGGESTED_CORRECTION.
     """.trimIndent()
 
     private val QUERY_CRITICAL_INSTRUCTION = """
@@ -26,9 +42,9 @@ object PromptBuilder {
         The JSON structure must exactly match this:
         {
           "command": "The exact command you are analyzing",
-          "status": "VALID" | "PARTIAL" | "INVALID" | "GIBBERISH" | "NATURAL_LANGUAGE",
+          "status": "$VALID" | "PARTIAL" | "INVALID" | "GIBBERISH" | "$NATURAL_LANGUAGE",
           "description": "Explain what the command does. If the input was natural language, explain the generated command.",
-          "feedback": "Any additional warnings, danger notes, or feedback.",
+          "$FEEDBACK": "Any additional warnings, danger notes, or feedback.",
           "$SUGGESTED_CORRECTION": "If invalid/partial, provide the correct command here. If input was natural language, output the generated command here. Otherwise null.",
           "autocomplete": "If incomplete, provide how to finish it. Otherwise null.",
           "useCases": ["Array", "of", "use", "cases"],
@@ -40,9 +56,9 @@ object PromptBuilder {
         The JSON structure must exactly match this:
         {
           "command": "The natural language user input",
-          "status": "NATURAL_LANGUAGE",
+          "status": "$NATURAL_LANGUAGE",
           "description": "Explain exactly what the generated command will do on the device.",
-          "feedback": "Any additional warnings, danger notes, or feedback.",
+          "$FEEDBACK": "Any additional warnings, danger notes, or feedback.",
           "$SUGGESTED_CORRECTION": "The generated shell command you formulated.",
           "autocomplete": null,
           "useCases": ["Array", "of", "use", "cases"],
@@ -59,7 +75,7 @@ object PromptBuilder {
           "command": "adb shell pm uninstall --user 0 com.example.app",
           "status": "VALID",
           "description": "Uninstalls the package 'com.example.app' for the current user (user 0).",
-          "feedback": "This action cannot be undone. App data will be deleted.",
+          "$FEEDBACK": "This action cannot be undone. App data will be deleted.",
           "$SUGGESTED_CORRECTION": null,
           "autocomplete": null,
           "useCases": ["Remove an app completely", "Free up storage space by removing unused packages"],
@@ -74,9 +90,9 @@ object PromptBuilder {
         $CRITICAL_INSTRUCTION
         Assistant: {
           "command": "I want to delete a file named myfile.txt",
-          "status": "NATURAL_LANGUAGE",
+          "status": "$NATURAL_LANGUAGE",
           "description": "Deletes the file named 'myfile.txt' from the device.",
-          "feedback": "Ensure the file path is correct.",
+          "$FEEDBACK": "Ensure the file path is correct.",
           "$SUGGESTED_CORRECTION": "adb shell rm /path/to/myfile.txt",
           "autocomplete": null,
           "useCases": ["Remove unwanted files", "Clean up storage directory"],
@@ -97,7 +113,7 @@ object PromptBuilder {
         val rules = """
             Rules:
             1. If the command contains specific parameters (like package names, file paths, or flags), you MUST explicitly mention them in your description. Do not give a generic explanation.
-            2. If the user input is a natural language request (e.g. "I want to delete a file"), set status to "NATURAL_LANGUAGE" and put the exact generated shell command in "$SUGGESTED_CORRECTION".
+            2. If the user input is a natural language request (e.g. "I want to delete a file"), set status to "$NATURAL_LANGUAGE" and put the exact generated shell command in "$SUGGESTED_CORRECTION".
             3. You MUST write the 'description' and 'feedback' fields entirely in $userLocale. However, keep the actual bash commands intact.
             4. Only return JSON.
         """.trimIndent()

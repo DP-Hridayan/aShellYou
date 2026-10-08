@@ -49,6 +49,7 @@ import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.animatedcomposables.AnimatedAdbIcon
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.card.cardPressRotation
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.shape.SineWaveShape
@@ -309,6 +310,7 @@ private fun AppHandlesChip(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             Icon(
+                modifier = Modifier.cardPressRotation(),
                 painter = painterResource(iconResId),
                 contentDescription = null,
                 tint = contentColor

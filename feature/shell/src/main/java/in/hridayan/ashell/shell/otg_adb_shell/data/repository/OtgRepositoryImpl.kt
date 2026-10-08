@@ -26,6 +26,8 @@ import `in`.hridayan.ashell.core.common.domain.model.otg.OtgConnection
 import `in`.hridayan.ashell.core.common.domain.model.otg.OtgState
 import `in`.hridayan.ashell.core.common.domain.repository.OtgRepository
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.shell.common.data.adb.ShellProtocolV2
+import `in`.hridayan.ashell.shell.common.data.adb.ShellV2OutputReader
 import `in`.hridayan.ashell.shell.common.domain.shell.DirectoryResult
 import `in`.hridayan.ashell.shell.common.domain.shell.ShellDirectory
 import kotlinx.coroutines.CoroutineScope
@@ -35,6 +37,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
@@ -42,6 +45,7 @@ import kotlinx.coroutines.runInterruptible
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.withTimeoutOrNull
 import java.io.File
 import java.io.IOException
 import java.util.concurrent.atomic.AtomicBoolean
@@ -72,6 +76,10 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
     private var connectJob: Job? = null
 
     private var adbStream: AdbStream? = null
+
+    /** The shell running the current v2 command, so an abort can stop its whole process group. */
+    @Volatile
+    private var shellProcessId: Int? = null
 
     // region Receivers
     private val permissionReceiver = object : BroadcastReceiver() {
@@ -321,7 +329,7 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
     private suspend fun handshake(connection: AdbConnection): Boolean {
         var established = false
         try {
-            withTimeout(CONNECT_TIMEOUT_MS) {
+            withTimeout(CONNECT_TIMEOUT_MS.milliseconds) {
                 runInterruptible(Dispatchers.IO) { connection.connect() }
             }
             established = true
@@ -402,36 +410,14 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
         }
 
         try {
-            val stream = connection.open("shell:$fullCommand")
-            adbStream = stream
-
-            val buffer = StringBuilder()
-
-            while (true) {
-                val data = stream.readUntilClosed() ?: break
-                val text = String(data, Charsets.UTF_8)
-                buffer.append(text)
-
-                val lines = buffer.split("\n")
-                for (i in 0 until lines.size - 1) {
-                    emit(OutputLine(lines[i].trimEnd(), isError = false))
-                }
-
-                buffer.clear()
-                buffer.append(lines.last())
-            }
-
-            if (buffer.isNotEmpty()) {
-                emit(OutputLine(buffer.toString().trimEnd(), isError = false))
+            if (ShellProtocolV2.supportedBy(connection.banner)) {
+                readShellV2(connection, fullCommand)
+            } else {
+                readLegacyShell(connection, fullCommand)
             }
         } catch (e: IOException) {
             Log.e(TAG, "OTG shell failed", e)
-            emit(
-                OutputLine(
-                    context.getString(R.string.shell_connection_lost),
-                    isError = true
-                )
-            )
+            emit(OutputLine(context.getString(R.string.shell_connection_lost), isError = true))
         } finally {
             try {
                 adbStream?.close()
@@ -512,11 +498,93 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
         }
     }
 
+    /**
+     * Runs [fullCommand] on the legacy `shell:` service, for devices without shell v2, where the
+     * command runs in a terminal and ends when the device closes the stream.
+     */
+    private suspend fun FlowCollector<OutputLine>.readLegacyShell(
+        connection: AdbConnection,
+        fullCommand: String
+    ) {
+        val stream = connection.open("shell:$fullCommand")
+        adbStream = stream
+
+        val buffer = StringBuilder()
+
+        while (true) {
+            val data = stream.readUntilClosed() ?: break
+            val text = String(data, Charsets.UTF_8)
+            buffer.append(text)
+
+            val lines = buffer.split("\n")
+            for (i in 0 until lines.size - 1) {
+                emit(OutputLine(lines[i].trimEnd(), isError = false))
+            }
+
+            buffer.clear()
+            buffer.append(lines.last())
+        }
+
+        if (buffer.isNotEmpty()) {
+            emit(OutputLine(buffer.toString().trimEnd(), isError = false))
+        }
+    }
+
+    /**
+     * Runs [fullCommand] without a terminal, so output is not reformatted for one, and ends on the
+     * daemon's exit packet.
+     */
+    private suspend fun FlowCollector<OutputLine>.readShellV2(
+        connection: AdbConnection,
+        fullCommand: String
+    ) {
+        val stream = connection.open(
+            ShellProtocolV2.SERVICE_PREFIX + ShellProtocolV2.withPidPreamble(fullCommand)
+        )
+        adbStream = stream
+        stream.write(ShellProtocolV2.closeStdinPacket())
+
+        val reader = ShellV2OutputReader()
+        try {
+            while (!reader.isFinished) {
+                val data = stream.readUntilClosed() ?: break
+                reader.feed(data).forEach { emit(it) }
+                shellProcessId = reader.processId
+            }
+            reader.finish().forEach { emit(it) }
+        } finally {
+            shellProcessId = null
+        }
+    }
+
+    /**
+     * Stops what an aborted v2 command left running. Closing its stream only signals the shell, so a
+     * silent child such as `sleep` would otherwise outlive the abort.
+     */
+    private suspend fun killShellProcessGroup(pid: Int) {
+        val connection = getAdbConnection() ?: return
+        try {
+            withTimeoutOrNull(KILL_TIMEOUT_MS.milliseconds) {
+                runInterruptible {
+                    val stream = connection.open(
+                        ShellProtocolV2.SERVICE_PREFIX + ShellProtocolV2.killCommand(pid)
+                    )
+                    stream.use {
+                        while (it.readUntilClosed() != null) Unit
+                    }
+                }
+            }
+        } catch (e: IOException) {
+            Log.w(TAG, "Could not stop the aborted command's process group", e)
+        }
+    }
+
     private fun sanitizeCommand(cmd: String): String {
         return cmd.removePrefix("adb shell")
     }
 
     override fun stopCommand() {
+        shellProcessId?.let { pid -> scope.launch { killShellProcessGroup(pid) } }
         try {
             adbStream?.close()
         } catch (e: IOException) {
@@ -532,13 +600,14 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
     private fun isAdbDevice(device: UsbDevice): Boolean = findAdbInterface(device) != null
 
     // File browser support methods
-    override fun isConnected(): Boolean = adbConnection?.isConnected() == true
+    override fun isConnected(): Boolean = adbConnection?.isConnected == true
 
-    override fun getAdbConnection(): AdbConnection? = adbConnection?.takeIf { it.isConnected() }
+    override fun getAdbConnection(): AdbConnection? = adbConnection?.takeIf { it.isConnected }
 
     private companion object {
         const val TAG = "OtgRepository"
         private const val SHELL_SERVICE_PREFIX = "shell:"
+        const val KILL_TIMEOUT_MS = 2_000L
         const val PERMISSION_ACTION = "in.hridayan.ashell.USB_PERMISSION"
         const val PERMISSION_REQUEST_CODE = 0
         const val PERMISSION_COOLDOWN_MS = 20_000L

@@ -42,7 +42,6 @@ fun HomeRoute(
     val sideloadState by sideloadViewModel.state.collectAsState()
     val wifiAdbState by wifiAdbViewModel.state.collectAsState()
     val wifiAdbDevice by wifiAdbViewModel.currentDevice.collectAsState()
-    val savedDevices by wifiAdbViewModel.savedDevices.collectAsState()
     val settings = LocalSettings.current
     val localAdbWorkingMode = settings[SettingsKeys.LocalAdbWorkingMode]
     val isLogcatRunning by navDeepLinkViewModel.sessionHolder.isRunning.collectAsState()
@@ -54,7 +53,6 @@ fun HomeRoute(
 
     HomeScreen(
         localAdbWorkingMode = localAdbWorkingMode,
-        savedDevicesCount = savedDevices.size,
         isLogcatRunning = isLogcatRunning,
         otgStatus = otgState.toLinkStatus(),
         wifiAdbStatus = toWifiAdbCardStatus(wifiAdbState, wifiAdbDevice),
@@ -129,26 +127,34 @@ fun HomeRoute(
 
     if (showFastbootDeviceWaitingDialog) {
         FastbootDeviceWaitingDialog(
-            onDismiss = { showFastbootDeviceWaitingDialog = false },
+            onDismiss = {
+                showFastbootDeviceWaitingDialog = false
+                fastbootViewModel.disconnect()
+            },
             onConfirm = {
                 showFastbootDeviceWaitingDialog = false
                 navController.navigate(NavRoutes.FastbootScreen)
                 fastbootViewModel.startScan()
             },
+            fastbootState = fastbootState,
             isAdbDeviceConnected = otgState is OtgState.Connected,
-            adbDeviceName = (otgState as? OtgState.Connected)?.deviceName,
             onBootIntoFastboot = {
                 otgViewModel.rebootToBootloader()
                 showFastbootDeviceWaitingDialog = false
                 fastbootViewModel.startScan()
                 showFastbootDeviceWaitingDialog = true
-            }
+            },
+            startScan = { fastbootViewModel.startScan() }
         )
     }
 
     if (showSavedDevicesBottomSheet) {
         SavedDevicesBottomSheet(
             onDismiss = { showSavedDevicesBottomSheet = false },
+            onPairDevice = {
+                showSavedDevicesBottomSheet = false
+                showPairModeChooseDialog = true
+            },
             onGoToTerminal = {
                 showSavedDevicesBottomSheet = false
                 navController.navigate(NavRoutes.WifiAdbScreen())

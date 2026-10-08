@@ -44,6 +44,7 @@ import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCardDefaults
+import `in`.hridayan.ashell.core.presentation.components.card.cardPressRotation
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
@@ -107,7 +108,9 @@ fun ColorTabs(
                             Icon(
                                 painter = painterResource(R.drawable.ic_format_paint),
                                 contentDescription = "Create Custom Theme",
-                                modifier = Modifier.size(32.dp),
+                                modifier = Modifier
+                                    .size(32.dp)
+                                    .cardPressRotation(),
                                 tint = MaterialTheme.colorScheme.tertiary
                             )
                         }

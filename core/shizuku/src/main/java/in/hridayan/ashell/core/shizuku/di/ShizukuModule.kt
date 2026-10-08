@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.core.shizuku.di
 
+import android.os.Binder
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -12,6 +13,7 @@ import `in`.hridayan.ashell.core.shizuku.data.ShizukuGateway
 import `in`.hridayan.ashell.core.shizuku.data.ShizukuGatewayImpl
 import `in`.hridayan.ashell.core.shizuku.data.ShizukuLegacyProcessStarter
 import `in`.hridayan.ashell.core.shizuku.data.ShizukuRemoteProcessFactory
+import `in`.hridayan.ashell.core.shizuku.domain.ShizukuClientToken
 import `in`.hridayan.ashell.core.shizuku.domain.ShizukuCommandRunner
 import javax.inject.Singleton
 
@@ -35,5 +37,9 @@ abstract class ShizukuModule {
         @Provides
         @Singleton
         fun provideRemoteProcessFactory(): RemoteProcessFactory = ShizukuRemoteProcessFactory()
+
+        @Provides
+        @Singleton
+        fun provideClientToken(): ShizukuClientToken = ShizukuClientToken(Binder())
     }
 }

@@ -12,9 +12,14 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.file_browser.data.executor.AdbCommandExecutor
 import `in`.hridayan.ashell.shell.file_browser.data.executor.WifiAdbCommandExecutor
+import `in`.hridayan.ashell.shell.file_browser.data.shell.CommandStatus
+import `in`.hridayan.ashell.shell.file_browser.data.shell.RemoteShellCommands
+import `in`.hridayan.ashell.shell.file_browser.data.shell.shellQuoted
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperationResult
+import `in`.hridayan.ashell.shell.file_browser.domain.model.PathInfo
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import `in`.hridayan.ashell.shell.file_browser.domain.repository.FileBrowserRepository
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
@@ -90,8 +95,7 @@ class FileBrowserRepositoryImpl @Inject constructor(
             }
 
             val normalizedPath = if (path.endsWith("/")) path else "$path/"
-            val escapedPath = normalizedPath.replace("'", "'\\''")
-            val command = "ls -la '$escapedPath' 2>&1 || true"
+            val command = "ls -la ${normalizedPath.shellQuoted()} 2>&1 || true"
 
             val fullOutput = executor.executeCommand(command)
                 ?: return Result.failure(Exception("Command execution failed"))
@@ -340,43 +344,19 @@ class FileBrowserRepositoryImpl @Inject constructor(
     }.buffer(PROGRESS_BUFFER, onBufferOverflow = BufferOverflow.DROP_OLDEST)
         .flowOn(Dispatchers.IO)
 
-    override suspend fun deleteFile(path: String): Result<Unit> = withContext(Dispatchers.IO) {
-        try {
-            val escapedPath = path.replace("'", "'\\''")
-            executeCommand("rm -rf '$escapedPath'")
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
+    override suspend fun deleteFile(path: String): Result<Unit> =
+        runChecked(RemoteShellCommands.delete(path), longRunning = true).map { }
 
-    override suspend fun createDirectory(path: String): Result<Unit> = withContext(Dispatchers.IO) {
-        try {
-            val escapedPath = path.replace("'", "'\\''")
-            executeCommand("mkdir -p '$escapedPath'")
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
+    override suspend fun createDirectory(path: String): Result<Unit> =
+        runChecked(RemoteShellCommands.createDirectory(path)).map { }
 
     override suspend fun rename(oldPath: String, newPath: String): Result<Unit> =
-        withContext(Dispatchers.IO) {
-            try {
-                val escapedOld = oldPath.replace("'", "'\\''")
-                val escapedNew = newPath.replace("'", "'\\''")
-                executeCommand("mv '$escapedOld' '$escapedNew'")
-                Result.success(Unit)
-            } catch (e: Exception) {
-                Result.failure(e)
-            }
-        }
+        runChecked(RemoteShellCommands.rename(oldPath, newPath), longRunning = true).map { }
 
     override suspend fun getFileInfo(path: String): Result<RemoteFile> =
         withContext(Dispatchers.IO) {
             try {
-                val escapedPath = path.replace("'", "'\\''")
-                val result = executeCommand("ls -la '$escapedPath'")
+                val result = executeCommand("ls -la ${path.shellQuoted()}")
                 val parentPath = File(path).parent ?: "/"
                 result?.let { line ->
                     parseFileEntry(line.trim(), parentPath)?.let {
@@ -398,75 +378,70 @@ class FileBrowserRepositoryImpl @Inject constructor(
     override fun isAdbConnected(): Boolean = executor.isConnected()
 
     override suspend fun copy(sourcePath: String, destPath: String): Result<Unit> =
-        withContext(Dispatchers.IO) {
-            try {
-                val escapedSource = sourcePath.replace("'", "'\\''")
-                val escapedDest = destPath.replace("'", "'\\''")
-                val result = executeCommand("cp -r '$escapedSource' '$escapedDest'")
-
-                if (result?.contains("error", ignoreCase = true) == true ||
-                    result?.contains("cannot", ignoreCase = true) == true
-                ) {
-                    Result.failure(Exception(result))
-                } else {
-                    Result.success(Unit)
-                }
-            } catch (e: Exception) {
-                Result.failure(e)
-            }
-        }
+        runChecked(RemoteShellCommands.copy(sourcePath, destPath), longRunning = true).map { }
 
     override suspend fun move(sourcePath: String, destPath: String): Result<Unit> =
-        withContext(Dispatchers.IO) {
-            try {
-                val escapedSource = sourcePath.replace("'", "'\\''")
-                val escapedDest = destPath.replace("'", "'\\''")
-                val result = executeCommand("mv '$escapedSource' '$escapedDest'")
+        runChecked(RemoteShellCommands.move(sourcePath, destPath), longRunning = true).map { }
 
-                if (result?.contains("error", ignoreCase = true) == true ||
-                    result?.contains("cannot", ignoreCase = true) == true
-                ) {
-                    Result.failure(Exception(result))
-                } else {
-                    Result.success(Unit)
+    override suspend fun inspect(paths: List<String>): Result<List<PathInfo>> {
+        val infos = mutableListOf<PathInfo>()
+
+        RemoteShellCommands.inspect(paths).forEach { (batch, command) ->
+            val output = runChecked(command).getOrElse { return Result.failure(it) }
+            val batchInfos = RemoteShellCommands.parseInspection(output, batch)
+                ?: return Result.failure(IOException(context.getString(R.string.fb_unexpected_response)))
+            infos += batchInfos
+        }
+
+        return Result.success(infos)
+    }
+
+    override suspend fun resolveDirectory(path: String): Result<String> =
+        runChecked(RemoteShellCommands.resolveDirectory(path)).mapCatching { output ->
+            output.lineSequence().map { it.trimEnd('\r') }.lastOrNull { it.startsWith("/") }
+                ?: throw IOException(context.getString(R.string.fb_unexpected_response))
+        }
+
+    override suspend fun removeEmptyDirectory(path: String): Result<Unit> =
+        runChecked(RemoteShellCommands.removeEmptyDirectory(path)).map { }
+
+    /**
+     * Runs a command built by [RemoteShellCommands] and turns its exit status into a result. No
+     * answer at all counts as a failure, since a dropped connection says nothing about whether the
+     * command ran.
+     */
+    private suspend fun runChecked(command: String, longRunning: Boolean = false): Result<String> {
+        val rawOutput = try {
+            withContext(Dispatchers.IO) {
+                adbMutex.withLock {
+                    if (longRunning) {
+                        executor.executeLongRunningCommand(command)
+                    } else {
+                        executor.executeCommand(command)
+                    }
                 }
-            } catch (e: Exception) {
-                Result.failure(e)
             }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            return Result.failure(e)
         }
 
-    override suspend fun exists(path: String): Result<Boolean> = withContext(Dispatchers.IO) {
-        try {
-            val escapedPath = path.replace("'", "'\\'")
-            val result =
-                executeCommand("[ -e '$escapedPath' ] && echo 'EXISTS' || echo 'NOT_EXISTS'")
-                    ?: return@withContext Result.failure(Exception("ADB command failed"))
-            val exists = result.contains("EXISTS") && !result.contains("NOT_EXISTS")
-            Result.success(exists)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        return statusToResult(RemoteShellCommands.parseStatus(rawOutput))
     }
 
-    override suspend fun isDirectory(path: String): Result<Boolean> = withContext(Dispatchers.IO) {
-        try {
-            val escapedPath = path.replace("'", "'\\'")
-            val result = executeCommand("[ -d '$escapedPath' ] && echo 'IS_DIR' || echo 'NOT_DIR'")
-                ?: return@withContext Result.failure(Exception("ADB command failed"))
-            val isDir = result.contains("IS_DIR") && !result.contains("NOT_DIR")
-            Result.success(isDir)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
+    private fun statusToResult(status: CommandStatus?): Result<String> = when {
+        status == null -> Result.failure(IOException(context.getString(R.string.fb_no_response)))
+        status.exitCode == 0 -> Result.success(status.output)
+        status.exitCode == RemoteShellCommands.DESTINATION_EXISTS_STATUS ->
+            Result.failure(IOException(context.getString(R.string.fb_destination_exists)))
 
-    override suspend fun delete(path: String): Result<Unit> = withContext(Dispatchers.IO) {
-        try {
-            val escapedPath = path.replace("'", "'\\'")
-            executeCommand("rm -rf '$escapedPath'")
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+        else -> Result.failure(
+            IOException(
+                status.output.ifBlank {
+                    context.getString(R.string.fb_command_failed_status, status.exitCode)
+                }
+            )
+        )
     }
 }

@@ -27,7 +27,8 @@ internal class DecoderInstance(
     mimeType: String,
     size: VideoSize,
     surface: Surface,
-    private val onError: (Throwable) -> Unit
+    private val onError: (Throwable) -> Unit,
+    private val onFrameRendered: () -> Unit
 ) {
 
     private val thread = HandlerThread(DECODER_THREAD_NAME).apply { start() }
@@ -117,7 +118,7 @@ internal class DecoderInstance(
 
         override fun onOutputBufferAvailable(codec: MediaCodec, index: Int, info: MediaCodec.BufferInfo) {
             if (released) return
-            runCatching { codec.releaseOutputBuffer(index, true) }
+            runCatching { codec.releaseOutputBuffer(index, true) }.onSuccess { onFrameRendered() }
         }
 
         override fun onError(codec: MediaCodec, e: MediaCodec.CodecException) {

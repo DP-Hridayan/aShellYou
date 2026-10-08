@@ -65,6 +65,14 @@ fun BehaviorScreen(modifier: Modifier = Modifier) {
                     }
                 }
 
+                group(R.string.shizuku) {
+                    switchItem(SettingsKeys.KeepShizukuHelperAlive) {
+                        title(R.string.keep_shizuku_helper_running)
+                        description(R.string.des_keep_shizuku_helper_running)
+                        icon(R.drawable.ic_shizuku)
+                    }
+                }
+
                 group(R.string.launch) {
                     switchItem(SettingsKeys.DefaultLaunchIsLocalAdb) {
                         title(R.string.set_local_adb_as_default_launch)

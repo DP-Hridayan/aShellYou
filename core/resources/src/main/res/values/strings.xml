@@ -6,6 +6,7 @@
     <string name="about">About</string>
     <string name="action_import">Import</string>
     <string name="active" comment="Status indicator label for active ADB connection or active slot">Active</string>
+    <string name="active_provider" comment="Settings item title for choosing which cloud AI provider the app uses">Active provider</string>
     <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">Active Slot</string>
     <string name="adb" translatable="false">ADB</string>
     <string name="adb_agent" comment="Name of the AI chat assistant persona in aShellYou">ADB Agent</string>
@@ -99,7 +100,7 @@
     <string name="app_permissions" comment="Title for app permissions shortcut">App permissions</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB at your fingertips</string>
     <string name="apply">Apply</string>
-    <string name="apply_to_all" comment="%1$d = number of remaining items. Used in file conflict resolution">Apply to all (%1$d remaining)</string>
+    <string name="apply_to_all" comment="%1$d = number of further name conflicts in the same folder. Checkbox in the file conflict dialog">Apply to all (%1$d remaining)</string>
     <string name="artifact_id" comment="Technical label for AI artifact identifier in developer options">Artifact ID</string>
     <string name="authenticate" comment="Group header for authentication settings">Authenticate</string>
     <string name="authentication_timeout" comment="Title for authentication timeout setting">Authentication timeout</string>
@@ -114,6 +115,7 @@
     <string name="auto_update" comment="Setting toggle title to automatically check for application updates on startup">Auto update</string>
     <string name="back">Back</string>
     <string name="back_button" comment="Custom key bar button in terminal view simulating system back button press">Back button</string>
+    <string name="back_to_shell" comment="Button that leaves the screen mirror and returns to the shell screen">Back to shell</string>
     <string name="background" comment="Material design theme surface/background color role label">Background</string>
     <string name="backing_up" comment="Progress status text shown while local or cloud backup is executing">Backing up…</string>
     <string name="backup">Backup</string>
@@ -132,6 +134,7 @@
     <string name="backup_successful" comment="Toast notification or dialog text when a backup completes successfully">Backup successful</string>
     <string name="backup_time" comment="Setting label for picking exact time of day for automated backup execution">Backup time</string>
     <string name="backup_type" comment="Card label showing type of backup file (e.g. Full, Database, Settings)">Backup type</string>
+    <string name="balanced" comment="Video quality level between Saver and Sharp">Balanced</string>
     <string name="baseband_version" comment="Device info field label showing modem/baseband firmware version">Baseband</string>
     <string name="basic_shell" comment="Execution mode option: run standard non-rooted, non-Shizuku shell commands">Basic shell</string>
     <string name="battery_level" comment="Device info card label displaying current battery charge percentage">Battery</string>
@@ -140,6 +143,7 @@
     <string name="biometric_prompt_description" comment="Description for the biometric authentication prompt">Confirm your screen lock to continue</string>
     <string name="biometric_prompt_title" comment="Title for the biometric authentication prompt">Unlock aShellYou</string>
     <string name="biometrics_disabled_msg" comment="Toast message when biometric data is removed from device settings">App biometrics disabled: Biometric data was removed from device.</string>
+    <string name="bitrate" comment="Section title in the video quality sheet for the video's data rate">Bitrate</string>
     <string name="block" comment="Action button to block execution or permissions">Block</string>
     <string name="bookmark_limit_reached" comment="Warning toast when bookmark count hits maximum allowed threshold">Maximum bookmark limit reached! Delete some bookmarks to add new ones</string>
     <string name="bookmarks" comment="Screen title and tab label for saved ADB command bookmarks">Bookmarks</string>
@@ -168,6 +172,7 @@
     <string name="choose_a_device" comment="Dialog header prompting user to select a device from connected ADB devices list">Choose a device</string>
     <string name="choose_apps" comment="Accessibility label of the button next to the packages field in the logcat filter editor; opens a list of installed apps">Choose apps</string>
     <string name="choose_icon" comment="Button label in Quick Settings tile editor to select a custom icon">Choose icon</string>
+    <string name="choose_provider" comment="Button label that opens the dialog for picking the active AI provider">Choose provider</string>
     <string name="clear">Clear</string>
     <string name="clear_all" comment="Action button to clear all entries in command history or terminal output screen">Clear all</string>
     <string name="clear_all_message" comment="Confirmation prompt asking user if they want to clear the terminal output view">Are you sure you want to clear everything on this screen?</string>
@@ -201,6 +206,8 @@
     <string name="cmd_unlock_ability_desc" comment="Description for predefined fastboot command: fastboot flashing get_unlock_ability">Check if this device can be bootloader unlocked</string>
     <string name="cmd_unlock_ability_title" comment="Predefined fastboot command title: check unlock ability">Unlock Ability</string>
     <string name="code_pair_instruction" comment="Instructional text in Wireless Debugging pairing dialog directing user to open Wireless Debugging menu on target device">Open \"Wireless debugging\" on the target device and tap \"Pair device with pairing code\"</string>
+    <string name="codec" comment="Section title in the video quality sheet for the video compression format, such as H.264">Codec</string>
+    <string name="codec_fallback" comment="Message after the other device failed to encode the chosen codec. %1$s is a codec name such as H.265">This device can\'t encode %1$s, so H.264 is used</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Collapse</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Error occurred</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">High Elevation (Dialog)</string>
@@ -325,6 +332,7 @@
     <string name="delete_profile" comment="Title of the confirmation dialog shown before deleting a logcat filter profile">Delete profile?</string>
     <string name="delete_title" comment="%1$s = file or folder name">Delete %1$s?</string>
     <string name="des_about" comment="Subtitle description for About section in settings menu">Contributors and support</string>
+    <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">AI features use this provider</string>
     <string name="des_ai_cache_days" comment="Description under Cache duration setting in AI settings">Number of days to keep cached results</string>
     <string name="des_ai_cache_enabled" comment="Description under Enable cache setting in AI settings">Cache analysis results per model</string>
     <string name="des_ai_models" comment="Description under AI &amp; Models item in settings">Manage AI models data and API keys</string>
@@ -373,6 +381,7 @@
     <string name="des_high_contrast_dark_mode" comment="Description under High contrast dark mode setting item">Pitch black dark theme for devices with OLED display</string>
     <string name="des_hridayan" comment="Developer bio subtitle in About section">Just a guy who loves apps and design</string>
     <string name="des_initial_state" comment="Description for initial state selection in Quick Settings tile builder">The fixed visual state of the tile when it is shown in the Quick Settings panel</string>
+    <string name="des_keep_shizuku_helper_running" comment="Description under the Keep Shizuku helper running setting; explains that the helper stays in the background so commands start instantly on the next launch">Leave the Shizuku helper in the background after the app closes, so Shizuku commands run instantly on the next launch. Uses some extra memory.</string>
     <string name="des_legal_docs_updated" comment="Message shown in the dialog when legal docs are updated">We have updated our Privacy Policy and Terms of Service. Please take a moment to review the changes.</string>
     <string name="des_libraries_and_licenses" comment="Subtitle description under Libraries and Licenses menu item">View details of the libraries and licenses used by the app</string>
     <string name="des_licenses" comment="Description under Licenses setting item in About section">View the licenses that the app and libraries are using</string>
@@ -400,6 +409,7 @@
     <string name="des_screen_density" comment="Description under Screen density multiplier setting item">Adjust screen density to make UI elements appear larger or smaller</string>
     <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">Select a boot image file to flash to the selected partition</string>
     <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">Enter Local ADB screen directly on app launch</string>
+    <string name="des_show_stream_statistics" comment="Description of the Show stream statistics switch">Frame rate, dropped frames and data rate, over the video</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">Optionally link your Google account for cloud backups</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">Enables smooth scrolling in the shell output when top or bottom arrow is clicked</string>
     <string name="des_terms_of_service" comment="Subtitle description under Terms of Service menu item">Rules and guidelines for using aShell You</string>
@@ -410,6 +420,7 @@
     <string name="des_use_biometrics">Allow unlocking the app using your fingerprint or face</string>
     <string name="des_warning_incorrect_file_bootloop" comment="Warning alert text when flashing partition boot image">Proceed with caution as an incorrect image may cause a bootloop</string>
     <string name="description">Description</string>
+    <string name="deselect" comment="Accessibility action label for removing a list item from the current multi-selection">Deselect</string>
     <string name="deselect_all" comment="Action button to deselect all selected list items">Deselect all</string>
     <string name="developer" comment="Section title in About screen for lead developer info">Developer</string>
     <string name="developer_options" comment="System Developer Options setting item or prompt">Developer options</string>
@@ -424,9 +435,11 @@
     <string name="device_disconnected_message_with_name" comment="%s = device name">"%s" has disconnected.</string>
     <string name="device_found" comment="Status banner when an ADB/Wireless Debugging device service is discovered on local network">Device found!</string>
     <string name="device_info" comment="Screen header or navigation item for target device hardware/OS specifications">Device info</string>
+    <string name="device_keys" comment="Accessibility label of the toolbars holding the navigation, volume, power, screenshot and quick settings buttons for the mirrored device">Device keys</string>
     <string name="device_not_in_sideload_mode" comment="Status shown when the attached device answers ADB but is booted normally rather than waiting in recovery sideload mode">Device is booted normally. Reboot to recovery and choose Apply update from ADB</string>
     <string name="device_not_supported" comment="Toast message when biometric authentication is not supported by device hardware">Device does not support biometric authentication</string>
     <string name="device_rejected_operation" comment="Error shown when the bootloader answered a fastboot command with a failure">The device rejected the operation</string>
+    <string name="device_tools" comment="Label of the side toolbar holding actions for the connected device, such as screen mirror and file browser">Device tools</string>
     <string name="disable_softkey" comment="Setting toggle title to hide soft keyboard during shell session">Disable soft keyboard</string>
     <string name="disclaimer" comment="Section title in About screen for legal disclaimer notices">Disclaimer</string>
     <string name="disclaimer_1_description" comment="Text for disclaimer point 1: user responsibility for ADB system changes">Running ADB commands can modify system settings, manage files, and perform operations that may affect your device’s stability.\nYou are solely responsible for any changes made using this app.</string>
@@ -480,9 +493,21 @@
     <string name="erasing" comment="Progress status header while fastboot partition erase command is running">Erasing…</string>
     <string name="erasing_partition" comment="%1$s = partition name. Progress status while the bootloader erases a partition">Erasing %1$s…</string>
     <string name="error">Error</string>
+    <string name="error_bad_request" comment="Error shown when the AI provider rejects the request itself, usually a malformed tool schema">Request error: the provider rejected this request.</string>
+    <string name="error_insufficient_credits" comment="Error shown when the AI provider account has no credit left. %1$s is the provider name">No remaining credit for %1$s.</string>
+    <string name="error_invalid_api_key" comment="Error shown when the AI provider rejects the stored API key. %1$s is the provider name, e.g. Groq">Invalid API key for %1$s. Check your settings.</string>
     <string name="error_labels_limit_reached" comment="Validation error when maximum number of custom command labels/tags is reached">Maximum labels limit reached</string>
+    <string name="error_model_unavailable" comment="Error shown when every AI model the app tried has been retired by the provider">The provider retired the models this app uses. Try another provider.</string>
+    <string name="error_no_active_provider" comment="Error shown when the user has not chosen which AI provider to use">No AI provider selected.</string>
+    <string name="error_no_api_key_for_provider" comment="Error shown when the selected AI provider has no API key saved. %1$s is the provider name">No API key set for %1$s.</string>
+    <string name="error_no_connection" comment="Error shown when the request to the AI provider could not be sent or timed out">No internet connection or request timed out.</string>
+    <string name="error_provider_server" comment="Error shown when the AI provider returns a server failure. %1$d is the HTTP status code">Provider server error (%1$d). Try again later.</string>
+    <string name="error_rate_limited" comment="Error shown when the AI provider is throttling requests and gives no retry time">Rate limited by provider. Try again shortly.</string>
+    <string name="error_rate_limited_retry_in" comment="Error shown when the AI provider is throttling requests. %1$d is a number of seconds">Rate limited &#8212; try again in %1$ds.</string>
+    <string name="error_unexpected_response" comment="Error shown when the AI provider reply could not be understood">Unexpected response from provider. Try again.</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">Exclude</string>
     <string name="execution_method" comment="Setting label for selecting shell execution engine (Shizuku, Root, or Basic Shell)">Execution method</string>
+    <string name="exit_full_screen" comment="Button that leaves the full screen view of the mirrored screen">Exit full screen</string>
     <string name="expand" comment="Action button to expand a collapsed card section">Expand</string>
     <string name="experimental" comment="Badge or section title marking experimental features">Experimental</string>
     <string name="failed">Failed</string>
@@ -504,9 +529,11 @@
     <string name="fatal" comment="Android log level name for the most severe level, shown in logcat filters">Fatal</string>
     <string name="fb_all_operations_cancelled" comment="Notification toast when all file browser queue operations are cancelled">All operations cancelled</string>
     <string name="fb_cannot_paste_into_selected" comment="Error toast in file browser when target paste item is a file instead of a folder">Cannot paste into selected folder</string>
+    <string name="fb_command_failed_status" comment="%1$d = numeric exit status of a shell command on the connected device. Shown when the command failed without printing a reason">Command failed with exit status %1$d</string>
     <string name="fb_create_folder_failed" comment="%1$s = error message. fb_ prefix = file browser">Failed to create folder: %1$s</string>
     <string name="fb_delete_failed" comment="%1$s = error message">Delete failed: %1$s</string>
     <string name="fb_deleted_items" comment="%1$d = number of deleted items">Deleted %1$d items</string>
+    <string name="fb_destination_exists" comment="Error in file browser when a copy or move target name is already taken on the connected device">An item with this name already exists</string>
     <string name="fb_download_failed" comment="%1$s = error message">Download failed: %1$s</string>
     <string name="fb_downloaded_to" comment="%1$s = file path">Downloaded to %1$s</string>
     <string name="fb_downloading" comment="%1$s = file name">Downloading %1$s</string>
@@ -514,15 +541,23 @@
     <string name="fb_error" comment="%1$s = error message">Error: %1$s</string>
     <string name="fb_file_deleted" comment="Notification toast confirming file deletion">File deleted</string>
     <string name="fb_folder_created" comment="Notification toast confirming new directory creation">Folder created</string>
+    <string name="fb_no_response" comment="Error in file browser when the connected device did not answer a command, for example after the connection dropped">The device did not respond</string>
     <string name="fb_nothing_to_paste" comment="Toast notification when user taps paste but file clipboard is empty">Nothing to paste</string>
     <string name="fb_operation_cancelled" comment="Toast notification when file browser operation is cancelled by user">Operation cancelled</string>
     <string name="fb_otg_transfers_not_supported" comment="OTG = USB On-The-Go">File transfers not supported in OTG mode</string>
     <string name="fb_paste_completed" comment="%1$d = number of items pasted">Completed: %1$d items</string>
     <string name="fb_paste_completed_with_failed" comment="%1$d = completed, %2$d = skipped, %3$d = failed">Completed: %1$d items, %2$d skipped, %3$d failed</string>
     <string name="fb_paste_completed_with_skipped" comment="%1$d = completed, %2$d = skipped">Completed: %1$d items, %2$d skipped</string>
+    <string name="fb_paste_in_progress" comment="Toast in file browser when the user starts a paste while another paste is still running">A paste is already in progress</string>
+    <string name="fb_paste_into_itself" comment="%1$s = folder name. Error toast in file browser when a folder is pasted into itself or into one of its own subfolders">Cannot paste \"%1$s\" into itself</string>
+    <string name="fb_paste_item_failed" comment="%1$s = file or folder name, %2$s = error message from the device. Shown when one pasted item failed">Could not paste \"%1$s\": %2$s</string>
+    <string name="fb_paste_no_free_name" comment="%1$s = file or folder name. Shown when Keep Both cannot find an unused numbered name such as name (1)">No free name left for \"%1$s\"</string>
+    <string name="fb_paste_source_missing" comment="%1$s = file or folder name. Shown when an item copied to the clipboard was deleted or moved before pasting">\"%1$s\" no longer exists</string>
+    <string name="fb_pasting_progress" comment="%1$d = position of the item being pasted, %2$d = total number of items. Progress text while copying or moving files">Pasting %1$d of %2$d</string>
     <string name="fb_reconnected_successfully" comment="Toast notification when file browser ADB session reconnects">Reconnected successfully</string>
     <string name="fb_rename_failed" comment="%1$s = error message">Rename failed: %1$s</string>
     <string name="fb_renamed_successfully" comment="Toast notification confirming file or folder rename">Renamed successfully</string>
+    <string name="fb_unexpected_response" comment="Error in file browser when the connected device answered a command with output the app could not read">Unexpected response from the device</string>
     <string name="fb_upload_failed" comment="%1$s = error message">Upload failed: %1$s</string>
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">File uploaded successfully</string>
     <string name="fb_uploading" comment="%1$s = file name">Uploading %1$s</string>
@@ -602,6 +637,8 @@
     <string name="forget_device_confirmation" comment="%1$s = device name">Are you sure you want to forget %1$s? You will need to pair again to connect.</string>
     <string name="forks" comment="GitHub repository metadata count label for project forks">Forks</string>
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">Found connect service</string>
+    <string name="frame_rate" comment="Section title in the video quality sheet for frames per second">Frame rate</string>
+    <string name="frames_per_second" comment="%1$d is a number of video frames per second">%1$d fps</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">Frequency</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">Full license text</string>
     <string name="full_screen">Full screen</string>
@@ -626,10 +663,15 @@
     <string name="grant_permission" comment="Action button to trigger system permission request dialog">Grant permission</string>
     <string name="grant_shizuku_permission_for_tiles" comment="Warning alert shown when Shizuku permission is missing for Quick Settings tiles">Shizuku permission is not granted!\naShell You needs Shizuku permission to execute the tile commands.</string>
     <string name="great_news" comment="Dialog title header for update available notification">Great news!</string>
+    <string name="groq_api_key_step_1" comment="Step 1 of the Groq API key setup guide. %1$s = URL">Visit the Groq Console at %1$s</string>
+    <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">Sign in or create a free Groq account</string>
+    <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">Open the API Keys page and click Create API Key</string>
+    <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">Copy your API key and paste it here</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Haptics &amp; Vibration</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Have a nice day!</string>
     <string name="heuristic">Heuristic</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Hex Editor</string>
+    <string name="hide_device_tools" comment="Accessibility action that collapses the device tools side toolbar">Hide device tools</string>
     <string name="high" comment="Selection option for high haptic strength or elevation level">High</string>
     <string name="high_contrast_dark_mode" comment="Settings preference title for OLED pitch-black dark theme">High contrast dark mode</string>
     <string name="hint" comment="Card header or field label for helpful hints">Hint</string>
@@ -654,6 +696,7 @@
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">This action is irreversible!</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">Item has been deleted successfully</string>
     <string name="keep_both" comment="Resolution option in file conflict dialog to keep both original and new file">Keep Both</string>
+    <string name="keep_shizuku_helper_running" comment="Setting toggle title to keep the background Shizuku helper process alive after the app closes">Keep Shizuku helper running</string>
     <string name="keep_transferring" comment="Button that dismisses the cancel confirmation and lets the transfer continue">Keep going</string>
     <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">Key verified successfully</string>
     <string name="label" comment="Field label for custom command label/tag name">Label</string>
@@ -667,6 +710,7 @@
     <string name="launch">Launch</string>
     <string name="lead_developer" comment="Role subtitle for project lead developer in About section">Lead developer</string>
     <string name="least_used" comment="Sorting option for commands or bookmarks list">Least used</string>
+    <string name="leave_mirror" comment="Button in the full screen control panel that closes the screen mirror and returns to the shell">Leave mirror</string>
     <string name="legal_and_policies" comment="Group header for legal settings">Legal &amp; Policies</string>
     <string name="legal_consent_text">I have read and agree to the %1$s and %2$s.</string>
     <string name="legal_docs_updated" comment="Title for the dialog shown when legal docs are updated">Legal Policies Updated</string>
@@ -682,8 +726,8 @@
     <string name="loading_device_info" comment="Progress status text while querying ADB device specifications">Loading device info…</string>
     <string name="loading_licenses" comment="Progress status text while loading open-source license files">Loading license information…</string>
     <string name="local_adb" comment="Connection mode option: run ADB commands locally on host device using Shizuku or Root">Local ADB</string>
-    <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">Local ADB shell</string>
     <string name="local_adb_mode" comment="Section header above the list of Local ADB working modes (Basic shell, Shizuku, Root, TCP/IP) in the connected device sheet">Local ADB mode</string>
+    <string name="local_adb_shell" comment="Screen header for local device ADB shell terminal">Local ADB shell</string>
     <string name="local_adb_summary" comment="Summary text for local ADB feature card">Execute ADB commands directly on your device using Shizuku or root.</string>
     <string name="local_backup" comment="Option in backup screen to save backup file to device local storage">Local backup</string>
     <string name="local_file" comment="Source option label for picking local backup file">Local file</string>
@@ -712,20 +756,43 @@
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat Source</string>
     <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Tap ▶ to start logcat</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">Logs</string>
+    <string name="long_edge_pixels" comment="A limit on a video's longer side. %1$d is a number of pixels">%1$d px</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Look &amp; Feel</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Low</string>
     <string name="low_contrast_ratio" comment="Warning label in theme builder when background/text contrast ratio is insufficient">Low contrast ratio</string>
     <string name="low_risk">Low risk</string>
+    <string name="lower_quality" comment="Action that lowers the mirrored video's quality one step">Lower quality</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Make Your Theme</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Manual Pair</string>
     <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Icons</string>
     <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">Download ~380 KB once to browse 2,500+ Material icons</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">Max Download</string>
     <string name="medium">Medium</string>
+    <string name="megabits_per_second" comment="%1$s is a data rate in megabits per second">%1$s Mbps</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">Merge</string>
     <string name="message">Message</string>
     <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Message ADB Agent</string>
     <string name="minimize" comment="Action button to minimize terminal overlay window">Minimize</string>
+    <string name="mirror_controls" comment="Accessibility label of the floating button that opens the full screen mirror controls">Mirror controls</string>
+    <string name="mirror_ended_disconnected" comment="Explains that screen mirroring ended because the device disconnected">The device disconnected.</string>
+    <string name="mirror_ended_server_stopped" comment="Explains that screen mirroring ended from the device's side">The device stopped mirroring.</string>
+    <string name="mirror_ended_title" comment="Title of the panel shown when screen mirroring has ended">Mirroring ended</string>
+    <string name="mirror_error_connect_timeout" comment="Screen mirror error: the video connection did not open in time">The device didn\'t open the video connection in time.</string>
+    <string name="mirror_error_decoder" comment="Screen mirror error: this phone has no decoder for the video format. %1$s is a codec name such as H265">This phone can\'t play %1$s video.</string>
+    <string name="mirror_error_deploy_failed" comment="Screen mirror error: the helper program could not be copied to the other device">Couldn\'t copy the mirroring helper to the device.</string>
+    <string name="mirror_error_encoder" comment="Screen mirror error: the other device's video encoder failed">The device couldn\'t encode its screen.</string>
+    <string name="mirror_error_not_connected" comment="Screen mirror error: no other device is connected over OTG or Wireless Debugging">No other device is connected.</string>
+    <string name="mirror_error_not_responding" comment="Screen mirror error: the other device stopped answering while mirroring was starting or running">The device stopped responding.</string>
+    <string name="mirror_error_server_exited" comment="Screen mirror error: the helper program stopped unexpectedly on the device">The mirroring helper stopped on the device.</string>
+    <string name="mirror_error_stream" comment="Screen mirror error: the video data from the device could not be read">The video stream couldn\'t be read.</string>
+    <string name="mirror_error_version" comment="Screen mirror error: the helper on the device is a different version than the app expects">The mirroring helper on the device is a different version.</string>
+    <string name="mirror_failed_title" comment="Title of the panel shown when screen mirroring could not start or stopped with an error">Couldn\'t mirror the screen</string>
+    <string name="mirror_full_screen_hint" comment="One-time message shown when the screen mirror first goes full screen">Back now goes to the device. Tap the floating button for controls.</string>
+    <string name="mirror_step_connecting" comment="Startup step while the live video connection to the other device opens">Connecting video</string>
+    <string name="mirror_step_preparing" comment="Startup step while the mirroring helper is copied to the other device">Preparing</string>
+    <string name="mirror_step_preparing_skipped" comment="Startup step shown when the mirroring helper was already on the other device, so copying was skipped">Ready on device</string>
+    <string name="mirror_step_starting" comment="Startup step while the mirroring helper starts on the other device">Starting on device</string>
+    <string name="mirror_view_only_message" comment="Explains why touches on the mirrored screen do nothing and how to fix it on Xiaomi phones">The device refused touch input. On Xiaomi devices, turn on USB debugging (Security settings) and restart the device.</string>
     <string name="mode" comment="Header title for ADB execution engine mode selector">Mode</string>
     <string name="mode_one_desc" comment="Description for Root execution engine option in settings">Use root access to run commands. Rooted commands can be executed.</string>
     <string name="mode_two_desc" comment="Description for Shizuku execution engine option in settings">Use shizuku to run commands. Commands that require root won\'t execute.</string>
@@ -745,6 +812,7 @@
     <string name="moving_items" comment="%1$d = number of items being moved">Moving %1$d item(s)</string>
     <string name="n_days" comment="%d = number of days for cache duration setting">%d days</string>
     <string name="name">Name</string>
+    <string name="native_resolution" comment="Resolution option that streams the other device's screen at its own size">Native</string>
     <string name="network_error" comment="Toast error message when network connection fails during wireless pairing or cloud backup">Network error</string>
     <string name="new_commands_available_msg" comment="Banner prompt shown when updated command templates are available to load into database">New command examples are added!\nClick on the button below to load the new commands.</string>
     <string name="new_folder" comment="Action button label in file browser to create a new directory">New folder</string>
@@ -753,6 +821,7 @@
     <string name="newest" comment="Sorting option for items by creation date (newest first)">Newest</string>
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">No ADB-compatible devices found. Enable USB debugging on the target.</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">No adb interface found</string>
+    <string name="no_api_key_for_active_provider" comment="Dialog message shown when an AI feature is used but the chosen provider has no key. %1$s is the provider name, e.g. Groq">There is no API key for active provider %1$s. Would you like to choose another provider?</string>
     <string name="no_apps_found" comment="Shown in the app picker when no installed app matches the search">No apps found</string>
     <string name="no_auto_backup_yet" comment="Placeholder text under backup status when no automated backup has executed">No automatic backup performed yet</string>
     <string name="no_bookmarks" comment="Placeholder text in bookmarks tab when no commands are saved">No bookmarks found</string>
@@ -811,6 +880,10 @@
     <string name="open_app_language_settings" comment="Button label on Android 13+ to jump to system per-app language setting screen">Open app language settings</string>
     <string name="open_issues" comment="GitHub repository open issues count">Open issues</string>
     <string name="open_url" comment="Action button to launch web browser to external URL link">Open URL</string>
+    <string name="openrouter_api_key_step_1" comment="Step 1 of the OpenRouter API key setup guide. %1$s = URL">Visit OpenRouter at %1$s</string>
+    <string name="openrouter_api_key_step_2" comment="Step 2 of the OpenRouter API key setup guide: creating an account">Sign in or create a free OpenRouter account</string>
+    <string name="openrouter_api_key_step_3" comment="Step 3 of the OpenRouter API key setup guide: creating the key">Open Settings then Keys, and click Create Key</string>
+    <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">Copy your API key and paste it here</string>
     <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">Operation complete</string>
     <string name="operations" comment="Bottom sheet title for file transfer operations list">Operations</string>
     <string name="or">OR</string>
@@ -819,6 +892,7 @@
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">Other device</string>
     <string name="output" comment="Header title for shell command output window">Output</string>
     <string name="output_will_appear_here" comment="Placeholder prompt in terminal/fastboot console output window">Output will appear here…</string>
+    <string name="overflow_count" comment="%1$d = number of further items not shown. Short counter drawn over a small circular icon, for example +2">+%1$d</string>
     <string name="override_bookmarks_limit" comment="Setting toggle title to remove the maximum limit on saved bookmarks count">Override maximum bookmarks limit</string>
     <string name="package_name" comment="Field label for Android application package name (e.g. com.example.app)">Package name</string>
     <string name="packages" comment="Title for the packages skill toggle in AI settings">Packages</string>
@@ -826,6 +900,7 @@
     <string name="pair_a_device_first" comment="Instructional notice directing user to pair an ADB device before attempting connection">Pair a device first</string>
     <string name="pair_another_device" comment="Button label in Wireless Debugging setup to pair an additional target device">Pair another device</string>
     <string name="pair_connect_failed_message" comment="Dialog message when connecting to a paired wireless ADB device fails">Could not connect to the paired device\nThe device may not be on the same network\nTry pairing again</string>
+    <string name="pair_device_to_see_it_here" comment="Hint under No saved devices in the device picker sheet, above a Pair button that can pair this device or another one">Pair a device to see it here</string>
     <string name="pair_device_to_start" comment="Placeholder banner in wireless debugging screen directing user to pair device via QR or pairing code">Pair a device using QR or pairing code to see it here</string>
     <string name="pair_manually" comment="Option in Wireless Debugging setup to enter IP, Port, and Pairing Code manually">Pair manually</string>
     <string name="pair_this_device" comment="Button label in wireless debugging screen to initiate self-pairing for local device ADB">Pair this device</string>
@@ -861,6 +936,7 @@
     <string name="pin_all">Pin selected</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">Port</string>
     <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">Possible reasons</string>
+    <string name="power" comment="Button that presses the power key on the mirrored device">Power</string>
     <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">Pre-release (GitHub)</string>
     <string name="pre_release_warning" comment="Warning alert header when switching to pre-release update channel">Pre-release builds may be unstable</string>
     <string name="pre_release_warning_description" comment="Detailed description of risks when opting into pre-release testing builds">These versions are still in testing and may contain unfinished features or unexpected bugs. If you choose to update to a pre-release, please be aware that things might break or behave strangely.\nIf you encounter any issues, crashes, or weird behavior, please report them so we can fix and improve aShellYou before the stable release.\nThanks for helping us build better!</string>
@@ -882,6 +958,20 @@
     <string name="qr_pair_hint" comment="Instructional text in QR pairing screen instructing user to scan QR code from target device">To pair an Android 11+ device, scan this QR from the target device</string>
     <string name="qr_scanner_location_hint" comment="Instructional hint directing user where to find system QR scanner in target device Developer Options">QR scanner available at:\nDeveloper Options &gt; Wireless Debugging &gt; Pair using QR Code</string>
     <string name="qs_tiles" comment="Refers to Android System Quick Settings tiles configured for custom ADB scripts">Quick settings tiles</string>
+    <string name="quality" comment="Section title in the video quality sheet for picking a quality level">Quality</string>
+    <string name="quality_auto_description" comment="Explains the Auto video quality level">Picks the smoothest stream both phones can handle</string>
+    <string name="quality_custom" comment="Video quality level where the user picks the resolution, frame rate, bitrate and codec">Custom</string>
+    <string name="quality_custom_description" comment="Explains the Custom video quality level">Choose each value yourself</string>
+    <string name="quality_limit_chosen" comment="Why the mirrored video's quality is what it is: the user picked it">Set by you</string>
+    <string name="quality_limit_connection" comment="Why the mirrored video's quality is what it is: USB or Wi-Fi can't carry more">Limited by the connection</string>
+    <string name="quality_limit_target_encoder" comment="Why the mirrored video's quality is what it is">Limited by the device\'s video encoder</string>
+    <string name="quality_limit_target_screen" comment="Why the mirrored video's quality is what it is">Matches the device\'s own screen</string>
+    <string name="quality_limit_viewer_decoder" comment="Why the mirrored video's quality is what it is">Limited by this phone\'s video decoder</string>
+    <string name="quality_limit_viewer_screen" comment="Why the mirrored video's quality is what it is">Limited by this phone\'s screen</string>
+    <string name="quality_preset_description" comment="Explains a video quality level. %1$d is a size in pixels, %2$d is frames per second">Up to %1$d px at %2$d fps</string>
+    <string name="quality_sharp_description" comment="Explains the Sharp video quality level. %1$d is frames per second">The device\'s full size at %1$d fps</string>
+    <string name="quality_summary" comment="What the mirrored video will stream at. %1$s is a size such as 1080 × 2400, %2$s a frame rate such as 60 fps, %3$s a data rate such as 8 Mbps, %4$s a codec such as H.264">%1$s · up to %2$s · %3$s · %4$s</string>
+    <string name="quick_settings" comment="Button that pulls down the quick settings panel on the mirrored device">Quick settings</string>
     <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Quick Settings Tiles</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">Quick tools</string>
     <string name="reading_file" comment="Progress status text while loading file contents into viewer">Reading file…</string>
@@ -896,6 +986,7 @@
     <string name="reboot_recovery" comment="Action button / dialog choice to reboot target device into recovery mode">Reboot to Recovery</string>
     <string name="recent_activity" comment="Dashboard card header listing recent command executions">Recent activity</string>
     <string name="recent_searches" comment="Header title for recent search query history">Recent searches</string>
+    <string name="recents" comment="Button that opens the recent apps overview on the mirrored device">Recents</string>
     <string name="recommended" comment="Badge label marking recommended settings or AI choices">Recommended</string>
     <string name="reconnect" comment="Action button to attempt reconnecting to last known wireless ADB device">Reconnect</string>
     <string name="reconnect_failed" comment="Toast notification or card status when wireless ADB reconnection fails">Reconnect failed</string>
@@ -903,6 +994,7 @@
     <string name="reconnect_failed_requires_pairing" comment="Toast notification indicating device un-paired and needs re-pairing">Reconnection failed. Re-pairing required.</string>
     <string name="reconnect_success" comment="Toast message confirming successful wireless ADB reconnection">Reconnected successfully</string>
     <string name="reconnect_the_device" comment="Button prompt directing user to reconnect target ADB device">Reconnect the device</string>
+    <string name="reconnecting" comment="Status shown over a frozen screen mirror while the app waits for the device connection to come back">Reconnecting…</string>
     <string name="recovery" comment="Refers to Android System Recovery partition / boot mode" translatable="false">Recovery</string>
     <string name="recovery_not_responding" comment="Error shown when the target device recovery did not start requesting data after the sideload stream was opened">Recovery is not responding. Select “Apply update from ADB” in recovery and try again</string>
     <string name="recovery_reported_failure" comment="Error shown when the target device recovery reported that installing the sideloaded package failed">Recovery reported that the installation failed</string>
@@ -911,6 +1003,7 @@
     <string name="rename">Rename</string>
     <string name="rename_title" comment="%1$s = file or folder name">Rename %1$s</string>
     <string name="replace" comment="Resolution option in file conflict dialog to replace existing file">Replace</string>
+    <string name="replace_deletes_folder_warning" comment="Warning in the file conflict dialog when the existing item is a folder, explaining that Replace removes the folder with all of its contents">Replace deletes the existing folder and everything in it.</string>
     <string name="report">Report</string>
     <string name="report_issue" comment="Button in About screen linking to GitHub issue tracker">Report issue</string>
     <string name="repository" comment="Button in About screen linking to GitHub project repository">Repository</string>
@@ -921,6 +1014,7 @@
     <string name="reset_app_settings" comment="Button label in settings to restore default application configuration">Reset app settings</string>
     <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">Reset settings failed</string>
     <string name="reset_settings_successful" comment="Toast notification confirming settings have been reset to defaults">Reset settings successful</string>
+    <string name="resolution" comment="Section title in the video quality sheet for the video's size">Resolution</string>
     <string name="restart_app" comment="Button that closes and relaunches the app">Restart app</string>
     <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">Restart required</string>
     <string name="restore">Restore</string>
@@ -949,12 +1043,16 @@
     <string name="save_key" comment="Button label to save entered API key string in settings">Save key</string>
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">Save whole output</string>
     <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">Saved devices</string>
+    <string name="saver" comment="Video quality level that uses the least data and battery">Saver</string>
     <string name="saving" comment="Progress status text while saving file or settings">Saving…</string>
     <string name="saving_output" comment="Progress status text while exporting terminal log output to file">Exporting output to file…</string>
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">Schedule</string>
+    <string name="screen" comment="Device dock button that opens a live view of the connected device's screen which can also be controlled">Screen</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">Screen density multiplier</string>
-    <string name="scroll_to_top" comment="Accessibility label and tooltip for the button that jumps to the first line of the command output">Scroll to top</string>
+    <string name="screen_mirror" comment="Title of the screen showing and controlling the connected device's screen live">Screen mirror</string>
+    <string name="screenshot" comment="Button that takes a screenshot on the mirrored device">Screenshot</string>
     <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">Scroll to bottom</string>
+    <string name="scroll_to_top" comment="Accessibility label and tooltip for the button that jumps to the first line of the command output">Scroll to top</string>
     <string name="search">Search</string>
     <string name="search_apps" comment="Hint in the search field of the app picker in the logcat filter editor">Search apps</string>
     <string name="search_bookmarks_here" comment="Placeholder text in bookmarks tab search bar">Search bookmarks here</string>
@@ -1007,6 +1105,7 @@
     <string name="settings">Settings</string>
     <string name="settings_only" comment="Option in backup screen to export only application settings (excluding history/bookmarks)">Settings only</string>
     <string name="share">Share</string>
+    <string name="sharp" comment="Highest preset video quality level">Sharp</string>
     <string name="shell_connection_lost" comment="Error shown in the shell output when the connection to the device drops while a command is running">Connection to the device was lost</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">The output of last command is exported to \'%s\'</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">The shell output is exported to \'%s\'</string>
@@ -1016,6 +1115,8 @@
     <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizuku service is unavailable. Make sure Shizuku or Shizuku+ is running and permission is granted.</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizuku is unavailable</string>
     <string name="shizuku_unavailable_message" comment="Dialog body text explaining Shizuku (or Shizuku+) is not running or missing permissions">Shizuku or Shizuku+ is not installed or properly configured on your device</string>
+    <string name="show_device_tools" comment="Accessibility action that expands the device tools side toolbar">Show device tools</string>
+    <string name="show_stream_statistics" comment="Switch in the video quality sheet">Show stream statistics</string>
     <string name="sideload_block_out_of_range" comment="Error shown when the target device recovery requested a part of the package beyond its end; usually indicates a corrupted transfer">Recovery requested data beyond the end of the file</string>
     <string name="sideload_channel_description" comment="Notification channel description explaining that the channel shows sideload transfer progress">Shows the progress of a package being sideloaded to a device</string>
     <string name="sideload_channel_name" comment="Notification channel name for the ongoing ADB sideload transfer">ADB Sideload</string>
@@ -1057,11 +1158,12 @@
     <string name="stable_github" comment="Option in update channel settings for GitHub stable releases">Stable (GitHub)</string>
     <string name="stack_trace" comment="Header title for crash log exception stack trace section">Stack trace</string>
     <string name="stargazers" comment="GitHub repository star count label in About screen">Stargazers</string>
+    <string name="start">Start</string>
     <string name="status_with_detail" comment="Home card status line. %1$s is a connection state such as Connected, %2$s is the device name, e.g. Connected (Pixel 7)">%1$s (%2$s)</string>
     <string name="status_with_device_and_mode" comment="Wireless debugging home card status line. %1$s is a connection state such as Connected, %2$s is the device name, %3$s is This Device or Other device, e.g. Connected (Pixel 7, Other device)">%1$s (%2$s, %3$s)</string>
-    <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f MB used by AI models</string>
+    <string name="stream_statistics" comment="Overlay over the mirrored video. %1$s is a size, %2$s a frame rate, %3$d a count of dropped frames, %4$s a data rate, %5$s a codec">%1$s · %2$s · %3$d dropped · %4$s · %5$s</string>
     <string name="style_filled">Filled</string>
     <string name="style_outlined">Outlined</string>
     <string name="style_rounded">Rounded</string>
@@ -1086,30 +1188,30 @@
     <string name="tag" comment="Field label for custom command category tag/label">Tag</string>
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Tap to browse for a .zip file</string>
     <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">Connection to port %1$d refused. The ADB daemon may not be listening.</string>
+    <string name="tcpip_enable_opened" comment="Shown when the ADB TCP port was opened. ADB restarts to do this, which disconnects wireless debugging. %1$d is the port number.">TCP port %1$d is open and TCP/IP mode in Local ADB is ready. Wireless debugging was disconnected because ADB restarted.</string>
+    <string name="tcpip_enable_pending_hint" comment="Hint on the pairing screen when the user came to open the ADB TCP port. %1$d is the port number.">Pair this device and ADB TCP port %1$d will be opened automatically.</string>
+    <string name="tcpip_enable_refused" comment="Shown when ADB refused to open a TCP port. %1$s is the reason ADB gave.">Could not open the TCP port: %1$s</string>
+    <string name="tcpip_enable_running" comment="Shown while the app asks ADB to listen on a TCP port. %1$d is the port number.">Opening ADB TCP port %1$d…</string>
+    <string name="tcpip_enable_unverified" comment="Shown when ADB accepted the request to open a TCP port but the port could not be confirmed. %1$d is the port number.">ADB restarted to open port %1$d, but the port could not be confirmed. Try TCP/IP mode in Local ADB.</string>
     <string name="tcpip_mode" comment="Label for the TCP/IP local shell working mode (loopback port 5555)">TCP/IP</string>
     <string name="tcpip_not_available_body" comment="Dialog body explaining how to enable TCP ADB when the system property is missing. The adb command should stay untranslated.">Your device does not have TCP ADB enabled. Connect to a PC via USB once and run:\n\nadb tcpip 5555\n\nAfter that, this mode works without USB or Wi-Fi.</string>
-    <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP Mode Not Available</string>
-    <string name="tcpip_not_available_instructions" comment="Body of the TCP mode unavailable dialog, shown above a copyable adb command. The command itself is shown separately.">Your device does not have TCP ADB enabled. Connect it to a computer over USB once and run:</string>
     <string name="tcpip_not_available_footer" comment="Note below the adb command in the TCP mode unavailable dialog. The port closes again when the device reboots.">Once the port is open, this mode works without USB or Wi-Fi until the device restarts.</string>
-    <string name="use_wireless_debugging" comment="Button that opens ADB TCP mode using wireless debugging on this device instead of a computer">Use wireless debugging</string>
-    <string name="tcpip_enable_pending_hint" comment="Hint on the pairing screen when the user came to open the ADB TCP port. %1$d is the port number.">Pair this device and ADB TCP port %1$d will be opened automatically.</string>
-    <string name="tcpip_enable_running" comment="Shown while the app asks ADB to listen on a TCP port. %1$d is the port number.">Opening ADB TCP port %1$d…</string>
-    <string name="tcpip_enable_opened" comment="Shown when the ADB TCP port was opened. ADB restarts to do this, which disconnects wireless debugging. %1$d is the port number.">TCP port %1$d is open and TCP/IP mode in Local ADB is ready. Wireless debugging was disconnected because ADB restarted.</string>
-    <string name="tcpip_enable_unverified" comment="Shown when ADB accepted the request to open a TCP port but the port could not be confirmed. %1$d is the port number.">ADB restarted to open port %1$d, but the port could not be confirmed. Try TCP/IP mode in Local ADB.</string>
-    <string name="tcpip_enable_refused" comment="Shown when ADB refused to open a TCP port. %1$s is the reason ADB gave.">Could not open the TCP port: %1$s</string>
+    <string name="tcpip_not_available_instructions" comment="Body of the TCP mode unavailable dialog, shown above a copyable adb command. The command itself is shown separately.">Your device does not have TCP ADB enabled. Connect it to a computer over USB once and run:</string>
+    <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">TCP Mode Not Available</string>
     <string name="telegram" comment="Button in About screen linking to official Telegram community group" translatable="false">Telegram</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">Terminal</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Terminal font style</string>
     <string name="terms_of_service" comment="Title for the Terms of Service legal document">Terms of Service</string>
     <string name="tertiary">Tertiary</string>
     <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Theme mode</string>
+    <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Thinking</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Third-party libraries</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">This application</string>
     <string name="this_device" comment="Selection option for target ADB device matching host phone">This Device</string>
     <string name="tile" comment="Refers to Android System Quick Settings tile">Tile</string>
     <string name="tile_behavior" comment="Settings title for Quick Settings tile click behavior (click vs long-click)">Tile behavior</string>
     <string name="tile_dashboard_notification_access_message" comment="Banner notice asking for notification permission to report tile execution errors">Turn on notifications to get notified whenever a tile execution fails</string>
-    <string name="tile_execution_errors" comment= "Tile here refers to the device Quick Settings Tiles that user can define and execute using Shizuku or Root">Tile execution errors</string>
+    <string name="tile_execution_errors" comment="Tile here refers to the device Quick Settings Tiles that user can define and execute using Shizuku or Root">Tile execution errors</string>
     <string name="tile_execution_errors_channel_description" comment="Android notification channel description for Tile Execution Errors">Notifications for Quick Settings tile execution failures.</string>
     <string name="tile_logs" comment="Tab header for Quick Settings tile execution history log">Tile logs</string>
     <string name="tile_n" comment="%1$d = tile number. Refers to Quick Settings tiles">Tile %1$d</string>
@@ -1157,6 +1259,7 @@
     <string name="use">Use</string>
     <string name="use_biometrics">Use biometrics</string>
     <string name="use_cases">Use cases</string>
+    <string name="use_wireless_debugging" comment="Button that opens ADB TCP mode using wireless debugging on this device instead of a computer">Use wireless debugging</string>
     <string name="utilities" comment="Category title in homescreen">Utilities</string>
     <string name="variant" comment="Device property label displaying build variant tag (e.g. user, userdebug)">Variant</string>
     <string name="verbose" comment="Android log level name for the most detailed level, shown in logcat filters">Verbose</string>
@@ -1166,9 +1269,16 @@
     <string name="version">Version</string>
     <string name="version_code" comment="Device/app metadata label for build version code number">Version code</string>
     <string name="version_name" comment="Device/app metadata label for human-readable version string">Version name</string>
+    <string name="video_dimensions" comment="A video's width and height in pixels, for example 1080 × 2400">%1$d × %2$d</string>
+    <string name="video_quality" comment="Title of the screen mirror's sheet for choosing the video's resolution, frame rate and bitrate, and the label of the button that opens it">Video quality</string>
+    <string name="video_struggling" comment="Message when this phone drops many frames of the mirrored video">The video can\'t keep up</string>
     <string name="view_license_online_msg" comment="Subtext in license viewer directing user to view license URL online">Tap \'Open URL\' to view the license online.</string>
     <string name="view_on_github" comment="Button linking to GitHub release page or commit diff">View on GitHub</string>
+    <string name="view_only" comment="Badge shown when the mirrored screen can be watched but not controlled">View only</string>
+    <string name="viewer_max_frame_rate" comment="Shown under the frame rate options when the chosen rate is more than this phone's screen shows. %1$d is frames per second">This phone shows at most %1$d fps</string>
     <string name="visit_repo_to_download" comment="Instructions directing user to download the update APK file from GitHub releases">Click on the download button to get the latest version of aShellYou from the github repository.</string>
+    <string name="volume_down" comment="Button that presses the volume down key on the mirrored device">Volume down</string>
+    <string name="volume_up" comment="Button that presses the volume up key on the mirrored device">Volume up</string>
     <string name="waiting_for_device" comment="Progress status banner while awaiting target device USB OTG attachment">Waiting for device</string>
     <string name="waiting_for_devices" comment="Progress status text while awaiting target device connection over ADB">Waiting for devices…</string>
     <string name="waiting_for_recovery" comment="Progress status shown after the sideload stream was opened while waiting for the target device recovery to request data">Waiting for recovery…</string>
@@ -1196,10 +1306,27 @@
     <string name="wireless_debugging_important_notice" comment="Important tip clarifying that tapping the left side of Wireless Debugging switch opens the pairing sub-menu">Please note that the left part of the Wireless Debugging option is clickable. Tapping on it will open the Wireless Debugging Pairing menu.</string>
     <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">Not Connected</string>
     <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">Your device is not connected via Wireless Debugging. Pair and connect your device first.</string>
+    <string name="writing_to_partition" comment="%1$s = partition name. Progress status after the image was sent while the bootloader writes it">Writing to %1$s…</string>
     <string name="Z_A" translatable="false">Z → A</string>
+    <plurals name="app_count" comment="Accessibility label of the stacked app icons on a logcat filter profile card; %1$d = number of apps the profile matches">
+        <item quantity="one">%1$d app</item>
+        <item quantity="other">%1$d apps</item>
+    </plurals>
+    <plurals name="delete_profiles" comment="Title of the confirmation dialog shown before deleting several selected logcat filter profiles; %1$d = number of profiles">
+        <item quantity="one">Delete %1$d profile?</item>
+        <item quantity="other">Delete %1$d profiles?</item>
+    </plurals>
+    <plurals name="des_delete_profiles" comment="Body of the confirmation dialog shown before deleting several selected logcat filter profiles; %1$d = number of profiles">
+        <item quantity="one">%1$d profile will be removed. This can\'t be undone.</item>
+        <item quantity="other">%1$d profiles will be removed. This can\'t be undone.</item>
+    </plurals>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d new entry</item>
         <item quantity="other">%1$d new entries</item>
+    </plurals>
+    <plurals name="profiles_selected" comment="Header of the logcat filter profile list while choosing profiles to edit or delete; %1$d = number chosen">
+        <item quantity="one">%1$d selected</item>
+        <item quantity="other">%1$d selected</item>
     </plurals>
     <plurals name="timeout_minutes" comment="Option for minute timeouts">
         <item quantity="one">%1$d minute</item>
@@ -1213,7 +1340,6 @@
     * Use \n to separate changelog lines for bullet points in UI
     * Use this exact res ID naming format, eg: for v6.0.0 -&gt; changelog_v6_0_0
     */
-    <string name="writing_to_partition" comment="%1$s = partition name. Progress status after the image was sent while the bootloader writes it">Writing to %1$s…</string>
     <string name="changelog_v7_4_0">\nYou can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app</string>
     <string name="changelog_v7_3_0">\nImproved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">\nMaintenance update!</string>
@@ -1264,61 +1390,4 @@
     <string name="changelog_v1_0_0">\nAdded some more command examples.\nMinor UI changes.\nChanged package name to avoid version confusion with original app.</string>
     <string name="changelog_v0_9_1">\nAdded changelogs into the app.\nAdded highlighted shell output.\nMinor UI changes.</string>
     <string name="changelog_v0_9_0">\nAdded dynamic material theming.\nRevamped whole UI to give a fresh look.</string>
-    <string name="error_invalid_api_key" comment="Error shown when the AI provider rejects the stored API key. %1$s is the provider name, e.g. Groq">Invalid API key for %1$s. Check your settings.</string>
-    <string name="error_rate_limited_retry_in" comment="Error shown when the AI provider is throttling requests. %1$d is a number of seconds">Rate limited &#8212; try again in %1$ds.</string>
-    <string name="error_rate_limited" comment="Error shown when the AI provider is throttling requests and gives no retry time">Rate limited by provider. Try again shortly.</string>
-    <string name="error_bad_request" comment="Error shown when the AI provider rejects the request itself, usually a malformed tool schema">Request error: the provider rejected this request.</string>
-    <string name="error_provider_server" comment="Error shown when the AI provider returns a server failure. %1$d is the HTTP status code">Provider server error (%1$d). Try again later.</string>
-    <string name="error_no_connection" comment="Error shown when the request to the AI provider could not be sent or timed out">No internet connection or request timed out.</string>
-    <string name="error_unexpected_response" comment="Error shown when the AI provider reply could not be understood">Unexpected response from provider. Try again.</string>
-    <string name="error_no_api_key_for_provider" comment="Error shown when the selected AI provider has no API key saved. %1$s is the provider name">No API key set for %1$s.</string>
-    <string name="error_model_unavailable" comment="Error shown when every AI model the app tried has been retired by the provider">The provider retired the models this app uses. Try another provider.</string>
-    <string name="error_insufficient_credits" comment="Error shown when the AI provider account has no credit left. %1$s is the provider name">No remaining credit for %1$s.</string>
-    <string name="error_no_active_provider" comment="Error shown when the user has not chosen which AI provider to use">No AI provider selected.</string>
-    <string name="active_provider" comment="Settings item title for choosing which cloud AI provider the app uses">Active provider</string>
-    <string name="choose_provider" comment="Button label that opens the dialog for picking the active AI provider">Choose provider</string>
-    <string name="no_api_key_for_active_provider" comment="Dialog message shown when an AI feature is used but the chosen provider has no key. %1$s is the provider name, e.g. Groq">There is no API key for active provider %1$s. Would you like to choose another provider?</string>
-    <string name="groq_api_key_step_1" comment="Step 1 of the Groq API key setup guide. %1$s = URL">Visit the Groq Console at %1$s</string>
-    <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">Sign in or create a free Groq account</string>
-    <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">Open the API Keys page and click Create API Key</string>
-    <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">Copy your API key and paste it here</string>
-    <string name="openrouter_api_key_step_1" comment="Step 1 of the OpenRouter API key setup guide. %1$s = URL">Visit OpenRouter at %1$s</string>
-    <string name="openrouter_api_key_step_2" comment="Step 2 of the OpenRouter API key setup guide: creating an account">Sign in or create a free OpenRouter account</string>
-    <string name="openrouter_api_key_step_3" comment="Step 3 of the OpenRouter API key setup guide: creating the key">Open Settings then Keys, and click Create Key</string>
-    <string name="openrouter_api_key_step_4" comment="Step 4 of the OpenRouter API key setup guide: copying the key">Copy your API key and paste it here</string>
-    <string name="des_active_provider" comment="Settings item description explaining that AI features use the selected provider">AI features use this provider</string>
-    <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Thinking</string>
-    <string name="screen" comment="Device dock button that opens a live view of the connected device's screen which can also be controlled">Screen</string>
-    <string name="screen_mirror" comment="Title of the screen showing and controlling the connected device's screen live">Screen mirror</string>
-    <string name="recents" comment="Button that opens the recent apps overview on the mirrored device">Recents</string>
-    <string name="volume_up" comment="Button that presses the volume up key on the mirrored device">Volume up</string>
-    <string name="volume_down" comment="Button that presses the volume down key on the mirrored device">Volume down</string>
-    <string name="power" comment="Button that presses the power key on the mirrored device">Power</string>
-    <string name="screenshot" comment="Button that takes a screenshot on the mirrored device">Screenshot</string>
-    <string name="quick_settings" comment="Button that pulls down the quick settings panel on the mirrored device">Quick settings</string>
-    <string name="device_keys" comment="Accessibility label of the toolbars holding the navigation, volume, power, screenshot and quick settings buttons for the mirrored device">Device keys</string>
-    <string name="mirror_step_preparing" comment="Startup step while the mirroring helper is copied to the other device">Preparing</string>
-    <string name="mirror_step_preparing_skipped" comment="Startup step shown when the mirroring helper was already on the other device, so copying was skipped">Ready on device</string>
-    <string name="mirror_step_starting" comment="Startup step while the mirroring helper starts on the other device">Starting on device</string>
-    <string name="mirror_step_connecting" comment="Startup step while the live video connection to the other device opens">Connecting video</string>
-    <string name="reconnecting" comment="Status shown over a frozen screen mirror while the app waits for the device connection to come back">Reconnecting…</string>
-    <string name="view_only" comment="Badge shown when the mirrored screen can be watched but not controlled">View only</string>
-    <string name="mirror_view_only_message" comment="Explains why touches on the mirrored screen do nothing and how to fix it on Xiaomi phones">The device refused touch input. On Xiaomi devices, turn on USB debugging (Security settings) and restart the device.</string>
-    <string name="mirror_failed_title" comment="Title of the panel shown when screen mirroring could not start or stopped with an error">Couldn\'t mirror the screen</string>
-    <string name="mirror_error_not_connected" comment="Screen mirror error: no other device is connected over OTG or Wireless Debugging">No other device is connected.</string>
-    <string name="mirror_error_deploy_failed" comment="Screen mirror error: the helper program could not be copied to the other device">Couldn\'t copy the mirroring helper to the device.</string>
-    <string name="mirror_error_version" comment="Screen mirror error: the helper on the device is a different version than the app expects">The mirroring helper on the device is a different version.</string>
-    <string name="mirror_error_encoder" comment="Screen mirror error: the other device's video encoder failed">The device couldn\'t encode its screen.</string>
-    <string name="mirror_error_server_exited" comment="Screen mirror error: the helper program stopped unexpectedly on the device">The mirroring helper stopped on the device.</string>
-    <string name="mirror_error_connect_timeout" comment="Screen mirror error: the video connection did not open in time">The device didn\'t open the video connection in time.</string>
-    <string name="mirror_error_decoder" comment="Screen mirror error: this phone has no decoder for the video format. %1$s is a codec name such as H265">This phone can\'t play %1$s video.</string>
-    <string name="mirror_error_not_responding" comment="Screen mirror error: the other device stopped answering while mirroring was starting or running">The device stopped responding.</string>
-    <string name="mirror_error_stream" comment="Screen mirror error: the video data from the device could not be read">The video stream couldn\'t be read.</string>
-    <string name="mirror_ended_title" comment="Title of the panel shown when screen mirroring has ended">Mirroring ended</string>
-    <string name="mirror_ended_disconnected" comment="Explains that screen mirroring ended because the device disconnected">The device disconnected.</string>
-    <string name="mirror_ended_server_stopped" comment="Explains that screen mirroring ended from the device's side">The device stopped mirroring.</string>
-    <string name="back_to_shell" comment="Button that leaves the screen mirror and returns to the shell screen">Back to shell</string>
-    <string name="device_tools" comment="Label of the side toolbar holding actions for the connected device, such as screen mirror and file browser">Device tools</string>
-    <string name="show_device_tools" comment="Accessibility action that expands the device tools side toolbar">Show device tools</string>
-    <string name="hide_device_tools" comment="Accessibility action that collapses the device tools side toolbar">Hide device tools</string>
 </resources>

@@ -12,13 +12,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -26,14 +25,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.LocalPaletteStyle
 import `in`.hridayan.ashell.core.common.data.provider.SeedColor
 import `in`.hridayan.ashell.core.common.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.card.cardPressRotation
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.modifier.morphClip
+import `in`.hridayan.ashell.core.presentation.components.shape.rotate
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.core.presentation.theme.color.getPaletteKeyColors
+import `in`.hridayan.ashell.core.resources.R
 
 @Composable
 fun PaletteWheel(
@@ -62,6 +66,10 @@ fun PaletteWheel(
         getPaletteKeyColors(seedColor.seed, paletteStyle)
     }
 
+    val customDiamondShape = remember {
+        MaterialShapes.Square.rotate(-45f)
+    }
+
     CustomCard(
         modifier = modifier,
         onClick = withHaptic { onClick() },
@@ -73,8 +81,13 @@ fun PaletteWheel(
     ) {
         Box(
             modifier = Modifier
+                .cardPressRotation()
                 .padding(10.dp)
-                .clip(CircleShape)
+                .morphClip(
+                    firstShape = MaterialShapes.Circle,
+                    secondShape = customDiamondShape,
+                    toggled = isChecked
+                )
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -114,14 +127,14 @@ fun PaletteWheel(
                         scaleX = checkedIconScale
                         scaleY = checkedIconScale
                     }
-                    .clip(CircleShape)
+                    .clip(MaterialShapes.Cookie12Sided.toShape())
                     .background(color = MaterialTheme.colorScheme.primaryContainer)
             ) {
                 Icon(
                     modifier = Modifier
                         .size(16.dp)
                         .align(Alignment.Center),
-                    imageVector = Icons.Rounded.Check,
+                    painter = painterResource(R.drawable.ic_check),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onPrimaryContainer
                 )

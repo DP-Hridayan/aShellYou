@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.shell.file_browser.domain.repository
 
 import `in`.hridayan.ashell.shell.file_browser.domain.model.FileOperationResult
+import `in`.hridayan.ashell.shell.file_browser.domain.model.PathInfo
 import `in`.hridayan.ashell.shell.file_browser.domain.model.RemoteFile
 import kotlinx.coroutines.flow.Flow
 
@@ -58,26 +59,26 @@ interface FileBrowserRepository {
 
     /**
      * Copy a file or directory on remote device.
+     *
+     * Fails without touching anything when [destPath] already exists, so a copy never overwrites
+     * an item or lands inside an existing folder by accident.
      */
     suspend fun copy(sourcePath: String, destPath: String): Result<Unit>
 
     /**
-     * Move a file or directory on remote device.
+     * Move a file or directory on remote device, refusing an existing [destPath] like [copy].
      */
     suspend fun move(sourcePath: String, destPath: String): Result<Unit>
 
     /**
-     * Check if a file or directory exists at the given path.
+     * Reports what exists at each path, in the same order, using as few device round trips as
+     * the command length limit allows.
      */
-    suspend fun exists(path: String): Result<Boolean>
+    suspend fun inspect(paths: List<String>): Result<List<PathInfo>>
 
-    /**
-     * Check if the path is a directory.
-     */
-    suspend fun isDirectory(path: String): Result<Boolean>
+    /** The physical location of the folder at [path], with every symlink along it resolved. */
+    suspend fun resolveDirectory(path: String): Result<String>
 
-    /**
-     * Delete a file or directory recursively.
-     */
-    suspend fun delete(path: String): Result<Unit>
+    /** Removes the folder only if it is empty, failing otherwise. */
+    suspend fun removeEmptyDirectory(path: String): Result<Unit>
 }

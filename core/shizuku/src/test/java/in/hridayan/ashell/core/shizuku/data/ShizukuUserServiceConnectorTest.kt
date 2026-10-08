@@ -8,6 +8,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -16,7 +18,9 @@ import org.junit.Test
 class ShizukuUserServiceConnectorTest {
 
     private val gateway = FakeShizukuGateway()
-    private val connector = ShizukuUserServiceConnector(gateway, TestDispatchers(Dispatchers.Unconfined))
+    private val policy = FakeHelperPolicy()
+    private val connector =
+        ShizukuUserServiceConnector(gateway, policy, TestDispatchers(Dispatchers.Unconfined))
 
     @Test
     fun `fails fast when binder is missing and no manager answers`() = runTest {
@@ -164,5 +168,93 @@ class ShizukuUserServiceConnectorTest {
         requireNotNull(gateway.deadListener).invoke()
 
         assertEquals(1, gateway.requestCount)
+    }
+
+    @Test
+    fun `background warm-up binds once while a bind is running`() = runTest {
+        connector.warmUpInBackground()
+        connector.warmUpInBackground()
+
+        assertEquals(1, gateway.bindCount)
+        assertEquals(ShizukuServiceState.Binding, connector.state.value)
+    }
+
+    @Test
+    fun `ready service is available only after the helper connects`() = runTest {
+        connector.warmUpInBackground()
+        assertNull(connector.readyService())
+
+        val service = FakeShellUserService()
+        gateway.connect(service)
+
+        assertSame(service, connector.readyService())
+    }
+
+    @Test
+    fun `ready service is null when the helper stops answering`() = runTest {
+        connector.warmUpInBackground()
+        gateway.connect(FakeShellUserService())
+
+        gateway.serviceAlive = false
+
+        assertNull(connector.readyService())
+    }
+
+    @Test
+    fun `preflight reports denied permission without binding`() = runTest {
+        gateway.permissionGranted = false
+
+        assertSame(ShizukuServiceError.PermissionDenied, connector.preflight().exceptionOrNull())
+        assertEquals(0, gateway.bindCount)
+    }
+
+    @Test
+    fun `forgets a legacy start failure when the server changes`() = runTest {
+        connector.onLegacyStartFailed()
+        assertFalse(connector.isLegacyStartUsable)
+
+        gateway.serverChanged()
+
+        assertTrue(connector.isLegacyStartUsable)
+    }
+
+    @Test
+    fun `binds with the keep-alive preference`() = runTest {
+        policy.keepAlive.value = true
+
+        connector.warmUpInBackground()
+
+        assertEquals(true, gateway.lastKeepAlive)
+    }
+
+    @Test
+    fun `releasing the helper destroys it and returns to idle`() = runTest {
+        var destroyed = false
+        connector.warmUpInBackground()
+        gateway.connect(object : FakeShellUserService() {
+            override fun destroy() {
+                destroyed = true
+            }
+        })
+
+        connector.releaseHelper()
+
+        assertTrue(destroyed)
+        assertEquals(1, gateway.unbindCount)
+        assertNull(connector.readyService())
+        assertEquals(ShizukuServiceState.Idle, connector.state.value)
+    }
+
+    @Test
+    fun `keeps the helper when the same server delivers its binder again`() = runTest {
+        gateway.server = FakeBinder()
+        val service = FakeShellUserService()
+        connector.warmUpInBackground()
+        gateway.connect(service)
+
+        gateway.sameServerDeliveredAgain()
+
+        assertSame(service, connector.readyService())
+        assertEquals(0, gateway.unbindCount)
     }
 }

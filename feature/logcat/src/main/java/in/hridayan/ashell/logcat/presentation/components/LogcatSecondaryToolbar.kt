@@ -10,20 +10,23 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.logcat.presentation.model.LogcatTab
 
@@ -31,7 +34,7 @@ import `in`.hridayan.ashell.logcat.presentation.model.LogcatTab
  * Tabs + search bar placed directly below [LogcatTopBar].
  *
  * - Tab row is always visible.
- * - Search field appears/disappears based on [searchVisible].
+ * - Search bar appears/disappears based on [searchVisible], with a clear button once typed in.
  */
 @Composable
 fun LogcatSecondaryToolbar(
@@ -60,29 +63,30 @@ fun LogcatSecondaryToolbar(
             enter = expandVertically(),
             exit = shrinkVertically(),
         ) {
-            OutlinedTextField(
+            CustomSearchBar(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 6.dp),
+                    .padding(horizontal = 16.dp, vertical = 6.dp),
                 value = searchQuery,
                 onValueChange = onSearchQueryChange,
-                singleLine = true,
-                placeholder = {
-                    Text(
-                        text = stringResource(R.string.logcat_filter_search_hint),
-                        style = MaterialTheme.typography.bodySmall,
-                    )
-                },
-                textStyle = MaterialTheme.typography.bodySmall,
+                hint = stringResource(R.string.logcat_filter_search_hint),
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(onSearch = { keyboard?.hide() }),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = MaterialTheme.colorScheme.primary,
-                    unfocusedBorderColor = MaterialTheme.colorScheme.outline,
-                ),
-                shape = MaterialTheme.shapes.medium,
+                trailingIcon = {
+                    if (searchQuery.isNotEmpty()) ClearSearchButton(onClear = { onSearchQueryChange("") })
+                },
             )
         }
+    }
+}
+
+@Composable
+private fun ClearSearchButton(onClear: () -> Unit) {
+    IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) { onClear() }) {
+        Icon(
+            imageVector = Icons.Rounded.Close,
+            contentDescription = stringResource(R.string.clear),
+        )
     }
 }
 

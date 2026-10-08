@@ -53,7 +53,6 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.lerp
@@ -74,6 +73,7 @@ import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.button.BackButton
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
+import `in`.hridayan.ashell.core.presentation.components.card.cardPressRotation
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -92,6 +92,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.P
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.image.QRImage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.placeholder.NoSavedDevicesPlaceholder
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.utils.WirelessDebuggingUtils
 import kotlinx.coroutines.launch
@@ -403,33 +404,12 @@ fun SavedDevicesTab(
     val res = LocalResources.current
 
     if (savedDevices.isEmpty()) {
-        Column(
+        NoSavedDevicesPlaceholder(
+            hint = stringResource(R.string.pair_device_to_start),
             modifier = modifier
                 .fillMaxSize()
-                .padding(32.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_wireless),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-            Text(
-                text = stringResource(R.string.no_saved_devices),
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center
-            )
-            Text(
-                text = stringResource(R.string.pair_device_to_start),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = 8.dp)
-            )
-        }
+                .padding(32.dp)
+        )
     } else {
         LazyColumn(
             modifier = modifier
@@ -543,6 +523,7 @@ fun QRPairTab(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
+                        modifier = Modifier.cardPressRotation(),
                         painter = painterResource(R.drawable.ic_qr_scanner),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onTertiaryContainer,
@@ -562,6 +543,7 @@ fun QRPairTab(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
+                        modifier = Modifier.cardPressRotation(),
                         painter = painterResource(R.drawable.ic_search),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onTertiaryContainer,
@@ -634,6 +616,7 @@ fun CodePairTab(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
+                        modifier = Modifier.cardPressRotation(),
                         painter = painterResource(R.drawable.ic_pair),
                         contentDescription = null,
                     )
@@ -646,17 +629,23 @@ fun CodePairTab(
             }
         }
 
-        // Status message
         item {
-            val statusText = when {
-                discoveredServices.isEmpty() -> stringResource(R.string.waiting_for_devices)
-                else -> stringResource(R.string.device_found)
-            }
+            val status = codePairStatusFor(isWifiConnected, discoveredServices.isNotEmpty())
 
             Text(
-                text = statusText,
+                text = stringResource(
+                    when (status) {
+                        CodePairStatus.WifiRequired -> R.string.connect_to_wifi_network
+                        CodePairStatus.Waiting -> R.string.waiting_for_devices
+                        CodePairStatus.DeviceFound -> R.string.device_found
+                    }
+                ),
                 style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = if (status == CodePairStatus.WifiRequired) {
+                    MaterialTheme.colorScheme.error
+                } else {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                },
                 modifier = Modifier.padding(top = 8.dp, start = 5.dp)
             )
         }
@@ -708,6 +697,16 @@ fun CodePairTab(
             }
         }
     }
+}
+
+/** What the code tab's status line reports. */
+internal enum class CodePairStatus { WifiRequired, Waiting, DeviceFound }
+
+/** Wi-Fi comes first: without it nothing can be discovered, whatever the list still shows. */
+internal fun codePairStatusFor(isWifiConnected: Boolean, hasDevices: Boolean): CodePairStatus = when {
+    !isWifiConnected -> CodePairStatus.WifiRequired
+    !hasDevices -> CodePairStatus.Waiting
+    else -> CodePairStatus.DeviceFound
 }
 
 /**

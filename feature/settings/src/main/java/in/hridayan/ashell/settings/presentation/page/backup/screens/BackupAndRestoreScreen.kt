@@ -43,9 +43,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
@@ -63,6 +61,8 @@ import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.card.cardPressClip
+import `in`.hridayan.ashell.core.presentation.components.card.cardPressRotation
 import `in`.hridayan.ashell.core.presentation.components.dialog.createDialog
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
@@ -557,8 +557,8 @@ private fun TimeCard(
             iconResId?.let { resId ->
                 Box(
                     modifier = Modifier
-                        .shadow(elevation = 1.dp, shape = CircleShape)
-                        .clip(CircleShape)
+                        .cardPressRotation()
+                        .cardPressClip(defaultShape = CircleShape, elevation = 1.dp)
                         .background(MaterialTheme.colorScheme.primaryContainer)
                         .padding(10.dp),
                     contentAlignment = Alignment.Center

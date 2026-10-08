@@ -44,15 +44,21 @@ class ServerCommandBuilder(
 
     /**
      * Fixed for every session: forward tunnelling because this app has no adb server to listen
-     * with, no audio until it is supported, cleanup so the device's settings are restored, no
-     * clipboard sync unless asked for, and keep_active so the device stays awake while mirrored.
+     * with, no audio until it is supported, no clipboard sync unless asked for, and keep_active so
+     * the device stays awake while mirrored.
+     *
+     * Cleanup stays off. Its helper process deletes the server jar as it starts, about a second
+     * after its server, and it outlives the server; leaving the mirror and opening it again let the
+     * old helper delete the jar the new session had just pushed, so the new server could not start.
+     * It restores nothing this app changes, and without it the jar persists, so later sessions skip
+     * the upload.
      */
     private val fixedOptions = listOf(
         "log_level=info",
         "tunnel_forward=true",
         "audio=false",
         "control=true",
-        "cleanup=true",
+        "cleanup=false",
         "clipboard_autosync=false",
         "keep_active=true"
     )
@@ -97,8 +103,12 @@ class ServerCommandBuilder(
          * does not keeps the encoder and display, and later sessions fail until it goes; desktop
          * scrcpy kills its server for the same reason. Only this pid is killed, because a new session
          * may already be starting while the old one is still cleaning up.
+         *
+         * After killing a live server it waits, as the sweep does, for the system to release the
+         * encoder. The next session's sweep finds nothing left to kill and so does not wait, and a
+         * restart straight after this, as a quality change makes, otherwise failed to get an encoder.
          */
-        fun stopCommand(pid: Int): String = "kill -9 $pid"
+        fun stopCommand(pid: Int): String = "kill -9 $pid 2>/dev/null && sleep $RELEASE_WAIT_SECONDS; true"
 
         /**
          * Kills every server this app left behind, reporting each one, then waits briefly, only if
@@ -109,6 +119,12 @@ class ServerCommandBuilder(
          * their environment checked for the jar path. The loop uses shell built-ins so that scanning
          * hundreds of processes does not start hundreds of commands.
          */
+        /**
+         * The sweep, then the target probe, as the one shell command that runs before every launch,
+         * so the probe opens no stream of its own and runs only once old servers are gone.
+         */
+        fun prepareCommand(): String = sweepCommand() + "; " + TargetProbeParser.COMMAND
+
         fun sweepCommand(): String =
             "k=0; for p in /proc/[0-9]*; do n=; read -r n < \"\$p/comm\" 2>/dev/null; case \"\$n\" in " +
                 "$SERVER_PROCESS_NAME) m=1;; " +

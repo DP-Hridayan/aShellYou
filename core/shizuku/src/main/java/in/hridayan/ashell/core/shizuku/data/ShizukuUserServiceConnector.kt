@@ -1,15 +1,19 @@
 package `in`.hridayan.ashell.core.shizuku.data
 
+import android.os.IBinder
 import ashell.core.shizuku.IShellUserService
 import `in`.hridayan.ashell.core.common.data.provider.DispatcherProvider
+import `in`.hridayan.ashell.core.shizuku.domain.ShizukuHelperPolicy
 import `in`.hridayan.ashell.core.shizuku.domain.ShizukuServiceError
 import `in`.hridayan.ashell.core.shizuku.domain.ShizukuServiceState
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -27,11 +31,13 @@ private const val UNKNOWN_UID = -1
  * When the Shizuku binder is missing it asks the installed managers for one (stock first).
  * When a different server delivers a binder, the helper bound to the previous server is dropped.
  * A helper start failure is remembered until the server changes so callers can fall back
- * immediately instead of waiting for the bind timeout on every command.
+ * immediately instead of waiting for the bind timeout on every command. A failure of the server's
+ * legacy `newProcess` call is remembered the same way, so callers stop trying that path.
  */
 @Singleton
 class ShizukuUserServiceConnector @Inject constructor(
     private val gateway: ShizukuGateway,
+    private val policy: ShizukuHelperPolicy,
     dispatchers: DispatcherProvider
 ) {
 
@@ -51,6 +57,20 @@ class ShizukuUserServiceConnector @Inject constructor(
     @Volatile
     private var rememberedHelperError: ShizukuServiceError? = null
 
+    @Volatile
+    private var legacyStartFailed = false
+
+    @Volatile
+    private var serverAtBind: IBinder? = null
+
+    private var warmUpJob: Job? = null
+
+    /**
+     * False once the server's legacy `newProcess` call has failed; reset when the server changes.
+     */
+    val isLegacyStartUsable: Boolean
+        get() = !legacyStartFailed
+
     init {
         gateway.addBinderDeadListener { onBinderDied() }
         gateway.addBinderReceivedListener { onServerChanged() }
@@ -68,6 +88,36 @@ class ShizukuUserServiceConnector @Inject constructor(
         }
     }
 
+    /**
+     * The bound helper if it is connected and answering, without waiting on a bind in progress.
+     */
+    fun readyService(): IShellUserService? = boundService?.takeIf { gateway.isServiceAlive(it) }
+
+    /**
+     * Checks that a server binder is available (asking the managers for one if needed) and that
+     * permission is granted, without binding the helper.
+     */
+    suspend fun preflight(): Result<Unit> =
+        preflightError()?.let { Result.failure(it) } ?: Result.success(Unit)
+
+    /**
+     * Starts binding the helper in the background unless a bind is already running.
+     */
+    @Synchronized
+    fun warmUpInBackground() {
+        if (warmUpJob?.isActive == true) return
+        warmUpJob = scope.launch { service() }
+    }
+
+    fun onLegacyStartFailed() {
+        legacyStartFailed = true
+    }
+
+    /**
+     * Stops the helper and its processes. The next command or warm-up starts a new one.
+     */
+    fun releaseHelper() = dropHelper()
+
     private suspend fun preflightError(): ShizukuServiceError? = when {
         !ensureBinder() -> ShizukuServiceError.BinderMissing
         !gateway.isPermissionGranted() -> ShizukuServiceError.PermissionDenied
@@ -81,7 +131,9 @@ class ShizukuUserServiceConnector @Inject constructor(
         pendingBind = deferred
         boundService = null
         _state.value = ShizukuServiceState.Binding
-        val bindError = runCatching { gateway.bind(callbacks) }.exceptionOrNull()
+        serverAtBind = gateway.serverBinder()
+        val keepAlive = policy.keepAlive.first()
+        val bindError = runCatching { gateway.bind(callbacks, keepAlive) }.exceptionOrNull()
         if (bindError != null) return fail(ShizukuServiceError.BindFailed(bindError))
         return awaitConnection(deferred)
     }
@@ -129,15 +181,30 @@ class ShizukuUserServiceConnector @Inject constructor(
         _state.value = ShizukuServiceState.Unavailable(error)
     }
 
+    /**
+     * The same server can deliver its binder more than once (its own push at app start and the
+     * reply to [ShizukuGateway.requestBinder]); only a different server invalidates the helper.
+     */
     private fun onServerChanged() {
+        if (isSameServerAsBound()) return
+        rememberedHelperError = null
+        legacyStartFailed = false
+        dropHelper()
+    }
+
+    private fun dropHelper() {
         val previous = boundService
         boundService = null
-        rememberedHelperError = null
         pendingBind?.completeExceptionally(ShizukuServiceError.BinderDied)
         pendingBind = null
         previous?.let { runCatching { it.destroy() } }
         gateway.unbind()
         _state.value = ShizukuServiceState.Idle
+    }
+
+    private fun isSameServerAsBound(): Boolean {
+        val current = gateway.serverBinder() ?: return false
+        return current === serverAtBind
     }
 
     private fun uidOf(service: IShellUserService): Int =

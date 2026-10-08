@@ -2,8 +2,10 @@
 
 package `in`.hridayan.ashell.ai.presentation.screens
 
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -34,13 +36,6 @@ import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.viewmodel.ActiveProviderViewModel
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.settingsgraph.ui.SettingsColumn
-
-private const val ITEM_KEY_API_KEY_PREFIX = "api_key_"
-private const val ITEM_KEY_API_KEY_HEADER = "api_key_header"
-
-private val HEADER_HORIZONTAL_PADDING = 20.dp
-private val HEADER_TOP_PADDING = 30.dp
-private val HEADER_BOTTOM_PADDING = 10.dp
 
 @Composable
 fun CloudModelsScreen(
@@ -89,12 +84,19 @@ fun CloudModelsScreen(
                     }
                 }
 
-                item(ITEM_KEY_API_KEY_HEADER) {
-                    ApiKeyGroupHeader()
+                item("api_key_header") {
+                    ApiKeyGroupHeader(
+                        modifier = Modifier.padding(
+                            start = 20.dp,
+                            end = 20.dp,
+                            top = 30.dp,
+                            bottom = 10.dp
+                        )
+                    )
                 }
 
                 LlmProvider.all.forEach { provider ->
-                    item(ITEM_KEY_API_KEY_PREFIX + provider.id) {
+                    item("api_key_" + provider.id) {
                         val hasKey by viewModel.hasKey(provider).collectAsState(initial = false)
 
                         ApiKeyCard(
@@ -110,6 +112,10 @@ fun CloudModelsScreen(
                             onVerifyApiKey = { viewModel.verifyKey(provider) },
                         )
                     }
+                }
+
+                item("Bottom padding spacer") {
+                    Spacer(modifier = Modifier.height(35.dp))
                 }
             }
         }
@@ -136,16 +142,11 @@ fun CloudModelsScreen(
  * holds no nodes, so the heading is drawn here using the same metrics the library uses.
  */
 @Composable
-private fun ApiKeyGroupHeader() {
+private fun ApiKeyGroupHeader(modifier: Modifier = Modifier) {
     Text(
+        modifier = modifier,
         text = stringResource(R.string.api_key),
         style = MaterialTheme.typography.labelLarge,
-        color = MaterialTheme.colorScheme.primary,
-        modifier = Modifier.padding(
-            start = HEADER_HORIZONTAL_PADDING,
-            end = HEADER_HORIZONTAL_PADDING,
-            top = HEADER_TOP_PADDING,
-            bottom = HEADER_BOTTOM_PADDING,
-        )
+        color = MaterialTheme.colorScheme.primary
     )
 }

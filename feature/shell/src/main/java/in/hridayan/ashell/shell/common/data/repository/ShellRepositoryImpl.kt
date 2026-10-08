@@ -75,10 +75,6 @@ class ShellRepositoryImpl @Inject constructor(
         else -> context.getString(R.string.shizuku_process_start_failed, throwable.message)
     }
 
-    override suspend fun warmUpShizuku() {
-        shellCommandExecutor.warmUp()
-    }
-
     override fun stopCommand() {
         return shellCommandExecutor.stop()
     }

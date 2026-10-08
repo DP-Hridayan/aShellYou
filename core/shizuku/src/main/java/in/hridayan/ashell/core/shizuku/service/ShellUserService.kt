@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.core.shizuku.service
 
 import android.content.Context
+import android.os.IBinder
 import android.system.Os
 import androidx.annotation.Keep
 import ashell.core.shizuku.IShellProcess
@@ -26,9 +27,14 @@ class ShellUserService() : IShellUserService.Stub() {
     @Suppress("unused")
     constructor(context: Context) : this()
 
-    override fun newProcess(cmd: Array<String>, env: Array<String>?, dir: String?): IShellProcess {
+    override fun newProcess(
+        cmd: Array<String>,
+        env: Array<String>?,
+        dir: String?,
+        clientToken: IBinder?
+    ): IShellProcess {
         val process = startProcess(cmd, env, dir)
-        val binder = ShellProcessBinder(process) { liveProcesses.remove(it) }
+        val binder = ShellProcessBinder(process, clientToken) { liveProcesses.remove(it) }
         liveProcesses.add(binder)
         return binder
     }

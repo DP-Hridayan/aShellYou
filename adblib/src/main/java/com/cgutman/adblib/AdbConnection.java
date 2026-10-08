@@ -415,6 +415,7 @@ public class AdbConnection implements Closeable {
 			throw e;
 		} catch (InterruptedException e) {
 			abandon(stream);
+			Log.w(TAG, "Open abandoned by its caller: " + destination);
 			throw e;
 		}
 
@@ -425,6 +426,7 @@ public class AdbConnection implements Closeable {
 
 		if (!stream.isOpen()) {
 			abandon(stream);
+			Log.w(TAG, "Open timed out: " + destination);
 			throw new IOException("Timed out waiting for the device to open " + destination);
 		}
 

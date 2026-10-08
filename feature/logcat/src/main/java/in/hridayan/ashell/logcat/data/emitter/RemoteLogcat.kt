@@ -3,8 +3,8 @@ package `in`.hridayan.ashell.logcat.data.emitter
 import `in`.hridayan.ashell.core.common.domain.model.ExternalDeviceShell
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.toList
 
 private const val SDK_PROBE = "getprop ro.build.version.sdk"
 
@@ -22,7 +22,11 @@ internal fun ExternalDeviceShell.logcatLines(since: String?): Flow<String> = flo
     emitAll(execute(LogcatCommand.shellLine(since, withUid = supportsUidColumn())))
 }
 
+/**
+ * Reads the probe's whole output rather than stopping at the first line: stopping a shell flow
+ * early aborts it mid-stream, and the shell implementations are not all safe to abort.
+ */
 private suspend fun ExternalDeviceShell.supportsUidColumn(): Boolean {
-    val sdk = execute(SDK_PROBE).firstOrNull { it.isNotBlank() }?.trim()?.toIntOrNull()
+    val sdk = execute(SDK_PROBE).toList().firstOrNull { it.isNotBlank() }?.trim()?.toIntOrNull()
     return sdk != null && sdk >= UID_MODIFIER_MIN_SDK
 }

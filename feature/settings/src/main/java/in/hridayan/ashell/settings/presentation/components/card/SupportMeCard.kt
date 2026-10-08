@@ -43,6 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.card.cardPressRotation
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
@@ -153,7 +154,9 @@ private fun BuyMeACoffee(
             Image(
                 imageVector = DynamicColorImageVectors.bmcLogo(),
                 contentDescription = null,
-                modifier = Modifier.height(40.dp)
+                modifier = Modifier
+                    .height(40.dp)
+                    .cardPressRotation()
             )
 
             Text(

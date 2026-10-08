@@ -126,10 +126,6 @@ class ShellCommandExecutor(
         null
     }
 
-    suspend fun warmUp() {
-        shizukuCommandRunner.warmUp()
-    }
-
     fun exec(process: Process): Flow<OutputLine> = flow {
         currentProcess = process
         val reader = BufferedReader(InputStreamReader(currentProcess?.inputStream))

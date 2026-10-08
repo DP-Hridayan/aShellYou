@@ -1,5 +1,6 @@
 package `in`.hridayan.ashell.mirror.data.repository
 
+import android.os.SystemClock
 import android.util.Log
 import dagger.hilt.android.scopes.ViewModelScoped
 import `in`.hridayan.ashell.core.common.data.provider.DispatcherProvider
@@ -20,10 +21,13 @@ import `in`.hridayan.ashell.mirror.domain.model.MirrorError
 import `in`.hridayan.ashell.mirror.domain.model.MirrorOptions
 import `in`.hridayan.ashell.mirror.domain.model.MirrorState
 import `in`.hridayan.ashell.mirror.domain.model.StartStep
+import `in`.hridayan.ashell.mirror.domain.model.StreamStats
 import `in`.hridayan.ashell.mirror.domain.model.VideoOutput
 import `in`.hridayan.ashell.mirror.domain.protocol.ScidGenerator
 import `in`.hridayan.ashell.mirror.domain.protocol.ServerCommandBuilder
 import `in`.hridayan.ashell.mirror.domain.protocol.ServerLogSignal
+import `in`.hridayan.ashell.mirror.domain.protocol.TargetProbeParser
+import `in`.hridayan.ashell.mirror.domain.quality.TargetDevice
 import `in`.hridayan.ashell.mirror.domain.repository.MirrorRepository
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
@@ -51,6 +55,7 @@ private const val DEPLOY_TIMEOUT_MS = 20_000L
 private const val TAG = "MirrorSession"
 private const val ERROR_LOG_LINES = 4
 private const val SERVER_ERROR_MARKER = "ERROR:"
+private const val SWEEP_KILL_MARKER = "killed"
 
 /**
  * Runs scrcpy sessions over an [ExternalDeviceChannel] and turns everything that happens into
@@ -95,11 +100,14 @@ class MirrorRepositoryImpl @Inject constructor(
     private val _state = MutableStateFlow<MirrorState>(MirrorState.Idle)
     override val state: StateFlow<MirrorState> = _state.asStateFlow()
 
+    private val _stats = MutableStateFlow<StreamStats?>(null)
+    override val stats: StateFlow<StreamStats?> = _stats.asStateFlow()
+
     override fun send(message: ControlMessage) = streamer.send(message)
 
     override fun setVideoOutput(output: VideoOutput?) = streamer.setVideoOutput(output)
 
-    override suspend fun run(transport: ExternalDeviceTransport, options: MirrorOptions) {
+    override suspend fun run(transport: ExternalDeviceTransport, options: suspend (TargetDevice) -> MirrorOptions) {
         try {
             when (transport) {
                 ExternalDeviceTransport.OTG -> runWithReconnects(otgChannel, options)
@@ -126,7 +134,10 @@ class MirrorRepositoryImpl @Inject constructor(
         throw e
     }
 
-    private suspend fun runWithReconnects(channel: ExternalDeviceChannel, options: MirrorOptions) {
+    private suspend fun runWithReconnects(
+        channel: ExternalDeviceChannel,
+        options: suspend (TargetDevice) -> MirrorOptions
+    ) {
         var reconnects = 0
         while (runSession(channel, options) == Outcome.TRANSPORT_LOST) {
             _state.value = MirrorState.Reconnecting
@@ -138,34 +149,48 @@ class MirrorRepositoryImpl @Inject constructor(
         }
     }
 
-    private suspend fun runSession(channel: ExternalDeviceChannel, options: MirrorOptions): Outcome =
+    private suspend fun runSession(
+        channel: ExternalDeviceChannel,
+        options: suspend (TargetDevice) -> MirrorOptions
+    ): Outcome =
         when (val launch = launchServer(channel, options)) {
             is Launch.Stopped -> launch.outcome
             is Launch.Started -> try {
                 superviseServer(channel, launch.server, launch.scid)
             } finally {
+                val stoppingAt = SystemClock.elapsedRealtime()
                 launch.server.stop()
                 launch.server.pid?.let { pid ->
                     withContext(NonCancellable) {
                         channel.runQuietly(ServerCommandBuilder.stopCommand(pid), STOP_TIMEOUT_MS)
                     }
                 }
+                Log.i(TAG, "Teardown took ${SystemClock.elapsedRealtime() - stoppingAt} ms, pid=${launch.server.pid}")
             }
         }
 
-    private suspend fun launchServer(channel: ExternalDeviceChannel, options: MirrorOptions): Launch {
+    private suspend fun launchServer(
+        channel: ExternalDeviceChannel,
+        options: suspend (TargetDevice) -> MirrorOptions
+    ): Launch {
         if (!channel.isConnected) return Launch.Stopped(fail(channel, MirrorError.NotConnected))
 
         _state.value = MirrorState.Starting(StartStep.PREPARING)
+        val deployStartedAt = SystemClock.elapsedRealtime()
         val deployed = withTimeoutOrNull(DEPLOY_TIMEOUT_MS) {
             deployer.deploy(channel).onFailure { Log.w(TAG, "Deploying the server failed", it) }.getOrNull()
         } ?: return Launch.Stopped(fail(channel, MirrorError.DeployFailed))
+        Log.i(TAG, "Deploy took ${SystemClock.elapsedRealtime() - deployStartedAt} ms, skipped=${deployed.skipped}")
 
         _state.value = MirrorState.Starting(StartStep.STARTING_SERVER, deployed.skipped)
-        channel.runQuietly(ServerCommandBuilder.sweepCommand(), STOP_TIMEOUT_MS) { line ->
-            Log.i(TAG, "Leftover server sweep: $line")
+        val prepared = mutableListOf<String>()
+        channel.runQuietly(ServerCommandBuilder.prepareCommand(), STOP_TIMEOUT_MS) { line ->
+            prepared += line
+            if (line.startsWith(SWEEP_KILL_MARKER)) Log.i(TAG, "Leftover server sweep: $line")
         }
-        return startServer(channel, options, deployed.skipped)
+        val target = TargetProbeParser.parse(prepared)
+        Log.i(TAG, "Target: $target")
+        return startServer(channel, options(target), deployed.skipped)
     }
 
     private suspend fun startServer(
@@ -221,9 +246,11 @@ class MirrorRepositoryImpl @Inject constructor(
                 onDeviceName = { name ->
                     _state.value = MirrorState.Streaming(name, videoSize = null, isControlAvailable = true)
                 },
-                onSession = { size -> updateStreaming { it.copy(videoSize = size) } }
+                onSession = { size -> updateStreaming { it.copy(videoSize = size) } },
+                onStats = { _stats.value = it }
             )
         } finally {
+            _stats.value = null
             sockets.close()
         }
 

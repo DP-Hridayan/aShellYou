@@ -113,23 +113,28 @@ fun FastbootScreen(
     var showRebootOptionsDialog by rememberSaveable { mutableStateOf(false) }
     var showPredefinedCommandsSheet by rememberSaveable { mutableStateOf(false) }
     var disconnected by rememberSaveable { mutableStateOf(false) }
+    var previouslyConnected by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(fastbootState) {
         when (fastbootState) {
             is FastbootState.Connected -> {
                 showDeviceWaitingDialog = false
                 disconnected = false
+                previouslyConnected = true
                 viewModel.loadDeviceInfo()
                 viewModel.loadAllVariables()
             }
 
             is FastbootState.Disconnected -> {
-                showDeviceWaitingDialog = true
+                if (previouslyConnected) {
+                    showDeviceWaitingDialog = true
+                }
                 disconnected = true
+                previouslyConnected = false
                 viewModel.startScan()
             }
 
-            else -> showDeviceWaitingDialog = true
+            else -> Unit
         }
     }
 
@@ -255,11 +260,16 @@ fun FastbootScreen(
 
     if (showDeviceWaitingDialog) {
         FastbootDeviceWaitingDialog(
-            onDismiss = { showDeviceWaitingDialog = false },
+            onDismiss = {
+                showDeviceWaitingDialog = false
+                viewModel.disconnect()
+            },
             onConfirm = {
                 showDeviceWaitingDialog = false
                 if (disconnected) viewModel.startScan()
-            }
+            },
+            fastbootState = fastbootState,
+            startScan = { viewModel.startScan() }
         )
     }
 

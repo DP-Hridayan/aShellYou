@@ -5,6 +5,7 @@ import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbEndpoint;
 import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbRequest;
+import android.util.Log;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -21,6 +22,7 @@ public class UsbChannel implements AdbChannel {
     private static final int MAX_EMPTY_READS = 16;
     private static final int MAX_TRANSIENT_FAILURES = 5;
     private static final long TRANSIENT_BACKOFF_MS = 20;
+    private static final String TAG = "AdbUsbChannel";
 
     private final UsbDeviceConnection mDeviceConnection;
     private final UsbEndpoint mEndpointOut;
@@ -120,6 +122,8 @@ public class UsbChannel implements AdbChannel {
              * whole timeout is retried. One that failed immediately is usually a real error, but
              * a long transfer can hit a transient failure, so give it a few attempts first. */
             long elapsed = System.currentTimeMillis() - startedAt;
+            Log.w(TAG, "USB write stalled: " + transferred + " after " + elapsed + " ms, at "
+                    + offset + "/" + buffer.length + " bytes");
             if (transferred < 0 && elapsed < WRITE_TIMEOUT_MS / 2) {
                 if (++failures > MAX_TRANSIENT_FAILURES) {
                     throw new IOException("USB bulk transfer failed " + failures + " times in a row");

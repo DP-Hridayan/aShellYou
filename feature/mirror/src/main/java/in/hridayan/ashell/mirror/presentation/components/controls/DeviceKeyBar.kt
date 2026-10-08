@@ -4,13 +4,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.VolumeDown
 import androidx.compose.material.icons.automirrored.rounded.VolumeUp
 import androidx.compose.material.icons.rounded.ChangeHistory
 import androidx.compose.material.icons.rounded.CropSquare
+import androidx.compose.material.icons.rounded.HighQuality
 import androidx.compose.material.icons.rounded.PowerSettingsNew
 import androidx.compose.material.icons.rounded.RadioButtonUnchecked
 import androidx.compose.material.icons.rounded.Screenshot
@@ -18,10 +21,12 @@ import androidx.compose.material.icons.rounded.SwipeDown
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.FloatingToolbarDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Surface
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,6 +48,7 @@ private val KeyGap = 4.dp
 private val RowPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
 private val RailPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp)
 private val RowElevation = 3.dp
+private val DividerLength = 20.dp
 
 /**
  * The device's keys in two compact rows, stacked under the video in portrait and side by side as
@@ -52,6 +58,10 @@ private val RowElevation = 3.dp
  *
  * Back, Home and Recents use the shapes of Android's own navigation bar, so the device's Back is
  * never mistaken for the arrow that leaves the mirror.
+ *
+ * The actions row ends with the video quality button, set apart by a divider because it acts on
+ * this app rather than the device. It stays enabled when the keys aren't, since changing quality
+ * needs no input on the device.
  */
 @Composable
 fun DeviceKeyBar(
@@ -59,15 +69,20 @@ fun DeviceKeyBar(
     enabled: Boolean,
     onKey: (DeviceKey) -> Unit,
     onExpandQuickSettings: () -> Unit,
-    modifier: Modifier = Modifier
+    onOpenQuality: () -> Unit,
+    modifier: Modifier = Modifier,
+    contained: Boolean = true
 ) {
     val description = stringResource(R.string.device_keys)
     val barModifier = modifier.semantics { contentDescription = description }
 
     if (vertical) {
         Row(modifier = barModifier, horizontalArrangement = Arrangement.spacedBy(RowGap)) {
-            KeyGroup(vertical = true) { NavigationKeys(enabled, onKey) }
-            KeyGroup(vertical = true) { ActionKeys(enabled, onKey, onExpandQuickSettings) }
+            KeyGroup(vertical = true, contained = contained) { NavigationKeys(enabled, onKey) }
+            KeyGroup(vertical = true, contained = contained) {
+                ActionKeys(enabled, onKey, onExpandQuickSettings)
+                QualityKey(vertical = true, onClick = onOpenQuality)
+            }
         }
     } else {
         Column(
@@ -75,15 +90,26 @@ fun DeviceKeyBar(
             verticalArrangement = Arrangement.spacedBy(RowGap),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            KeyGroup(vertical = false) { NavigationKeys(enabled, onKey) }
-            KeyGroup(vertical = false) { ActionKeys(enabled, onKey, onExpandQuickSettings) }
+            KeyGroup(vertical = false, contained = contained) { NavigationKeys(enabled, onKey) }
+            KeyGroup(vertical = false, contained = contained) {
+                ActionKeys(enabled, onKey, onExpandQuickSettings)
+                QualityKey(vertical = false, onClick = onOpenQuality)
+            }
         }
     }
 }
 
+/**
+ * One row of keys. When not [contained], the row has no container of its own, because it sits
+ * inside a panel that already provides one.
+ */
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-private fun KeyGroup(vertical: Boolean, content: @Composable () -> Unit) {
+private fun KeyGroup(vertical: Boolean, contained: Boolean, content: @Composable () -> Unit) {
+    if (!contained) {
+        KeyGroupLayout(vertical, content)
+        return
+    }
     val colors = FloatingToolbarDefaults.standardFloatingToolbarColors()
     Surface(
         shape = FloatingToolbarDefaults.ContainerShape,
@@ -91,19 +117,24 @@ private fun KeyGroup(vertical: Boolean, content: @Composable () -> Unit) {
         contentColor = colors.toolbarContentColor,
         shadowElevation = RowElevation
     ) {
-        if (vertical) {
-            Column(
-                modifier = Modifier.padding(RailPadding),
-                verticalArrangement = Arrangement.spacedBy(KeyGap),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) { content() }
-        } else {
-            Row(
-                modifier = Modifier.padding(RowPadding),
-                horizontalArrangement = Arrangement.spacedBy(KeyGap),
-                verticalAlignment = Alignment.CenterVertically
-            ) { content() }
-        }
+        KeyGroupLayout(vertical, content)
+    }
+}
+
+@Composable
+private fun KeyGroupLayout(vertical: Boolean, content: @Composable () -> Unit) {
+    if (vertical) {
+        Column(
+            modifier = Modifier.padding(RailPadding),
+            verticalArrangement = Arrangement.spacedBy(KeyGap),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) { content() }
+    } else {
+        Row(
+            modifier = Modifier.padding(RowPadding),
+            horizontalArrangement = Arrangement.spacedBy(KeyGap),
+            verticalAlignment = Alignment.CenterVertically
+        ) { content() }
     }
 }
 
@@ -156,6 +187,21 @@ private fun ActionKeys(enabled: Boolean, onKey: (DeviceKey) -> Unit, onExpandQui
         label = stringResource(R.string.quick_settings),
         enabled = enabled,
         onClick = onExpandQuickSettings
+    )
+}
+
+@Composable
+private fun QualityKey(vertical: Boolean, onClick: () -> Unit) {
+    if (vertical) {
+        HorizontalDivider(modifier = Modifier.width(DividerLength))
+    } else {
+        VerticalDivider(modifier = Modifier.height(DividerLength))
+    }
+    KeyButton(
+        icon = Icons.Rounded.HighQuality,
+        label = stringResource(R.string.video_quality),
+        enabled = true,
+        onClick = onClick
     )
 }
 

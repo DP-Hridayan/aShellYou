@@ -53,8 +53,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -65,12 +63,13 @@ import `in`.hridayan.ashell.core.common.LocalDialogManager
 import `in`.hridayan.ashell.core.common.domain.model.localadb.LocalAdbWorkingMode
 import `in`.hridayan.ashell.core.presentation.components.button.IconWithTextButton
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.card.cardPressClip
+import `in`.hridayan.ashell.core.presentation.components.card.cardPressRotation
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.appBranding
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.home.presentation.component.dialog.HomeDialogKey
 import `in`.hridayan.ashell.home.presentation.component.dialog.RebootOptionsDialog
 import `in`.hridayan.ashell.home.presentation.model.DeviceLinkStatus
@@ -80,7 +79,6 @@ import `in`.hridayan.ashell.home.presentation.model.WifiAdbCardStatus
 @Composable
 fun HomeScreen(
     localAdbWorkingMode: Int = LocalAdbWorkingMode.BASIC,
-    savedDevicesCount: Int = 0,
     isLogcatRunning: Boolean = false,
     otgStatus: DeviceLinkStatus = DeviceLinkStatus.Idle,
     wifiAdbStatus: WifiAdbCardStatus = WifiAdbCardStatus(),
@@ -97,8 +95,6 @@ fun HomeScreen(
     onSideloadClick: () -> Unit = {},
     onReboot: (Array<String>) -> Unit = {}
 ) {
-    val context = LocalContext.current
-    val res = LocalResources.current
     val dialogManager = LocalDialogManager.current
 
     val onClickOtgAdbCard: () -> Unit = onOtgClick
@@ -232,14 +228,7 @@ fun HomeScreen(
                         WirelessDebuggingCard(
                             modifier = Modifier.fillMaxWidth(),
                             status = wifiAdbStatus,
-                            onStartClick = withHaptic {
-                                if (savedDevicesCount == 0) {
-                                    showToast(context, res.getString(R.string.pair_a_device_first))
-                                    return@withHaptic
-                                }
-
-                                onWifiAdbClick()
-                            },
+                            onStartClick = withHaptic { onWifiAdbClick() },
                             onPairClick = onWifiAdbPairClick
                         )
                     }
@@ -589,7 +578,8 @@ private fun NavItemCompactCard(
             ) {
                 Box(
                     modifier = Modifier
-                        .clip(CircleShape)
+                        .cardPressRotation()
+                        .cardPressClip(CircleShape)
                         .background(iconContainerColor)
                         .padding(5.dp),
                 ) {
@@ -688,7 +678,8 @@ private fun NavItemCard(
             ) {
                 Box(
                     modifier = Modifier
-                        .clip(CircleShape)
+                        .cardPressRotation()
+                        .cardPressClip(CircleShape)
                         .background(iconContainerColor)
                         .padding(5.dp),
                 ) {

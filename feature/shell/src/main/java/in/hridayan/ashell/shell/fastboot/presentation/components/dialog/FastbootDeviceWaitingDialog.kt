@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -26,8 +25,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -37,14 +34,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.domain.model.FastbootState
 import `in`.hridayan.ashell.core.presentation.components.card.IconWithTextCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.shell.fastboot.presentation.viewmodel.FastbootViewModel
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -53,16 +48,14 @@ fun FastbootDeviceWaitingDialog(
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit = {},
     onConfirm: () -> Unit = {},
+    fastbootState: FastbootState,
     isAdbDeviceConnected: Boolean = false,
-    adbDeviceName: String? = null,
     onBootIntoFastboot: () -> Unit = {},
-    fastbootViewModel: FastbootViewModel = hiltViewModel()
+    startScan: () -> Unit = {},
 ) {
-    val fastbootState by fastbootViewModel.state.collectAsState()
-
     val device = when (fastbootState) {
-        is FastbootState.DeviceFound -> (fastbootState as FastbootState.DeviceFound).deviceName
-        is FastbootState.Connected -> (fastbootState as FastbootState.Connected).deviceName
+        is FastbootState.DeviceFound -> fastbootState.deviceName
+        is FastbootState.Connected -> fastbootState.deviceName
         else -> null
     }
 
@@ -79,7 +72,7 @@ fun FastbootDeviceWaitingDialog(
         is FastbootState.PermissionDenied -> stringResource(R.string.permission_denied)
         is FastbootState.Connecting -> stringResource(R.string.connecting)
         is FastbootState.Disconnected -> stringResource(R.string.disconnected)
-        is FastbootState.Error -> stringResource(R.string.error) + ": ${(fastbootState as FastbootState.Error).message}"
+        is FastbootState.Error -> stringResource(R.string.error) + ": ${fastbootState.message}"
         else -> ""
     }
 
@@ -94,7 +87,7 @@ fun FastbootDeviceWaitingDialog(
             fastbootState !is FastbootState.DeviceFound
         ) {
             while (true) {
-                fastbootViewModel.startScan()
+                startScan()
                 delay(2000.milliseconds)
             }
         }
@@ -183,12 +176,9 @@ fun FastbootDeviceWaitingDialog(
                             )
                             Spacer(modifier = Modifier.widthIn(ButtonDefaults.IconSpacing))
                             AutoResizeableText(
-                                text = stringResource(R.string.boot_into_fastboot) +
-                                        if (adbDeviceName != null) " ($adbDeviceName)" else ""
+                                text = stringResource(R.string.boot_into_fastboot)
                             )
                         }
-
-                        Spacer(modifier = Modifier.height(0.dp))
                     }
 
                     OutlinedButton(
@@ -196,7 +186,6 @@ fun FastbootDeviceWaitingDialog(
                         shapes = ButtonDefaults.shapes(),
                         onClick = withHaptic(HapticFeedbackType.Reject) {
                             onDismiss()
-                            fastbootViewModel.disconnect()
                         }
                     ) {
                         AutoResizeableText(text = stringResource(R.string.cancel))

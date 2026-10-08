@@ -2,7 +2,9 @@
 
 package `in`.hridayan.ashell.logcat.presentation.components.bottomsheet
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -15,6 +17,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetState
@@ -35,16 +38,23 @@ import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape.getRoundedSh
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.logcat.domain.model.LogFilter
 import `in`.hridayan.ashell.logcat.presentation.components.filter.FilterProfileRow
+import `in`.hridayan.ashell.logcat.presentation.components.filter.ProfileSelectionHeader
 import `in`.hridayan.ashell.logcat.presentation.model.FilterProfileActions
+
+private val HEADER_MIN_HEIGHT = 48.dp
 
 /**
  * Lists saved filter profiles. Any number can be active at once; with none active, every log is
  * shown. Creating and editing happen on a separate screen.
+ *
+ * While any profile is chosen, the title becomes a selection header, and back clears the choice
+ * before it closes the sheet.
  */
 @Composable
 fun LogcatFilterProfilesBottomSheet(
     profiles: List<LogFilter>,
     activeProfileIds: Set<String>,
+    chosenProfileIds: Set<String>,
     actions: FilterProfileActions,
     onAddProfile: () -> Unit,
     onDismiss: () -> Unit,
@@ -54,26 +64,27 @@ fun LogcatFilterProfilesBottomSheet(
         enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded),
     )
 
+    val isSelecting = chosenProfileIds.isNotEmpty()
+
     ModalBottomSheet(
         sheetState = sheetState,
         onDismissRequest = onDismiss,
+        properties = ModalBottomSheetProperties(shouldDismissOnBackPress = !isSelecting),
     ) {
+        BackHandler(enabled = isSelecting) { actions.onClearChosen() }
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {
-            AutoResizeableText(
-                text = stringResource(R.string.filter_profiles),
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
+            SheetHeader(chosenCount = chosenProfileIds.size, actions = actions)
 
             if (profiles.isEmpty()) {
                 NoFilterProfiles()
             } else {
-                ProfileList(profiles, activeProfileIds, actions)
+                ProfileList(profiles, activeProfileIds, chosenProfileIds, actions)
             }
 
             OverflowButtonGroup(
@@ -95,9 +106,34 @@ fun LogcatFilterProfilesBottomSheet(
 }
 
 @Composable
+private fun SheetHeader(chosenCount: Int, actions: FilterProfileActions) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = HEADER_MIN_HEIGHT),
+        contentAlignment = Alignment.CenterStart,
+    ) {
+        if (chosenCount > 0) {
+            ProfileSelectionHeader(
+                chosenCount = chosenCount,
+                onClose = actions.onClearChosen,
+                onDelete = actions.onDeleteChosen,
+            )
+        } else {
+            AutoResizeableText(
+                text = stringResource(R.string.filter_profiles),
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        }
+    }
+}
+
+@Composable
 private fun ProfileList(
     profiles: List<LogFilter>,
     activeProfileIds: Set<String>,
+    chosenProfileIds: Set<String>,
     actions: FilterProfileActions,
 ) {
     LazyColumn(
@@ -110,6 +146,8 @@ private fun ProfileList(
             FilterProfileRow(
                 profile = profile,
                 isActive = profile.id in activeProfileIds,
+                isChosen = profile.id in chosenProfileIds,
+                isSelecting = chosenProfileIds.isNotEmpty(),
                 shape = getRoundedShape(index, profiles.size),
                 actions = actions,
             )
