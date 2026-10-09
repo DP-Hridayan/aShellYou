@@ -5,14 +5,14 @@
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.7.1/transforms/95b19844dc33f4715ee69d70949a8c4a/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.8.0/transforms/9c158c157ff35f96118c437ed693c72d/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.7.1/transforms/95b19844dc33f4715ee69d70949a8c4a/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.8.0/transforms/9c158c157ff35f96118c437ed693c72d/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue

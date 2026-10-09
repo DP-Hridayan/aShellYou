@@ -1,16 +1,15 @@
-@file:OptIn(
-    ExperimentalMaterial3Api::class,
-    ExperimentalMaterial3ExpressiveApi::class
-)
-
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -56,8 +55,6 @@ import androidx.compose.material.icons.rounded.Verified
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -96,6 +93,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
@@ -124,6 +122,7 @@ import `in`.hridayan.ashell.settings.presentation.components.svg.vectors.themePi
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.GenerateColorSchemeViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.math.sin
 
 
 @Composable
@@ -306,21 +305,30 @@ private const val CARD_DEFAULT_HEIGHT = 300
 private const val HEADER_HEIGHT = 64
 private const val HEADER_CURVE_DEPTH = 18
 private const val WAVE_PHASE_MODULO = 7
-private const val WAVE_PHASE_MULTIPLIER = 0.13f
+private const val WAVE_PHASE_MULTIPLIER = 0.89f
+private const val WAVE_ANIMATION_DURATION_MILLIS = 14000
+private const val FULL_CYCLE_RADIANS = 6.2831855f
+private const val TANGENT_BOUNDARY_DIVISOR = 3f
+private const val TANGENT_SMOOTH_DIVISOR = 6f
 private const val WAVE_SEPARATOR_WIDTH_DP = 1.5f
 private const val WAVE_SEPARATOR_ALPHA = 0.55f
 private const val WAVE1_ALPHA = 0.92f
 private const val WAVE2_ALPHA = 0.90f
 private const val WAVE3_ALPHA = 0.90f
 private const val WAVE1_Y_BASE = 0.44f
-private const val WAVE1_Y_PHASE = 0.06f
-private const val WAVE1_AMPLITUDE = 0.07f
-private const val WAVE2_Y_BASE = 0.61f
-private const val WAVE2_Y_PHASE = 0.04f
-private const val WAVE2_AMPLITUDE = 0.055f
-private const val WAVE3_Y_BASE = 0.76f
-private const val WAVE3_Y_PHASE = 0.03f
-private const val WAVE3_AMPLITUDE = 0.042f
+private const val WAVE1_AMPLITUDE = 0.052f
+private const val WAVE2_Y_BASE = 0.60f
+private const val WAVE2_AMPLITUDE = 0.044f
+private const val WAVE3_Y_BASE = 0.75f
+private const val WAVE3_AMPLITUDE = 0.038f
+
+private val WAVE_X_RATIOS = floatArrayOf(0f, 0.26f, 0.53f, 0.79f, 1f)
+private val WAVE1_POINT_AMPLITUDES = floatArrayOf(0.75f, 1.15f, 0.85f, 1.10f, 0.80f)
+private val WAVE1_POINT_PHASES = floatArrayOf(0.0f, 1.3f, 2.8f, 4.2f, 5.6f)
+private val WAVE2_POINT_AMPLITUDES = floatArrayOf(0.90f, 0.80f, 1.20f, 0.85f, 0.95f)
+private val WAVE2_POINT_PHASES = floatArrayOf(2.1f, 3.4f, 4.9f, 0.3f, 1.7f)
+private val WAVE3_POINT_AMPLITUDES = floatArrayOf(0.80f, 1.10f, 0.75f, 1.15f, 0.85f)
+private val WAVE3_POINT_PHASES = floatArrayOf(4.2f, 5.5f, 0.9f, 2.3f, 3.7f)
 
 private fun parseHex(hex: String): Color = try {
     val normalized = if (hex.startsWith("#")) hex else "#$hex"
@@ -340,6 +348,20 @@ fun ThemeMaterialCarousel(
     onEdit: (UserGeneratedColorScheme) -> Unit,
     onShare: (UserGeneratedColorScheme) -> Unit
 ) {
+    val infiniteTransition = rememberInfiniteTransition(label = "WaveAnimation")
+    val waveAnimationPhase by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = FULL_CYCLE_RADIANS,
+        animationSpec = infiniteRepeatable(
+            animation = tween(
+                durationMillis = WAVE_ANIMATION_DURATION_MILLIS,
+                easing = LinearEasing
+            ),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "WavePhaseAnimation"
+    )
+
     var searchQuery by remember { mutableStateOf("") }
     val filteredThemes = remember(themes, searchQuery) {
         if (searchQuery.isBlank()) themes
@@ -394,6 +416,7 @@ fun ThemeMaterialCarousel(
                     isCurrentItem = carouselState.currentItem == index,
                     isApplied = theme.id == appliedThemeId && !isDynamicColor && isUserGeneratedColorSchemeApplied,
                     cardHeight = cardHeight,
+                    animatedPhase = waveAnimationPhase,
                     onClick = withHaptic {
                         onApplyTheme(theme)
                         if (carouselState.currentItem != index) {
@@ -456,7 +479,33 @@ private fun CarouselItemScope.ThemeCarouselItem(
     isCurrentItem: Boolean,
     isApplied: Boolean,
     cardHeight: Dp,
+    animatedPhase: Float,
     onClick: () -> Unit
+) {
+    val staticPhase = (theme.id % WAVE_PHASE_MODULO) * WAVE_PHASE_MULTIPLIER
+    val totalPhase = staticPhase + animatedPhase
+    val cardShape = RoundedCornerShape(24.dp)
+
+    ThemeCard(
+        theme = theme,
+        modifier = Modifier.maskClip(cardShape),
+        isCurrentItem = isCurrentItem,
+        isApplied = isApplied,
+        cardHeight = cardHeight,
+        phase = totalPhase,
+        onClick = onClick
+    )
+}
+
+@Composable
+fun ThemeCard(
+    theme: UserGeneratedColorScheme,
+    modifier: Modifier = Modifier,
+    isCurrentItem: Boolean = true,
+    isApplied: Boolean = false,
+    cardHeight: Dp = CARD_DEFAULT_HEIGHT.dp,
+    phase: Float = 0f,
+    onClick: (() -> Unit)? = null
 ) {
     val primary = parseHex(theme.primary)
     val onPrimary = parseHex(theme.onPrimary)
@@ -467,16 +516,12 @@ private fun CarouselItemScope.ThemeCarouselItem(
     val secondaryContainer = parseHex(theme.secondaryContainer)
     val onSecondaryContainer = parseHex(theme.onSecondaryContainer)
 
-    val phase = (theme.id % WAVE_PHASE_MODULO) * WAVE_PHASE_MULTIPLIER
     val cardShape = RoundedCornerShape(24.dp)
     val interactionSource = remember { MutableInteractionSource() }
     val coroutineScope = rememberCoroutineScope()
 
-    Box(
-        modifier = Modifier
-            .height(cardHeight)
-            .maskClip(cardShape)
-            .background(surface)
+    val clickModifier = if (onClick != null) {
+        Modifier
             .indication(interactionSource, ripple())
             .pointerInput(onClick) {
                 awaitEachGesture {
@@ -495,6 +540,17 @@ private fun CarouselItemScope.ThemeCarouselItem(
                     }
                 }
             }
+    } else {
+        Modifier
+    }
+
+    Box(
+        modifier = Modifier
+            .height(cardHeight)
+            .clip(cardShape)
+            .then(modifier)
+            .background(surface)
+            .then(clickModifier)
     ) {
         WavePattern(
             modifier = Modifier.fillMaxSize(),
@@ -677,88 +733,165 @@ private fun WavePattern(
     onSecondary: Color,
     tertiary: Color
 ) {
+    val wavePath = remember { Path() }
+    val separatorPath = remember { Path() }
+    val yRatios = remember { FloatArray(WAVE_X_RATIOS.size) }
+
     Canvas(modifier = modifier) {
         val w = size.width
         val h = size.height
 
-        val p1Y = h * (WAVE1_Y_BASE + phase * WAVE1_Y_PHASE)
-        val p1A = h * WAVE1_AMPLITUDE
-        val p1Curve = listOf(
-            0f, p1Y + p1A * (1f - phase),
-            w * 0.20f, p1Y - p1A,
-            w * (0.45f + phase * 0.12f), p1Y + p1A * 1.5f,
-            w * 0.72f, p1Y - p1A * 0.5f,
-            w * 0.85f, p1Y - p1A * 0.8f,
-            w * 0.94f, p1Y + p1A * 0.4f,
-            w, p1Y + p1A * (0.3f - phase * 0.3f)
+        computeWaveYRatios(
+            targetYRatios = yRatios,
+            baseY = WAVE1_Y_BASE,
+            amplitude = WAVE1_AMPLITUDE,
+            phase = phase,
+            pointAmps = WAVE1_POINT_AMPLITUDES,
+            pointPhases = WAVE1_POINT_PHASES
         )
-        val primaryWave = Path().apply {
-            moveTo(p1Curve[0], p1Curve[1])
-            cubicTo(p1Curve[2], p1Curve[3], p1Curve[4], p1Curve[5], p1Curve[6], p1Curve[7])
-            cubicTo(p1Curve[8], p1Curve[9], p1Curve[10], p1Curve[11], p1Curve[12], p1Curve[13])
-            lineTo(w, h); lineTo(0f, h); close()
-        }
-        drawPath(primaryWave, color = primary.copy(alpha = WAVE1_ALPHA))
-
-        val p2Y = h * (WAVE2_Y_BASE + phase * WAVE2_Y_PHASE)
-        val p2A = h * WAVE2_AMPLITUDE
-        val p2Curve = listOf(
-            0f, p2Y - p2A * phase,
-            w * (0.28f + phase * 0.10f), p2Y + p2A,
-            w * 0.58f, p2Y - p2A,
-            w * 0.80f, p2Y + p2A * (0.5f + phase * 0.5f),
-            w * 0.90f, p2Y + p2A * 0.8f,
-            w * 0.96f, p2Y - p2A * 0.3f,
-            w, p2Y
+        buildSmoothWavePath(
+            path = wavePath,
+            xRatios = WAVE_X_RATIOS,
+            yRatios = yRatios,
+            width = w,
+            height = h,
+            isClosed = true
         )
-        val secondaryWave = Path().apply {
-            moveTo(p2Curve[0], p2Curve[1])
-            cubicTo(p2Curve[2], p2Curve[3], p2Curve[4], p2Curve[5], p2Curve[6], p2Curve[7])
-            cubicTo(p2Curve[8], p2Curve[9], p2Curve[10], p2Curve[11], p2Curve[12], p2Curve[13])
-            lineTo(w, h); lineTo(0f, h); close()
-        }
-        drawPath(secondaryWave, color = secondary.copy(alpha = WAVE2_ALPHA))
+        drawPath(wavePath, color = primary.copy(alpha = WAVE1_ALPHA))
 
-        val sep1 = Path().apply {
-            moveTo(p2Curve[0], p2Curve[1])
-            cubicTo(p2Curve[2], p2Curve[3], p2Curve[4], p2Curve[5], p2Curve[6], p2Curve[7])
-            cubicTo(p2Curve[8], p2Curve[9], p2Curve[10], p2Curve[11], p2Curve[12], p2Curve[13])
-        }
+        computeWaveYRatios(
+            targetYRatios = yRatios,
+            baseY = WAVE2_Y_BASE,
+            amplitude = WAVE2_AMPLITUDE,
+            phase = phase,
+            pointAmps = WAVE2_POINT_AMPLITUDES,
+            pointPhases = WAVE2_POINT_PHASES
+        )
+        buildSmoothWavePath(
+            path = wavePath,
+            xRatios = WAVE_X_RATIOS,
+            yRatios = yRatios,
+            width = w,
+            height = h,
+            isClosed = true
+        )
+        drawPath(wavePath, color = secondary.copy(alpha = WAVE2_ALPHA))
+
+        buildSmoothWavePath(
+            path = separatorPath,
+            xRatios = WAVE_X_RATIOS,
+            yRatios = yRatios,
+            width = w,
+            height = h,
+            isClosed = false
+        )
         drawPath(
-            sep1,
+            separatorPath,
             color = onPrimary.copy(alpha = WAVE_SEPARATOR_ALPHA),
             style = Stroke(width = WAVE_SEPARATOR_WIDTH_DP.dp.toPx())
         )
 
-        val p3Y = h * (WAVE3_Y_BASE + phase * WAVE3_Y_PHASE)
-        val p3A = h * WAVE3_AMPLITUDE
-        val p3Curve = listOf(
-            0f, p3Y - p3A * (1f - phase),
-            w * 0.25f, p3Y + p3A,
-            w * (0.52f + phase * 0.08f), p3Y - p3A * 1.2f,
-            w * 0.76f, p3Y + p3A * 0.8f,
-            w * 0.88f, p3Y + p3A,
-            w * 0.95f, p3Y - p3A * 0.5f,
-            w, p3Y - p3A * phase
+        computeWaveYRatios(
+            targetYRatios = yRatios,
+            baseY = WAVE3_Y_BASE,
+            amplitude = WAVE3_AMPLITUDE,
+            phase = phase,
+            pointAmps = WAVE3_POINT_AMPLITUDES,
+            pointPhases = WAVE3_POINT_PHASES
         )
-        val tertiaryWave = Path().apply {
-            moveTo(p3Curve[0], p3Curve[1])
-            cubicTo(p3Curve[2], p3Curve[3], p3Curve[4], p3Curve[5], p3Curve[6], p3Curve[7])
-            cubicTo(p3Curve[8], p3Curve[9], p3Curve[10], p3Curve[11], p3Curve[12], p3Curve[13])
-            lineTo(w, h); lineTo(0f, h); close()
-        }
-        drawPath(tertiaryWave, color = tertiary.copy(alpha = WAVE3_ALPHA))
+        buildSmoothWavePath(
+            path = wavePath,
+            xRatios = WAVE_X_RATIOS,
+            yRatios = yRatios,
+            width = w,
+            height = h,
+            isClosed = true
+        )
+        drawPath(wavePath, color = tertiary.copy(alpha = WAVE3_ALPHA))
 
-        val sep2 = Path().apply {
-            moveTo(p3Curve[0], p3Curve[1])
-            cubicTo(p3Curve[2], p3Curve[3], p3Curve[4], p3Curve[5], p3Curve[6], p3Curve[7])
-            cubicTo(p3Curve[8], p3Curve[9], p3Curve[10], p3Curve[11], p3Curve[12], p3Curve[13])
-        }
+        buildSmoothWavePath(
+            path = separatorPath,
+            xRatios = WAVE_X_RATIOS,
+            yRatios = yRatios,
+            width = w,
+            height = h,
+            isClosed = false
+        )
         drawPath(
-            sep2,
+            separatorPath,
             color = onSecondary.copy(alpha = WAVE_SEPARATOR_ALPHA),
             style = Stroke(width = WAVE_SEPARATOR_WIDTH_DP.dp.toPx())
         )
+    }
+}
+
+private fun computeWaveYRatios(
+    targetYRatios: FloatArray,
+    baseY: Float,
+    amplitude: Float,
+    phase: Float,
+    pointAmps: FloatArray,
+    pointPhases: FloatArray
+) {
+    for (i in targetYRatios.indices) {
+        val angle = phase + pointPhases[i]
+        targetYRatios[i] = baseY + amplitude * pointAmps[i] * sin(angle)
+    }
+}
+
+private fun buildSmoothWavePath(
+    path: Path,
+    xRatios: FloatArray,
+    yRatios: FloatArray,
+    width: Float,
+    height: Float,
+    isClosed: Boolean
+) {
+    val pointCount = xRatios.size
+    val firstX = xRatios[0] * width
+    val firstY = yRatios[0] * height
+    path.reset()
+    path.moveTo(firstX, firstY)
+
+    for (i in 0 until pointCount - 1) {
+        val p0X = xRatios[i] * width
+        val p0Y = yRatios[i] * height
+        val p1X = xRatios[i + 1] * width
+        val p1Y = yRatios[i + 1] * height
+
+        val cp1X: Float
+        val cp1Y: Float
+        if (i == 0) {
+            val deltaX = (p1X - p0X) / TANGENT_BOUNDARY_DIVISOR
+            cp1X = p0X + deltaX
+            cp1Y = p0Y
+        } else {
+            val prevX = xRatios[i - 1] * width
+            val prevY = yRatios[i - 1] * height
+            cp1X = p0X + (p1X - prevX) / TANGENT_SMOOTH_DIVISOR
+            cp1Y = p0Y + (p1Y - prevY) / TANGENT_SMOOTH_DIVISOR
+        }
+
+        val cp2X: Float
+        val cp2Y: Float
+        if (i == pointCount - 2) {
+            val deltaX = (p1X - p0X) / TANGENT_BOUNDARY_DIVISOR
+            cp2X = p1X - deltaX
+            cp2Y = p1Y
+        } else {
+            val nextX = xRatios[i + 2] * width
+            val nextY = yRatios[i + 2] * height
+            cp2X = p1X - (nextX - p0X) / TANGENT_SMOOTH_DIVISOR
+            cp2Y = p1Y - (nextY - p0Y) / TANGENT_SMOOTH_DIVISOR
+        }
+
+        path.cubicTo(cp1X, cp1Y, cp2X, cp2Y, p1X, p1Y)
+    }
+
+    if (isClosed) {
+        path.lineTo(width, height)
+        path.lineTo(0f, height)
+        path.close()
     }
 }
 
@@ -861,5 +994,79 @@ fun CreateWithAiSection(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ThemeCardPreview() {
+    val sampleTheme = remember {
+        UserGeneratedColorScheme(
+            id = 1,
+            name = "Ocean Wave",
+            primary = "#2B5C8F",
+            onPrimary = "#FFFFFF",
+            primaryContainer = "#D4E3FF",
+            onPrimaryContainer = "#001C38",
+            inversePrimary = "#A5C8FF",
+            secondary = "#535F70",
+            onSecondary = "#FFFFFF",
+            secondaryContainer = "#D7E3F7",
+            onSecondaryContainer = "#101C2B",
+            tertiary = "#6B5778",
+            onTertiary = "#FFFFFF",
+            tertiaryContainer = "#F2DAFF",
+            onTertiaryContainer = "#251432",
+            error = "#BA1A1A",
+            onError = "#FFFFFF",
+            errorContainer = "#FFDAD6",
+            onErrorContainer = "#410002",
+            background = "#FDFCFF",
+            onBackground = "#1A1C1E",
+            surface = "#FDFCFF",
+            onSurface = "#1A1C1E",
+            surfaceVariant = "#DFE2EB",
+            onSurfaceVariant = "#43474E",
+            surfaceTint = "#2B5C8F",
+            inverseSurface = "#2F3033",
+            inverseOnSurface = "#F1F0F4",
+            surfaceBright = "#FDFCFF",
+            surfaceDim = "#DAD9DD",
+            surfaceContainer = "#EEEDF1",
+            surfaceContainerHigh = "#E8E7EB",
+            surfaceContainerHighest = "#E2E2E6",
+            surfaceContainerLow = "#F4F3F7",
+            surfaceContainerLowest = "#FFFFFF",
+            outline = "#73777F",
+            outlineVariant = "#C3C7D0",
+            scrim = "#000000"
+        )
+    }
+
+    val infiniteTransition = rememberInfiniteTransition(label = "PreviewWaveAnimation")
+    val phase by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = FULL_CYCLE_RADIANS,
+        animationSpec = infiniteRepeatable(
+            animation = tween(
+                durationMillis = WAVE_ANIMATION_DURATION_MILLIS,
+                easing = LinearEasing
+            ),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "PreviewWavePhase"
+    )
+
+    Box(
+        modifier = Modifier
+            .padding(16.dp)
+            .width(260.dp)
+    ) {
+        ThemeCard(
+            theme = sampleTheme,
+            isCurrentItem = true,
+            isApplied = true,
+            phase = phase
+        )
     }
 }
