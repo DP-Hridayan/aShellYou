@@ -31,7 +31,7 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>(mikropsoft)</b></sub></a>
         <br />
-        <sub><b>11602 words</b></sub>
+        <sub><b>19739 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/luciakun"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17812685/medium/873770cc48fabe807a57b4bc6f933ff4.jpeg" />
