@@ -41,6 +41,7 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
 import `in`.hridayan.ashell.logcat.domain.util.indexAtOrAfter
 import `in`.hridayan.ashell.logcat.presentation.model.LogListActions
+import `in`.hridayan.ashell.logcat.presentation.model.LogSelectionState
 import kotlinx.coroutines.launch
 
 private val LogListBottomPadding = 80.dp
@@ -58,6 +59,7 @@ private val FabBottomPadding = 16.dp
 fun AutoScrollingLogList(
     logs: List<LogEntry>,
     expandedIds: Set<Long>,
+    selection: LogSelectionState,
     listState: LazyListState,
     isAutoScrolling: Boolean,
     actions: LogListActions,
@@ -76,6 +78,7 @@ fun AutoScrollingLogList(
         LogList(
             logs = logs,
             expandedIds = expandedIds,
+            selection = selection,
             listState = listState,
             contentPadding = contentPadding,
             actions = actions,
@@ -182,6 +185,7 @@ private fun holdTopRow(listState: LazyListState, logs: List<LogEntry>) {
 private fun LogList(
     logs: List<LogEntry>,
     expandedIds: Set<Long>,
+    selection: LogSelectionState,
     listState: LazyListState,
     contentPadding: PaddingValues,
     actions: LogListActions,
@@ -197,7 +201,9 @@ private fun LogList(
                 modifier = Modifier.fillMaxWidth(),
                 entry = entry,
                 isExpanded = entry.id in expandedIds,
-                onClick = { actions.onToggleExpanded(entry.id) },
+                isSelectionMode = selection.isActive,
+                isSelected = entry.id in selection.selectedIds,
+                onClick = { actions.onClick(entry) },
                 onLongClick = { actions.onLongClick(entry) },
             )
         }

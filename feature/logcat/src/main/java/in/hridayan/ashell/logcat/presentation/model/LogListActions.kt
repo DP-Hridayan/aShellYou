@@ -7,6 +7,6 @@ import `in`.hridayan.ashell.logcat.domain.model.LogEntry
 data class LogListActions(
     val onPauseAutoScroll: () -> Unit,
     val onResumeAutoScroll: () -> Unit,
-    val onToggleExpanded: (Long) -> Unit,
+    val onClick: (LogEntry) -> Unit,
     val onLongClick: (LogEntry) -> Unit,
 )

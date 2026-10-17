@@ -19,26 +19,24 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
+import `in`.hridayan.ashell.logcat.presentation.model.LogExportActions
+import `in`.hridayan.ashell.logcat.presentation.model.LogcatTopBarActions
 
 /**
  * Logcat screen top app bar.
  *
  * Play/Pause controls the logging service (start/stop).
  * Mode button (tab0 only) opens the source selection sheet.
- * Filter and Clear are secondary actions.
+ * Filter and Clear are secondary actions; selecting and exporting live in [LogcatOverflowMenu].
  */
 @Composable
 fun LogcatTopBar(
     isRunning: Boolean,
     isPlayPauseEnabled: Boolean,
     showModeAction: Boolean,
-    searchVisible: Boolean,
     isPreflightChecking: Boolean,
-    onSearchToggle: () -> Unit,
-    onPlayPause: () -> Unit,
-    onModeClick: () -> Unit,
-    onOpenFilter: () -> Unit,
-    onClear: () -> Unit,
+    actions: LogcatTopBarActions,
+    exportActions: LogExportActions,
     modifier: Modifier = Modifier,
 ) {
     TopAppBar(
@@ -53,21 +51,8 @@ fun LogcatTopBar(
             )
         },
         actions = {
-            // Search toggle
-            IconButton(onClick = withHaptic { onSearchToggle() }) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_search),
-                    contentDescription = stringResource(R.string.search),
-                    tint = if (searchVisible) {
-                        MaterialTheme.colorScheme.primary
-                    } else {
-                        MaterialTheme.colorScheme.onSurface
-                    },
-                )
-            }
-
             if (showModeAction) {
-                IconButton(onClick = withHaptic { onModeClick() }) {
+                IconButton(onClick = withHaptic { actions.onModeClick() }) {
                     Icon(
                         painter = painterResource(R.drawable.ic_settings),
                         contentDescription = stringResource(R.string.logcat_source),
@@ -76,7 +61,7 @@ fun LogcatTopBar(
             }
 
             IconButton(
-                onClick = withHaptic { onPlayPause() },
+                onClick = withHaptic { actions.onPlayPause() },
                 enabled = isPlayPauseEnabled && !isPreflightChecking,
             ) {
                 if (isPreflightChecking) {
@@ -103,19 +88,21 @@ fun LogcatTopBar(
                 }
             }
 
-            IconButton(onClick = withHaptic { onOpenFilter() }) {
+            IconButton(onClick = withHaptic { actions.onOpenFilter() }) {
                 Icon(
                     painter = painterResource(R.drawable.ic_filter_alt),
                     contentDescription = stringResource(R.string.filter),
                 )
             }
 
-            IconButton(onClick = withHaptic { onClear() }) {
+            IconButton(onClick = withHaptic { actions.onClear() }) {
                 Icon(
                     painter = painterResource(R.drawable.ic_delete),
                     contentDescription = stringResource(R.string.clear),
                 )
             }
+
+            LogcatOverflowMenu(actions = exportActions)
         }
     )
 }

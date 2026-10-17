@@ -3,6 +3,11 @@
 package `in`.hridayan.ashell.logcat.presentation.screens
 
 import android.content.Context
+import android.content.Intent
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
@@ -26,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -42,6 +48,7 @@ import `in`.hridayan.ashell.logcat.domain.model.LogEntry
 import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult
 import `in`.hridayan.ashell.logcat.presentation.components.AutoScrollingLogList
 import `in`.hridayan.ashell.logcat.presentation.components.LogcatSecondaryToolbar
+import `in`.hridayan.ashell.logcat.presentation.components.LogcatSelectionTopBar
 import `in`.hridayan.ashell.logcat.presentation.components.LogcatTopBar
 import `in`.hridayan.ashell.logcat.presentation.components.OtherDeviceContent
 import `in`.hridayan.ashell.logcat.presentation.components.bottomsheet.LogEntryDetailBottomSheet
@@ -53,14 +60,20 @@ import `in`.hridayan.ashell.logcat.presentation.components.dialog.ReadLogsRestar
 import `in`.hridayan.ashell.logcat.presentation.components.dialog.RootUnavailableDialog
 import `in`.hridayan.ashell.logcat.presentation.components.dialog.WirelessNotConnectedDialog
 import `in`.hridayan.ashell.logcat.presentation.event.LogcatUiEvent
+import `in`.hridayan.ashell.logcat.presentation.model.ExportScope
 import `in`.hridayan.ashell.logcat.presentation.model.FilterProfileActions
+import `in`.hridayan.ashell.logcat.presentation.model.LogExportActions
 import `in`.hridayan.ashell.logcat.presentation.model.LogListActions
 import `in`.hridayan.ashell.logcat.presentation.model.LogListUiState
+import `in`.hridayan.ashell.logcat.presentation.model.LogSelectionActions
+import `in`.hridayan.ashell.logcat.presentation.model.LogSelectionState
 import `in`.hridayan.ashell.logcat.presentation.model.LogcatTab
+import `in`.hridayan.ashell.logcat.presentation.model.LogcatTopBarActions
 import `in`.hridayan.ashell.logcat.presentation.model.OtherDeviceUiState
 import `in`.hridayan.ashell.logcat.presentation.viewmodel.LogcatViewModel
 
 private const val PACKAGE_SEPARATOR = ", "
+private const val EXPORT_MIME_TYPE = "text/plain"
 
 @Composable
 fun LogcatScreen(
@@ -78,11 +91,13 @@ fun LogcatScreen(
     val activeProfileIds by viewModel.activeProfileIds.collectAsStateWithLifecycle()
     val chosenProfileIds by viewModel.chosenProfileIds.collectAsStateWithLifecycle()
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
-    val expandedIds by viewModel.expandedIds.collectAsStateWithLifecycle()
+    val expandedIds by viewModel.selection.expandedIds.collectAsStateWithLifecycle()
     val activeTab by viewModel.activeTab.collectAsStateWithLifecycle()
     val preflightResult by viewModel.preflightResult.collectAsStateWithLifecycle()
     val preflightChecking by viewModel.preflightChecking.collectAsStateWithLifecycle()
     val shizukuGranted by viewModel.shizukuPermissionState.collectAsStateWithLifecycle()
+    val selectionState by viewModel.selection.state.collectAsStateWithLifecycle()
+    val isExporting by viewModel.selection.isExporting.collectAsStateWithLifecycle()
 
     val logcatMode = settings[SettingsKeys.LogcatMode]
     val listState = rememberLazyListState()
@@ -90,28 +105,42 @@ fun LogcatScreen(
 
     var showFilterSheet by rememberSaveable { mutableStateOf(false) }
     var showModeSheet by rememberSaveable { mutableStateOf(false) }
-    var searchVisible by rememberSaveable { mutableStateOf(false) }
     var showOtgDialog by rememberSaveable { mutableStateOf(false) }
     var detailEntry by remember { mutableStateOf<LogEntry?>(null) }
     var confirmDeleteChosen by rememberSaveable { mutableStateOf(false) }
 
-    val actions = remember(viewModel) {
-        LogListActions(
-            onPauseAutoScroll = { viewModel.pauseAutoScroll(LogcatTab.THIS_DEVICE) },
-            onResumeAutoScroll = { viewModel.resumeAutoScroll(LogcatTab.THIS_DEVICE) },
-            onToggleExpanded = { viewModel.toggleExpanded(it) },
-            onLongClick = { detailEntry = it },
+    val actions = remember(viewModel) { logListActions(viewModel, LogcatTab.THIS_DEVICE) }
+    val otherDeviceActions = remember(viewModel) { logListActions(viewModel, LogcatTab.OTHER_DEVICE) }
+
+    val activeLogs = when (activeTab) {
+        LogcatTab.THIS_DEVICE -> thisDeviceState.logs
+        LogcatTab.OTHER_DEVICE -> otherDeviceState.logs
+    }
+    val searchVisible = !selectionState.isActive && (activeLogs.isNotEmpty() || searchQuery.isNotEmpty())
+
+    val saveLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.CreateDocument(EXPORT_MIME_TYPE)
+    ) { uri -> uri?.let { viewModel.selection.saveTo(it.toString()) } }
+
+    val exportActions = LogExportActions(
+        isEnabled = activeLogs.isNotEmpty() && !isExporting,
+        onSelect = { viewModel.selection.start() },
+        onSave = { viewModel.selection.requestSave(ExportScope.ALL) },
+        onShare = { viewModel.selection.share(ExportScope.ALL) },
+    )
+
+    val selectionActions = remember(viewModel) {
+        LogSelectionActions(
+            onClose = { viewModel.selection.exit() },
+            onDetails = { detailEntry = viewModel.selection.singleSelectedEntry() },
+            onToggleSelectAll = { viewModel.selection.toggleSelectAll() },
+            onCopy = { viewModel.selection.copySelection() },
+            onShare = { viewModel.selection.share(ExportScope.SELECTION) },
+            onSave = { viewModel.selection.requestSave(ExportScope.SELECTION) },
         )
     }
 
-    val otherDeviceActions = remember(viewModel) {
-        LogListActions(
-            onPauseAutoScroll = { viewModel.pauseAutoScroll(LogcatTab.OTHER_DEVICE) },
-            onResumeAutoScroll = { viewModel.resumeAutoScroll(LogcatTab.OTHER_DEVICE) },
-            onToggleExpanded = { viewModel.toggleExpanded(it) },
-            onLongClick = { detailEntry = it },
-        )
-    }
+    BackHandler(enabled = selectionState.isActive) { viewModel.selection.exit() }
 
     val filterProfileActions = remember(viewModel, navController) {
         FilterProfileActions(
@@ -138,7 +167,9 @@ fun LogcatScreen(
     }
 
     LaunchedEffect(viewModel) {
-        viewModel.uiEvent.collect { event -> handleUiEvent(context, event) }
+        viewModel.uiEvent.collect { event ->
+            handleUiEvent(context, event, onPickSaveLocation = { saveLauncher.launch(it) })
+        }
     }
 
     val tryStartLogcat: () -> Unit = { viewModel.checkAndStart(logcatMode) }
@@ -147,28 +178,35 @@ fun LogcatScreen(
         modifier = Modifier.fillMaxSize(),
         contentWindowInsets = WindowInsets(0),
         topBar = {
-            LogcatTopBar(
-                isRunning = isActiveTabRunning,
-                isPlayPauseEnabled = activeTab == LogcatTab.THIS_DEVICE || isOtherDeviceConnected,
-                showModeAction = activeTab == LogcatTab.THIS_DEVICE,
-                searchVisible = searchVisible,
-                isPreflightChecking = preflightChecking,
-                onSearchToggle = {
-                    if (searchVisible) viewModel.search("")
-                    searchVisible = !searchVisible
-                },
-                onPlayPause = {
-                    when (activeTab) {
-                        LogcatTab.THIS_DEVICE ->
-                            if (isRunning) viewModel.stopLogcat() else tryStartLogcat()
+            if (selectionState.isActive) {
+                LogcatSelectionTopBar(
+                    selectedCount = selectionState.selectedIds.size,
+                    allSelected = activeLogs.isNotEmpty() && selectionState.selectedIds.size >= activeLogs.size,
+                    isExporting = isExporting,
+                    actions = selectionActions,
+                )
+            } else {
+                LogcatTopBar(
+                    isRunning = isActiveTabRunning,
+                    isPlayPauseEnabled = activeTab == LogcatTab.THIS_DEVICE || isOtherDeviceConnected,
+                    showModeAction = activeTab == LogcatTab.THIS_DEVICE,
+                    isPreflightChecking = preflightChecking,
+                    actions = LogcatTopBarActions(
+                        onPlayPause = {
+                            when (activeTab) {
+                                LogcatTab.THIS_DEVICE ->
+                                    if (isRunning) viewModel.stopLogcat() else tryStartLogcat()
 
-                        LogcatTab.OTHER_DEVICE -> viewModel.toggleOtherDeviceLogs()
-                    }
-                },
-                onModeClick = { showModeSheet = true },
-                onOpenFilter = { showFilterSheet = true },
-                onClear = { viewModel.clearLogs(activeTab) },
-            )
+                                LogcatTab.OTHER_DEVICE -> viewModel.toggleOtherDeviceLogs()
+                            }
+                        },
+                        onModeClick = { showModeSheet = true },
+                        onOpenFilter = { showFilterSheet = true },
+                        onClear = { viewModel.clearLogs(activeTab) },
+                    ),
+                    exportActions = exportActions,
+                )
+            }
         },
     ) { innerPadding ->
         Column(
@@ -188,6 +226,7 @@ fun LogcatScreen(
                 LogcatTab.THIS_DEVICE -> ThisDeviceContent(
                     state = thisDeviceState,
                     expandedIds = expandedIds,
+                    selection = selectionState,
                     isRunning = isRunning,
                     listState = listState,
                     actions = actions,
@@ -198,6 +237,7 @@ fun LogcatScreen(
                         list = otherDeviceState,
                         isConnected = isOtherDeviceConnected,
                         isRunning = isOtherDeviceRunning,
+                        selection = selectionState,
                     ),
                     expandedIds = expandedIds,
                     listState = otherDeviceListState,
@@ -341,17 +381,53 @@ private fun LogEntryDetails(
     )
 }
 
-private fun handleUiEvent(context: Context, event: LogcatUiEvent) {
+private fun logListActions(viewModel: LogcatViewModel, tab: LogcatTab) = LogListActions(
+    onPauseAutoScroll = { viewModel.pauseAutoScroll(tab) },
+    onResumeAutoScroll = { viewModel.resumeAutoScroll(tab) },
+    onClick = { viewModel.selection.onClick(it) },
+    onLongClick = { viewModel.selection.onLongClick(it) },
+)
+
+private fun handleUiEvent(
+    context: Context,
+    event: LogcatUiEvent,
+    onPickSaveLocation: (String) -> Unit,
+) {
     when (event) {
-        LogcatUiEvent.PermissionStillMissing ->
-            ToastUtils.makeToast(context, context.getString(R.string.permission_not_granted_yet))
+        LogcatUiEvent.PermissionStillMissing -> toast(context, R.string.permission_not_granted_yet)
+        is LogcatUiEvent.CopyLogs -> copyLogs(context, event)
+        LogcatUiEvent.CopyTooLarge -> toast(context, R.string.logcat_copy_too_large)
+        is LogcatUiEvent.PickSaveLocation -> onPickSaveLocation(event.fileName)
+        LogcatUiEvent.LogsSaved -> toast(context, R.string.logs_saved)
+        is LogcatUiEvent.ShareLogs -> shareLogs(context, event.uriString)
+        LogcatUiEvent.ExportFailed -> toast(context, R.string.failed)
     }
+}
+
+private fun toast(context: Context, @StringRes message: Int) =
+    ToastUtils.makeToast(context, context.getString(message))
+
+private fun copyLogs(context: Context, event: LogcatUiEvent.CopyLogs) {
+    ClipboardUtils.copyToClipboard(text = event.text, context = context) {
+        val message = context.resources.getQuantityString(R.plurals.logs_copied, event.count, event.count)
+        ToastUtils.makeToast(context, message)
+    }
+}
+
+private fun shareLogs(context: Context, uriString: String) {
+    val intent = Intent(Intent.ACTION_SEND).apply {
+        type = EXPORT_MIME_TYPE
+        putExtra(Intent.EXTRA_STREAM, uriString.toUri())
+        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    }
+    context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)))
 }
 
 @Composable
 private fun ThisDeviceContent(
     state: LogListUiState,
     expandedIds: Set<Long>,
+    selection: LogSelectionState,
     isRunning: Boolean,
     listState: LazyListState,
     actions: LogListActions,
@@ -380,6 +456,7 @@ private fun ThisDeviceContent(
                 AutoScrollingLogList(
                     logs = state.logs,
                     expandedIds = expandedIds,
+                    selection = selection,
                     listState = listState,
                     isAutoScrolling = state.isAutoScrolling,
                     actions = actions,

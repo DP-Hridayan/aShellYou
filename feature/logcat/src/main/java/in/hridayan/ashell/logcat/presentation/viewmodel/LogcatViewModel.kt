@@ -19,6 +19,7 @@ import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult
 import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult.NeedsReadLogs
 import `in`.hridayan.ashell.logcat.domain.model.LogcatPreflightResult.Ready
 import `in`.hridayan.ashell.logcat.domain.model.ReadLogsPermission
+import `in`.hridayan.ashell.logcat.domain.repository.LogExportRepository
 import `in`.hridayan.ashell.logcat.domain.repository.LogcatFilterRepository
 import `in`.hridayan.ashell.logcat.domain.usecase.CheckLogcatPreflightUseCase
 import `in`.hridayan.ashell.logcat.domain.usecase.ObserveLogsUseCase
@@ -34,11 +35,11 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -56,6 +57,7 @@ class LogcatViewModel @Inject constructor(
     private val shellRepository: ShellRepository,
     private val settingsRepository: SettingsRepository,
     private val packageResolvers: PackageUidResolvers,
+    private val logExportRepository: LogExportRepository,
     @ApplicationContext private val context: Context,
 ) : ViewModel() {
 
@@ -150,6 +152,7 @@ class LogcatViewModel @Inject constructor(
     val activeTab: StateFlow<LogcatTab> = _activeTab.asStateFlow()
 
     fun switchTab(tab: LogcatTab) {
+        if (tab != _activeTab.value) selection.exit()
         _activeTab.value = tab
     }
 
@@ -217,8 +220,18 @@ class LogcatViewModel @Inject constructor(
         return resolver?.packagesOf(uid).orEmpty()
     }
 
-    private val _expandedIds = MutableStateFlow<Set<Long>>(emptySet())
-    val expandedIds: StateFlow<Set<Long>> = _expandedIds.asStateFlow()
+    private val activeLogs = combine(_activeTab, thisDeviceState, otherDeviceState) { tab, thisState, otherState ->
+        if (tab == LogcatTab.THIS_DEVICE) thisState.logs else otherState.logs
+    }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+
+    /** Row taps, selection mode and export of the active tab; see [LogSelectionController]. */
+    val selection = LogSelectionController(
+        coroutineScope = viewModelScope,
+        repository = logExportRepository,
+        activeLogs = activeLogs,
+        pauseAutoScroll = { pauseAutoScroll(_activeTab.value) },
+        events = _uiEvent,
+    )
 
     @Volatile
     private var lastRestoredId: Long = 0L
@@ -259,6 +272,7 @@ class LogcatViewModel @Inject constructor(
     }
 
     fun clearLogs(tab: LogcatTab) {
+        selection.exit()
         when (tab) {
             LogcatTab.THIS_DEVICE -> clearThisDevice()
             LogcatTab.OTHER_DEVICE -> otherDevice.clear()
@@ -268,10 +282,6 @@ class LogcatViewModel @Inject constructor(
     private fun clearThisDevice() {
         sessionHolder.clearBuffer()
         thisDevice.reset()
-    }
-
-    fun toggleExpanded(id: Long) {
-        _expandedIds.update { ids -> if (id in ids) ids - id else ids + id }
     }
 
     private fun observeLiveEntries() {

@@ -2,8 +2,11 @@
 
 package `in`.hridayan.ashell.logcat.presentation.components
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
@@ -11,16 +14,22 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -28,7 +37,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.logcat.domain.model.LogEntry
+
+private const val SELECTED_TINT_ALPHA = 0.3f
+private val CheckIconSize = 14.dp
+private val CheckColumnPadding = 4.dp
 
 /**
  * A single logcat row in the LazyColumn.
@@ -38,12 +52,15 @@ import `in`.hridayan.ashell.logcat.domain.model.LogEntry
  *
  * Default: single line with ellipsis.
  * Expanded (tap): full text, animates open via [animateContentSize].
- * Long-press: triggers [onLongClick] to show the detail bottom sheet.
+ * Long-press: triggers [onLongClick], which starts or extends a selection.
+ * Selection mode: a check column slides in before the color bar and selected rows are tinted.
  */
 @Composable
 fun LogEntryRow(
     entry: LogEntry,
     isExpanded: Boolean,
+    isSelectionMode: Boolean,
+    isSelected: Boolean,
     onClick: () -> Unit,
     onLongClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -58,6 +75,7 @@ fun LogEntryRow(
         modifier = modifier
             .fillMaxWidth()
             .background(bgColor)
+            .background(selectionTint(isSelected))
             .combinedClickable(
                 onClick = withHaptic { onClick() },
                 onLongClick = withHaptic(HapticFeedbackType.LongPress) { onLongClick() },
@@ -66,6 +84,8 @@ fun LogEntryRow(
             .animateContentSize(animationSpec = tween(durationMillis = 200))
             .height(IntrinsicSize.Min)
     ) {
+        SelectionCheck(isSelectionMode = isSelectionMode, isSelected = isSelected)
+
         // 4dp left color bar — always full height of the row
         Box(
             modifier = Modifier
@@ -108,5 +128,30 @@ fun LogEntryRow(
                 overflow = TextOverflow.Ellipsis,
             )
         }
+    }
+}
+
+@Composable
+private fun selectionTint(isSelected: Boolean): Color =
+    if (isSelected) MaterialTheme.colorScheme.primaryContainer.copy(alpha = SELECTED_TINT_ALPHA) else Color.Transparent
+
+@Composable
+private fun RowScope.SelectionCheck(isSelectionMode: Boolean, isSelected: Boolean) {
+    AnimatedVisibility(
+        modifier = Modifier.align(Alignment.CenterVertically),
+        visible = isSelectionMode,
+        enter = expandHorizontally(),
+        exit = shrinkHorizontally(),
+    ) {
+        Icon(
+            modifier = Modifier
+                .padding(horizontal = CheckColumnPadding)
+                .size(CheckIconSize),
+            painter = painterResource(
+                if (isSelected) R.drawable.ic_checked_filled else R.drawable.ic_checked_outline
+            ),
+            contentDescription = null,
+            tint = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+        )
     }
 }

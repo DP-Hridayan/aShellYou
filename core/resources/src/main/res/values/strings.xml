@@ -754,6 +754,7 @@
     <string name="log_buffer_size" comment="Title of the setting choosing how much memory the logcat buffer may use">Log buffer size</string>
     <string name="logcat" comment="Refers to Android system logcat log streaming tool" translatable="false">Logcat</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Logs cleared</string>
+    <string name="logcat_copy_too_large" comment="Toast shown when the selected logcat entries are too large for the clipboard; suggests saving them to a file instead">Too many logs to copy. Save them to a file instead.</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">Package</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">Log levels</string>
     <string name="logcat_filter_pid" translatable="false">PID</string>
@@ -774,6 +775,7 @@
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat Source</string>
     <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Tap ▶ to start logcat</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">Logs</string>
+    <string name="logs_saved" comment="Toast shown after exported logcat entries were written to the file the user picked">Logs saved</string>
     <string name="long_edge_pixels" comment="A limit on a video's longer side. %1$d is a number of pixels">%1$d px</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Look &amp; Feel</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Low</string>
@@ -1192,6 +1194,7 @@
     <string name="save_changes" comment="Action button to persist edited settings or tile parameters">Save Changes</string>
     <string name="save_key" comment="Button label to save entered API key string in settings">Save key</string>
     <string name="save_theme" comment="Button label to save and apply the imported or generated color scheme">Save theme</string>
+    <string name="save_to_file" comment="Menu item that saves the logs as a text file at a location the user picks">Save to file</string>
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">Save whole output</string>
     <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">Saved devices</string>
     <string name="saver" comment="Video quality level that uses the least data and battery">Saver</string>
@@ -1226,6 +1229,7 @@
     <string name="select_backup_folder_message" comment="Dialog message prompting user to grant folder access for local automated backups">Please select a folder where backups will be saved. The app needs read and write access to this folder.</string>
     <string name="select_backup_folder_title" comment="Dialog title when no backup directory has been configured">No backup folder</string>
     <string name="select_folder" comment="Action button to open system directory picker for backup storage">Select folder</string>
+    <string name="select_logs" comment="Menu item on the logcat screen that starts choosing log entries to copy, share or save">Select logs</string>
     <string name="select_partition" comment="Dropdown hint or dialog header for picking target fastboot partition">Select partition</string>
     <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">Select a theme above to edit its raw hex values here.</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">Select time</string>
@@ -1484,7 +1488,15 @@
         <item quantity="one">%1$d new entry</item>
         <item quantity="other">%1$d new entries</item>
     </plurals>
+    <plurals name="logs_copied" comment="Toast shown after copying logcat entries to the clipboard; %1$d = number of entries copied">
+        <item quantity="one">Copied %1$d log</item>
+        <item quantity="other">Copied %1$d logs</item>
+    </plurals>
     <plurals name="profiles_selected" comment="Header of the logcat filter profile list while choosing profiles to edit or delete; %1$d = number chosen">
+        <item quantity="one">%1$d selected</item>
+        <item quantity="other">%1$d selected</item>
+    </plurals>
+    <plurals name="selected_count" comment="Title of a top bar while choosing list items; %1$d = number of items selected">
         <item quantity="one">%1$d selected</item>
         <item quantity="other">%1$d selected</item>
     </plurals>

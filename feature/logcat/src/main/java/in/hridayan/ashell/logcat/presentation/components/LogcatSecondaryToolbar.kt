@@ -31,10 +31,11 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.logcat.presentation.model.LogcatTab
 
 /**
- * Tabs + search bar placed directly below [LogcatTopBar].
+ * Search bar + tabs placed directly below [LogcatTopBar].
  *
+ * - Search bar sits above the tabs and appears/disappears based on [searchVisible], with a clear
+ *   button once typed in.
  * - Tab row is always visible.
- * - Search bar appears/disappears based on [searchVisible], with a clear button once typed in.
  */
 @Composable
 fun LogcatSecondaryToolbar(
@@ -48,16 +49,6 @@ fun LogcatSecondaryToolbar(
     val keyboard = LocalSoftwareKeyboardController.current
 
     Column(modifier = modifier.fillMaxWidth()) {
-        PrimaryTabRow(selectedTabIndex = activeTab.ordinal) {
-            LogcatTab.entries.forEach { tab ->
-                Tab(
-                    selected = activeTab == tab,
-                    onClick = withHaptic { onTabSelected(tab) },
-                    text = { Text(stringResource(tab.labelRes())) },
-                )
-            }
-        }
-
         AnimatedVisibility(
             visible = searchVisible,
             enter = expandVertically(),
@@ -76,6 +67,16 @@ fun LogcatSecondaryToolbar(
                     if (searchQuery.isNotEmpty()) ClearSearchButton(onClear = { onSearchQueryChange("") })
                 },
             )
+        }
+
+        PrimaryTabRow(selectedTabIndex = activeTab.ordinal) {
+            LogcatTab.entries.forEach { tab ->
+                Tab(
+                    selected = activeTab == tab,
+                    onClick = withHaptic { onTabSelected(tab) },
+                    text = { Text(stringResource(tab.labelRes())) },
+                )
+            }
         }
     }
 }
