@@ -230,7 +230,7 @@ private fun PortsList(
             ScopeChips(scope = state.scope, devices = state.connectedDevices, onScopeChange = viewModel::setScope)
         }
         if (state.interrupted.isNotEmpty()) {
-            item(key = "interrupted") { InterruptedBanner(state, viewModel) }
+            item(key = "interrupted") { InterruptedBanner(state, viewModel, Modifier.animateItem()) }
         }
         state.scopedDevice?.let { device ->
             item(key = "quick_forward") { QuickForward(device, viewModel, onMoreOptions) }
@@ -238,6 +238,7 @@ private fun PortsList(
         if (!notificationsAllowed && state.hasRunning) {
             item(key = "notifications") {
                 PortsBanner(
+                    modifier = Modifier.animateItem(),
                     icon = R.drawable.ic_notifications,
                     message = stringResource(R.string.port_forward_notifications_off),
                     primary = BannerAction(stringResource(R.string.allow)) {
@@ -247,7 +248,7 @@ private fun PortsList(
             }
         }
         if (state.isEmpty && state.scope !is PortsScope.Device) {
-            item(key = "empty") { PortsEmptyState(onCreateNetworkTunnel = onCreate) }
+            item(key = "empty") { PortsEmptyState(onCreateNetworkTunnel = onCreate, modifier = Modifier.animateItem()) }
         }
         tunnelSection(R.string.running, state.running, cardActions)
         tunnelSection(R.string.port_forward_saved, state.saved, cardActions)
@@ -266,8 +267,9 @@ private fun QuickForward(device: ExternalDeviceState.Connected, viewModel: Ports
 }
 
 @Composable
-private fun InterruptedBanner(state: PortsUiState, viewModel: PortsViewModel) {
+private fun InterruptedBanner(state: PortsUiState, viewModel: PortsViewModel, modifier: Modifier = Modifier) {
     PortsBanner(
+        modifier = modifier,
         icon = R.drawable.ic_warning,
         message = pluralStringResource(
             R.plurals.port_forward_interrupted,
@@ -286,7 +288,7 @@ private fun LazyListScope.tunnelSection(
 ) {
     if (items.isEmpty()) return
     item(key = "header_$titleRes") {
-        EditorSectionLabel(stringResource(titleRes))
+        EditorSectionLabel(stringResource(titleRes), modifier = Modifier.animateItem())
     }
     itemsIndexed(items, key = { _, item -> item.spec.id }) { index, item ->
         TunnelCard(
@@ -309,7 +311,7 @@ private fun PortsMenu(canStopAll: Boolean, onStopAll: () -> Unit, onSettings: ()
         if (canStopAll) {
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.stop_all)) },
-                onClick = {
+                onClick = withHaptic {
                     expanded = false
                     onStopAll()
                 }
@@ -317,7 +319,7 @@ private fun PortsMenu(canStopAll: Boolean, onStopAll: () -> Unit, onSettings: ()
         }
         DropdownMenuItem(
             text = { Text(stringResource(R.string.settings), color = MaterialTheme.colorScheme.onSurface) },
-            onClick = {
+            onClick = withHaptic {
                 expanded = false
                 onSettings()
             }

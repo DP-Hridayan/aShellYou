@@ -26,9 +26,10 @@ import kotlinx.coroutines.flow.map
 class FakeSavedTunnelRepository : SavedTunnelRepository {
     val saved = MutableStateFlow<List<TunnelSpec>>(emptyList())
     val hosts = mutableListOf<RecentHost>()
+    val wasRunning = MutableStateFlow<Set<String>>(emptySet())
 
     override fun tunnels(): Flow<List<TunnelSpec>> = saved
-    override fun wasRunningIds(): Flow<Set<String>> = flowOf(emptySet())
+    override fun wasRunningIds(): Flow<Set<String>> = wasRunning
     override suspend fun tunnel(id: String) = Result.success(saved.value.firstOrNull { it.id == id })
     override suspend fun save(spec: TunnelSpec): Result<Unit> {
         saved.value = saved.value.filterNot { it.id == spec.id } + spec
@@ -54,7 +55,8 @@ class FakeTunnelController : TunnelController {
     val started = mutableListOf<TunnelSpec>()
     var startResult: Result<Unit> = Result.success(Unit)
 
-    override val runtimes: StateFlow<Map<String, TunnelRuntime>> = MutableStateFlow(emptyMap())
+    val runtimeMap = MutableStateFlow<Map<String, TunnelRuntime>>(emptyMap())
+    override val runtimes: StateFlow<Map<String, TunnelRuntime>> = runtimeMap
     override suspend fun start(spec: TunnelSpec): Result<Unit> {
         started += spec
         return startResult

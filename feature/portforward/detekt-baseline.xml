@@ -33,6 +33,7 @@
     <ID>PackageName:NetworkMonitor.kt$package `in`.hridayan.ashell.portforward.domain.repository</ID>
     <ID>PackageName:NetworkTargetConnector.kt$package `in`.hridayan.ashell.portforward.data.engine</ID>
     <ID>PackageName:ObserveInterruptedTunnelsUseCase.kt$package `in`.hridayan.ashell.portforward.domain.usecase</ID>
+    <ID>PackageName:ObserveInterruptedTunnelsUseCaseTest.kt$package `in`.hridayan.ashell.portforward.domain.usecase</ID>
     <ID>PackageName:ParseHostInputUseCase.kt$package `in`.hridayan.ashell.portforward.domain.usecase</ID>
     <ID>PackageName:ParseHostInputUseCaseTest.kt$package `in`.hridayan.ashell.portforward.domain.usecase</ID>
     <ID>PackageName:ParseHttpHeadUseCase.kt$package `in`.hridayan.ashell.portforward.domain.usecase</ID>
