@@ -222,6 +222,7 @@ dependencies {
     implementation(project(":feature:onboarding"))
     implementation(project(":feature:logcat"))
     implementation(project(":feature:mirror"))
+    implementation(project(":feature:portforward"))
     implementation(project(":feature:crashreporter"))
     githubImplementation(project(":feature:ai"))
 

@@ -50,6 +50,9 @@ import `in`.hridayan.ashell.logcat.presentation.screens.LogcatFilterEditorScreen
 import `in`.hridayan.ashell.logcat.presentation.screens.LogcatScreen
 import `in`.hridayan.ashell.mirror.presentation.screens.MirrorScreen
 import `in`.hridayan.ashell.onboarding.presentation.screens.OnboardingScreen
+import `in`.hridayan.ashell.portforward.presentation.screens.PortForwardSettingsScreen
+import `in`.hridayan.ashell.portforward.presentation.screens.PortsScreen
+import `in`.hridayan.ashell.portforward.presentation.screens.TunnelEditorScreen
 import `in`.hridayan.ashell.qstiles.presentation.screen.CreateTileScreen
 import `in`.hridayan.ashell.qstiles.presentation.screen.TileDashBoardScreen
 import `in`.hridayan.ashell.settings.presentation.page.about.screens.AboutScreen
@@ -321,6 +324,18 @@ fun AppNavigation(
             composable<NavRoutes.AiChatScreen> {
                 AiChatScreen()
             }
+
+            composable<NavRoutes.PortsScreen> {
+                PortsScreen()
+            }
+
+            composable<NavRoutes.TunnelEditorScreen> {
+                TunnelEditorScreen()
+            }
+
+            composable<NavRoutes.PortForwardSettingsScreen> {
+                PortForwardSettingsScreen()
+            }
         }
     }
 }
@@ -399,6 +414,7 @@ private fun getNavRouteFromDeepLinkDestination(destination: DeeplinkDestination)
     val navRoute = when (destination) {
         DeeplinkDestination.LOGCAT -> NavRoutes.LogcatScreen
         DeeplinkDestination.AI_CHAT -> NavRoutes.AiChatScreen
+        DeeplinkDestination.PORTS -> NavRoutes.PortsScreen()
     }
 
     return navRoute

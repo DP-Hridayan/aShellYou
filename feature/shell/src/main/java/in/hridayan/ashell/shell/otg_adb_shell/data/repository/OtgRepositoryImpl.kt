@@ -271,7 +271,7 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
 
     private suspend fun connectLocked(device: UsbDevice) {
         if (isConnected()) {
-            OtgConnection.updateState(OtgState.Connected(device.displayName()))
+            OtgConnection.updateState(OtgState.Connected(device.displayName(), device.serialOrNull()))
             return
         }
         closeConnection()
@@ -282,12 +282,12 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
             return
         }
         val channel = openChannel(device) ?: return
-        val connection = AdbConnection.create(channel, crypto)
+        val connection = AdbConnection.create(channel, crypto).apply { setMaxWritePayload(MAX_WRITE_PAYLOAD) }
         val established = handshake(connection)
         if (established) {
             connection.setConnectionListener(::onConnectionClosed)
             adbConnection = connection
-            OtgConnection.updateState(OtgState.Connected(device.displayName()))
+            OtgConnection.updateState(OtgState.Connected(device.displayName(), device.serialOrNull()))
             Log.d(TAG, "ADB connected to ${device.displayName()}")
         }
     }
@@ -313,7 +313,7 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
             return failConnect(R.string.usb_claim_failed)
         }
         return try {
-            UsbChannel(usbConnection, intf)
+            UsbChannel(usbConnection, intf, STALL_DEADLINE_MS)
         } catch (_: IllegalArgumentException) {
             usbConnection.releaseInterface(intf)
             usbConnection.close()
@@ -383,6 +383,18 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
             intf.interfaceProtocol == ADB_INTERFACE_PROTOCOL
 
     private fun UsbDevice.displayName(): String = productName ?: manufacturerName ?: deviceName
+
+    /**
+     * The device's serial number, read from its USB descriptor. adbd sets that descriptor from
+     * `ro.serialno`, which is also what Wireless Debugging reports, so one device has one id on both
+     * transports. It is local and needs no round trip to the device, so connecting cannot stall on it.
+     * Reading it needs the USB permission, which a connected device always has.
+     */
+    private fun UsbDevice.serialOrNull(): String? = try {
+        serialNumber?.trim()?.takeIf { it.isNotEmpty() }
+    } catch (_: SecurityException) {
+        null
+    }
     // endregion
 
     private var currentDir = "/storage/emulated/0/"
@@ -607,6 +619,16 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
     private companion object {
         const val TAG = "OtgRepository"
         private const val SHELL_SERVICE_PREFIX = "shell:"
+
+        /**
+         * A healthy adbd drains USB within milliseconds, so a write stalled this long means the
+         * device is gone or wedged; the link is closed so every feature sees a disconnect instead
+         * of freezing.
+         */
+        private const val STALL_DEADLINE_MS = 20_000L
+
+        /** Small enough that a packet holds the shared link for about 2 ms on USB 2.0. */
+        private const val MAX_WRITE_PAYLOAD = 64 * 1024
         const val KILL_TIMEOUT_MS = 2_000L
         const val PERMISSION_ACTION = "in.hridayan.ashell.USB_PERMISSION"
         const val PERMISSION_REQUEST_CODE = 0

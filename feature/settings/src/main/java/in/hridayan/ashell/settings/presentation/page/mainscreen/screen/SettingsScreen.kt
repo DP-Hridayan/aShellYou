@@ -198,6 +198,14 @@ fun SettingsScreen() {
                     onClick { navController.navigate(NavRoutes.TileDashboardScreen) }
                 }
 
+                clickableItem(SettingsKeys.PortForwarding) {
+                    title(R.string.port_forwarding)
+                    description(R.string.des_port_forward_settings)
+                    icon(R.drawable.ic_port_forward)
+                    iconColors { tertiaryIconColors }
+                    onClick { navController.navigate(NavRoutes.PortForwardSettingsScreen) }
+                }
+
                 clickableItem(SettingsKeys.CloudModels) {
                     title(R.string.ai_models)
                     description(R.string.des_ai_models)

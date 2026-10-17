@@ -24,6 +24,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.systemGestureExclusion
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CastConnected
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.FloatingToolbarDefaults
@@ -31,6 +33,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalFloatingToolbar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -82,6 +85,7 @@ private val HandleTouchHeight = 72.dp
 @Composable
 fun DeviceDock(
     actions: List<DeviceActionId>,
+    badges: Map<DeviceActionId, Int>,
     expanded: Boolean,
     onExpandedChange: (Boolean) -> Unit,
     onAction: (DeviceActionId) -> Unit,
@@ -103,7 +107,7 @@ fun DeviceDock(
                 colors = FloatingToolbarDefaults.vibrantFloatingToolbarColors()
             ) {
                 actions.forEach { action ->
-                    DockButton(action = action, onClick = { onAction(action) })
+                    DockButton(action = action, badgeCount = badges[action] ?: 0, onClick = { onAction(action) })
                 }
             }
         }
@@ -203,14 +207,25 @@ private fun Modifier.handleGestures(
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-private fun DockButton(action: DeviceActionId, onClick: () -> Unit) {
+private fun DockButton(action: DeviceActionId, badgeCount: Int, onClick: () -> Unit) {
     val label = stringResource(action.labelRes())
     val click = withHaptic(HapticFeedbackType.VirtualKey, onClick)
+    if (badgeCount > 0) {
+        BadgedBox(badge = { Badge { Text(badgeCount.toString()) } }) {
+            DockButtonContent(action = action, label = label, onClick = click)
+        }
+    } else {
+        DockButtonContent(action = action, label = label, onClick = click)
+    }
+}
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+private fun DockButtonContent(action: DeviceActionId, label: String, onClick: () -> Unit) {
     TooltipContent(text = label) {
         if (action == DeviceActionId.SCREEN) {
             FilledIconButton(
-                onClick = click,
+                onClick = onClick,
                 shapes = IconButtonDefaults.shapes(),
                 colors = IconButtonDefaults.filledIconButtonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
@@ -221,7 +236,7 @@ private fun DockButton(action: DeviceActionId, onClick: () -> Unit) {
             }
         } else {
             IconButton(
-                onClick = click,
+                onClick = onClick,
                 shapes = IconButtonDefaults.shapes(),
                 colors = IconButtonDefaults.iconButtonColors(
                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -238,6 +253,7 @@ private fun DockIcon(action: DeviceActionId, label: String) {
     when (action) {
         DeviceActionId.SCREEN -> Icon(Icons.Rounded.CastConnected, contentDescription = label)
         DeviceActionId.FILES -> Icon(painterResource(R.drawable.ic_directory), contentDescription = label)
+        DeviceActionId.PORTS -> Icon(painterResource(R.drawable.ic_port_forward), contentDescription = label)
         DeviceActionId.SHARE_OUTPUT -> Icon(painterResource(R.drawable.ic_share), contentDescription = label)
         DeviceActionId.SAVE_OUTPUT -> Icon(painterResource(R.drawable.ic_save), contentDescription = label)
         DeviceActionId.ASK_AI -> Icon(painterResource(R.drawable.ic_help), contentDescription = label)
@@ -247,6 +263,7 @@ private fun DockIcon(action: DeviceActionId, label: String) {
 private fun DeviceActionId.labelRes(): Int = when (this) {
     DeviceActionId.SCREEN -> R.string.screen
     DeviceActionId.FILES -> R.string.file_browser
+    DeviceActionId.PORTS -> R.string.port_forwarding
     DeviceActionId.SHARE_OUTPUT -> R.string.share
     DeviceActionId.SAVE_OUTPUT -> R.string.save
     DeviceActionId.ASK_AI -> R.string.adb_agent

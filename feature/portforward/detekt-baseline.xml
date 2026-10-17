@@ -1,0 +1,125 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>CyclomaticComplexMethod:TunnelErrorText.kt$fun TunnelError.message(spec: TunnelSpec): TextRes</ID>
+    <ID>CyclomaticComplexMethod:TunnelStatusStyle.kt$fun TunnelEventKind.describe(context: Context, spec: TunnelSpec): String</ID>
+    <ID>LargeClass:TunnelEditorViewModel.kt$TunnelEditorViewModel : ViewModel</ID>
+    <ID>LargeClass:TunnelRunner.kt$TunnelRunner</ID>
+    <ID>LongParameterList:PortsScreen.kt$( state: PortsUiState, listState: LazyListState, contentPadding: PaddingValues, cardActions: (TunnelItem) -&gt; TunnelCardActions, viewModel: PortsViewModel, onCreate: () -&gt; Unit, onMoreOptions: () -&gt; Unit, modifier: Modifier = Modifier )</ID>
+    <ID>NestedBlockDepth:EchoServer.kt$EchoServer$private fun echo(client: Socket)</ID>
+    <ID>PackageName:BannerAction.kt$package `in`.hridayan.ashell.portforward.presentation.model</ID>
+    <ID>PackageName:ConnectedDevices.kt$package `in`.hridayan.ashell.portforward.domain.repository</ID>
+    <ID>PackageName:ConnectivityNetworkMonitor.kt$package `in`.hridayan.ashell.portforward.data.network</ID>
+    <ID>PackageName:DeviceChannels.kt$package `in`.hridayan.ashell.portforward.data.device</ID>
+    <ID>PackageName:DevicePreset.kt$package `in`.hridayan.ashell.portforward.domain.model</ID>
+    <ID>PackageName:DeviceReachability.kt$package `in`.hridayan.ashell.portforward.domain.model</ID>
+    <ID>PackageName:DeviceTargetConnector.kt$package `in`.hridayan.ashell.portforward.data.engine</ID>
+    <ID>PackageName:DeviceTargetConnectorTest.kt$package `in`.hridayan.ashell.portforward.data.engine</ID>
+    <ID>PackageName:DeviceTunnelControlImpl.kt$package `in`.hridayan.ashell.portforward.data.device</ID>
+    <ID>PackageName:EchoServer.kt$package `in`.hridayan.ashell.portforward.data.engine</ID>
+    <ID>PackageName:EditorActionBar.kt$package `in`.hridayan.ashell.portforward.presentation.components.editor</ID>
+    <ID>PackageName:EditorChecks.kt$package `in`.hridayan.ashell.portforward.presentation.components.editor</ID>
+    <ID>PackageName:EditorDesign.kt$package `in`.hridayan.ashell.portforward.presentation.components.editor</ID>
+    <ID>PackageName:EditorDeviceFields.kt$package `in`.hridayan.ashell.portforward.presentation.components.editor</ID>
+    <ID>PackageName:EditorFakes.kt$package `in`.hridayan.ashell.portforward.presentation.viewmodel</ID>
+    <ID>PackageName:EditorFields.kt$package `in`.hridayan.ashell.portforward.presentation.components.editor</ID>
+    <ID>PackageName:KindPickerSheet.kt$package `in`.hridayan.ashell.portforward.presentation.components.sheet</ID>
+    <ID>PackageName:LocalNetworkAccessState.kt$package `in`.hridayan.ashell.portforward.presentation.permission</ID>
+    <ID>PackageName:LocalNetworkGate.kt$package `in`.hridayan.ashell.portforward.domain.repository</ID>
+    <ID>PackageName:LocalNetworkGateImpl.kt$package `in`.hridayan.ashell.portforward.data.permission</ID>
+    <ID>PackageName:MapTunnelErrorUseCase.kt$package `in`.hridayan.ashell.portforward.domain.usecase</ID>
+    <ID>PackageName:MapTunnelErrorUseCaseTest.kt$package `in`.hridayan.ashell.portforward.domain.usecase</ID>
+    <ID>PackageName:NetworkMonitor.kt$package `in`.hridayan.ashell.portforward.domain.repository</ID>
+    <ID>PackageName:NetworkTargetConnector.kt$package `in`.hridayan.ashell.portforward.data.engine</ID>
+    <ID>PackageName:ObserveInterruptedTunnelsUseCase.kt$package `in`.hridayan.ashell.portforward.domain.usecase</ID>
+    <ID>PackageName:ParseHostInputUseCase.kt$package `in`.hridayan.ashell.portforward.domain.usecase</ID>
+    <ID>PackageName:ParseHostInputUseCaseTest.kt$package `in`.hridayan.ashell.portforward.domain.usecase</ID>
+    <ID>PackageName:ParseHttpHeadUseCase.kt$package `in`.hridayan.ashell.portforward.domain.usecase</ID>
+    <ID>PackageName:ParseHttpHeadUseCaseTest.kt$package `in`.hridayan.ashell.portforward.domain.usecase</ID>
+    <ID>PackageName:ParsedHostInput.kt$package `in`.hridayan.ashell.portforward.domain.model</ID>
+    <ID>PackageName:PermissionRequests.kt$package `in`.hridayan.ashell.portforward.presentation.permission</ID>
+    <ID>PackageName:PipeEndpoint.kt$package `in`.hridayan.ashell.portforward.data.engine</ID>
+    <ID>PackageName:PortAvailability.kt$package `in`.hridayan.ashell.portforward.domain.repository</ID>
+    <ID>PackageName:PortAvailabilityImpl.kt$package `in`.hridayan.ashell.portforward.data.probe</ID>
+    <ID>PackageName:PortForwardBackupProvider.kt$package `in`.hridayan.ashell.portforward.data.backup</ID>
+    <ID>PackageName:PortForwardDao.kt$package `in`.hridayan.ashell.portforward.data.local</ID>
+    <ID>PackageName:PortForwardDatabase.kt$package `in`.hridayan.ashell.portforward.data.local</ID>
+    <ID>PackageName:PortForwardDialogs.kt$package `in`.hridayan.ashell.portforward.presentation.components.dialog</ID>
+    <ID>PackageName:PortForwardDispatcher.kt$package `in`.hridayan.ashell.portforward.di</ID>
+    <ID>PackageName:PortForwardForegroundSession.kt$package `in`.hridayan.ashell.portforward.domain.session</ID>
+    <ID>PackageName:PortForwardForegroundSessionImpl.kt$package `in`.hridayan.ashell.portforward.data.session</ID>
+    <ID>PackageName:PortForwardIntents.kt$package `in`.hridayan.ashell.portforward.service</ID>
+    <ID>PackageName:PortForwardModule.kt$package `in`.hridayan.ashell.portforward.di</ID>
+    <ID>PackageName:PortForwardNotificationBuilder.kt$package `in`.hridayan.ashell.portforward.service</ID>
+    <ID>PackageName:PortForwardNotificationContent.kt$package `in`.hridayan.ashell.portforward.domain.notification</ID>
+    <ID>PackageName:PortForwardNotificationContentTest.kt$package `in`.hridayan.ashell.portforward.domain.notification</ID>
+    <ID>PackageName:PortForwardService.kt$package `in`.hridayan.ashell.portforward.service</ID>
+    <ID>PackageName:PortForwardSettings.kt$package `in`.hridayan.ashell.portforward.domain.repository</ID>
+    <ID>PackageName:PortForwardSettingsScreen.kt$package `in`.hridayan.ashell.portforward.presentation.screens</ID>
+    <ID>PackageName:PortForwardSettingsSourceImpl.kt$package `in`.hridayan.ashell.portforward.data.settings</ID>
+    <ID>PackageName:PortForwardSettingsViewModel.kt$package `in`.hridayan.ashell.portforward.presentation.viewmodel</ID>
+    <ID>PackageName:PortsBanner.kt$package `in`.hridayan.ashell.portforward.presentation.components.card</ID>
+    <ID>PackageName:PortsEmptyState.kt$package `in`.hridayan.ashell.portforward.presentation.components</ID>
+    <ID>PackageName:PortsScreen.kt$package `in`.hridayan.ashell.portforward.presentation.screens</ID>
+    <ID>PackageName:PortsUiState.kt$package `in`.hridayan.ashell.portforward.presentation.model</ID>
+    <ID>PackageName:PortsViewModel.kt$package `in`.hridayan.ashell.portforward.presentation.viewmodel</ID>
+    <ID>PackageName:QuickForwardRow.kt$package `in`.hridayan.ashell.portforward.presentation.components</ID>
+    <ID>PackageName:RecentHost.kt$package `in`.hridayan.ashell.portforward.domain.model</ID>
+    <ID>PackageName:RoutingTargetConnector.kt$package `in`.hridayan.ashell.portforward.data.engine</ID>
+    <ID>PackageName:SavedTunnelEntity.kt$package `in`.hridayan.ashell.portforward.data.local</ID>
+    <ID>PackageName:SavedTunnelMapper.kt$package `in`.hridayan.ashell.portforward.data.local</ID>
+    <ID>PackageName:SavedTunnelRepository.kt$package `in`.hridayan.ashell.portforward.domain.repository</ID>
+    <ID>PackageName:SavedTunnelRepositoryImpl.kt$package `in`.hridayan.ashell.portforward.data.repository</ID>
+    <ID>PackageName:ScopeChips.kt$package `in`.hridayan.ashell.portforward.presentation.components</ID>
+    <ID>PackageName:SocketPipe.kt$package `in`.hridayan.ashell.portforward.data.engine</ID>
+    <ID>PackageName:StreamCap.kt$package `in`.hridayan.ashell.portforward.data.engine</ID>
+    <ID>PackageName:SummarizeTunnelStatusUseCase.kt$package `in`.hridayan.ashell.portforward.domain.usecase</ID>
+    <ID>PackageName:SummarizeTunnelStatusUseCaseTest.kt$package `in`.hridayan.ashell.portforward.domain.usecase</ID>
+    <ID>PackageName:TargetConnector.kt$package `in`.hridayan.ashell.portforward.data.engine</ID>
+    <ID>PackageName:TestResult.kt$package `in`.hridayan.ashell.portforward.domain.model</ID>
+    <ID>PackageName:TestTunnels.kt$package `in`.hridayan.ashell.portforward.domain</ID>
+    <ID>PackageName:TextRes.kt$package `in`.hridayan.ashell.portforward.text</ID>
+    <ID>PackageName:TunnelAddresses.kt$package `in`.hridayan.ashell.portforward.domain.model</ID>
+    <ID>PackageName:TunnelAlertNotifier.kt$package `in`.hridayan.ashell.portforward.domain.notification</ID>
+    <ID>PackageName:TunnelAlertNotifierImpl.kt$package `in`.hridayan.ashell.portforward.data.notification</ID>
+    <ID>PackageName:TunnelAutoStarter.kt$package `in`.hridayan.ashell.portforward.data.startup</ID>
+    <ID>PackageName:TunnelCard.kt$package `in`.hridayan.ashell.portforward.presentation.components.card</ID>
+    <ID>PackageName:TunnelCardActions.kt$package `in`.hridayan.ashell.portforward.presentation.model</ID>
+    <ID>PackageName:TunnelCardDeviceParts.kt$package `in`.hridayan.ashell.portforward.presentation.components.card</ID>
+    <ID>PackageName:TunnelController.kt$package `in`.hridayan.ashell.portforward.domain.engine</ID>
+    <ID>PackageName:TunnelDetailActions.kt$package `in`.hridayan.ashell.portforward.presentation.model</ID>
+    <ID>PackageName:TunnelDetailSheet.kt$package `in`.hridayan.ashell.portforward.presentation.components.sheet</ID>
+    <ID>PackageName:TunnelEditorActions.kt$package `in`.hridayan.ashell.portforward.presentation.model</ID>
+    <ID>PackageName:TunnelEditorContent.kt$package `in`.hridayan.ashell.portforward.presentation.components.editor</ID>
+    <ID>PackageName:TunnelEditorFormMapper.kt$package `in`.hridayan.ashell.portforward.presentation.model</ID>
+    <ID>PackageName:TunnelEditorScreen.kt$package `in`.hridayan.ashell.portforward.presentation.screens</ID>
+    <ID>PackageName:TunnelEditorUiState.kt$package `in`.hridayan.ashell.portforward.presentation.model</ID>
+    <ID>PackageName:TunnelEditorViewModel.kt$package `in`.hridayan.ashell.portforward.presentation.viewmodel</ID>
+    <ID>PackageName:TunnelEditorViewModelTest.kt$package `in`.hridayan.ashell.portforward.presentation.viewmodel</ID>
+    <ID>PackageName:TunnelEngine.kt$package `in`.hridayan.ashell.portforward.data.engine</ID>
+    <ID>PackageName:TunnelError.kt$package `in`.hridayan.ashell.portforward.domain.model</ID>
+    <ID>PackageName:TunnelErrorText.kt$package `in`.hridayan.ashell.portforward.text</ID>
+    <ID>PackageName:TunnelEvent.kt$package `in`.hridayan.ashell.portforward.domain.model</ID>
+    <ID>PackageName:TunnelException.kt$package `in`.hridayan.ashell.portforward.domain.model</ID>
+    <ID>PackageName:TunnelRunner.kt$package `in`.hridayan.ashell.portforward.data.engine</ID>
+    <ID>PackageName:TunnelRunnerTest.kt$package `in`.hridayan.ashell.portforward.data.engine</ID>
+    <ID>PackageName:TunnelRuntime.kt$package `in`.hridayan.ashell.portforward.domain.model</ID>
+    <ID>PackageName:TunnelSpec.kt$package `in`.hridayan.ashell.portforward.domain.model</ID>
+    <ID>PackageName:TunnelState.kt$package `in`.hridayan.ashell.portforward.domain.model</ID>
+    <ID>PackageName:TunnelStats.kt$package `in`.hridayan.ashell.portforward.domain.model</ID>
+    <ID>PackageName:TunnelStatusProviderImpl.kt$package `in`.hridayan.ashell.portforward.data.status</ID>
+    <ID>PackageName:TunnelStatusStyle.kt$package `in`.hridayan.ashell.portforward.presentation.components.status</ID>
+    <ID>PackageName:TunnelTarget.kt$package `in`.hridayan.ashell.portforward.domain.model</ID>
+    <ID>PackageName:TunnelTester.kt$package `in`.hridayan.ashell.portforward.domain.repository</ID>
+    <ID>PackageName:TunnelTesterImpl.kt$package `in`.hridayan.ashell.portforward.data.probe</ID>
+    <ID>PackageName:ValidateTunnelFormUseCase.kt$package `in`.hridayan.ashell.portforward.domain.usecase</ID>
+    <ID>PackageName:ValidateTunnelFormUseCaseTest.kt$package `in`.hridayan.ashell.portforward.domain.usecase</ID>
+    <ID>SpreadOperator:TextRes.kt$(id, *args.toTypedArray())</ID>
+    <ID>SpreadOperator:TextRes.kt$(text.id, *text.args.toTypedArray())</ID>
+    <ID>TooManyFunctions:PortsViewModel.kt$PortsViewModel : ViewModel</ID>
+    <ID>TooManyFunctions:TunnelEditorViewModel.kt$TunnelEditorViewModel : ViewModel</ID>
+    <ID>TooManyFunctions:TunnelEngine.kt$TunnelEngine : TunnelController</ID>
+    <ID>TooManyFunctions:TunnelRunner.kt$TunnelRunner</ID>
+  </CurrentIssues>
+</SmellBaseline>

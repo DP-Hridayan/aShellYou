@@ -2,7 +2,11 @@ package `in`.hridayan.ashell.mirror.data
 
 import `in`.hridayan.ashell.core.common.domain.model.AdbDuplexStream
 import `in`.hridayan.ashell.core.common.domain.model.ExternalDeviceChannel
+import `in`.hridayan.ashell.core.common.domain.model.ExternalDeviceState
 import `in`.hridayan.ashell.core.common.domain.model.RemoteFileStat
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import java.io.IOException
 import java.io.InputStream
 import java.net.ConnectException
@@ -12,6 +16,9 @@ class FakeExternalDeviceChannel : ExternalDeviceChannel {
 
     override var isConnected: Boolean = true
 
+    override val connectionState: StateFlow<ExternalDeviceState> =
+        MutableStateFlow(ExternalDeviceState.Connected(deviceId = "serial", displayName = "Device"))
+
     var remoteFiles = mutableMapOf<String, Long>()
     var pushFails = false
     val openedServices = mutableListOf<String>()
@@ -20,7 +27,7 @@ class FakeExternalDeviceChannel : ExternalDeviceChannel {
     /** Opens of `localabstract:` services fail this many times before succeeding. */
     var socketRejectionsBeforeAccept = 0
 
-    override suspend fun openStream(service: String): Result<AdbDuplexStream> {
+    override suspend fun openStream(service: String, ioDispatcher: CoroutineDispatcher): Result<AdbDuplexStream> {
         openedServices += service
         if (service.startsWith("localabstract:") && socketRejectionsBeforeAccept > 0) {
             socketRejectionsBeforeAccept--

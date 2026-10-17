@@ -108,9 +108,9 @@ public class AdbStream implements Closeable {
      *
      * @throws IOException If the connection fails while sending the packet
      */
-    void sendReady() throws IOException {
-        // Generate and send a OKAY packet
-        mAdbConnection.sendPacket(AdbProtocol.generateReady(mLocalId, mRemoteId));
+    void sendReady() {
+        // Queue an OKAY packet; the reader thread must not block on the connection's write lock
+        mAdbConnection.sendFromReader(AdbProtocol.generateReady(mLocalId, mRemoteId));
     }
 
     /**
@@ -176,8 +176,10 @@ public class AdbStream implements Closeable {
         // Buffer has no data, grab from the queue
         synchronized (mReadQueue) {
             byte[] data;
-            // Wait for the connection to close or data to be received
-            while ((data = mReadQueue.poll()) == null && !mIsClosed) {
+            // Wait for the connection to close or data to be received. A peer close that arrived
+            // behind queued data ends the wait too once the queue drains, since nothing else will
+            // notify this reader again.
+            while ((data = mReadQueue.poll()) == null && !mIsClosed && !mPendingClose) {
                 try {
                     mReadQueue.wait();
                 } catch (InterruptedException e) {
@@ -221,8 +223,26 @@ public class AdbStream implements Closeable {
      * @throws IOException If the stream fails while sending data
      */
     public void write(byte[] bytes, int offset, int length) throws IOException {
+        int maxData;
+        try {
+            maxData = mAdbConnection.getMaxData();
+        } catch (InterruptedException | AdbPairingRequiredException e) {
+            //noinspection UnnecessaryInitCause
+            throw (IOException) new IOException().initCause(e);
+        }
+        // A WRITE may only follow a READY, so every chunk waits for the acknowledgement of the one
+        // before it. Sending them back to back makes adbd close the connection.
+        while (length != 0) {
+            int chunk = Math.min(length, maxData);
+            awaitWriteReady();
+            mAdbConnection.sendPacket(AdbProtocol.generateWrite(mLocalId, mRemoteId, bytes, offset, chunk));
+            offset = offset + chunk;
+            length = length - chunk;
+        }
+    }
+
+    private void awaitWriteReady() throws IOException {
         synchronized (this) {
-            // Make sure we're ready for a WRTE
             while (!mIsClosed && !mWriteReady.compareAndSet(true, false)) {
                 try {
                     wait();
@@ -234,30 +254,6 @@ public class AdbStream implements Closeable {
 
             if (mIsClosed) {
                 throw new IOException("Stream closed");
-            }
-        }
-        // Split and send data as WRTE packet
-        // TODO: A WRITE message may not be sent until a READY message is received.
-        //  Once a WRITE message is sent, an additional WRITE message may not be
-        //  sent until another READY message has been received.  Recipients of
-        //  a WRITE message that is in violation of this requirement will CLOSE
-        //  the connection.
-        int maxData;
-        try {
-            maxData = mAdbConnection.getMaxData();
-        } catch (InterruptedException | AdbPairingRequiredException e) {
-            //noinspection UnnecessaryInitCause
-            throw (IOException) new IOException().initCause(e);
-        }
-        while (length != 0) {
-            if (length <= maxData) {
-                mAdbConnection.sendPacket(AdbProtocol.generateWrite(mLocalId, mRemoteId, bytes, offset, length));
-                offset = offset + length;
-                length = 0;
-            } else { // if (length > maxData) {
-                mAdbConnection.sendPacket(AdbProtocol.generateWrite(mLocalId, mRemoteId, bytes, offset, maxData));
-                offset = offset + maxData;
-                length = length - maxData;
             }
         }
     }

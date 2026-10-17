@@ -17,6 +17,7 @@ import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.dialog.OtgDeviceWaitingDialog
 import `in`.hridayan.ashell.core.ui.otg.OtgViewModel
+import `in`.hridayan.ashell.home.presentation.model.PortForwardCardStatus
 import `in`.hridayan.ashell.home.presentation.screens.HomeScreen
 import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.FastbootDeviceWaitingDialog
@@ -45,6 +46,7 @@ fun HomeRoute(
     val settings = LocalSettings.current
     val localAdbWorkingMode = settings[SettingsKeys.LocalAdbWorkingMode]
     val isLogcatRunning by navDeepLinkViewModel.sessionHolder.isRunning.collectAsState()
+    val tunnelStatus by homeViewModel.tunnelStatus.collectAsState()
 
     var showSavedDevicesBottomSheet by remember { mutableStateOf(false) }
     var showPairModeChooseDialog by remember { mutableStateOf(false) }
@@ -54,6 +56,11 @@ fun HomeRoute(
     HomeScreen(
         localAdbWorkingMode = localAdbWorkingMode,
         isLogcatRunning = isLogcatRunning,
+        portForwardStatus = PortForwardCardStatus(
+            runningCount = tunnelStatus.runningCount,
+            needsAttention = tunnelStatus.needsAttention,
+            runningNames = tunnelStatus.runningNames
+        ),
         otgStatus = otgState.toLinkStatus(),
         wifiAdbStatus = toWifiAdbCardStatus(wifiAdbState, wifiAdbDevice),
         fastbootStatus = fastbootState.toLinkStatus(),
@@ -88,6 +95,9 @@ fun HomeRoute(
         },
         onLogcatClick = {
             navController.navigate(NavRoutes.LogcatScreen)
+        },
+        onPortForwardClick = {
+            navController.navigate(NavRoutes.PortsScreen())
         },
         onAiChatClick = {
             navController.navigate(NavRoutes.AiChatScreen)

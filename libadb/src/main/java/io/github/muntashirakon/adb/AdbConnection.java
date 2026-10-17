@@ -24,6 +24,9 @@ import java.security.cert.Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -161,6 +164,18 @@ public class AdbConnection implements Closeable {
     private final Object mLock = new Object();
 
     /**
+     * Sends the packets the reader thread answers with once the connection is up. Writing them on
+     * the reader itself would stop it reading while another stream's write holds {@link #mLock},
+     * which freezes every stream on the connection until that write drains. The handshake (CNXN,
+     * AUTH, STLS) is still answered inline, because the switch to TLS must happen in order.
+     */
+    private final ExecutorService mReaderReplies = Executors.newSingleThreadExecutor(runnable -> {
+        Thread thread = new Thread(runnable, "libadb-replies");
+        thread.setDaemon(true);
+        return thread;
+    });
+
+    /**
      * Creates a AdbConnection object associated with the socket and crypto object specified.
      *
      * @return A new AdbConnection object.
@@ -284,7 +299,7 @@ public class AdbConnection implements Closeable {
                                 if (msg.command == AdbProtocol.A_OKAY && waitingStream.isAbandoned()) {
                                     // Nobody will use this stream, but the peer just opened its end
                                     mOpenedStreams.remove(msg.arg1);
-                                    sendPacket(AdbProtocol.generateClose(msg.arg1, msg.arg0));
+                                    sendFromReader(AdbProtocol.generateClose(msg.arg1, msg.arg0));
                                 } else if (msg.command == AdbProtocol.A_OKAY) {
                                     // We're ready for writes
                                     waitingStream.updateRemoteId(msg.arg0);
@@ -377,6 +392,8 @@ public class AdbConnection implements Closeable {
                     break;
                 }
             }
+
+            mReaderReplies.shutdownNow();
 
             // This thread takes care of cleaning up pending streams
             synchronized (AdbConnection.this) {
@@ -676,6 +693,8 @@ public class AdbConnection implements Closeable {
      */
     @Override
     public void close() throws IOException {
+        mReaderReplies.shutdownNow();
+
         // Closing the socket will kick the connection thread
         mSocket.close();
 
@@ -690,6 +709,24 @@ public class AdbConnection implements Closeable {
         try {
             mKeyPair.destroy();
         } catch (DestroyFailedException ignore) {
+        }
+    }
+
+    /**
+     * Queues a packet on behalf of the reader thread without waiting for it to be sent. Packets are
+     * dropped once the connection is closing, when nobody can receive them anyway; a send that fails
+     * means the socket is gone, which the reader's next read reports.
+     */
+    void sendFromReader(byte[] packet) {
+        try {
+            mReaderReplies.execute(() -> {
+                try {
+                    sendPacket(packet);
+                } catch (IOException e) {
+                    Log.w(TAG, "Could not send a reply packet", e);
+                }
+            });
+        } catch (RejectedExecutionException ignored) {
         }
     }
 

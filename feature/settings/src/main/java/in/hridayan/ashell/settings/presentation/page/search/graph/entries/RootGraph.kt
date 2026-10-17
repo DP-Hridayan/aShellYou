@@ -23,6 +23,12 @@ internal fun SearchScreenScope.rootGraph(aiEnabled: Boolean) {
         icon(R.drawable.ic_dashboard)
     }
 
+    entry(key = SettingsKeys.PortForwarding) {
+        title(R.string.port_forwarding)
+        description(R.string.des_port_forward_settings)
+        icon(R.drawable.ic_port_forward)
+    }
+
     entry(key = SettingsKeys.CloudModels) {
         title(R.string.ai_models)
         description(R.string.des_ai_models)

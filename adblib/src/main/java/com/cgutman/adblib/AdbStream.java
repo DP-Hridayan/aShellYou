@@ -2,6 +2,7 @@ package com.cgutman.adblib;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -198,8 +199,20 @@ public class AdbStream implements Closeable {
 	 * @throws InterruptedException If we are unable to wait to send data
 	 */
 	public void write(byte[] payload) throws IOException, InterruptedException {
+		/* A WRITE may not exceed the negotiated payload size, and each one must wait for a READY */
+		int maxPayload = adbConn.getWritePayload();
+		int offset = 0;
+		do {
+			int length = Math.min(maxPayload, payload.length - offset);
+			awaitWriteReady();
+			adbConn.channel.writex(AdbProtocol.generateWrite(localId, remoteId,
+					Arrays.copyOfRange(payload, offset, offset + length)));
+			offset += length;
+		} while (offset < payload.length);
+	}
+
+	private void awaitWriteReady() throws IOException, InterruptedException {
 		synchronized (this) {
-			/* Make sure we're ready for a write */
 			long deadline = System.currentTimeMillis() + WRITE_READY_TIMEOUT_MS;
 			while (!isClosed && !pendingClose && !writeReady.compareAndSet(true, false)) {
 				long remaining = deadline - System.currentTimeMillis();
@@ -213,9 +226,6 @@ public class AdbStream implements Closeable {
 				throw closedException();
 			}
 		}
-
-		/* Generate a WRITE packet and send it */
-		adbConn.channel.writex(AdbProtocol.generateWrite(localId, remoteId, payload));
 	}
 
 	private IOException closedException() {

@@ -1,5 +1,8 @@
 package `in`.hridayan.ashell.core.common.domain.model
 
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.StateFlow
 import java.io.InputStream
 
 /**
@@ -14,7 +17,19 @@ interface ExternalDeviceChannel {
     /** True only while another device, never this one, is connected on this transport. */
     val isConnected: Boolean
 
-    suspend fun openStream(service: String): Result<AdbDuplexStream>
+    /** Which device this transport reaches, updated as it connects and disconnects. */
+    val connectionState: StateFlow<ExternalDeviceState>
+
+    /**
+     * Opens [service] on the device.
+     *
+     * @param ioDispatcher where the stream's blocking reads and writes run. Callers that keep many
+     * streams open pass their own pool, so parked reads do not exhaust the shared IO pool.
+     */
+    suspend fun openStream(
+        service: String,
+        ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    ): Result<AdbDuplexStream>
 
     suspend fun stat(remotePath: String): Result<RemoteFileStat>
 

@@ -12,7 +12,8 @@ object AppDeeplinkHolder {
 
     enum class DeeplinkDestination {
         LOGCAT,
-        AI_CHAT
+        AI_CHAT,
+        PORTS
     }
 
     private val _navigationChannel = Channel<DeeplinkDestination>(capacity = Channel.BUFFERED)
@@ -24,4 +25,5 @@ object AppDeeplinkHolder {
 
     const val ACTION_OPEN_LOGCAT = "in.hridayan.ashell.ACTION_OPEN_LOGCAT"
     const val ACTION_OPEN_AI_AGENT = "in.hridayan.ashell.ACTION_OPEN_AI_AGENT"
+    const val ACTION_OPEN_PORTS = "in.hridayan.ashell.ACTION_OPEN_PORTS"
 }

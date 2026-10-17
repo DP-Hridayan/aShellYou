@@ -10,6 +10,7 @@ internal object SettingsGraphId {
     const val CLOUD_MODELS = "cloud_models_graph"
     const val DARK_THEME = "dark_theme_graph"
     const val LOOK_AND_FEEL = "look_and_feel_graph"
+    const val PORT_FORWARD = "port_forward_graph"
     const val PRIVACY_SECURITY = "privacy_security_graph"
     const val SETTINGS = "settings_graph"
 }

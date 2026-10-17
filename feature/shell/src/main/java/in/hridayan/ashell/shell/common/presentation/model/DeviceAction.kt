@@ -4,6 +4,7 @@ package `in`.hridayan.ashell.shell.common.presentation.model
 enum class DeviceActionId {
     SCREEN,
     FILES,
+    PORTS,
     SHARE_OUTPUT,
     SAVE_OUTPUT,
     ASK_AI
@@ -23,7 +24,8 @@ object DeviceActionCatalog {
 
     /**
      * Mirroring is only offered for another device, because mirroring this phone onto itself is an
-     * endless hall of mirrors. Output actions appear only while there is output to act on. The AI
+     * endless hall of mirrors; port forwarding likewise, since this phone's ports are already local.
+     * Output actions appear only while there is output to act on. The AI
      * agent needs no connection, so it is always offered when enabled, and always last.
      */
     fun actionsFor(
@@ -33,6 +35,7 @@ object DeviceActionCatalog {
     ): List<DeviceActionId> = buildList {
         if (connection == DeviceConnection.OTHER_DEVICE) add(DeviceActionId.SCREEN)
         if (connection != DeviceConnection.NONE) add(DeviceActionId.FILES)
+        if (connection == DeviceConnection.OTHER_DEVICE) add(DeviceActionId.PORTS)
         if (hasOutput) {
             add(DeviceActionId.SHARE_OUTPUT)
             add(DeviceActionId.SAVE_OUTPUT)

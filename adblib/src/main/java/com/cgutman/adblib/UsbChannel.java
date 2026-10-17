@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.LinkedList;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by xudong on 2/21/14.
@@ -18,18 +19,28 @@ import java.util.LinkedList;
 public class UsbChannel implements AdbChannel {
 
     private static final int WRITE_TIMEOUT_MS = 5000;
-    private static final long WRITE_DEADLINE_MS = 10 * 60 * 1000;
     private static final int MAX_EMPTY_READS = 16;
-    private static final int MAX_TRANSIENT_FAILURES = 5;
-    private static final long TRANSIENT_BACKOFF_MS = 20;
     private static final String TAG = "AdbUsbChannel";
+
+    /**
+     * How long a write may stall before the link is declared dead, for a peer that legitimately
+     * stops draining USB for minutes, such as recovery verifying a sideloaded package.
+     */
+    public static final long SLOW_PEER_STALL_DEADLINE_MS = 10 * 60 * 1000;
 
     private final UsbDeviceConnection mDeviceConnection;
     private final UsbEndpoint mEndpointOut;
     private final UsbEndpoint mEndpointIn;
     private final UsbInterface mInterface;
 
-    private final Object mWriteLock = new Object();
+    /**
+     * There is one OUT endpoint, and a packet's header and payload must reach it back to back, so
+     * writes are serialised. The lock is fair: writers are served in arrival order, so a stream
+     * sending a lot of data cannot keep acknowledgements for the other streams waiting.
+     */
+    private final ReentrantLock mWriteLock = new ReentrantLock(true);
+
+    private final BulkWriter mWriter;
 
     private final LinkedList<UsbRequest> mInRequestPool = new LinkedList<>();
 
@@ -105,53 +116,23 @@ public class UsbChannel implements AdbChannel {
         }
     }
 
-    private void writeFully(byte[] buffer) throws IOException {
-        int offset = 0;
-        int failures = 0;
-        long deadline = System.currentTimeMillis() + WRITE_DEADLINE_MS;
-        while (offset < buffer.length) {
-            long startedAt = System.currentTimeMillis();
-            int transferred = mDeviceConnection.bulkTransfer(
-                    mEndpointOut, buffer, offset, buffer.length - offset, WRITE_TIMEOUT_MS);
-            if (transferred > 0) {
-                offset += transferred;
-                failures = 0;
-                continue;
-            }
-            /* A peer that is busy stops draining the endpoint, so a transfer that consumed its
-             * whole timeout is retried. One that failed immediately is usually a real error, but
-             * a long transfer can hit a transient failure, so give it a few attempts first. */
-            long elapsed = System.currentTimeMillis() - startedAt;
-            Log.w(TAG, "USB write stalled: " + transferred + " after " + elapsed + " ms, at "
-                    + offset + "/" + buffer.length + " bytes");
-            if (transferred < 0 && elapsed < WRITE_TIMEOUT_MS / 2) {
-                if (++failures > MAX_TRANSIENT_FAILURES) {
-                    throw new IOException("USB bulk transfer failed " + failures + " times in a row");
-                }
-                backOff();
-            }
-            if (System.currentTimeMillis() >= deadline) {
-                throw new IOException("USB bulk transfer timed out");
-            }
-        }
-    }
-
-    private static void backOff() throws IOException {
-        try {
-            Thread.sleep(TRANSIENT_BACKOFF_MS);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new IOException("Interrupted during USB write");
-        }
-    }
-
     @Override
     public void writex(AdbMessage message) throws IOException {
-        synchronized (mWriteLock) {
-            writeFully(message.getMessage());
+        mWriteLock.lock();
+        try {
+            mWriter.writeFully(message.getMessage());
             if (message.getPayload() != null) {
-                writeFully(message.getPayload());
+                mWriter.writeFully(message.getPayload());
             }
+        } catch (BulkWriter.StalledException e) {
+            /* Every packet queued behind this one would wait as long, so the link is dead. Closing
+             * it fails the pending read, which ends the connection and tells its owner, instead of
+             * leaving every stream frozen until the next write gives up too. */
+            Log.w(TAG, "Closing a USB link that stopped accepting data", e);
+            mDeviceConnection.close();
+            throw e;
+        } finally {
+            mWriteLock.unlock();
         }
     }
 
@@ -162,6 +143,13 @@ public class UsbChannel implements AdbChannel {
     }
 
     public UsbChannel(UsbDeviceConnection connection, UsbInterface intf) {
+        this(connection, intf, SLOW_PEER_STALL_DEADLINE_MS);
+    }
+
+    /**
+     * @param stallDeadlineMs how long a write may go unfinished before the link is closed as dead.
+     */
+    public UsbChannel(UsbDeviceConnection connection, UsbInterface intf, long stallDeadlineMs) {
         mDeviceConnection = connection;
         mInterface = intf;
 
@@ -183,6 +171,13 @@ public class UsbChannel implements AdbChannel {
         }
         mEndpointOut = epOut;
         mEndpointIn = epIn;
+        mWriter = new BulkWriter(
+                (buffer, offset, length, timeoutMs) ->
+                        mDeviceConnection.bulkTransfer(mEndpointOut, buffer, offset, length, timeoutMs),
+                WRITE_TIMEOUT_MS,
+                stallDeadlineMs,
+                System::currentTimeMillis,
+                Thread::sleep);
     }
 
 }

@@ -22,3 +22,16 @@ data class WifiAdbCardStatus(
     val link: DeviceLinkStatus = DeviceLinkStatus.Idle,
     val isOwnDevice: Boolean = false
 )
+
+/**
+ * Port forwarding status shown on the home screen card, so the home feature does not depend on the
+ * port forwarding feature.
+ *
+ * @property runningNames names of the running tunnels, in start order.
+ */
+@Immutable
+data class PortForwardCardStatus(
+    val runningCount: Int = 0,
+    val needsAttention: Boolean = false,
+    val runningNames: List<String> = emptyList()
+)

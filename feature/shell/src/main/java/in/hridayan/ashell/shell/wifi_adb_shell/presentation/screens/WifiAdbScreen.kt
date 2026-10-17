@@ -37,6 +37,7 @@ import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet.ConnectedDeviceBottomSheet
 import `in`.hridayan.ashell.shell.common.presentation.model.DeviceConnection
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
+import `in`.hridayan.ashell.shell.common.presentation.viewmodel.DeviceTunnelsViewModel
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.DeviceDisconnectedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
@@ -44,8 +45,10 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbV
 @Composable
 fun WifiAdbScreen(
     shellViewModel: ShellViewModel = hiltViewModel(),
-    wifiAdbViewModel: WifiAdbViewModel = hiltViewModel()
+    wifiAdbViewModel: WifiAdbViewModel = hiltViewModel(),
+    deviceTunnelsViewModel: DeviceTunnelsViewModel = hiltViewModel()
 ) {
+    val tunnelSummary by deviceTunnelsViewModel.summary.collectAsState()
     val context = LocalContext.current
     val res = LocalResources.current
     var showConnectedDeviceSheet by rememberSaveable { mutableStateOf(false) }
@@ -98,6 +101,8 @@ fun WifiAdbScreen(
         onOpenScreen = {
             navController.navigate(NavRoutes.MirrorScreen(ExternalDeviceTransport.WIFI_ADB))
         },
+        onOpenPorts = { navController.navigate(NavRoutes.PortsScreen(ExternalDeviceTransport.WIFI_ADB)) },
+        portsBadgeCount = tunnelSummary.runningOn(ExternalDeviceTransport.WIFI_ADB),
         onOpenFiles = {
             navController.navigate(
                 NavRoutes.FileBrowserScreen(

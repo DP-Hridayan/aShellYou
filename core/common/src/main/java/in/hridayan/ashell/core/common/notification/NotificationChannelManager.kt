@@ -21,6 +21,8 @@ object NotificationChannelManager {
     const val CHANNEL_BACKUP = "auto_backup_channel"
     const val CHANNEL_LOGCAT = "logcat_channel"
     const val CHANNEL_TILE_ERRORS = "tile_execution_errors"
+    const val CHANNEL_PORT_FORWARDING = "port_forwarding"
+    const val CHANNEL_PORT_FORWARDING_ALERTS = "port_forwarding_alerts"
 
     private const val GROUP_CONNECTION = "connection_group"
     private const val GROUP_TASKS = "tasks_group"
@@ -123,7 +125,28 @@ object NotificationChannelManager {
                 backupChannel,
                 logcatChannel,
                 tileChannel
-            )
+            ) + portForwardingChannels(context)
         )
     }
+
+    private fun portForwardingChannels(context: Context): List<NotificationChannel> = listOf(
+        NotificationChannel(
+            CHANNEL_PORT_FORWARDING,
+            context.getString(R.string.port_forwarding),
+            NotificationManager.IMPORTANCE_LOW
+        ).apply {
+            description = context.getString(R.string.port_forwarding_channel_description)
+            setShowBadge(false)
+            group = GROUP_CONNECTION
+        },
+        NotificationChannel(
+            CHANNEL_PORT_FORWARDING_ALERTS,
+            context.getString(R.string.port_forwarding_alerts),
+            NotificationManager.IMPORTANCE_DEFAULT
+        ).apply {
+            description = context.getString(R.string.port_forwarding_alerts_channel_description)
+            setShowBadge(true)
+            group = GROUP_CONNECTION
+        }
+    )
 }

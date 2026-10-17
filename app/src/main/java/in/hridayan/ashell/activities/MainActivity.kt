@@ -45,6 +45,7 @@ import `in`.hridayan.ashell.core.presentation.theme.util.ColorSchemeSerializer
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.handleSharedText
 import `in`.hridayan.ashell.logcat.data.session.LogcatSessionHolder
+import `in`.hridayan.ashell.portforward.data.startup.TunnelAutoStarter
 import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.ThemePreviewBottomSheet
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
@@ -75,6 +76,9 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var appLifecycleObserver: AppLifecycleObserver
 
+    @Inject
+    lateinit var tunnelAutoStarter: TunnelAutoStarter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         val splashStartTime = System.currentTimeMillis()
@@ -91,6 +95,7 @@ class MainActivity : AppCompatActivity() {
 
         handleInitialIntents(intent)
         checkAutoUpdate()
+        tunnelAutoStarter.onAppOpened()
         setupUi()
     }
 
@@ -193,6 +198,10 @@ class MainActivity : AppCompatActivity() {
 
             AppDeeplinkHolder.ACTION_OPEN_AI_AGENT -> {
                 AppDeeplinkHolder.navigateTo(DeeplinkDestination.AI_CHAT)
+            }
+
+            AppDeeplinkHolder.ACTION_OPEN_PORTS -> {
+                AppDeeplinkHolder.navigateTo(DeeplinkDestination.PORTS)
             }
         }
     }

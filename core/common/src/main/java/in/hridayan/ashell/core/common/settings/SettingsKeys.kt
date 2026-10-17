@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.runtime.Stable
 import `in`.hridayan.ashell.core.common.domain.model.LogcatBufferSize
 import `in`.hridayan.ashell.core.common.domain.model.LogcatWorkingMode
+import `in`.hridayan.ashell.core.common.domain.model.PortForwardDefaults
 import `in`.hridayan.ashell.core.common.domain.model.SortType
 import `in`.hridayan.ashell.core.common.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys.Companion.entries
@@ -54,6 +55,16 @@ sealed class SettingsKeys<out T>(
     data object Language : SettingsKeys<Nothing?>("LANGUAGE", null)
     data object Licenses : SettingsKeys<Nothing?>("LICENSES", null)
     data object LookAndFeel : SettingsKeys<Nothing?>("LOOK_AND_FEEL", null)
+    data object PortForwarding : SettingsKeys<Nothing?>("PORT_FORWARDING", null)
+    data object PortForwardClearRecentHosts :
+        SettingsKeys<Nothing?>("PORT_FORWARD_CLEAR_RECENT_HOSTS", null)
+
+    data object PortForwardLocalNetworkAccess :
+        SettingsKeys<Nothing?>("PORT_FORWARD_LOCAL_NETWORK_ACCESS", null)
+
+    data object PortForwardNotificationSettings :
+        SettingsKeys<Nothing?>("PORT_FORWARD_NOTIFICATION_SETTINGS", null)
+
     data object PrivacyAndSecurity : SettingsKeys<Nothing?>("PRIVACY_AND_SECURITY", null)
     data object PrivacyPolicy : SettingsKeys<Nothing?>("PRIVACY_POLICY", null)
     data object TermsOfService : SettingsKeys<Nothing?>("TERMS_OF_SERVICE", null)
@@ -103,6 +114,17 @@ sealed class SettingsKeys<out T>(
     data object MirrorFullscreenHintShown : SettingsKeys<Boolean>("MIRROR_FULLSCREEN_HINT_SHOWN", false)
     data object MirrorStatsOverlay : SettingsKeys<Boolean>("MIRROR_STATS_OVERLAY", false)
     data object NewCommandsAvailable : SettingsKeys<Boolean>("NEW_COMMANDS_AVAILABLE", true)
+    data object PortForwardAllowLanSharing : SettingsKeys<Boolean>("PORT_FORWARD_ALLOW_LAN_SHARING", false)
+    data object PortForwardAutoStart : SettingsKeys<Boolean>("PORT_FORWARD_AUTO_START", true)
+    data object PortForwardResumeOnReconnect :
+        SettingsKeys<Boolean>("PORT_FORWARD_RESUME_ON_RECONNECT", true)
+
+    data object PortForwardStopOnTaskRemoved :
+        SettingsKeys<Boolean>("PORT_FORWARD_STOP_ON_TASK_REMOVED", false)
+
+    data object PortForwardUnexpectedStopAlerts :
+        SettingsKeys<Boolean>("PORT_FORWARD_UNEXPECTED_STOP_ALERTS", true)
+
     data object RequireAuthentication : SettingsKeys<Boolean>("REQUIRE_AUTHENTICATION", false)
     data object RequireAuthenticationForBackups :
         SettingsKeys<Boolean>("REQUIRE_AUTHENTICATION_FOR_BACKUPS", false)
@@ -149,6 +171,15 @@ sealed class SettingsKeys<out T>(
     data object MirrorFrameRateWifi : SettingsKeys<Int>("MIRROR_FRAME_RATE_WIFI", 0)
     data object MirrorResolutionUsb : SettingsKeys<Int>("MIRROR_RESOLUTION_USB", -1)
     data object MirrorResolutionWifi : SettingsKeys<Int>("MIRROR_RESOLUTION_WIFI", -1)
+
+    data object PortForwardConnectTimeoutSeconds :
+        SettingsKeys<Int>("PORT_FORWARD_CONNECT_TIMEOUT_SECONDS", PortForwardDefaults.CONNECT_TIMEOUT_SECONDS)
+
+    data object PortForwardMaxConnections :
+        SettingsKeys<Int>("PORT_FORWARD_MAX_CONNECTIONS", PortForwardDefaults.MAX_CONNECTIONS)
+
+    data object PortForwardWaitTimeoutMinutes :
+        SettingsKeys<Int>("PORT_FORWARD_WAIT_TIMEOUT_MINUTES", PortForwardDefaults.WAIT_TIMEOUT_MINUTES)
 
     data object PaletteStyle : SettingsKeys<Int>(
         "PALETTE_STYLE",
