@@ -13,7 +13,7 @@ import `in`.hridayan.ashell.core.presentation.theme.data.CustomColorSchemeDao
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.UserGeneratedColorScheme
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.toDomain
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.toEntity
-import `in`.hridayan.ashell.core.presentation.theme.util.ColorSchemeImportHolder
+import `in`.hridayan.ashell.core.presentation.theme.domain.usecase.SaveAndApplyColorSchemeUseCase
 import `in`.hridayan.ashell.settings.domain.usecase.GenerateCustomThemeUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,7 +30,7 @@ class GenerateColorSchemeViewModel @Inject constructor(
     private val customColorSchemeDao: CustomColorSchemeDao,
     private val settingsRepository: SettingsRepository,
     private val generateCustomThemeUseCase: GenerateCustomThemeUseCase,
-    private val colorSchemeImportHolder: ColorSchemeImportHolder,
+    private val saveAndApplyColorSchemeUseCase: SaveAndApplyColorSchemeUseCase,
     private val requireActiveProviderKey: RequireActiveProviderKeyUseCase
 ) : ViewModel() {
 
@@ -39,16 +39,6 @@ class GenerateColorSchemeViewModel @Inject constructor(
 
     fun dismissAiAccessPrompt() {
         _aiAccessPrompt.value = null
-    }
-
-    init {
-        viewModelScope.launch {
-            colorSchemeImportHolder.importedTheme.collect { imported ->
-                imported?.let {
-                    _previewPayload.value = it
-                }
-            }
-        }
     }
 
     val savedColorSchemes = customColorSchemeDao.getAllColorSchemes()
@@ -102,7 +92,6 @@ class GenerateColorSchemeViewModel @Inject constructor(
 
     fun clearPreview() {
         _previewPayload.value = null
-        colorSchemeImportHolder.clearImportedColorScheme()
     }
 
     fun setPreviewPayload(payload: ColorSchemePayload) {
@@ -139,8 +128,7 @@ class GenerateColorSchemeViewModel @Inject constructor(
 
     fun saveColorScheme(scheme: UserGeneratedColorScheme) {
         viewModelScope.launch {
-            val id = customColorSchemeDao.insertColorScheme(scheme.toEntity())
-            applyColorScheme(scheme.copy(id = id.toInt()))
+            saveAndApplyColorSchemeUseCase(scheme)
             clearPreview()
         }
     }

@@ -3,12 +3,16 @@
 package `in`.hridayan.ashell.qstiles.presentation.components.bottomsheet
 
 import android.graphics.Typeface
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -21,13 +25,13 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LoadingIndicator
@@ -37,12 +41,20 @@ import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -50,19 +62,31 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import `in`.hridayan.ashell.core.common.settings.LocalSettings
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.noSearchResult
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.qstiles.data.model.MaterialIconEntry
 import `in`.hridayan.ashell.qstiles.domain.model.FontLoadState
 import `in`.hridayan.ashell.qstiles.domain.model.MaterialIconStyle
 import `in`.hridayan.ashell.qstiles.presentation.components.icon.MaterialIconGlyph
+import kotlinx.coroutines.flow.distinctUntilChanged
 
 private const val ICON_CELL_SIZE = 48
 private const val GLYPH_FONT_SIZE = 24
+private const val CHIP_CONTAINER_CORNER_PERCENT = 50
+private const val CHIP_CORNER_PERCENT_ROUNDED = 50
+private const val CHIP_CORNER_PERCENT_DEFAULT = 25
+private const val SCROLL_FADE_WIDTH_DP = 36
+private const val CHIP_ROW_PADDING_DP = 12
+private const val CHIP_ROW_SPACING_DP = 6
+private const val CHIP_HORIZONTAL_PADDING_DP = 14
+private const val CHIP_VERTICAL_PADDING_DP = 8
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -130,18 +154,10 @@ fun IconChooserBottomSheet(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            LazyRow(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                items(MaterialIconStyle.entries) { style ->
-                    FilterChip(
-                        selected = fontLoadState.style == style,
-                        onClick = withHaptic { onIconStyleSelected(style) },
-                        label = { Text(text = stringResource(style.titleResId)) }
-                    )
-                }
-            }
+            IconStyleSelector(
+                selectedStyle = fontLoadState.style,
+                onIconStyleSelected = onIconStyleSelected
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -262,6 +278,190 @@ private fun NoSearchResultUi(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 20.dp),
+        )
+    }
+}
+
+@Composable
+private fun IconStyleSelector(
+    selectedStyle: MaterialIconStyle,
+    onIconStyleSelected: (MaterialIconStyle) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val isHapticAllowed = LocalSettings.current[SettingsKeys.HapticsAndVibration]
+    val haptic = LocalHapticFeedback.current
+    val listState = rememberLazyListState()
+
+    LaunchedEffect(listState) {
+        var previousStart = true
+        var previousEnd = false
+        var firstEmission = true
+
+        snapshotFlow {
+            Pair(
+                !listState.canScrollBackward,
+                !listState.canScrollForward
+            )
+        }
+            .distinctUntilChanged()
+            .collect { (atStart, atEnd) ->
+                if (firstEmission) {
+                    previousStart = atStart
+                    previousEnd = atEnd
+                    firstEmission = false
+                    return@collect
+                }
+
+                val reachedStart = atStart && !previousStart
+                val reachedEnd = atEnd && !previousEnd
+
+                if (reachedStart || reachedEnd) {
+                    if (isHapticAllowed) {
+                        haptic.performHapticFeedback(HapticFeedbackType.VirtualKey)
+                    }
+                }
+
+                previousStart = atStart
+                previousEnd = atEnd
+            }
+    }
+
+    val leftFadeAlpha by animateFloatAsState(
+        targetValue = if (listState.canScrollBackward) 1f else 0f,
+        label = "leftFadeAlpha"
+    )
+    val rightFadeAlpha by animateFloatAsState(
+        targetValue = if (listState.canScrollForward) 1f else 0f,
+        label = "rightFadeAlpha"
+    )
+
+    val surfaceContainerColor = MaterialTheme.colorScheme.surfaceContainer
+
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(CHIP_CONTAINER_CORNER_PERCENT))
+            .background(surfaceContainerColor)
+            .drawWithContent {
+                drawContent()
+
+                val fadeWidthPx = SCROLL_FADE_WIDTH_DP.dp.toPx()
+
+                if (leftFadeAlpha > 0f) {
+                    drawRect(
+                        brush = Brush.horizontalGradient(
+                            colors = listOf(surfaceContainerColor, Color.Transparent),
+                            startX = 0f,
+                            endX = fadeWidthPx
+                        ),
+                        size = Size(fadeWidthPx, size.height),
+                        alpha = leftFadeAlpha
+                    )
+                }
+
+                if (rightFadeAlpha > 0f) {
+                    drawRect(
+                        brush = Brush.horizontalGradient(
+                            colors = listOf(Color.Transparent, surfaceContainerColor),
+                            startX = size.width - fadeWidthPx,
+                            endX = size.width
+                        ),
+                        topLeft = Offset(size.width - fadeWidthPx, 0f),
+                        size = Size(fadeWidthPx, size.height),
+                        alpha = rightFadeAlpha
+                    )
+                }
+            }
+    ) {
+        LazyRow(
+            state = listState,
+            modifier = Modifier.fillMaxWidth(),
+            contentPadding = PaddingValues(all = CHIP_ROW_PADDING_DP.dp),
+            horizontalArrangement = Arrangement.spacedBy(CHIP_ROW_SPACING_DP.dp)
+        ) {
+            itemsIndexed(MaterialIconStyle.entries) { index, style ->
+                val isSelected = selectedStyle == style
+                IconStyleChip(
+                    style = style,
+                    isSelected = isSelected,
+                    isFirst = index == 0,
+                    isLast = index == MaterialIconStyle.entries.lastIndex,
+                    onClick = { onIconStyleSelected(style) }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun IconStyleChip(
+    style: MaterialIconStyle,
+    isSelected: Boolean,
+    isFirst: Boolean,
+    isLast: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val startCornerPercent by animateIntAsState(
+        targetValue = if (isSelected || isFirst) {
+            CHIP_CORNER_PERCENT_ROUNDED
+        } else {
+            CHIP_CORNER_PERCENT_DEFAULT
+        },
+        animationSpec = AshellYouAnimationSpecs.springInt,
+        label = "chipStartCornerPercent"
+    )
+
+    val endCornerPercent by animateIntAsState(
+        targetValue = if (isSelected || isLast) {
+            CHIP_CORNER_PERCENT_ROUNDED
+        } else {
+            CHIP_CORNER_PERCENT_DEFAULT
+        },
+        animationSpec = AshellYouAnimationSpecs.springInt,
+        label = "chipEndCornerPercent"
+    )
+
+    val containerColor by animateColorAsState(
+        targetValue = if (isSelected) {
+            MaterialTheme.colorScheme.primary
+        } else {
+            MaterialTheme.colorScheme.surfaceContainerHighest
+        },
+        label = "chipContainerColor"
+    )
+
+    val contentColor by animateColorAsState(
+        targetValue = if (isSelected) {
+            MaterialTheme.colorScheme.onPrimary
+        } else {
+            MaterialTheme.colorScheme.onSurface
+        },
+        label = "chipContentColor"
+    )
+
+    Box(
+        modifier = modifier
+            .clip(
+                RoundedCornerShape(
+                    topStartPercent = startCornerPercent,
+                    topEndPercent = endCornerPercent,
+                    bottomEndPercent = endCornerPercent,
+                    bottomStartPercent = startCornerPercent
+                )
+            )
+            .background(containerColor)
+            .clickable(onClick = withHaptic { onClick() })
+            .padding(
+                horizontal = CHIP_HORIZONTAL_PADDING_DP.dp,
+                vertical = CHIP_VERTICAL_PADDING_DP.dp
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        AutoResizeableText(
+            text = stringResource(style.titleResId),
+            style = MaterialTheme.typography.labelLarge,
+            color = contentColor
         )
     }
 }

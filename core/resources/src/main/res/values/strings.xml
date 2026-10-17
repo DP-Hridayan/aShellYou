@@ -1041,6 +1041,7 @@
     <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Save as profile…</string>
     <string name="save_changes" comment="Action button to persist edited settings or tile parameters">Save Changes</string>
     <string name="save_key" comment="Button label to save entered API key string in settings">Save key</string>
+    <string name="save_theme" comment="Button label to save and apply the imported or generated color scheme">Save theme</string>
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">Save whole output</string>
     <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">Saved devices</string>
     <string name="saver" comment="Video quality level that uses the least data and battery">Saver</string>
@@ -1204,6 +1205,10 @@
     <string name="terms_of_service" comment="Title for the Terms of Service legal document">Terms of Service</string>
     <string name="tertiary">Tertiary</string>
     <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Theme mode</string>
+    <string name="theme_import_failed" comment="Toast shown when a color scheme file fails to be read or deserialized">Failed to import color scheme</string>
+    <string name="theme_name" comment="Label for the text field where user can edit the name of an imported theme">Theme name</string>
+    <string name="theme_preview" comment="Title for the bottom sheet showing preview of an imported theme">Theme preview</string>
+    <string name="theme_saved_applied" comment="Toast message shown after successfully importing and applying a theme">Theme saved and applied</string>
     <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Thinking</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Third-party libraries</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">This application</string>

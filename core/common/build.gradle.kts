@@ -45,7 +45,7 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
     
-    implementation(libs.datastore.preferences)
+    api(libs.datastore.preferences)
     api(libs.serialization.json)
     implementation(libs.androidx.security.crypto)
     

@@ -2,6 +2,72 @@
 <issues format="6" by="lint 9.4.1" type="baseline" client="gradle" dependencies="false" name="AGP (9.4.1)" variant="all" version="9.4.1">
 
     <issue
+        id="AppLinkUrlError"
+        message="At least one `host` must be specified"
+        errorLine1="                &lt;data android:scheme=&quot;file&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="83"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="AppLinkUrlError"
+        message="At least one `host` must be specified"
+        errorLine1="                &lt;data android:scheme=&quot;file&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="94"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="AppLinkUrlError"
+        message="At least one `host` must be specified"
+        errorLine1="                &lt;data android:mimeType=&quot;*/*&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="103"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="AppLinkUrlError"
+        message="At least one `scheme` must be specified"
+        errorLine1="                &lt;data android:mimeType=&quot;*/*&quot; />"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="103"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current is not configuration-aware and may return stale values if the Configuration changes"
+        errorLine1="                                    context.getString(R.string.theme_saved_applied),"
+        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/activities/MainActivity.kt"
+            line="165"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="LocalContextGetResourceValueCall"
+        message="Querying resource values using LocalContext.current is not configuration-aware and may return stale values if the Configuration changes"
+        errorLine1="                                    context.getString(R.string.theme_import_failed),"
+        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/in/hridayan/ashell/activities/MainActivity.kt"
+            line="171"
+            column="37"/>
+    </issue>
+
+    <issue
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location

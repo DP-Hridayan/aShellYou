@@ -35,11 +35,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.theme.data.ColorSchemePayload
 import `in`.hridayan.ashell.core.presentation.theme.data.UserGeneratedColorSchemeEntity
 import `in`.hridayan.ashell.core.presentation.theme.data.toEntity
+import `in`.hridayan.ashell.core.resources.R
+
+private const val COLOR_HEX_PREFIX = "#"
+
+private val PADDING_HORIZONTAL = 24.dp
+private val PADDING_BOTTOM = 32.dp
+private val SPACING_MEDIUM = 24.dp
+private val SPACING_LARGE = 32.dp
+private val PREVIEW_CARD_HEIGHT = 150.dp
+private val PREVIEW_CARD_CORNER_RADIUS = 16.dp
+private val PREVIEW_CARD_CONTENT_PADDING = 16.dp
+private val COLOR_SWATCH_SIZE = 40.dp
+private val COLOR_SWATCH_CORNER_RADIUS = 8.dp
+private val SAVE_BUTTON_HEIGHT = 50.dp
 
 @Composable
 fun ThemePreviewBottomSheet(
@@ -50,7 +65,7 @@ fun ThemePreviewBottomSheet(
     var themeName by remember { mutableStateOf(payload.name) }
 
     val sheetState = rememberBottomSheetState(
-        initialValue = SheetValue.Hidden,
+        initialValue = SheetValue.Expanded,
         enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded)
     )
 
@@ -62,99 +77,102 @@ fun ThemePreviewBottomSheet(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(24.dp)
-                .padding(bottom = 32.dp),
+                .padding(PADDING_HORIZONTAL)
+                .padding(bottom = PADDING_BOTTOM),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Theme Preview",
+                text = stringResource(id = R.string.theme_preview),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
-            Spacer(modifier = Modifier.height(24.dp))
 
-            // Name Input
+            Spacer(modifier = Modifier.height(SPACING_MEDIUM))
+
             OutlinedTextField(
                 value = themeName,
                 onValueChange = { themeName = it },
-                label = { Text("Theme Name") },
+                label = { Text(text = stringResource(id = R.string.theme_name)) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(SPACING_MEDIUM))
 
-            fun parseHex(hex: String): Color {
-                return try {
-                    Color(parseColor(if (hex.startsWith("#")) hex else "#$hex"))
-                } catch (e: Exception) {
-                    Color.Gray
-                }
-            }
-
-            val primary = parseHex(payload.primary)
-            val secondary = parseHex(payload.secondary)
-            val tertiary = parseHex(payload.tertiary)
-            val surface = parseHex(payload.surface)
-            val onSurface = parseHex(payload.onSurface)
+            val primary = parseHexColor(payload.primary)
+            val secondary = parseHexColor(payload.secondary)
+            val tertiary = parseHexColor(payload.tertiary)
+            val surface = parseHexColor(payload.surface)
+            val onSurface = parseHexColor(payload.onSurface)
 
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(150.dp),
-                shape = RoundedCornerShape(16.dp),
+                    .height(PREVIEW_CARD_HEIGHT),
+                shape = RoundedCornerShape(PREVIEW_CARD_CORNER_RADIUS),
                 colors = CardDefaults.cardColors(containerColor = surface)
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(16.dp),
+                        .padding(PREVIEW_CARD_CONTENT_PADDING),
                     verticalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Text(text = "Preview", color = onSurface, fontWeight = FontWeight.SemiBold)
+                    Text(
+                        text = stringResource(id = R.string.preview),
+                        color = onSurface,
+                        fontWeight = FontWeight.SemiBold
+                    )
+
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceEvenly
                     ) {
                         Box(
                             modifier = Modifier
-                                .size(40.dp)
-                                .clip(RoundedCornerShape(8.dp))
+                                .size(COLOR_SWATCH_SIZE)
+                                .clip(RoundedCornerShape(COLOR_SWATCH_CORNER_RADIUS))
                                 .background(primary)
                         )
                         Box(
                             modifier = Modifier
-                                .size(40.dp)
-                                .clip(RoundedCornerShape(8.dp))
+                                .size(COLOR_SWATCH_SIZE)
+                                .clip(RoundedCornerShape(COLOR_SWATCH_CORNER_RADIUS))
                                 .background(secondary)
                         )
                         Box(
                             modifier = Modifier
-                                .size(40.dp)
-                                .clip(RoundedCornerShape(8.dp))
+                                .size(COLOR_SWATCH_SIZE)
+                                .clip(RoundedCornerShape(COLOR_SWATCH_CORNER_RADIUS))
                                 .background(tertiary)
                         )
                     }
                 }
             }
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(SPACING_LARGE))
 
             Button(
                 onClick = {
                     if (themeName.isNotBlank()) {
-                        val entity = payload.toEntity().copy(
-                            name = themeName
-                        )
+                        val entity = payload.toEntity().copy(name = themeName)
                         onSave(entity)
                     }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(50.dp)
+                    .height(SAVE_BUTTON_HEIGHT)
             ) {
-                Text("Save Theme")
+                Text(text = stringResource(id = R.string.save_theme))
             }
         }
+    }
+}
+
+private fun parseHexColor(hex: String): Color {
+    return try {
+        Color(parseColor(if (hex.startsWith(COLOR_HEX_PREFIX)) hex else "$COLOR_HEX_PREFIX$hex"))
+    } catch (e: Exception) {
+        Color.Gray
     }
 }

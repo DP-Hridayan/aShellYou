@@ -1,8 +1,10 @@
 package `in`.hridayan.ashell.activities
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -16,8 +18,11 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.IntentCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,16 +38,21 @@ import `in`.hridayan.ashell.core.navigation.AppDeeplinkHolder.DeeplinkDestinatio
 import `in`.hridayan.ashell.core.presentation.components.snackbar.SnackBarHost
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouTheme
 import `in`.hridayan.ashell.core.presentation.theme.data.toPayload
+import `in`.hridayan.ashell.core.presentation.theme.domain.model.toDomain
+import `in`.hridayan.ashell.core.presentation.theme.domain.usecase.SaveAndApplyColorSchemeUseCase
 import `in`.hridayan.ashell.core.presentation.theme.util.ColorSchemeImportHolder
 import `in`.hridayan.ashell.core.presentation.theme.util.ColorSchemeSerializer
+import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.handleSharedText
 import `in`.hridayan.ashell.logcat.data.session.LogcatSessionHolder
+import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.ThemePreviewBottomSheet
 import `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel.AutoUpdateViewModel
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
 import `in`.hridayan.ashell.ui.AppUiEntry
 import `in`.hridayan.ashell.ui.screens.AppLockedScreen
 import `in`.hridayan.ashell.ui.state.SettingsStateImpl
 import `in`.hridayan.ashell.ui.viewmodel.AppFontViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -58,6 +68,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var colorSchemeImportHolder: ColorSchemeImportHolder
+
+    @Inject
+    lateinit var saveAndApplyColorSchemeUseCase: SaveAndApplyColorSchemeUseCase
 
     @Inject
     lateinit var appLifecycleObserver: AppLifecycleObserver
@@ -121,6 +134,10 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     private fun EnterAppUi(modifier: Modifier = Modifier, isLocked: Boolean) {
+        val coroutineScope = rememberCoroutineScope()
+        val importedThemePayload by colorSchemeImportHolder.importedTheme.collectAsState()
+        val context = LocalContext.current
+
         Box(modifier = modifier) {
             AppUiEntry()
 
@@ -133,11 +150,38 @@ class MainActivity : AppCompatActivity() {
                     .align(Alignment.BottomCenter)
                     .fillMaxWidth()
             )
+
+            if (importedThemePayload != null) {
+                ThemePreviewBottomSheet(
+                    payload = importedThemePayload!!,
+                    onDismiss = { colorSchemeImportHolder.clearImportedColorScheme() },
+                    onSave = { entity ->
+                        coroutineScope.launch {
+                            val result = saveAndApplyColorSchemeUseCase(entity.toDomain())
+                            colorSchemeImportHolder.clearImportedColorScheme()
+                            if (result.isSuccess) {
+                                Toast.makeText(
+                                    context,
+                                    context.getString(R.string.theme_saved_applied),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else {
+                                Toast.makeText(
+                                    context,
+                                    context.getString(R.string.theme_import_failed),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    }
+                )
+            }
         }
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
+        setIntent(intent)
         handleInitialIntents(intent)
     }
 
@@ -154,23 +198,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleThemeImport(intent: Intent?) {
-        if (intent?.action == Intent.ACTION_VIEW && intent.data != null) {
-            try {
-                val uri = intent.data!!
-                contentResolver.openInputStream(uri)?.use { inputStream ->
-                    val base64String = inputStream.bufferedReader().readText()
-                    val entity = ColorSchemeSerializer.deserialize(base64String)
-                    val payload = entity.toPayload()
+        if (intent == null) return
 
+        val uri = when (intent.action) {
+            Intent.ACTION_VIEW -> intent.data
+            Intent.ACTION_SEND -> {
+                IntentCompat.getParcelableExtra(intent, Intent.EXTRA_STREAM, Uri::class.java)
+                    ?: intent.data
+            }
+            else -> null
+        } ?: return
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                contentResolver.openInputStream(uri)?.use { inputStream ->
+                    val content = inputStream.bufferedReader().readText()
+                    val entity = ColorSchemeSerializer.deserialize(content)
+                    val payload = entity.toPayload()
                     colorSchemeImportHolder.setImportedColorScheme(payload)
                 }
             } catch (e: Exception) {
-                Log.e("MainActivity", "Failed to import theme", e)
+                Log.e(TAG, "Failed to import color scheme", e)
             }
         }
     }
 
     companion object {
         private const val SPLASH_SCREEN_DELAY_MS = 650L
+        private const val TAG = "MainActivity"
     }
 }
