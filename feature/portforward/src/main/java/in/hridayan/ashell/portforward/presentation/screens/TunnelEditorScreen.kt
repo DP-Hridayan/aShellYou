@@ -9,6 +9,10 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
@@ -29,6 +33,7 @@ import `in`.hridayan.ashell.portforward.domain.model.TunnelSpec
 import `in`.hridayan.ashell.portforward.domain.model.browserUrl
 import `in`.hridayan.ashell.portforward.presentation.components.editor.EditorActionBar
 import `in`.hridayan.ashell.portforward.presentation.components.editor.TunnelEditorContent
+import `in`.hridayan.ashell.portforward.presentation.components.editor.firstErrorIndex
 import `in`.hridayan.ashell.portforward.presentation.components.editor.labelRes
 import `in`.hridayan.ashell.portforward.presentation.components.editor.needsLocalNetworkPermission
 import `in`.hridayan.ashell.portforward.presentation.model.TunnelEditorActions
@@ -47,21 +52,47 @@ fun TunnelEditorScreen(
     val navController = LocalNavController.current
     val context = LocalContext.current
     val state by viewModel.state.collectAsStateWithLifecycle()
-    val localNetwork = rememberLocalNetworkAccess()
+    var afterLocalNetwork by remember { mutableStateOf<(() -> Unit)?>(null) }
+    val localNetwork = rememberLocalNetworkAccess { granted ->
+        if (granted) afterLocalNetwork?.invoke()
+        afterLocalNetwork = null
+    }
     val listState = rememberLazyListState()
     val topAppBarState = rememberTopAppBarState()
     val startWithNotificationPrompt = rememberNotificationPermissionRequest { viewModel.save(start = true) }
+    val needsPermission by rememberUpdatedState(state.needsLocalNetworkPermission(localNetwork))
 
     val snackBar = LocalSnackBarController.current
     LaunchedEffect(viewModel) {
-        viewModel.events.collect { event -> handleEvent(event, navController, context, snackBar) }
+        viewModel.events.collect { event ->
+            handleEvent(event, navController, context, snackBar) {
+                viewModel.state.value.firstErrorIndex(needsPermission)?.let { listState.animateScrollToItem(it) }
+            }
+        }
+    }
+    LaunchedEffect(state.startError) {
+        if (state.startError != null) listState.animateScrollToItem(listState.layoutInfo.totalItemsCount - 1)
+    }
+
+    // Start and Test reach the target, so they ask for the permission first and go on once it is
+    // granted. Saving needs no network, so it is never held back.
+    val withLocalNetwork: (() -> Unit) -> Unit = { action ->
+        when {
+            !needsPermission -> action()
+            localNetwork.permanentlyDenied -> localNetwork.openSettings()
+            else -> {
+                afterLocalNetwork = action
+                localNetwork.request()
+            }
+        }
     }
 
     val actions = editorActions(
         viewModel = viewModel,
         context = context,
         localNetwork = localNetwork,
-        onStart = startWithNotificationPrompt,
+        onTest = { withLocalNetwork(viewModel::test) },
+        onStart = { withLocalNetwork(startWithNotificationPrompt) },
         onCancel = { navController.navigateBack() }
     )
 
@@ -74,7 +105,7 @@ fun TunnelEditorScreen(
         fabContent = { _ ->
             EditorActionBar(
                 isRunning = state.isRunning,
-                enabled = !state.isSaving && !state.needsLocalNetworkPermission(localNetwork),
+                enabled = !state.isSaving,
                 onSave = actions.onSave,
                 onStart = actions.onStart
             )
@@ -96,6 +127,7 @@ private fun editorActions(
     viewModel: TunnelEditorViewModel,
     context: Context,
     localNetwork: LocalNetworkAccessState,
+    onTest: () -> Unit,
     onStart: () -> Unit,
     onCancel: () -> Unit
 ) = TunnelEditorActions(
@@ -115,17 +147,18 @@ private fun editorActions(
     onUseSuggestedPort = viewModel::useSuggestedPort,
     onRequestLocalNetwork = localNetwork.request,
     onOpenPermissionSettings = localNetwork.openSettings,
-    onTest = viewModel::test,
+    onTest = onTest,
     onSave = { viewModel.save(start = false) },
     onStart = onStart,
     onCancel = onCancel
 )
 
-private fun handleEvent(
+private suspend fun handleEvent(
     event: TunnelEditorEvent,
     navController: NavController,
     context: Context,
-    snackBar: SnackBarController
+    snackBar: SnackBarController,
+    scrollToFirstError: suspend () -> Unit
 ) {
     when (event) {
         is TunnelEditorEvent.Saved -> {
@@ -135,6 +168,11 @@ private fun handleEvent(
 
         TunnelEditorEvent.SaveFailed ->
             ToastUtils.makeToast(context, context.getString(R.string.port_forward_save_failed))
+
+        TunnelEditorEvent.InvalidForm -> {
+            snackBar.show(context.getString(R.string.port_forward_fix_fields))
+            scrollToFirstError()
+        }
     }
 }
 

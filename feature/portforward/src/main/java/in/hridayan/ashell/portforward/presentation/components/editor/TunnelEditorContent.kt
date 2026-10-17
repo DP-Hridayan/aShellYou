@@ -58,9 +58,27 @@ fun TunnelEditorContent(
         if (needsPermission) permission(localNetwork, actions)
         localSection(state, actions)
         optionsSection(state, actions)
-        checkSection(state, enabled = !needsPermission, onTest = actions.onTest)
+        checkSection(state, onTest = actions.onTest)
     }
 }
+
+/**
+ * The index of the first list item that shows a field error, or null when there is none. It
+ * follows the item order of [TunnelEditorContent], so the two change together.
+ */
+fun TunnelEditorUiState.firstErrorIndex(needsPermission: Boolean): Int? {
+    val targetError = validation.host != null || validation.targetPort != null
+    val targetItems = if (isDevice) DEVICE_TARGET_ITEMS else NETWORK_TARGET_ITEMS
+    return when {
+        targetError -> if (isDevice) DEVICE_SOCKET_LABEL_INDEX else 0
+        validation.localPort != null -> targetItems + if (needsPermission) 1 else 0
+        else -> null
+    }
+}
+
+private const val NETWORK_TARGET_ITEMS = 4
+private const val DEVICE_TARGET_ITEMS = 5
+private const val DEVICE_SOCKET_LABEL_INDEX = 3
 
 private fun LazyListScope.networkTarget(state: TunnelEditorUiState, actions: TunnelEditorActions) {
     item(key = "target_label") { EditorSectionLabel(stringResource(R.string.port_forward_section_target)) }
@@ -203,9 +221,9 @@ private fun LazyListScope.optionsSection(state: TunnelEditorUiState, actions: Tu
     }
 }
 
-private fun LazyListScope.checkSection(state: TunnelEditorUiState, enabled: Boolean, onTest: () -> Unit) {
+private fun LazyListScope.checkSection(state: TunnelEditorUiState, onTest: () -> Unit) {
     item(key = "check_label") { EditorSectionLabel(stringResource(R.string.port_forward_section_check)) }
-    item(key = "test") { TestCard(state = state.test, spec = state.previewSpec, enabled = enabled, onTest = onTest) }
+    item(key = "test") { TestCard(state = state.test, spec = state.previewSpec, onTest = onTest) }
     val error = state.startError
     val spec = state.previewSpec
     if (error != null && spec != null) {

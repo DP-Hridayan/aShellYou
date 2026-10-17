@@ -198,4 +198,61 @@ class TunnelEditorViewModelTest {
 
         assertEquals(TestState.Idle, vm.state.value.test)
     }
+
+    @Test
+    fun `a blocked action tells the screen`() = runTest(dispatcher) {
+        val vm = viewModel()
+        val events = mutableListOf<TunnelEditorEvent>()
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.events.collect { events += it } }
+
+        vm.save(start = false)
+        vm.test()
+        advanceUntilIdle()
+
+        assertEquals(listOf(TunnelEditorEvent.InvalidForm, TunnelEditorEvent.InvalidForm), events)
+    }
+
+    @Test
+    fun `testing needs only the target, not a valid local port`() = runTest(dispatcher) {
+        val vm = viewModel()
+        vm.onAddressChange("10.0.0.2:3000")
+        vm.onLocalPortChange("80")
+
+        vm.test()
+        advanceUntilIdle()
+
+        assertTrue(vm.state.value.test is TestState.Done)
+    }
+
+    @Test
+    fun `a local port used by another tunnel blocks saving`() = runTest(dispatcher) {
+        val vm = viewModel()
+        vm.onAddressChange("10.0.0.2:3000")
+        advanceUntilIdle()
+        vm.save(start = false)
+        advanceUntilIdle()
+
+        val second = viewModel()
+        second.onAddressChange("10.0.0.3:3000")
+        advanceUntilIdle()
+        second.save(start = true)
+        advanceUntilIdle()
+
+        assertTrue(second.state.value.validation.localPort is ValidateTunnelFormUseCase.FieldError.UsedByTunnel)
+        assertEquals(1, repository.saved.value.size)
+        assertTrue(controller.started.isEmpty())
+    }
+
+    @Test
+    fun `tapping start twice starts once`() = runTest(dispatcher) {
+        val vm = viewModel()
+        vm.onAddressChange("10.0.0.2:3000")
+        advanceUntilIdle()
+
+        vm.save(start = true)
+        vm.save(start = true)
+        advanceUntilIdle()
+
+        assertEquals(1, controller.started.size)
+    }
 }

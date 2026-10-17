@@ -1005,6 +1005,7 @@
     <string name="port_forward_event_started" comment="Activity log entry when a tunnel started">Started</string>
     <string name="port_forward_field_invalid" comment="Error under a field with a value that is not valid">Not valid</string>
     <string name="port_forward_field_required" comment="Error under an empty required field">Required</string>
+    <string name="port_forward_fix_fields" comment="Snackbar shown when Save, Start or Test is tapped while a field of the tunnel editor has an error">Check the highlighted fields</string>
     <string name="port_forward_group_background" comment="Settings group title for what tunnels do while the app is not on screen">Background</string>
     <string name="port_forward_group_device_disconnects" comment="Settings group title for what tunnels do when their device disconnects">Device disconnects</string>
     <string name="port_forward_kind_device" comment="Choice that creates a tunnel to a port on a connected device">Reach a port on a connected device</string>

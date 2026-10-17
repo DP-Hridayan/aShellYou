@@ -193,29 +193,36 @@ class TunnelEditorViewModel internal constructor(
 
     fun useSuggestedPort(port: Int) = onLocalPortChange(port.toString())
 
+    /** Tests the target only: the local port does not matter for reaching it. */
     fun test() {
-        val spec = validSpecOrShowErrors() ?: return
+        val current = _state.value
+        val target = current.form.targetOrNull()
+        if (current.validation.host != null || current.validation.targetPort != null || target == null) {
+            showErrors()
+            return
+        }
         testJob?.cancel()
         testJob = viewModelScope.launch {
             _state.update { it.copy(test = TestState.Testing) }
-            val result = tester.test(spec.target)
+            val result = tester.test(target)
             _state.update { it.withTestResult(result) }
         }
     }
 
     /** Saves the tunnel, and starts or restarts it when [start] is true. */
     fun save(start: Boolean) {
+        if (_state.value.isSaving) return
         val spec = validSpecOrShowErrors() ?: return
         val portStatus = _state.value.localPortStatus
         if (start && portStatus is LocalPortStatus.InUse) {
             _state.update { it.copy(startError = TunnelError.PortInUse(portStatus.suggestedPort)) }
             return
         }
+        _state.update { it.copy(isSaving = true) }
         viewModelScope.launch { persist(spec, start) }
     }
 
     private suspend fun persist(spec: TunnelSpec, start: Boolean) {
-        _state.update { it.copy(isSaving = true) }
         if (repository.save(spec).isFailure) {
             _state.update { it.copy(isSaving = false) }
             _events.emit(TunnelEditorEvent.SaveFailed)
@@ -263,10 +270,16 @@ class TunnelEditorViewModel internal constructor(
     private fun validSpecOrShowErrors(): TunnelSpec? {
         val current = _state.value
         if (!current.validation.isValid) {
-            _state.update { it.copy(showErrors = true) }
+            showErrors()
             return null
         }
         return current.form.toSpecOrNull(editingId)
+    }
+
+    /** Shows the field errors, and tells the screen so a tap never looks ignored. */
+    private fun showErrors() {
+        _state.update { it.copy(showErrors = true) }
+        viewModelScope.launch { _events.emit(TunnelEditorEvent.InvalidForm) }
     }
 
     private fun updateForm(transform: (TunnelEditorForm) -> TunnelEditorForm) {

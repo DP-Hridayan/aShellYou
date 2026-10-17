@@ -23,8 +23,9 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import `in`.hridayan.ashell.core.common.network.LocalNetworkPermission
 import `in`.hridayan.ashell.core.utils.isNotificationPermissionGranted
 
+/** @param onResult runs with the answer each time the system prompt closes. */
 @Composable
-fun rememberLocalNetworkAccess(): LocalNetworkAccessState {
+fun rememberLocalNetworkAccess(onResult: (granted: Boolean) -> Unit = {}): LocalNetworkAccessState {
     val context = LocalContext.current
     val activity = LocalActivity.current
     var granted by remember { mutableStateOf(LocalNetworkPermission.isGranted(context)) }
@@ -35,6 +36,7 @@ fun rememberLocalNetworkAccess(): LocalNetworkAccessState {
         granted = result
         permanentlyDenied = !result && activity != null &&
             !ActivityCompat.shouldShowRequestPermissionRationale(activity, LocalNetworkPermission.PERMISSION)
+        onResult(result)
     }
     return LocalNetworkAccessState(
         granted = granted,

@@ -163,7 +163,7 @@ fun PortForwardSettingsScreen(
                 }
 
                 item(key = "spacer_bottom") {
-                    Spacer(modifier = Modifier.fillMaxWidth().height(25.dp))
+                    Spacer(modifier = Modifier.fillMaxWidth().height(30.dp))
                 }
             }
         }
@@ -197,7 +197,7 @@ private fun SettingsDialog(
             options = PortForwardDefaults.WAIT_TIMEOUT_OPTIONS,
             selected = choices.waitTimeout,
             label = { waitTimeoutLabel(it) },
-            onSelect = viewModel::setWaitTimeout,
+            onApply = viewModel::setWaitTimeout,
             onDismiss = viewModel::dismissDialog
         )
 
@@ -226,7 +226,7 @@ private fun SettingsDialog(
             options = PortForwardDefaults.CONNECT_TIMEOUT_OPTIONS,
             selected = choices.connectTimeout,
             label = { pluralStringResource(R.plurals.n_seconds, it, it) },
-            onSelect = viewModel::setConnectTimeout,
+            onApply = viewModel::setConnectTimeout,
             onDismiss = viewModel::dismissDialog
         )
 
@@ -235,7 +235,7 @@ private fun SettingsDialog(
             options = PortForwardDefaults.MAX_CONNECTIONS_OPTIONS,
             selected = choices.maxConnections,
             label = { it.toString() },
-            onSelect = viewModel::setMaxConnections,
+            onApply = viewModel::setMaxConnections,
             onDismiss = viewModel::dismissDialog
         )
 

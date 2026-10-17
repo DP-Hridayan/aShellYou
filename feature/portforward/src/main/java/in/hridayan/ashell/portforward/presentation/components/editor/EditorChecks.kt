@@ -83,7 +83,7 @@ fun StartErrorCard(error: TunnelError, spec: TunnelSpec) {
 
 /** Checks the target before starting, and shows the last result in the same card. */
 @Composable
-fun TestCard(state: TestState, spec: TunnelSpec?, enabled: Boolean, onTest: () -> Unit) {
+fun TestCard(state: TestState, spec: TunnelSpec?, onTest: () -> Unit) {
     CustomCard(modifier = Modifier.fillMaxWidth(), shape = GroupPosition.Single.card, clickable = false) {
         Row(
             modifier = Modifier
@@ -107,7 +107,7 @@ fun TestCard(state: TestState, spec: TunnelSpec?, enabled: Boolean, onTest: () -
             if (state == TestState.Testing) {
                 CircularProgressIndicator(modifier = Modifier.size(ProgressSize), strokeWidth = ProgressStroke)
             } else {
-                FilledTonalButton(enabled = enabled, onClick = withHaptic { onTest() }) {
+                FilledTonalButton(onClick = withHaptic { onTest() }) {
                     Text(stringResource(R.string.test))
                 }
             }

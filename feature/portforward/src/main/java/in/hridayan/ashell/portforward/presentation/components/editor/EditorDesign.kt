@@ -7,26 +7,33 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
@@ -49,6 +56,9 @@ object EditorSpacing {
     val CaptionTop = 6.dp
     val CardHorizontal = 20.dp
     val CardVertical = 16.dp
+    val FieldHorizontal = 20.dp
+    val FieldVertical = 12.dp
+    val SwitchRowVertical = 8.dp
     val ContentGap = 16.dp
     val BottomClearance = 120.dp
 }
@@ -143,7 +153,8 @@ fun EditorCaption(text: String?, isError: Boolean = false) {
 
 /**
  * A borderless filled field in the app's card style. [position] places it in its group, so a run
- * of fields reads as one surface.
+ * of fields reads as one surface. Its text lines up with the text of the cards around it, and the
+ * floating label and value get more room than Material's default.
  */
 @Composable
 fun EditorTextField(
@@ -157,19 +168,52 @@ fun EditorTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     monospace: Boolean = false
 ) {
-    TextField(
-        modifier = modifier.fillMaxWidth(),
+    val colors = editorFieldColors()
+    val interactionSource = remember { MutableInteractionSource() }
+    val focused by interactionSource.collectIsFocusedAsState()
+    val textColor = when {
+        isError -> colors.errorTextColor
+        focused -> colors.focusedTextColor
+        else -> colors.unfocusedTextColor
+    }
+    val textStyle = MaterialTheme.typography.bodyLarge.copy(
+        color = textColor,
+        fontFamily = if (monospace) FontFamily.Monospace else null
+    )
+    // The material TextField overload for a String value takes no content padding, so the field is
+    // built from its parts to give the label and value more room.
+    BasicTextField(
+        modifier = modifier
+            .fillMaxWidth()
+            .defaultMinSize(minHeight = TextFieldDefaults.MinHeight),
         value = value,
         onValueChange = onValueChange,
-        label = { Text(label) },
-        shape = position.field,
-        isError = isError,
         singleLine = true,
-        trailingIcon = trailingIcon,
+        textStyle = textStyle,
+        cursorBrush = SolidColor(if (isError) colors.errorCursorColor else colors.cursorColor),
         keyboardOptions = keyboardOptions,
-        textStyle = MaterialTheme.typography.bodyLarge.copy(fontFamily = if (monospace) FontFamily.Monospace else null),
-        colors = editorFieldColors()
-    )
+        interactionSource = interactionSource
+    ) { innerTextField ->
+        TextFieldDefaults.DecorationBox(
+            value = value,
+            innerTextField = innerTextField,
+            enabled = true,
+            singleLine = true,
+            visualTransformation = VisualTransformation.None,
+            interactionSource = interactionSource,
+            isError = isError,
+            label = { Text(label) },
+            trailingIcon = trailingIcon,
+            shape = position.field,
+            colors = colors,
+            contentPadding = TextFieldDefaults.contentPaddingWithLabel(
+                start = EditorSpacing.FieldHorizontal,
+                end = EditorSpacing.FieldHorizontal,
+                top = EditorSpacing.FieldVertical,
+                bottom = EditorSpacing.FieldVertical
+            )
+        )
+    }
 }
 
 @Composable
@@ -196,7 +240,7 @@ fun EditorSwitchRow(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = EditorSpacing.CardHorizontal, vertical = EditorSpacing.CardVertical),
+                .padding(horizontal = EditorSpacing.CardHorizontal, vertical = EditorSpacing.SwitchRowVertical),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(EditorSpacing.ContentGap)
         ) {

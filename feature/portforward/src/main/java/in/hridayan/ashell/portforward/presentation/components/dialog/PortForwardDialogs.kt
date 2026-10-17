@@ -6,6 +6,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -38,29 +43,43 @@ fun ConfirmDialog(
     }
 }
 
-/** Picks one of [options], each shown with [label]. Choosing an option confirms it. */
+/**
+ * Picks one of [options], each shown with [label]. The choice stays local to the dialog until
+ * Apply passes it to [onApply]; Cancel or dismissing keeps [selected].
+ */
 @Composable
 fun <T> ChoiceDialog(
     title: String,
     options: List<T>,
     selected: T,
     label: @Composable (T) -> String,
-    onSelect: (T) -> Unit,
+    onApply: (T) -> Unit,
     onDismiss: () -> Unit
 ) {
+    var tempSelected by remember { mutableStateOf(selected) }
+
+    LaunchedEffect(selected) {
+        tempSelected = selected
+    }
+
     DialogContainer(onDismiss = onDismiss) {
         DialogHeading(title)
         Column {
             options.forEachIndexed { index, option ->
                 RadioOptionCard(
                     label = label(option),
-                    selected = option == selected,
+                    selected = option == tempSelected,
                     index = index,
                     count = options.size,
-                    onSelect = { onSelect(option) }
+                    onSelect = { tempSelected = option }
                 )
             }
         }
+        DialogButtons(
+            confirmLabel = stringResource(R.string.apply),
+            onConfirm = { onApply(tempSelected) },
+            onDismiss = onDismiss
+        )
     }
 }
 

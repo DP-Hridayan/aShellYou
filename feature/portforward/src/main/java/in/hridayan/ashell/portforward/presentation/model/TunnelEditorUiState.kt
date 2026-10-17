@@ -101,4 +101,7 @@ data class TunnelEditorUiState(
 sealed interface TunnelEditorEvent {
     data class Saved(val spec: TunnelSpec, val started: Boolean) : TunnelEditorEvent
     data object SaveFailed : TunnelEditorEvent
+
+    /** An action was tapped while a field it needs has an error. */
+    data object InvalidForm : TunnelEditorEvent
 }
