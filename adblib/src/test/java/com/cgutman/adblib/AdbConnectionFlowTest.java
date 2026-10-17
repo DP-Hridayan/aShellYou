@@ -1,6 +1,7 @@
 package com.cgutman.adblib;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -10,6 +11,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -93,6 +96,49 @@ public class AdbConnectionFlowTest {
 		}
 	}
 
+	@Test
+	public void aLargeWriteIsSplitAndWaitsForEachAcknowledgement() throws Exception {
+		AdbStream stream = open("tcp:9222", REMOTE_A);
+		int maxPayload = connection.getNegotiatedMaxPayload();
+		byte[] payload = new byte[maxPayload * 2 + 10];
+
+		CountDownLatch firstWrite = channel.awaitCommand(AdbProtocol.CMD_WRTE);
+		Future<?> writing = threads.submit(() -> {
+			stream.write(payload);
+			return null;
+		});
+		assertTrue(firstWrite.await(STEP_TIMEOUT_MS, TimeUnit.MILLISECONDS));
+		Thread.sleep(200);
+		assertEquals(Arrays.asList(maxPayload), channel.writePayloadSizes());
+
+		channel.deliver(AdbProtocol.generateReady(REMOTE_A, localIdOf(1)));
+		channel.deliver(AdbProtocol.generateReady(REMOTE_A, localIdOf(1)));
+		writing.get(STEP_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+
+		assertEquals(Arrays.asList(maxPayload, maxPayload, 10), channel.writePayloadSizes());
+	}
+
+	@Test
+	public void aWriteCapSplitsPayloadsBelowTheNegotiatedMaximum() throws Exception {
+		connection.setMaxWritePayload(1024);
+		AdbStream stream = open("tcp:9222", REMOTE_A);
+
+		CountDownLatch firstChunk = channel.awaitCommand(AdbProtocol.CMD_WRTE);
+		Future<?> writing = threads.submit(() -> {
+			stream.write(new byte[2500]);
+			return null;
+		});
+		assertTrue(firstChunk.await(STEP_TIMEOUT_MS, TimeUnit.MILLISECONDS));
+		for (int chunk = 2; chunk <= 3; chunk++) {
+			CountDownLatch nextChunk = channel.awaitCommand(AdbProtocol.CMD_WRTE);
+			channel.deliver(AdbProtocol.generateReady(REMOTE_A, localIdOf(1)));
+			assertTrue(nextChunk.await(STEP_TIMEOUT_MS, TimeUnit.MILLISECONDS));
+		}
+		writing.get(STEP_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+
+		assertEquals(Arrays.asList(1024, 1024, 452), channel.writePayloadSizes());
+	}
+
 	private AdbStream open(String destination, int remoteId) throws Exception {
 		int localId = channel.openedStreams() + 1;
 		CountDownLatch openSent = channel.awaitCommand(AdbProtocol.CMD_OPEN);
@@ -159,6 +205,16 @@ public class AdbConnectionFlowTest {
 				}
 			}
 			return count;
+		}
+
+		List<Integer> writePayloadSizes() {
+			List<Integer> sizes = new ArrayList<>();
+			for (AdbMessage message : written) {
+				if (message.getCommand() == AdbProtocol.CMD_WRTE) {
+					sizes.add(message.getPayload() == null ? 0 : message.getPayload().length);
+				}
+			}
+			return sizes;
 		}
 
 		CountDownLatch awaitCommand(int command) {

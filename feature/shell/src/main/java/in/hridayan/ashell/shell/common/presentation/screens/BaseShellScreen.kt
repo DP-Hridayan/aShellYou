@@ -183,6 +183,8 @@ fun BaseShellScreen(
     deviceConnection: DeviceConnection = DeviceConnection.NONE,
     onOpenScreen: () -> Unit = {},
     onOpenFiles: () -> Unit = {},
+    onOpenPorts: () -> Unit = {},
+    portsBadgeCount: Int = 0,
     extraContent: @Composable () -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -699,12 +701,14 @@ fun BaseShellScreen(
                 if (deviceActions.isNotEmpty() && !isOutputFullscreen) {
                     DeviceDock(
                         actions = deviceActions,
+                        badges = mapOf(DeviceActionId.PORTS to portsBadgeCount),
                         expanded = isDeviceDockExpanded && !isKeyboardVisible && !isOutputDragged,
                         onExpandedChange = shellViewModel::setDeviceDockExpanded,
                         onAction = { action ->
                             when (action) {
                                 DeviceActionId.SCREEN -> onOpenScreen()
                                 DeviceActionId.FILES -> onOpenFiles()
+                                DeviceActionId.PORTS -> onOpenPorts()
                                 DeviceActionId.SHARE_OUTPUT -> shareAction()
                                 DeviceActionId.SAVE_OUTPUT -> saveOutputAction()
                                 DeviceActionId.ASK_AI -> navController.navigate(NavRoutes.AiChatScreen)

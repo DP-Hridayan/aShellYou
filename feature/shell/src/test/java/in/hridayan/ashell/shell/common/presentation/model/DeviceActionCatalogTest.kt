@@ -11,6 +11,7 @@ class DeviceActionCatalogTest {
             listOf(
                 DeviceActionId.SCREEN,
                 DeviceActionId.FILES,
+                DeviceActionId.PORTS,
                 DeviceActionId.SHARE_OUTPUT,
                 DeviceActionId.SAVE_OUTPUT,
                 DeviceActionId.ASK_AI
@@ -24,7 +25,7 @@ class DeviceActionCatalogTest {
     }
 
     @Test
-    fun `this phone over wireless debugging never offers screen`() {
+    fun `this phone over wireless debugging never offers screen or ports`() {
         assertEquals(
             listOf(DeviceActionId.FILES, DeviceActionId.ASK_AI),
             DeviceActionCatalog.actionsFor(

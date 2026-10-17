@@ -25,13 +25,16 @@ import `in`.hridayan.ashell.core.ui.otg.OtgViewModel
 import `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet.ConnectedDeviceBottomSheet
 import `in`.hridayan.ashell.shell.common.presentation.model.DeviceConnection
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
+import `in`.hridayan.ashell.shell.common.presentation.viewmodel.DeviceTunnelsViewModel
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 
 @Composable
 fun OtgAdbScreen(
     shellViewModel: ShellViewModel = hiltViewModel(),
-    otgViewModel: OtgViewModel = hiltViewModel()
+    otgViewModel: OtgViewModel = hiltViewModel(),
+    deviceTunnelsViewModel: DeviceTunnelsViewModel = hiltViewModel()
 ) {
+    val tunnelSummary by deviceTunnelsViewModel.summary.collectAsState()
     val res = LocalResources.current
     val navController = LocalNavController.current
     var showConnectedDeviceSheet by rememberSaveable { mutableStateOf(false) }
@@ -91,6 +94,8 @@ fun OtgAdbScreen(
         runCommandIfPermissionGranted = runCommandIfPermissionGranted,
         deviceConnection = if (isConnected) DeviceConnection.OTHER_DEVICE else DeviceConnection.NONE,
         onOpenScreen = { navController.navigate(NavRoutes.MirrorScreen(ExternalDeviceTransport.OTG)) },
+        onOpenPorts = { navController.navigate(NavRoutes.PortsScreen(ExternalDeviceTransport.OTG)) },
+        portsBadgeCount = tunnelSummary.runningOn(ExternalDeviceTransport.OTG),
         onOpenFiles = {
             navController.navigate(
                 NavRoutes.FileBrowserScreen(

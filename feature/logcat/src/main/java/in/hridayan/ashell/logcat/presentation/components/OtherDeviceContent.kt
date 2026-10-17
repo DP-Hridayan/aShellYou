@@ -33,6 +33,7 @@ fun OtherDeviceContent(
             state.list.logs.isNotEmpty() -> AutoScrollingLogList(
                 logs = state.list.logs,
                 expandedIds = expandedIds,
+                selection = state.selection,
                 listState = listState,
                 isAutoScrolling = state.list.isAutoScrolling,
                 actions = actions,

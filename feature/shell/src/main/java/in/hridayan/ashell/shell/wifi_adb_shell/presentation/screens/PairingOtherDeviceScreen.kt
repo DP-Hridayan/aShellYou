@@ -90,6 +90,7 @@ import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.C
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairConnectFailedDialog
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.PairDialogKey
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.rememberTunnelAwareDisconnect
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.image.QRImage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.placeholder.NoSavedDevicesPlaceholder
@@ -298,6 +299,11 @@ fun PairingOtherDeviceScreen(
                 }
             }
 
+            val disconnect = rememberTunnelAwareDisconnect(
+                deviceName = currentDevice?.deviceName.orEmpty(),
+                onDisconnect = viewModel::disconnect
+            )
+
             HorizontalPager(
                 state = pagerState,
                 beyondViewportPageCount = 1,
@@ -320,7 +326,7 @@ fun PairingOtherDeviceScreen(
                             wasReconnectCancelled = true
                             viewModel.cancelReconnect()
                         },
-                        onDisconnect = { viewModel.disconnect() },
+                        onDisconnect = disconnect,
                         onForget = { device -> viewModel.forgetDevice(device) },
                         onGoToTerminal = { navController.navigate(NavRoutes.WifiAdbScreen()) }
                     )

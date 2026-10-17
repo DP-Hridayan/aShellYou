@@ -20,6 +20,7 @@ import `in`.hridayan.ashell.settings.presentation.page.search.graph.entries.auto
 import `in`.hridayan.ashell.settings.presentation.page.search.graph.entries.backupAndRestoreGraph
 import `in`.hridayan.ashell.settings.presentation.page.search.graph.entries.behaviorGraph
 import `in`.hridayan.ashell.settings.presentation.page.search.graph.entries.lookAndFeelGraph
+import `in`.hridayan.ashell.settings.presentation.page.search.graph.entries.portForwardGraph
 import `in`.hridayan.ashell.settings.presentation.page.search.graph.entries.privacyAndSecurityGraph
 import `in`.hridayan.ashell.settings.presentation.page.search.graph.entries.rootGraph
 import `in`.hridayan.settingsgraph.search.SearchGraph
@@ -87,6 +88,8 @@ fun rememberSettingsSearchGraph(navController: NavController): SearchGraph {
                     aiEnabled = aiEnabled,
                     aiCacheEnabled = aiCacheEnabled
                 )
+
+                portForwardGraph(navController = navController)
 
                 autoUpdateGraph(navController = navController)
 

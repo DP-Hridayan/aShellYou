@@ -138,6 +138,23 @@ sealed class NavRoutes {
 
     @Serializable
     object AiChatScreen : NavRoutes()
+
+    /** Lists tunnels, starting on the tunnels of [transport]'s device when it is set. */
+    @Serializable
+    data class PortsScreen(val transport: ExternalDeviceTransport? = null) : NavRoutes()
+
+    /**
+     * Creates a tunnel when [tunnelId] is null, otherwise edits that tunnel. A new tunnel reaches the
+     * device on [transport] when it is set, and the network otherwise.
+     */
+    @Serializable
+    data class TunnelEditorScreen(
+        val tunnelId: String? = null,
+        val transport: ExternalDeviceTransport? = null
+    ) : NavRoutes()
+
+    @Serializable
+    object PortForwardSettingsScreen : NavRoutes()
 }
 
 

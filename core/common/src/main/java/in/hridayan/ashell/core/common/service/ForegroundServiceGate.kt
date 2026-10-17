@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.wifi_adb_shell.service
+package `in`.hridayan.ashell.core.common.service
 
 /**
  * What a caller should do in response to a stop request.

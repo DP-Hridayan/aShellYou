@@ -53,6 +53,7 @@ import `in`.hridayan.ashell.core.utils.registerNetworkCallback
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.core.utils.unregisterNetworkCallback
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.ReconnectFailedDialog
+import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.dialog.rememberTunnelAwareDisconnect
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item.SavedDeviceItem
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.placeholder.NoSavedDevicesPlaceholder
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.viewmodel.WifiAdbViewModel
@@ -75,6 +76,10 @@ fun SavedDevicesBottomSheet(
     val scope = rememberCoroutineScope()
     val savedDevices by viewModel.savedDevices.collectAsState()
     val currentDevice by viewModel.currentDevice.collectAsState()
+    val disconnect = rememberTunnelAwareDisconnect(
+        deviceName = currentDevice?.deviceName.orEmpty(),
+        onDisconnect = viewModel::disconnect
+    )
     val wifiAdbState by viewModel.state.collectAsState()
 
     var isWifiConnected by remember { mutableStateOf(context.isConnectedToWifi()) }
@@ -218,7 +223,7 @@ fun SavedDevicesBottomSheet(
                                 }
                                 viewModel.reconnectToDevice(device)
                             },
-                            onDisconnect = { viewModel.disconnect() },
+                            onDisconnect = disconnect,
                             onForget = { viewModel.forgetDevice(device) },
                             onClick = {
                                 if (isConnected) {

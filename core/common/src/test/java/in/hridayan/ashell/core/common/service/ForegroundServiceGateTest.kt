@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.shell.wifi_adb_shell.service
+package `in`.hridayan.ashell.core.common.service
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse

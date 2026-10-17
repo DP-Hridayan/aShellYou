@@ -104,6 +104,9 @@ public class AdbConnection implements Closeable {
 
 	private volatile long openTimeoutMillis = DEFAULT_OPEN_TIMEOUT_MS;
 
+	/** The largest payload one WRITE carries, below the negotiated maximum when set. */
+	private volatile int maxWritePayload = Integer.MAX_VALUE;
+
 	/**
 	 * Internal constructor to initialize some internal state
 	 */
@@ -368,6 +371,22 @@ public class AdbConnection implements Closeable {
 	public int getNegotiatedMaxPayload() throws InterruptedException, IOException
 	{
 		return Math.min(getMaxData(), AdbProtocol.CONNECT_MAXDATA);
+	}
+
+	/**
+	 * Caps how much data one WRITE carries. Streams share one link, and a packet holds the link for
+	 * as long as it takes to send, so smaller packets let other streams' packets interleave.
+	 */
+	public void setMaxWritePayload(int bytes)
+	{
+		if (bytes <= 0) throw new IllegalArgumentException("Payload cap must be positive");
+		maxWritePayload = bytes;
+	}
+
+	/** The payload size bulk writes are split into: the negotiated maximum, or the cap if smaller. */
+	int getWritePayload() throws InterruptedException, IOException
+	{
+		return Math.min(getNegotiatedMaxPayload(), maxWritePayload);
 	}
 
 	/**

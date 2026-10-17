@@ -54,6 +54,7 @@
     <ID>LongMethod:PrivacyPolicyScreen.kt$private fun buildInline( text: String, normal: SpanStyle, bold: SpanStyle, italic: SpanStyle, code: SpanStyle, link: SpanStyle, )</ID>
     <ID>LongMethod:ReadFontNameUseCase.kt$ReadFontNameUseCase$private fun parseFontName(file: File): String?</ID>
     <ID>LongMethod:SettingsBackupProvider.kt$SettingsBackupProvider$override suspend fun restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)</ID>
+    <ID>LongMethod:PortForwardGraph.kt$internal fun SearchScreenScope.portForwardGraph(navController: NavController)</ID>
     <ID>LongMethod:SettingsSearchGraph.kt$private fun SearchScreenScope.aboutScreen(navController: NavController)</ID>
     <ID>LongMethod:SettingsSearchGraph.kt$private fun SearchScreenScope.aiModelsScreen(navController: NavController, aiEnabled: Boolean)</ID>
     <ID>LongMethod:SettingsSearchGraph.kt$private fun SearchScreenScope.backupAndRestoreScreen(navController: NavController)</ID>

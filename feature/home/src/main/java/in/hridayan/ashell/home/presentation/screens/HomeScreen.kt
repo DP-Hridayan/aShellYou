@@ -54,6 +54,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -73,6 +74,7 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.home.presentation.component.dialog.HomeDialogKey
 import `in`.hridayan.ashell.home.presentation.component.dialog.RebootOptionsDialog
 import `in`.hridayan.ashell.home.presentation.model.DeviceLinkStatus
+import `in`.hridayan.ashell.home.presentation.model.PortForwardCardStatus
 import `in`.hridayan.ashell.home.presentation.model.WifiAdbCardStatus
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -80,6 +82,7 @@ import `in`.hridayan.ashell.home.presentation.model.WifiAdbCardStatus
 fun HomeScreen(
     localAdbWorkingMode: Int = LocalAdbWorkingMode.BASIC,
     isLogcatRunning: Boolean = false,
+    portForwardStatus: PortForwardCardStatus = PortForwardCardStatus(),
     otgStatus: DeviceLinkStatus = DeviceLinkStatus.Idle,
     wifiAdbStatus: WifiAdbCardStatus = WifiAdbCardStatus(),
     fastbootStatus: DeviceLinkStatus = DeviceLinkStatus.Idle,
@@ -91,6 +94,7 @@ fun HomeScreen(
     onSettingsClick: () -> Unit = {},
     onLocalAdbClick: () -> Unit = {},
     onLogcatClick: () -> Unit = {},
+    onPortForwardClick: () -> Unit = {},
     onAiChatClick: () -> Unit = {},
     onSideloadClick: () -> Unit = {},
     onReboot: (Array<String>) -> Unit = {}
@@ -293,6 +297,16 @@ fun HomeScreen(
                     onClick = withHaptic {
                         onLogcatClick()
                     }
+                )
+            }
+
+            item {
+                PortForwardCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp),
+                    status = portForwardStatus,
+                    onClick = onPortForwardClick
                 )
             }
 
@@ -539,6 +553,81 @@ fun LogcatCard(
         }
     )
 }
+
+@Composable
+fun PortForwardCard(
+    modifier: Modifier = Modifier,
+    status: PortForwardCardStatus = PortForwardCardStatus(),
+    onClick: () -> Unit
+) {
+    val isRunning = status.runningCount > 0
+    val cardColors = if (isRunning) {
+        CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+        )
+    } else {
+        CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainer,
+            contentColor = MaterialTheme.colorScheme.onSurface,
+        )
+    }
+
+    NavItemCard(
+        modifier = modifier,
+        title = stringResource(R.string.port_forwarding),
+        description = portForwardDescription(status),
+        leadingIcon = { tint ->
+            Icon(
+                modifier = Modifier.size(20.dp),
+                painter = painterResource(R.drawable.ic_port_forward),
+                contentDescription = null,
+                tint = tint
+            )
+        },
+        cardColors = cardColors,
+        onClick = withHaptic { onClick() },
+        badges = { PortForwardBadges(status) }
+    )
+}
+
+@Composable
+private fun portForwardDescription(status: PortForwardCardStatus): String {
+    if (status.runningNames.isEmpty()) return stringResource(R.string.des_port_forwarding)
+    val shown = status.runningNames.take(PORT_FORWARD_NAMES_SHOWN).joinToString(PORT_FORWARD_NAME_SEPARATOR)
+    val hidden = status.runningNames.size - PORT_FORWARD_NAMES_SHOWN
+    return if (hidden > 0) stringResource(R.string.port_forward_names_and_more, shown, hidden) else shown
+}
+
+@Composable
+private fun PortForwardBadges(status: PortForwardCardStatus) {
+    if (status.runningCount == 0 && !status.needsAttention) return
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        if (status.runningCount > 0) {
+            Badge(
+                badgeText = pluralStringResource(
+                    R.plurals.port_forward_running_count,
+                    status.runningCount,
+                    status.runningCount
+                ),
+                badgeContainerColor = MaterialTheme.colorScheme.primary,
+                badgeContentColor = MaterialTheme.colorScheme.onPrimary,
+                borderEnabled = false,
+            )
+        }
+        if (status.needsAttention) {
+            Badge(
+                badgeText = stringResource(R.string.needs_attention),
+                badgeContainerColor = MaterialTheme.colorScheme.errorContainer,
+                badgeContentColor = MaterialTheme.colorScheme.onErrorContainer,
+                borderEnabled = false,
+            )
+        }
+    }
+}
+
+private const val PORT_FORWARD_NAMES_SHOWN = 2
+private const val PORT_FORWARD_NAME_SEPARATOR = ", "
 
 @Composable
 private fun NavItemCompactCard(

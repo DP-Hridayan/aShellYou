@@ -141,6 +141,7 @@
     <ID>NoMultipleSpaces:LogcatEmitterFactory.kt$LogcatEmitterFactory$</ID>
 
     <ID>SwallowedException:BasicLogcatEmitter.kt$BasicLogcatEmitter$e: IOException</ID>
+    <ID>LargeClass:LogcatViewModel.kt$LogcatViewModel : ViewModel</ID>
     <ID>TooManyFunctions:LogcatViewModel.kt$LogcatViewModel : ViewModel</ID>
     <ID>VariableNaming:LogcatFilterRepositoryImpl.kt$LogcatFilterRepositoryImpl$private val
       FILTERS_KEY = stringPreferencesKey("saved_filters")

@@ -6,6 +6,7 @@ import `in`.hridayan.ashell.core.common.domain.model.RemoteFileStat
 import `in`.hridayan.ashell.shell.file_browser.domain.protocol.SyncSession
 import `in`.hridayan.ashell.shell.file_browser.domain.protocol.SyncTransport
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.TimeoutCancellationException
 import java.io.InputStream
 
@@ -18,12 +19,12 @@ private const val SYNC_SERVICE = "sync:"
 abstract class SyncBackedDeviceChannel : ExternalDeviceChannel {
 
     /** Opens [service] on the connected device; may block until the device answers the open. */
-    protected abstract suspend fun openRaw(service: String): AdbDuplexStream
+    protected abstract suspend fun openRaw(service: String, ioDispatcher: CoroutineDispatcher): AdbDuplexStream
 
     protected abstract suspend fun openSyncTransport(service: String): SyncTransport
 
-    override suspend fun openStream(service: String): Result<AdbDuplexStream> =
-        resultOf { openRaw(service) }
+    override suspend fun openStream(service: String, ioDispatcher: CoroutineDispatcher): Result<AdbDuplexStream> =
+        resultOf { openRaw(service, ioDispatcher) }
 
     override suspend fun stat(remotePath: String): Result<RemoteFileStat> = resultOf {
         withSyncSession { session ->
