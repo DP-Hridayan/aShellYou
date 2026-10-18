@@ -174,6 +174,8 @@ import kotlinx.coroutines.launch
 import java.io.File
 import kotlin.time.Duration.Companion.milliseconds
 
+private val BrandingBarHeight = 48.dp
+
 @Composable
 fun BaseShellScreen(
     modifier: Modifier = Modifier,
@@ -386,6 +388,7 @@ fun BaseShellScreen(
                 modeText = modeText,
                 showLocalAdbModes = showLocalAdbModes,
                 actions = deviceActions,
+                badges = mapOf(DeviceActionId.PORTS to portsBadgeCount),
                 onAction = { action ->
                     coroutineScope.launch { drawerState.close() }
                     when (action) {
@@ -501,12 +504,15 @@ fun BaseShellScreen(
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
+                                    .height(BrandingBarHeight)
                                     .padding(horizontal = 20.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(25.dp)
                             ) {
                                 Box(
-                                    modifier = Modifier.weight(1f),
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .fillMaxHeight(),
                                     contentAlignment = Alignment.CenterStart
                                 ) {
                                     if (FeatureConfig.isAiEnabled && states.commandField.fieldValue.text.isNotBlank()) {

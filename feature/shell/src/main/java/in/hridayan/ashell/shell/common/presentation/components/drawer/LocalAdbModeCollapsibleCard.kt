@@ -7,8 +7,10 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +20,7 @@ import androidx.compose.material.icons.rounded.KeyboardArrowDown
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -47,6 +50,7 @@ private val CardVerticalPadding = 14.dp
 private val OptionsMarginHorizontal = 10.dp
 private val OptionsMarginTop = 2.dp
 private val OptionsMarginBottom = 10.dp
+private val OptionContentPadding = PaddingValues(vertical = 4.dp, horizontal = 20.dp)
 
 @Composable
 fun LocalAdbModeCollapsibleCard(
@@ -143,11 +147,33 @@ private fun LocalAdbModeOptionsList(
     Column(modifier = modifier) {
         options.forEachIndexed { index, option ->
             option.labelResId?.let { labelResId ->
+                val isSelected = option.value == selectedMode
                 RadioOptionCard(
                     label = stringResource(labelResId),
-                    selected = option.value == selectedMode,
+                    selected = isSelected,
                     index = index,
                     count = options.size,
+                    cardColors = if (isSelected) {
+                        CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                        )
+                    } else {
+                        CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+                            contentColor = MaterialTheme.colorScheme.onSurface
+                        )
+                    },
+                    border = if (isSelected) {
+                        BorderStroke(1.dp, MaterialTheme.colorScheme.onTertiaryContainer)
+                    } else {
+                        null
+                    },
+                    contentPadding = OptionContentPadding,
+                    radioButtonColors = RadioButtonDefaults.colors(
+                        selectedColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                        unselectedColor = MaterialTheme.colorScheme.onSurface
+                    ),
                     onSelect = { onModeSelected(option.value) }
                 )
             }

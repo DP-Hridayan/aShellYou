@@ -37,6 +37,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.switch.AppSwitch
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 
@@ -236,7 +237,7 @@ fun EditorSwitchRow(
     position: GroupPosition,
     description: String? = null
 ) {
-    CustomCard(modifier = Modifier.fillMaxWidth(), shape = position.card, onClick = { onCheckedChange(!checked) }) {
+    CustomCard(modifier = Modifier.fillMaxWidth(), shape = position.card, onClick = withHaptic { onCheckedChange(!checked) }) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()

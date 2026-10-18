@@ -33,6 +33,7 @@ private val CardGroupSpacing = 2.dp
 private data class DrawerActionItem(
     val title: String,
     val icon: @Composable () -> Unit,
+    val badgeCount: Int = 0,
     val onClick: () -> Unit
 )
 
@@ -42,6 +43,7 @@ fun ShellSideDrawer(
     modeText: String,
     showLocalAdbModes: Boolean,
     actions: List<DeviceActionId>,
+    badges: Map<DeviceActionId, Int> = emptyMap(),
     onAction: (DeviceActionId) -> Unit,
     onNavigateSettings: () -> Unit,
     modifier: Modifier = Modifier
@@ -55,6 +57,7 @@ fun ShellSideDrawer(
                 DrawerActionItem(
                     title = stringResource(R.string.screen),
                     icon = { ActionIcon(action = DeviceActionId.SCREEN) },
+                    badgeCount = badges[DeviceActionId.SCREEN] ?: 0,
                     onClick = { onAction(DeviceActionId.SCREEN) }
                 )
             )
@@ -64,6 +67,7 @@ fun ShellSideDrawer(
                 DrawerActionItem(
                     title = stringResource(R.string.file_browser),
                     icon = { ActionIcon(action = DeviceActionId.FILES) },
+                    badgeCount = badges[DeviceActionId.FILES] ?: 0,
                     onClick = { onAction(DeviceActionId.FILES) }
                 )
             )
@@ -73,6 +77,7 @@ fun ShellSideDrawer(
                 DrawerActionItem(
                     title = stringResource(R.string.port_forwarding),
                     icon = { ActionIcon(action = DeviceActionId.PORTS) },
+                    badgeCount = badges[DeviceActionId.PORTS] ?: 0,
                     onClick = { onAction(DeviceActionId.PORTS) }
                 )
             )
@@ -177,6 +182,7 @@ private fun ActionCardGroup(
             DrawerActionCard(
                 title = item.title,
                 icon = item.icon,
+                badgeCount = item.badgeCount,
                 onClick = item.onClick,
                 shape = CardCornerShape.getRoundedShape(index = index, size = actions.size)
             )

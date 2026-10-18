@@ -20,12 +20,13 @@ import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -224,7 +225,12 @@ fun SettingsSearchScreen(
                                 style = MaterialTheme.typography.labelLarge,
                                 color = MaterialTheme.colorScheme.primary,
                             )
-                            TextButton(onClick = viewModel::clearRecentSearches) {
+                            OutlinedButton(
+                                onClick = withHaptic(HapticFeedbackType.VirtualKey) {
+                                    viewModel.clearRecentSearches()
+                                },
+                                contentPadding = ButtonDefaults.TextButtonContentPadding,
+                            ) {
                                 Text(stringResource(R.string.clear))
                             }
                         }

@@ -70,6 +70,8 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.components.svg.vectors.appBranding
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
+import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
+import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.home.presentation.component.dialog.HomeDialogKey
 import `in`.hridayan.ashell.home.presentation.component.dialog.RebootOptionsDialog
@@ -291,23 +293,24 @@ fun HomeScreen(
             }
 
             item {
-                LogcatCard(
+                Column(
                     modifier = Modifier.fillMaxWidth(),
-                    isRunning = isLogcatRunning,
-                    onClick = withHaptic {
-                        onLogcatClick()
-                    }
-                )
-            }
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    LogcatCard(
+                        modifier = Modifier.fillMaxWidth(),
+                        isRunning = isLogcatRunning,
+                        onClick = withHaptic {
+                            onLogcatClick()
+                        }
+                    )
 
-            item {
-                PortForwardCard(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 10.dp),
-                    status = portForwardStatus,
-                    onClick = onPortForwardClick
-                )
+                    PortForwardCard(
+                        modifier = Modifier.fillMaxWidth(),
+                        status = portForwardStatus,
+                        onClick = onPortForwardClick
+                    )
+                }
             }
 
             item {
@@ -513,6 +516,7 @@ fun AdbSideloadCard(
 fun LogcatCard(
     modifier: Modifier = Modifier,
     isRunning: Boolean = false,
+    shape: CustomCardShape = CardCornerShape.SINGLE_CARD,
     onClick: () -> Unit
 ) {
     val cardColors = if (isRunning) {
@@ -529,6 +533,7 @@ fun LogcatCard(
 
     NavItemCard(
         modifier = modifier,
+        shape = shape,
         title = stringResource(R.string.logcat),
         description = stringResource(R.string.des_logcat),
         leadingIcon = { tint ->
@@ -558,6 +563,7 @@ fun LogcatCard(
 fun PortForwardCard(
     modifier: Modifier = Modifier,
     status: PortForwardCardStatus = PortForwardCardStatus(),
+    shape: CustomCardShape = CardCornerShape.SINGLE_CARD,
     onClick: () -> Unit
 ) {
     val isRunning = status.runningCount > 0
@@ -575,6 +581,7 @@ fun PortForwardCard(
 
     NavItemCard(
         modifier = modifier,
+        shape = shape,
         title = stringResource(R.string.port_forwarding),
         description = portForwardDescription(status),
         leadingIcon = { tint ->
@@ -733,6 +740,7 @@ private fun NavItemCompactCardPreview() {
 @Composable
 private fun NavItemCard(
     modifier: Modifier = Modifier,
+    shape: CustomCardShape = CardCornerShape.SINGLE_CARD,
     onClick: () -> Unit = {},
     clickable: Boolean = true,
     title: String,
@@ -750,6 +758,7 @@ private fun NavItemCard(
 ) {
     CustomCard(
         modifier = modifier,
+        shape = shape,
         colors = cardColors,
         onClick = onClick,
         clickable = clickable

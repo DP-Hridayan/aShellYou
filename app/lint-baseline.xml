@@ -52,7 +52,7 @@
         errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/MainActivity.kt"
-            line="166"
+            line="171"
             column="37"/>
     </issue>
 
@@ -63,7 +63,7 @@
         errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/MainActivity.kt"
-            line="172"
+            line="177"
             column="37"/>
     </issue>
 
@@ -71,14 +71,14 @@
         id="TrustAllX509TrustManager"
         message="`checkClientTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.8.0/transforms/9c158c157ff35f96118c437ed693c72d/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.8.0/transforms/3144e29aa674d240c0b35d10d4270b5e/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue
         id="TrustAllX509TrustManager"
         message="`checkServerTrusted` is empty, which could cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peers">
         <location
-            file="$GRADLE_USER_HOME/caches/9.8.0/transforms/9c158c157ff35f96118c437ed693c72d/transformed/out/jars/classes.jar"/>
+            file="$GRADLE_USER_HOME/caches/9.8.0/transforms/3144e29aa674d240c0b35d10d4270b5e/transformed/out/jars/classes.jar"/>
     </issue>
 
     <issue

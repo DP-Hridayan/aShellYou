@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Badge
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
@@ -38,7 +39,8 @@ fun DrawerActionCard(
     icon: @Composable () -> Unit,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    shape: CustomCardShape = CardCornerShape.SINGLE_CARD
+    shape: CustomCardShape = CardCornerShape.SINGLE_CARD,
+    badgeCount: Int = 0
 ) {
     val click = withHaptic(HapticFeedbackType.VirtualKey, onClick)
 
@@ -61,10 +63,23 @@ fun DrawerActionCard(
             DrawerActionIcon(icon = icon)
 
             Text(
+                modifier = Modifier.weight(1f),
                 text = title,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold
             )
+
+            if (badgeCount > 0) {
+                Badge(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                ) {
+                    Text(
+                        text = badgeCount.toString(),
+                        style = MaterialTheme.typography.labelSmall
+                    )
+                }
+            }
         }
     }
 }

@@ -1,6 +1,8 @@
 package `in`.hridayan.ashell.core.presentation.components.radio
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -9,6 +11,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonColors
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,7 +43,14 @@ fun RadioOptionCard(
     count: Int,
     onSelect: () -> Unit,
     modifier: Modifier = Modifier,
-    description: String? = null
+    description: String? = null,
+    cardColors: CardColors = radioCardColors(selected),
+    border: BorderStroke? = null,
+    contentPadding: PaddingValues = PaddingValues(vertical = 8.dp, horizontal = 20.dp),
+    radioButtonColors: RadioButtonColors = RadioButtonDefaults.colors(
+        selectedColor = MaterialTheme.colorScheme.onPrimaryContainer,
+        unselectedColor = MaterialTheme.colorScheme.onSurface
+    )
 ) {
     val select = withHaptic(HapticFeedbackType.ToggleOn) { onSelect() }
 
@@ -49,14 +59,15 @@ fun RadioOptionCard(
             .fillMaxWidth()
             .padding(vertical = 1.dp),
         shape = if (selected) CustomCardShape(SELECTED_CORNER_PERCENT) else getRoundedShape(index, count),
-        colors = radioCardColors(selected),
+        colors = cardColors,
+        border = border,
         onClick = select
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 8.dp, horizontal = 20.dp)
+                .padding(contentPadding)
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
@@ -77,10 +88,7 @@ fun RadioOptionCard(
             RadioButton(
                 selected = selected,
                 onClick = select,
-                colors = RadioButtonDefaults.colors(
-                    selectedColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    unselectedColor = MaterialTheme.colorScheme.onSurface
-                )
+                colors = radioButtonColors
             )
         }
     }
