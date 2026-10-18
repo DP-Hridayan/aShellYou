@@ -29,19 +29,16 @@ import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -52,10 +49,9 @@ import `in`.hridayan.ashell.core.common.LocalDarkMode
 import `in`.hridayan.ashell.core.common.LocalPaletteStyle
 import `in`.hridayan.ashell.core.common.LocalSeedColor
 import `in`.hridayan.ashell.core.common.domain.model.PaletteStyle
-import `in`.hridayan.ashell.core.common.settings.LocalSettings
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.haptic.scrollBottomHaptic
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
@@ -66,7 +62,6 @@ import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.presentation.theme.color.createDynamicScheme
 import `in`.hridayan.ashell.core.presentation.theme.color.getPaletteKeyColors
 import `in`.hridayan.ashell.core.resources.R
-import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Composable
 fun PaletteStylePickerDialog(
@@ -74,9 +69,7 @@ fun PaletteStylePickerDialog(
     onDismiss: () -> Unit,
     onConfirm: (PaletteStyle) -> Unit,
 ) {
-    val isHapticAllowed = LocalSettings.current[SettingsKeys.HapticsAndVibration]
     val isDarkMode = LocalDarkMode.current
-    val haptic = LocalHapticFeedback.current
     val currentStyle = LocalPaletteStyle.current
     val primarySeed = LocalSeedColor.current.seed
     val styles = PaletteStyle.entries.toList()
@@ -87,39 +80,6 @@ fun PaletteStylePickerDialog(
 
     val listState = rememberLazyListState()
 
-    LaunchedEffect(listState) {
-        var previousTop = true
-        var previousBottom = false
-        var firstEmission = true
-
-        snapshotFlow {
-            Pair(
-                !listState.canScrollBackward,
-                !listState.canScrollForward
-            )
-        }
-            .distinctUntilChanged()
-            .collect { (atTop, atBottom) ->
-
-                if (firstEmission) {
-                    previousTop = atTop
-                    previousBottom = atBottom
-                    firstEmission = false
-                    return@collect
-                }
-
-                val reachedTop = atTop && !previousTop
-                val reachedBottom = atBottom && !previousBottom
-
-                if (reachedTop || reachedBottom) {
-                    if (isHapticAllowed) haptic.performHapticFeedback(HapticFeedbackType.VirtualKey)
-                }
-
-                previousTop = atTop
-                previousBottom = atBottom
-            }
-    }
-
     Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(
@@ -127,12 +87,13 @@ fun PaletteStylePickerDialog(
         )
     ) {
         Surface(
+            modifier = modifier.scrollBottomHaptic(),
             shape = MaterialTheme.shapes.extraLarge,
             tonalElevation = 8.dp,
             color = MaterialTheme.colorScheme.surfaceContainer
         ) {
             Column(
-                modifier = modifier
+                modifier = Modifier
                     .padding(24.dp)
                     .widthIn(min = 280.dp)
             ) {

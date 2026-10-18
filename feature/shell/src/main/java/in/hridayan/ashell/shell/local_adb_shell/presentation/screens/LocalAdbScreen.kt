@@ -37,7 +37,6 @@ import `in`.hridayan.ashell.core.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.core.utils.isShizukuOrPlusInstalled
 import `in`.hridayan.ashell.core.utils.launchShizukuApp
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet.ConnectedDeviceBottomSheet
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
@@ -69,7 +68,6 @@ fun LocalAdbScreen(
     }
     var hasRootAccess by rememberSaveable { mutableStateOf(false) }
     val localAdbMode = LocalSettings.current[SettingsKeys.LocalAdbWorkingMode]
-    var showConnectedDeviceSheet by rememberSaveable { mutableStateOf(false) }
     var showShizukuUnavailableDialog by rememberSaveable { mutableStateOf(false) }
     var showTcpIpUnavailableDialog by rememberSaveable { mutableStateOf(false) }
     var showUsbDebuggingOffDialog by rememberSaveable { mutableStateOf(false) }
@@ -140,17 +138,7 @@ fun LocalAdbScreen(
             }
         }
 
-    val modeButtonOnClick: () -> Unit = remember(states.shellState) {
-        {
-            if (states.shellState == ShellState.Busy) {
-                showToast(context, res.getString(R.string.abort_command))
-            } else {
-                showConnectedDeviceSheet = true
-            }
-        }
-    }
-
-    val modeButtonText = when (localAdbMode) {
+    val modeText = when (localAdbMode) {
         LocalAdbWorkingMode.BASIC -> stringResource(R.string.basic_shell)
         LocalAdbWorkingMode.SHIZUKU -> stringResource(R.string.shizuku)
         LocalAdbWorkingMode.ROOT -> stringResource(R.string.root)
@@ -179,16 +167,10 @@ fun LocalAdbScreen(
     BaseShellScreen(
         modifier = modifier,
         runCommandIfPermissionGranted = runCommandIfPermissionGranted,
-        modeButtonOnClick = modeButtonOnClick,
-        modeButtonText = modeButtonText,
+        modeText = modeText,
+        connectedDevice = DeviceUtils.DEVICE_MODEL,
+        showLocalAdbModes = true,
     )
-
-    if (showConnectedDeviceSheet) {
-        ConnectedDeviceBottomSheet(
-            onDismiss = { showConnectedDeviceSheet = false },
-            connectedDevice = DeviceUtils.DEVICE_MODEL
-        )
-    }
 
     if (showShizukuUnavailableDialog) {
         ShizukuUnavailableDialog(

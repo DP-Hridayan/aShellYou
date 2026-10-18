@@ -30,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
+import `in`.hridayan.ashell.core.presentation.components.haptic.scrollBottomHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
@@ -76,6 +77,7 @@ fun LogcatFilterProfilesBottomSheet(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .scrollBottomHaptic()
                 .padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {

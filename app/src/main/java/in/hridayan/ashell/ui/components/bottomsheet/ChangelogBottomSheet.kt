@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.BuildConfig
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.haptic.scrollBottomHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.components.text.BulletPointsTextLayout
 import `in`.hridayan.ashell.core.presentation.theme.CardCornerShape
@@ -67,7 +68,11 @@ fun ChangelogBottomSheet(
             fontWeight = FontWeight.Bold
         )
 
-        Box(modifier = Modifier.fillMaxWidth()) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .scrollBottomHaptic()
+        ) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()

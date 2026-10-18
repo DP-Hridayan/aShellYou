@@ -22,7 +22,6 @@ import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.dialog.OtgDeviceWaitingDialog
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.ui.otg.OtgViewModel
-import `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet.ConnectedDeviceBottomSheet
 import `in`.hridayan.ashell.shell.common.presentation.model.DeviceConnection
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.DeviceTunnelsViewModel
@@ -37,11 +36,9 @@ fun OtgAdbScreen(
     val tunnelSummary by deviceTunnelsViewModel.summary.collectAsState()
     val res = LocalResources.current
     val navController = LocalNavController.current
-    var showConnectedDeviceSheet by rememberSaveable { mutableStateOf(false) }
     var showOtgDeviceWaitingDialog by rememberSaveable { mutableStateOf(false) }
     var connectedDevice by rememberSaveable { mutableStateOf(res.getString(R.string.none)) }
     val otgState by otgViewModel.state.collectAsState()
-    val modeButtonText = stringResource(R.string.otg)
 
     val isConnected = otgState is OtgState.Connected
 
@@ -50,14 +47,6 @@ fun OtgAdbScreen(
      * It is just a dirty setup for properly syncing the otg states after reconnection
      */
     var disconnected by rememberSaveable { mutableStateOf(false) }
-
-    val modeButtonOnClick: () -> Unit = {
-        if (otgState is OtgState.Connected || otgState is OtgState.DeviceFound) {
-            showConnectedDeviceSheet = true
-        } else {
-            showOtgDeviceWaitingDialog = true
-        }
-    }
 
     val runCommandIfPermissionGranted: () -> Unit = {
         if (otgState is OtgState.Connected) {
@@ -89,8 +78,9 @@ fun OtgAdbScreen(
     }
 
     BaseShellScreen(
-        modeButtonText = modeButtonText,
-        modeButtonOnClick = modeButtonOnClick,
+        modeText = stringResource(R.string.otg),
+        connectedDevice = connectedDevice,
+        showLocalAdbModes = false,
         runCommandIfPermissionGranted = runCommandIfPermissionGranted,
         deviceConnection = if (isConnected) DeviceConnection.OTHER_DEVICE else DeviceConnection.NONE,
         onOpenScreen = { navController.navigate(NavRoutes.MirrorScreen(ExternalDeviceTransport.OTG)) },
@@ -106,14 +96,6 @@ fun OtgAdbScreen(
             )
         }
     )
-
-    if (showConnectedDeviceSheet) {
-        ConnectedDeviceBottomSheet(
-            connectedDevice = connectedDevice,
-            onDismiss = { showConnectedDeviceSheet = false },
-            showLocalAdbModes = false
-        )
-    }
 
     if (showOtgDeviceWaitingDialog) {
         OtgDeviceWaitingDialog(

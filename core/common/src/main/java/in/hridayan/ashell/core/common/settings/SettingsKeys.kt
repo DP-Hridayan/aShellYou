@@ -1,4 +1,4 @@
-﻿package `in`.hridayan.ashell.core.common.settings
+package `in`.hridayan.ashell.core.common.settings
 
 import android.os.Environment
 import androidx.appcompat.app.AppCompatDelegate
@@ -130,6 +130,7 @@ sealed class SettingsKeys<out T>(
         SettingsKeys<Boolean>("REQUIRE_AUTHENTICATION_FOR_BACKUPS", false)
 
     data object SaveWholeOutput : SettingsKeys<Boolean>("SAVE_WHOLE_OUTPUT", true)
+    data object ScrollBottomHaptic : SettingsKeys<Boolean>("SCROLL_BOTTOM_HAPTIC", true)
     data object SmoothScrolling : SettingsKeys<Boolean>("SMOOTH_SCROLLING", true)
     data object UseBiometrics : SettingsKeys<Boolean>("USE_BIOMETRICS", false)
     data object UserGeneratedColorSchemeApplied :

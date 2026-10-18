@@ -41,9 +41,7 @@ import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -54,7 +52,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -62,8 +59,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import `in`.hridayan.ashell.core.common.settings.LocalSettings
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys
+import `in`.hridayan.ashell.core.presentation.components.haptic.scrollBottomHaptic
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
@@ -75,7 +71,6 @@ import `in`.hridayan.ashell.qstiles.data.model.MaterialIconEntry
 import `in`.hridayan.ashell.qstiles.domain.model.FontLoadState
 import `in`.hridayan.ashell.qstiles.domain.model.MaterialIconStyle
 import `in`.hridayan.ashell.qstiles.presentation.components.icon.MaterialIconGlyph
-import kotlinx.coroutines.flow.distinctUntilChanged
 
 private const val ICON_CELL_SIZE = 48
 private const val GLYPH_FONT_SIZE = 24
@@ -115,6 +110,7 @@ fun IconChooserBottomSheet(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .scrollBottomHaptic()
                 .navigationBarsPadding()
                 .padding(horizontal = 24.dp)
         ) {
@@ -288,43 +284,7 @@ private fun IconStyleSelector(
     onIconStyleSelected: (MaterialIconStyle) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val isHapticAllowed = LocalSettings.current[SettingsKeys.HapticsAndVibration]
-    val haptic = LocalHapticFeedback.current
     val listState = rememberLazyListState()
-
-    LaunchedEffect(listState) {
-        var previousStart = true
-        var previousEnd = false
-        var firstEmission = true
-
-        snapshotFlow {
-            Pair(
-                !listState.canScrollBackward,
-                !listState.canScrollForward
-            )
-        }
-            .distinctUntilChanged()
-            .collect { (atStart, atEnd) ->
-                if (firstEmission) {
-                    previousStart = atStart
-                    previousEnd = atEnd
-                    firstEmission = false
-                    return@collect
-                }
-
-                val reachedStart = atStart && !previousStart
-                val reachedEnd = atEnd && !previousEnd
-
-                if (reachedStart || reachedEnd) {
-                    if (isHapticAllowed) {
-                        haptic.performHapticFeedback(HapticFeedbackType.VirtualKey)
-                    }
-                }
-
-                previousStart = atStart
-                previousEnd = atEnd
-            }
-    }
 
     val leftFadeAlpha by animateFloatAsState(
         targetValue = if (listState.canScrollBackward) 1f else 0f,

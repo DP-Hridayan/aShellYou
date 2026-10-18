@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisStatus
 import `in`.hridayan.ashell.core.common.domain.model.ai.CorrectionSuggestion
+import `in`.hridayan.ashell.core.presentation.components.haptic.scrollBottomHaptic
 import `in`.hridayan.ashell.core.presentation.model.AiAnalysisUiState
 import `in`.hridayan.ashell.core.resources.R
 
@@ -93,6 +94,7 @@ fun AiAnalysisBottomSheet(
                         AnalysisContent(
                             modifier = Modifier
                                 .fillMaxWidth()
+                                .scrollBottomHaptic()
                                 .padding(horizontal = 20.dp),
                             scrollState = scrollState,
                             result = result,

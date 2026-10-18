@@ -52,7 +52,7 @@
         errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/MainActivity.kt"
-            line="165"
+            line="166"
             column="37"/>
     </issue>
 
@@ -63,7 +63,7 @@
         errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/in/hridayan/ashell/activities/MainActivity.kt"
-            line="171"
+            line="172"
             column="37"/>
     </issue>
 

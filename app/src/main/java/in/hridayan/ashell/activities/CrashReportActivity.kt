@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import `in`.hridayan.ashell.core.common.CompositionLocals
 import `in`.hridayan.ashell.core.common.LocalSeedColor
 import `in`.hridayan.ashell.core.common.domain.provider.SeedColorProvider
+import `in`.hridayan.ashell.core.presentation.components.haptic.scrollBottomHaptic
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouTheme
 import `in`.hridayan.ashell.crashreporter.presentation.screens.CrashReportScreen
 import `in`.hridayan.ashell.settings.presentation.viewmodel.SettingsViewModel
@@ -36,7 +37,9 @@ class CrashReportActivity : ComponentActivity() {
 
                 AshellYouTheme {
                     Surface(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .scrollBottomHaptic(),
                         color = MaterialTheme.colorScheme.surface
                     ) { CrashReportScreen() }
                 }

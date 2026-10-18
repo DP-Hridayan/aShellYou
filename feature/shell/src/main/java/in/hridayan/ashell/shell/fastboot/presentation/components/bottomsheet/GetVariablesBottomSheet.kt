@@ -41,6 +41,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.core.presentation.components.haptic.scrollBottomHaptic
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
@@ -79,6 +80,7 @@ fun GetVariablesBottomSheet(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .scrollBottomHaptic()
                 .padding(horizontal = 24.dp)
                 .padding(top = 24.dp)
         ) {

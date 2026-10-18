@@ -142,12 +142,15 @@ import `in`.hridayan.ashell.shell.common.domain.model.Suggestion
 import `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet.BookmarksBottomSheet
 import `in`.hridayan.ashell.shell.common.presentation.components.button.UtilityButtonGroup
 import `in`.hridayan.ashell.shell.common.presentation.components.card.SuggestionCard
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.rememberDrawerState
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.BookmarksSortDialog
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ClearOutputConfirmationDialog
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.DeleteBookmarksDialog
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.FileSavedDialog
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ShellDialogKey
-import `in`.hridayan.ashell.shell.common.presentation.components.dock.DeviceDock
+import `in`.hridayan.ashell.shell.common.presentation.components.drawer.ShellSideDrawer
 import `in`.hridayan.ashell.shell.common.presentation.components.icon.AnimatedStopIcon
 import `in`.hridayan.ashell.shell.common.presentation.components.text.OutputLineText
 import `in`.hridayan.ashell.shell.common.presentation.model.CommandResult
@@ -175,8 +178,9 @@ import kotlin.time.Duration.Companion.milliseconds
 fun BaseShellScreen(
     modifier: Modifier = Modifier,
     runCommandIfPermissionGranted: () -> Unit = {},
-    modeButtonOnClick: () -> Unit = {},
-    modeButtonText: String = stringResource(R.string.mode),
+    modeText: String = "",
+    connectedDevice: String? = null,
+    showLocalAdbModes: Boolean = false,
     shellViewModel: ShellViewModel = hiltViewModel(),
     bookmarkViewModel: BookmarkViewModel = hiltViewModel(),
     extraButtonContent: @Composable (() -> Unit)? = null,
@@ -204,7 +208,6 @@ fun BaseShellScreen(
     val saveProgress by shellViewModel.saveProgress.collectAsState()
     val searchOutputResult by shellViewModel.filteredOutput.collectAsState()
     val suggestions by shellViewModel.suggestions.collectAsState()
-    val isDeviceDockExpanded by shellViewModel.isDeviceDockExpanded.collectAsStateWithLifecycle()
     val hasOutput = states.output.isNotEmpty()
     val deviceActions = remember(deviceConnection, hasOutput) {
         DeviceActionCatalog.actionsFor(deviceConnection, FeatureConfig.isAiEnabled, hasOutput)
@@ -221,6 +224,8 @@ fun BaseShellScreen(
     var bookmarkIdToDelete by rememberSaveable { mutableStateOf<Int?>(null) }
     var selectedBookmarkIdsToDelete by rememberSaveable { mutableStateOf<Set<Int>>(emptySet()) }
 
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val isDrawerGesturesEnabled = !isOutputFullscreen
     val isKeyboardVisible = isKeyboardVisible().value
     val coroutineScope = rememberCoroutineScope()
     val listState = rememberLazyListState()
@@ -243,6 +248,10 @@ fun BaseShellScreen(
             shellViewModel.updateTextFieldSelection()
             currentBackStackEntry.savedStateHandle.remove<String>("suggestedCommand")
         }
+    }
+
+    BackHandler(enabled = drawerState.isOpen) {
+        coroutineScope.launch { drawerState.close() }
     }
 
     BackHandler(enabled = states.shellState is ShellState.Busy) {
@@ -368,9 +377,36 @@ fun BaseShellScreen(
         }
     }
 
-    Scaffold(
-        modifier = modifier,
-        floatingActionButton = {
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        gesturesEnabled = isDrawerGesturesEnabled,
+        drawerContent = {
+            ShellSideDrawer(
+                connectedDevice = connectedDevice,
+                modeText = modeText,
+                showLocalAdbModes = showLocalAdbModes,
+                actions = deviceActions,
+                onAction = { action ->
+                    coroutineScope.launch { drawerState.close() }
+                    when (action) {
+                        DeviceActionId.SCREEN -> onOpenScreen()
+                        DeviceActionId.FILES -> onOpenFiles()
+                        DeviceActionId.PORTS -> onOpenPorts()
+                        DeviceActionId.SHARE_OUTPUT -> shareAction()
+                        DeviceActionId.SAVE_OUTPUT -> saveOutputAction()
+                        DeviceActionId.ASK_AI -> navController.navigate(NavRoutes.AiChatScreen)
+                    }
+                },
+                onNavigateSettings = {
+                    coroutineScope.launch { drawerState.close() }
+                    navController.navigate(NavRoutes.SettingsScreen)
+                }
+            )
+        }
+    ) {
+        Scaffold(
+            modifier = modifier,
+            floatingActionButton = {
             AnimatedVisibility(
                 visible = !isOutputFullscreen,
                 enter = scaleIn(animationSpec = AshellYouAnimationSpecs.springFloat),
@@ -453,6 +489,7 @@ fun BaseShellScreen(
                                 .padding(innerPadding)
                         ) {
                             UtilityButtonGroup(
+                                onOpenDrawer = { coroutineScope.launch { drawerState.open() } },
                                 showClearOutputDialog = { dialogManager.show(ShellDialogKey.ClearOutput) },
                                 handleClearOutput = { handleClearOutput() },
                                 showBookmarkDialog = {
@@ -498,26 +535,7 @@ fun BaseShellScreen(
                                     }
                                 }
 
-                                // Extra button content (e.g., Wi-Fi reconnect)
                                 extraButtonContent?.invoke()
-
-                                TextButton(
-                                    onClick = withHaptic {
-                                        modeButtonOnClick()
-                                    },
-                                    shapes = ButtonDefaults.shapes(),
-                                    modifier = Modifier.animateContentSize(),
-                                    colors = ButtonDefaults.textButtonColors(
-                                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                                    )
-                                ) {
-                                    AutoResizeableText(
-                                        text = modeButtonText,
-                                        style = MaterialTheme.typography.labelLarge,
-                                        modifier = Modifier.padding(horizontal = 5.dp)
-                                    )
-                                }
                             }
 
                             Row(
@@ -697,29 +715,10 @@ fun BaseShellScreen(
                         }
                     }
                 }
-
-                if (deviceActions.isNotEmpty() && !isOutputFullscreen) {
-                    DeviceDock(
-                        actions = deviceActions,
-                        badges = mapOf(DeviceActionId.PORTS to portsBadgeCount),
-                        expanded = isDeviceDockExpanded && !isKeyboardVisible && !isOutputDragged,
-                        onExpandedChange = shellViewModel::setDeviceDockExpanded,
-                        onAction = { action ->
-                            when (action) {
-                                DeviceActionId.SCREEN -> onOpenScreen()
-                                DeviceActionId.FILES -> onOpenFiles()
-                                DeviceActionId.PORTS -> onOpenPorts()
-                                DeviceActionId.SHARE_OUTPUT -> shareAction()
-                                DeviceActionId.SAVE_OUTPUT -> saveOutputAction()
-                                DeviceActionId.ASK_AI -> navController.navigate(NavRoutes.AiChatScreen)
-                            }
-                        },
-                        modifier = Modifier.align(Alignment.CenterEnd)
-                    )
-                }
             }
         }
     }
+}
 
     when (dialogManager.activeDialog) {
         ShellDialogKey.ClearOutput -> ClearOutputConfirmationDialog(

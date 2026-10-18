@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCardDefaults
+import `in`.hridayan.ashell.core.presentation.components.haptic.scrollBottomHaptic
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.switch.AppSwitch
 import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
@@ -95,6 +96,7 @@ fun VideoQualitySheet(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .scrollBottomHaptic()
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = SheetPadding)
                 .padding(bottom = SheetPadding),

@@ -35,6 +35,7 @@ import `in`.hridayan.ashell.core.common.domain.provider.SeedColorProvider
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.AppDeeplinkHolder
 import `in`.hridayan.ashell.core.navigation.AppDeeplinkHolder.DeeplinkDestination
+import `in`.hridayan.ashell.core.presentation.components.haptic.scrollBottomHaptic
 import `in`.hridayan.ashell.core.presentation.components.snackbar.SnackBarHost
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouTheme
 import `in`.hridayan.ashell.core.presentation.theme.data.toPayload
@@ -143,7 +144,7 @@ class MainActivity : AppCompatActivity() {
         val importedThemePayload by colorSchemeImportHolder.importedTheme.collectAsState()
         val context = LocalContext.current
 
-        Box(modifier = modifier) {
+        Box(modifier = modifier.scrollBottomHaptic()) {
             AppUiEntry()
 
             if (isLocked) {

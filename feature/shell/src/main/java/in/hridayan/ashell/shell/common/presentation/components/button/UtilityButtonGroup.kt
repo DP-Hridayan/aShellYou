@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.History
+import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -36,8 +37,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
-import `in`.hridayan.ashell.core.navigation.LocalNavController
-import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
@@ -54,6 +53,7 @@ import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 fun UtilityButtonGroup(
     modifier: Modifier = Modifier,
     shellViewModel: ShellViewModel = hiltViewModel(),
+    onOpenDrawer: () -> Unit = {},
     showClearOutputDialog: () -> Unit = {},
     handleClearOutput: () -> Unit = {},
     showBookmarkDialog: () -> Unit = {},
@@ -62,7 +62,6 @@ fun UtilityButtonGroup(
     val context = LocalContext.current
     val res = LocalResources.current
     val focusManager = LocalFocusManager.current
-    val navController = LocalNavController.current
     val screenDensity = LocalDensity.current
     val askToClean = LocalSettings.current[SettingsKeys.ClearOutputConfirmation]
     val states by shellViewModel.states.collectAsState()
@@ -125,14 +124,8 @@ fun UtilityButtonGroup(
                     type = ButtonType.IconButton,
                     iconButtonConfig = iconButtonConfig
                 ),
-                icon = Icons.Rounded.Search,
-                onClick = {
-                    if (states.output.isEmpty()) {
-                        showToast(context, res.getString(R.string.nothing_to_search))
-                    } else {
-                        shellViewModel.toggleSearchBar()
-                    }
-                }
+                icon = Icons.Rounded.Menu,
+                onClick = onOpenDrawer
             ),
             ButtonGroupItem(
                 buttonConfig = ButtonConfigDefaults.defaultConfig(
@@ -179,8 +172,14 @@ fun UtilityButtonGroup(
                     type = ButtonType.IconButton,
                     iconButtonConfig = iconButtonConfig
                 ),
-                iconResId = R.drawable.ic_settings,
-                onClick = { navController.navigate(NavRoutes.SettingsScreen) }
+                icon = Icons.Rounded.Search,
+                onClick = {
+                    if (states.output.isEmpty()) {
+                        showToast(context, res.getString(R.string.nothing_to_search))
+                    } else {
+                        shellViewModel.toggleSearchBar()
+                    }
+                }
             ),
         )
 

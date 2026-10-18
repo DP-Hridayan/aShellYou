@@ -33,6 +33,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.ai.presentation.components.animatedcomposable.AnimatedStopIcon
 import `in`.hridayan.ashell.ai.presentation.model.Thought
+import `in`.hridayan.ashell.core.presentation.components.haptic.scrollBottomHaptic
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
 
@@ -63,6 +64,7 @@ fun AiThoughtsBottomSheet(
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
+                .scrollBottomHaptic()
                 .padding(horizontal = 20.dp)
         ) {
             itemsIndexed(thoughts) { index, thought ->

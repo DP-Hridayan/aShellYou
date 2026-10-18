@@ -34,7 +34,6 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet.ConnectedDeviceBottomSheet
 import `in`.hridayan.ashell.shell.common.presentation.model.DeviceConnection
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.DeviceTunnelsViewModel
@@ -51,7 +50,6 @@ fun WifiAdbScreen(
     val tunnelSummary by deviceTunnelsViewModel.summary.collectAsState()
     val context = LocalContext.current
     val res = LocalResources.current
-    var showConnectedDeviceSheet by rememberSaveable { mutableStateOf(false) }
     var showDeviceDisconnectedDialog by rememberSaveable { mutableStateOf(false) }
 
     val wifiAdbState by wifiAdbViewModel.state.collectAsState()
@@ -77,11 +75,6 @@ fun WifiAdbScreen(
         }
     }
 
-    val modeButtonText = stringResource(R.string.wifi_adb)
-    val modeButtonOnClick: () -> Unit = {
-        showConnectedDeviceSheet = true
-    }
-
     val runCommandIfPermissionGranted: () -> Unit = {
         shellViewModel.runWifiAdbCommand()
     }
@@ -90,8 +83,9 @@ fun WifiAdbScreen(
     val navController = LocalNavController.current
 
     BaseShellScreen(
-        modeButtonText = modeButtonText,
-        modeButtonOnClick = modeButtonOnClick,
+        modeText = stringResource(R.string.wifi_adb),
+        connectedDevice = connectedDeviceName,
+        showLocalAdbModes = false,
         runCommandIfPermissionGranted = runCommandIfPermissionGranted,
         deviceConnection = when {
             !isConnected -> DeviceConnection.NONE
@@ -176,14 +170,6 @@ fun WifiAdbScreen(
             }
         }
     )
-
-    if (showConnectedDeviceSheet) {
-        ConnectedDeviceBottomSheet(
-            connectedDevice = connectedDeviceName,
-            onDismiss = { showConnectedDeviceSheet = false },
-            showLocalAdbModes = false
-        )
-    }
 
     if (showDeviceDisconnectedDialog) {
         DeviceDisconnectedDialog(

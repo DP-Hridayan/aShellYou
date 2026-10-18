@@ -3,6 +3,7 @@ package `in`.hridayan.ashell.settings.presentation.page.search.graph.entries
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.rounded.TextFields
+import androidx.compose.material.icons.rounded.VerticalAlignBottom
 import androidx.navigation.NavController
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.navigation.NavRoutes
@@ -15,6 +16,7 @@ internal fun SearchScreenScope.lookAndFeelGraph(
     supportsDynamicColor: Boolean,
     dynamicColorEnabled: Boolean,
     customSchemeApplied: Boolean,
+    hapticsEnabled: Boolean,
 ) {
     screen(
         id = SettingsGraphId.LOOK_AND_FEEL,
@@ -68,6 +70,13 @@ internal fun SearchScreenScope.lookAndFeelGraph(
             title(R.string.haptics_and_vibration)
             description(R.string.des_haptics_and_vibration)
             icon(R.drawable.ic_vibration)
+        }
+
+        entry(key = SettingsKeys.ScrollBottomHaptic) {
+            title(R.string.scroll_bottom_vibration)
+            description(R.string.des_scroll_bottom_vibration)
+            icon(Icons.Rounded.VerticalAlignBottom)
+            availableWhen(hapticsEnabled)
         }
 
         entry(key = SettingsKeys.Language) {

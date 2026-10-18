@@ -47,6 +47,7 @@ fun rememberSettingsSearchGraph(navController: NavController): SearchGraph {
     val requireAuth = settings[SettingsKeys.RequireAuthentication]
     val currentTimeout = settings[SettingsKeys.AuthenticationTimeout]
     val bufferLimit = settings[SettingsKeys.LogcatBufferLimit]
+    val hapticsEnabled = settings[SettingsKeys.HapticsAndVibration]
 
     val timeoutText = getTimeoutText(currentTimeout)
     val bufferLimitText = logcatBufferSizeLabel(bufferLimit)
@@ -60,7 +61,8 @@ fun rememberSettingsSearchGraph(navController: NavController): SearchGraph {
         aiCacheEnabled,
         requireAuth,
         currentTimeout,
-        bufferLimit
+        bufferLimit,
+        hapticsEnabled,
     ) {
         searchGraph {
             screen(
@@ -79,6 +81,7 @@ fun rememberSettingsSearchGraph(navController: NavController): SearchGraph {
                     supportsDynamicColor = supportsDynamicColor,
                     dynamicColorEnabled = dynamicColorEnabled,
                     customSchemeApplied = customSchemeApplied,
+                    hapticsEnabled = hapticsEnabled,
                 )
 
                 behaviorGraph(navController = navController, bufferLimitText = bufferLimitText)
