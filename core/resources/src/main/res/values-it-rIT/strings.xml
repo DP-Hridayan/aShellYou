@@ -8,6 +8,7 @@
     <string name="active" comment="Status indicator label for active ADB connection or active slot">Attivo</string>
     <string name="active_provider" comment="Settings item title for choosing which cloud AI provider the app uses">Provider attivo</string>
     <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">Slot attivo</string>
+    <string name="activity" comment="Section title listing recent events, such as connections opened and closed">Attività</string>
     <string name="adb_agent" comment="Name of the AI chat assistant persona in aShellYou">Agente ADB</string>
     <string name="adb_command" comment="Input field label for typing an ADB shell command">Comando ADB</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">Comando ADB (stato DISATTIVO)</string>
@@ -76,8 +77,10 @@
     <string name="all_data" comment="Option in backup selector to include full app database, settings, and chat history">Tutti i dati</string>
     <string name="all_log_levels" comment="Logcat filter profile description when the profile does not restrict log levels">Tutti i livelli</string>
     <string name="all_log_levels_except" comment="%1$s = comma-separated log level names, e.g. Verbose, Debug. Logcat filter profile description for a profile that hides those levels">Tutti tranne %1$s</string>
+    <string name="allow" comment="Button that asks Android for a permission, or allows a risky option">Consenti</string>
     <string name="allow_usb_access" comment="Button label that re-shows the system prompt asking the user to allow the app to use the attached USB device">Consenti accesso USB</string>
     <string name="allow_usb_access_message" comment="Status shown when the target device was detected over USB but the system permission to use it has not been granted yet">Consenti l\'accesso USB per continuare</string>
+    <string name="allowed" comment="Status of a permission that is granted">Consentito</string>
     <string name="already_connected" comment="Status message in wireless ADB setup screen indicating device is already connected">Già connesso</string>
     <string name="already_latest_version" comment="In-app updater message when user is running the most recent version of aShellYou">Stai usando l\'ultima versione</string>
     <string name="always_allow_base" comment="Permission rule option in AI chat: automatically approve commands sharing the base executable name">Consenti sempre base</string>
@@ -290,6 +293,8 @@
     <string name="copied_items" comment="%1$d = number of items copied to clipboard">Copiati %1$d elementi</string>
     <string name="copied_to_clipboard" comment="Toast message shown after copying text or command to system clipboard">Copiato negli appunti!</string>
     <string name="copy">Copia</string>
+    <string name="copy_address" comment="Action that copies a network address such as localhost:8080">Copia indirizzo</string>
+    <string name="copy_link" comment="Action that copies a web address">Copia link</string>
     <string name="copying" comment="Progress status text shown while copying files in file browser">Copia in corso…</string>
     <string name="copying_items" comment="%1$d = number of items being copied">Copia di %1$d elemento/i</string>
     <string name="crash_details" comment="Screen title for inspecting stack trace details of a crash log">Dettagli dell\'errore anomalo</string>
@@ -309,6 +314,7 @@
     <string name="dangerous">Pericoloso</string>
     <string name="dark_theme" comment="Settings preference title for dark theme mode">Tema scuro</string>
     <string name="dashboard" comment="Main screen header or navigation drawer item">Dashboard</string>
+    <string name="data" comment="Settings group title for stored data, such as history that can be cleared">Dati</string>
     <string name="database">Database</string>
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Modifica database</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Solo database</string>
@@ -391,6 +397,16 @@
     <string name="des_packages" comment="Description explaining that this skill allows the AI to query installed packages">Consenti all\'agente AI di interrogare pacchetti installati e dati delle applicazioni</string>
     <string name="des_pair_another_device" comment="Subtitle description under Pair another device option">Accoppia un altro dispositivo di destinazione</string>
     <string name="des_palette_style" comment="Description under Palette style item in Look and feel settings">Scegli come i colori vengono derivati dal seme del tema</string>
+    <string name="des_port_forward_allow_lan_sharing" comment="Setting description for allowing tunnels to be shared on the Wi-Fi network">Lascia che altri dispositivi della tua rete utilizzino un tunnel</string>
+    <string name="des_port_forward_auto_start" comment="Setting description for auto-starting port forwarding tunnels">Avvia tunnel contrassegnati con \"Avvia quando l\'app si aprirà\" automaticamente</string>
+    <string name="des_port_forward_clear_recent_hosts" comment="Setting description for clearing recent hosts">Rimuovere gli host suggeriti nell\'editor del tunnel</string>
+    <string name="des_port_forward_clear_recent_hosts_confirm" comment="Confirmation message before clearing recently used hosts">Gli host che hai usato prima non verranno più suggeriti. I tunnel salvati sono mantenuti.</string>
+    <string name="des_port_forward_notification_settings" comment="Setting description that opens the system settings of the tunnel status notification">Scegli come appare la notifica di stato del tunnel</string>
+    <string name="des_port_forward_resume_on_reconnect" comment="Setting description for resuming device tunnels after a disconnect">Altrimenti i tunnel si fermano non appena il loro dispositivo si disconnette</string>
+    <string name="des_port_forward_settings" comment="Settings row description for the port forwarding settings page">Predefiniti, comportamento in background e allarmi</string>
+    <string name="des_port_forward_stop_on_task_removed" comment="Setting description for stopping tunnels when the app is removed from recents">Altrimenti le gallerie continuano a funzionare in background</string>
+    <string name="des_port_forward_unexpected_stop_alerts" comment="Setting description for unexpected stop alerts">Solo mentre l\'applicazione è in background</string>
+    <string name="des_port_forwarding" comment="Home screen card description for port forwarding when no tunnel is running">Apri siti e servizi dalla tua rete su questo telefono</string>
     <string name="des_privacy_and_security" comment="Description for privacy and security settings">Autenticazione e permessi app</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">Come aShell You gestisce i tuoi dati</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Crea riquadri delle impostazioni rapide per l\'esecuzione di comandi ADB</string>
@@ -407,6 +423,7 @@
     <string name="des_show_stream_statistics" comment="Description of the Show stream statistics switch">Frame rate, frame dropped frame and data rate, over the video</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">Collega facoltativamente il tuo account Google per i backup sul cloud</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">Abilita lo scorrimento fluido nell\'output della shell quando si fa clic sulla freccia superiore o inferiore</string>
+    <string name="des_scroll_bottom_vibration" comment="Description under the scroll bottom vibration setting toggle">Vibra quando si raggiunge la fine del contenuto scorrevole</string>
     <string name="des_terms_of_service" comment="Subtitle description under Terms of Service menu item">Regole e linee guida per l\'utilizzo di aShell You</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">Quando abilitato, il riquadro passa dallo stato ATTIVO a quello DISATTIVO a ogni tocco, eseguendo un comando diverso per ciascuno stato</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">Persone che hanno contribuito alla traduzione di aShell You</string>
@@ -448,6 +465,7 @@
     <string name="disclaimer_5_description" comment="Text for disclaimer point 5: privacy and permissions notice">Questa app potrebbe richiedere permessi speciali per funzionare correttamente.\nNon raccoglie né condivide dati personali, ma gli utenti devono essere consapevoli delle implicazioni derivanti dalla concessione di permessi relativi ad ADB.</string>
     <string name="disclaimer_5_title" comment="Title for disclaimer point 5: security and privacy">Permessi e sicurezza</string>
     <string name="disconnect" comment="Action button to terminate active ADB connection">Disconnetti</string>
+    <string name="disconnect_device_title" comment="Dialog title before disconnecting a Wireless Debugging device. %1$s is the device name">Disconnetti %1$s?</string>
     <string name="disconnected" comment="Status badge showing ADB is currently disconnected">Disconnesso!</string>
     <string name="discussions" comment="About screen button linking to GitHub Discussions">Discussioni</string>
     <string name="dismiss">Rifiuta</string>
@@ -630,6 +648,7 @@
     <string name="hint" comment="Card header or field label for helpful hints">Suggerimento</string>
     <string name="history" comment="Screen title and tab label for executed terminal command history">Cronologia</string>
     <string name="home">Home</string>
+    <string name="host" comment="Field label for a computer's name or IP address">Host</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">Come accedere alla modalità sideload</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Icona selezionata</string>
     <string name="image_too_large" comment="%1$s = the largest size in megabytes the device accepts. Error shown when the chosen image is bigger than the bootloader can buffer">L\'immagine è più grande dei %1$s MB accettati da questo dispositivo</string>
@@ -688,6 +707,7 @@
     <string name="locked" comment="Status badge showing bootloader lock state is locked">Bloccato</string>
     <string name="log_buffer_size" comment="Title of the setting choosing how much memory the logcat buffer may use">Dimensione buffer log</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Log cancellati</string>
+    <string name="logcat_copy_too_large" comment="Toast shown when the selected logcat entries are too large for the clipboard; suggests saving them to a file instead">Troppi registri da copiare. Salvali su un file.</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">Pacchetto</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">Livelli di log</string>
     <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">Cerca nei messaggi…</string>
@@ -705,6 +725,7 @@
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Origine Logcat</string>
     <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Tocca ▶ per avviare logcat</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">Log</string>
+    <string name="logs_saved" comment="Toast shown after exported logcat entries were written to the file the user picked">Registri salvati</string>
     <string name="long_edge_pixels" comment="A limit on a video's longer side. %1$d is a number of pixels">%1$d px</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Aspetto e sensazione</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Basso</string>
@@ -717,6 +738,7 @@
     <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">Scarica ~380 KB una tantum per esplorare oltre 2.500 icone Material</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">Download massimo</string>
     <string name="medium">Medio</string>
+    <string name="menu" comment="Navigation menu button label">Menu</string>
     <string name="megabits_per_second" comment="%1$s is a data rate in megabits per second">%1$s Mbps</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">Unisci</string>
     <string name="message">Messaggio</string>
@@ -761,11 +783,14 @@
     <string name="n_days" comment="%d = number of days for cache duration setting">%d giorni</string>
     <string name="name">Nome</string>
     <string name="native_resolution" comment="Resolution option that streams the other device's screen at its own size">Nativo</string>
+    <string name="needs_attention" comment="Status label: something has a problem the user should look at">Richiede attenzione</string>
+    <string name="network" comment="Settings group title for network related options">Rete</string>
     <string name="network_error" comment="Toast error message when network connection fails during wireless pairing or cloud backup">Errore di rete</string>
     <string name="new_commands_available_msg" comment="Banner prompt shown when updated command templates are available to load into database">Sono stati aggiunti nuovi esempi di comandi!\nFai clic sul pulsante sottostante per caricare i nuovi comandi.</string>
     <string name="new_folder" comment="Action button label in file browser to create a new directory">Nuova cartella</string>
     <string name="new_name" comment="Text field label for entering new item or file name">Nuovo nome</string>
     <string name="new_profile" comment="Title of the screen that creates a new logcat filter profile">Nuovo profilo</string>
+    <string name="new_tunnel" comment="Button and screen title for creating a port forwarding tunnel">Nuovo tunnel</string>
     <string name="newest" comment="Sorting option for items by creation date (newest first)">Più recenti</string>
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">Nessun dispositivo compatibile con ADB trovato. Abilita il debug USB sul dispositivo di destinazione.</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">Nessuna interfaccia ADB trovata</string>
@@ -801,6 +826,7 @@
     <string name="no_variables_loaded" comment="Placeholder text in fastboot variable explorer tab before querying getvar">Nessuna variabile caricata</string>
     <string name="no_wifi_connection" comment="Error banner when Wi-Fi is disabled during Wireless Debugging setup">Nessuna connessione Wi-Fi</string>
     <string name="none">Nessuno</string>
+    <string name="not_allowed" comment="Status of a permission that is not granted">Non consentito</string>
     <string name="not_connected" comment="Home card status line when no device is attached for this connection type">Non connesso</string>
     <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">Accesso non effettuato</string>
     <string name="nothing_to_clear" comment="Toast notification when user taps clear output but screen is already empty">Niente da pulire</string>
@@ -826,7 +852,9 @@
     <string name="on_tertiary">Sul terziario</string>
     <string name="open">Apri</string>
     <string name="open_app_language_settings" comment="Button label on Android 13+ to jump to system per-app language setting screen">Apri le impostazioni della lingua dell\'app</string>
+    <string name="open_in_browser" comment="Action that opens a web address in the browser">Apri nel browser</string>
     <string name="open_issues" comment="GitHub repository open issues count">Problemi aperti</string>
+    <string name="open_settings" comment="Button that opens this app's page in Android settings">Apri impostazioni</string>
     <string name="open_url" comment="Action button to launch web browser to external URL link">Apri URL</string>
     <string name="openrouter_api_key_step_1" comment="Step 1 of the OpenRouter API key setup guide. %1$s = URL">Visita OpenRouter a %1$s</string>
     <string name="openrouter_api_key_step_2" comment="Step 2 of the OpenRouter API key setup guide: creating an account">Accedi o crea un account OpenRouter gratuito</string>
@@ -882,6 +910,132 @@
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">Scegli colore</string>
     <string name="pin_all">Fissa selezionati</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">Porta</string>
+    <string name="port_forward_alert_stopped" comment="Notification title when a port forwarding tunnel stopped by itself. %1$s is the tunnel name">%1$s fermato</string>
+    <string name="port_forward_allow_lan_sharing" comment="Setting title: let tunnels listen on the Wi-Fi network instead of only on this phone">Consenti la condivisione su Wi-Fi</string>
+    <string name="port_forward_auto_start" comment="Setting title: start the tunnels marked to start when the app opens">Avvio automatico dei tunnel</string>
+    <string name="port_forward_card_counters" comment="Tunnel card counters. %1$d is the number of open connections, %2$s the amount of data received, such as 2.4 MB">%1$d aperto · ↓ %2$s</string>
+    <string name="port_forward_clear_recent_hosts" comment="Setting title and dialog title for deleting the list of recently used hosts">Cancella host recenti</string>
+    <string name="port_forward_connect_timeout" comment="Setting title: how long to wait when connecting to a computer">Timeout connessione</string>
+    <string name="port_forward_could_not_start" comment="Title of the card explaining why the tunnel could not start">Impossibile avviare il tunnel</string>
+    <string name="port_forward_countdown" comment="Time left before a waiting tunnel stops, as minutes and seconds. %1$d minutes, %2$02d seconds">%1$d:%2$02d</string>
+    <string name="port_forward_deleted" comment="Snackbar after deleting a tunnel. %1$s is the tunnel name">Eliminato \"%1$s\"</string>
+    <string name="port_forward_detail_connections" comment="Tunnel details. %1$d open connections, %2$d connections in total, %3$d failed connections">Apri ora %1$d · %2$d · %3$d fallito</string>
+    <string name="port_forward_detail_traffic" comment="Tunnel details. %1$s data received, %2$s data sent, such as 2.4 MB">Ricevuto %1$s · Inviato %2$s</string>
+    <string name="port_forward_device_chip" comment="Label of a connected device. %1$s is the device name, %2$s how it is connected, such as USB or Wi-Fi">%1$s · %2$s</string>
+    <string name="port_forward_device_not_connected_now" comment="Shown under the device name in the tunnel editor when the device is not connected">Non connesso in questo momento</string>
+    <string name="port_forward_device_port" comment="Field label for a TCP port on the connected device">Porta dispositivo</string>
+    <string name="port_forward_disable_sharing_title" comment="Dialog title before turning off sharing tunnels on Wi-Fi">Disattivare la condivisione?</string>
+    <string name="port_forward_edit_tunnel" comment="Screen title for editing a port forwarding tunnel">Modifica tunnel</string>
+    <string name="port_forward_empty_title" comment="Shown when no tunnels exist yet; explains what port forwarding does">Usa le porte dalla tua rete come se fossero su questo telefono</string>
+    <string name="port_forward_enable_sharing_message" comment="Security warning before allowing tunnels to be shared on Wi-Fi">Chiunque si trovi sulla stessa rete può raggiungere la porta di un tunnel condiviso. Condividere solo i tunnel di cui ti fidi, sulle reti che ti fidi.</string>
+    <string name="port_forward_enable_sharing_title" comment="Dialog title before allowing tunnels to be shared on Wi-Fi">Condividere tunnel su Wi-Fi?</string>
+    <string name="port_forward_endpoints" comment="Where a tunnel relays. %1$s is the address on this phone, %2$s the address it forwards to">%1$s → %2$s</string>
+    <string name="port_forward_error_background_start" comment="Port forwarding error: Android did not allow the tunnel to start while the app was in the background">Impossibile avviare in background</string>
+    <string name="port_forward_error_device_did_not_return" comment="Port forwarding error: the device did not reconnect before the wait ran out. %1$s is the device name">%1$s non si è riconnesso in tempo</string>
+    <string name="port_forward_error_device_not_connected" comment="Port forwarding error: the device the tunnel reaches is not connected. %1$s is the device name">%1$s non è connesso</string>
+    <string name="port_forward_error_device_timeout" comment="Port forwarding error: the connected device did not answer in time. %1$s is the device name">%1$s non ha risposto in tempo</string>
+    <string name="port_forward_error_host_unresolved" comment="Port forwarding error: the host name could not be found. %1$s is the host name the user typed">Impossibile trovare %1$s. Prova il suo indirizzo IP</string>
+    <string name="port_forward_error_local_network_blocked" comment="Port forwarding error: Android's local network permission is not granted, so the app cannot reach devices on the Wi-Fi network">Android sta bloccando l\'accesso alla rete</string>
+    <string name="port_forward_error_no_network" comment="Port forwarding error: the phone is not connected to any network">Nessuna connessione di rete</string>
+    <string name="port_forward_error_nothing_listening" comment="Port forwarding error: no app on the connected device listens on that socket. %1$s is the port or socket name">Niente sta ascoltando su %1$s sul dispositivo</string>
+    <string name="port_forward_error_port_in_use" comment="Port forwarding error: the chosen port on this phone is already taken by another app. %1$d is the port number">Port %1$d è utilizzato da un\'altra app</string>
+    <string name="port_forward_error_port_privileged" comment="Port forwarding error: apps cannot listen on ports below 1024">Usa la porta 1024 o superiore</string>
+    <string name="port_forward_error_target_refused" comment="Port forwarding error: the computer refused the connection. vite --host is a command shown verbatim as an example and must not be translated">Rifiutato. Il server è in ascolto sulla rete? Per esempio, vite --host</string>
+    <string name="port_forward_error_target_timeout" comment="Port forwarding error: the computer did not answer in time">Nessuna risposta. Controllare il firewall del computer e che entrambi sono sullo stesso Wi-Fi</string>
+    <string name="port_forward_error_too_many_connections" comment="Port forwarding warning: the tunnel reached its connection limit and refuses new connections">Troppe connessioni. Quelle nuove sono rifiutate</string>
+    <string name="port_forward_error_unexpected" comment="Port forwarding error with technical details. %1$s is the system's error message">Qualcosa è andato storto: %1$s</string>
+    <string name="port_forward_error_unexpected_unknown" comment="Port forwarding error when there are no technical details">Qualcosa è andato storto</string>
+    <string name="port_forward_event_connection_closed" comment="Activity log entry when a connection ended. %1$s data received, %2$s data sent">Connessione chiusa · ↓ %1$s ↑ %2$s</string>
+    <string name="port_forward_event_connection_failed" comment="Activity log entry when a connection failed. %1$s is the reason">Connessione non riuscita: %1$s</string>
+    <string name="port_forward_event_connection_opened" comment="Activity log entry when a client connected">Connessione aperta</string>
+    <string name="port_forward_event_connection_refused" comment="Activity log entry when a client was turned away. %1$s is the reason">Connessione rifiutata: %1$s</string>
+    <string name="port_forward_event_device_reconnected" comment="Activity log entry when the tunnel's device connected again">Dispositivo ricollegato</string>
+    <string name="port_forward_event_network_restored" comment="Activity log entry when the phone is back on a network">La rete è tornata</string>
+    <string name="port_forward_event_started" comment="Activity log entry when a tunnel started">Iniziato</string>
+    <string name="port_forward_field_invalid" comment="Error under a field with a value that is not valid">Non valido</string>
+    <string name="port_forward_field_required" comment="Error under an empty required field">Richiesto</string>
+    <string name="port_forward_fix_fields" comment="Snackbar shown when Save, Start or Test is tapped while a field of the tunnel editor has an error">Controlla i campi evidenziati</string>
+    <string name="port_forward_group_background" comment="Settings group title for what tunnels do while the app is not on screen">Sfondo</string>
+    <string name="port_forward_group_device_disconnects" comment="Settings group title for what tunnels do when their device disconnects">Disconnetti dispositivo</string>
+    <string name="port_forward_kind_device" comment="Choice that creates a tunnel to a port on a connected device">Raggiungere una porta su un dispositivo connesso</string>
+    <string name="port_forward_kind_network" comment="Choice that creates a tunnel to a computer or server on the network">Apri qualcosa dalla tua rete</string>
+    <string name="port_forward_kind_network_description" comment="Examples under the choice that creates a network tunnel">Server dev di un computer, un NAS o un sito web</string>
+    <string name="port_forward_local_network_access" comment="Setting title showing whether Android's local network permission is granted">Accesso alla rete locale</string>
+    <string name="port_forward_local_network_denied" comment="Card text after the local network permission was denied for good">Accesso negato. Consenti nelle impostazioni di raggiungere i dispositivi sulla tua rete.</string>
+    <string name="port_forward_local_network_description" comment="Card text explaining Android's local network permission">Android chiede prima che le app raggiungano il computer o il NAS.</string>
+    <string name="port_forward_local_network_title" comment="Card title asking for Android's local network permission">Consenti l\'accesso ai dispositivi sulla tua rete</string>
+    <string name="port_forward_local_port" comment="Field label for the port the tunnel uses on this phone">Porta locale</string>
+    <string name="port_forward_max_connections" comment="Setting title: how many connections one tunnel relays at the same time">Collegamenti massimi per tunnel</string>
+    <string name="port_forward_more_options" comment="Button that opens the full tunnel editor instead of the quick shortcut">Altre opzioni</string>
+    <string name="port_forward_name_optional" comment="Field label for an optional tunnel name">Nome (facoltativo)</string>
+    <string name="port_forward_names_and_more" comment="Home card text listing running tunnels. %1$s is a list of tunnel names, %2$d how many more are running">%1$s +%2$d</string>
+    <string name="port_forward_notification_line" comment="One line per tunnel in the expanded notification. %1$s is the tunnel name, %2$s its status">%1$s · %2$s</string>
+    <string name="port_forward_notification_more" comment="Last line of the expanded notification when some tunnels are not listed. %1$d is how many are not listed">+%1$d altro</string>
+    <string name="port_forward_notification_single" comment="Notification text for one running tunnel. %1$s is the address on this phone, %2$s the address it forwards to, %3$s its status such as Active">%1$s → %2$s · %3$s</string>
+    <string name="port_forward_notification_tap_to_manage" comment="Notification text when several tunnels run without problems">Tocca per gestire i tunnel</string>
+    <string name="port_forward_notifications_off" comment="Banner when notifications are turned off for the app">Le notifiche sono disattivate. Non vedrai lo stato del tunnel al di fuori dell\'app.</string>
+    <string name="port_forward_opens_at" comment="Preview of the address to open on this phone. %1$s is the address">Apre in %1$s</string>
+    <string name="port_forward_parsed_address" comment="What the pasted address was split into. %1$s host, %2$s port, %3$s path">Host %1$s · porta %2$s · percorso %3$s</string>
+    <string name="port_forward_paste_address" comment="Field label for pasting a web address or typing host:port">Incolla un URL o un indirizzo</string>
+    <string name="port_forward_port_free" comment="Shown under the local port field when the port is free">Gratis</string>
+    <string name="port_forward_port_taken" comment="Short status at the end of the local port field when another app already uses that port">In uso</string>
+    <string name="port_forward_preset_chrome_devtools" comment="Preset for the Chrome remote debugging socket. Product name, do not translate">Chrome DevTools</string>
+    <string name="port_forward_preset_frida" comment="Preset for the Frida instrumentation server. Product name, do not translate">Frida</string>
+    <string name="port_forward_process_id" comment="Field label for the id of an app process on the device">Id Processo</string>
+    <string name="port_forward_quick_forward_title" comment="Title of the shortcut that forwards a port of a connected device. %1$s is the device name">Inoltra una porta da %1$s</string>
+    <string name="port_forward_quick_name" comment="Default name of a tunnel made with the quick shortcut. %1$d is the device port">Port %1$d</string>
+    <string name="port_forward_resume_on_reconnect" comment="Setting title: keep tunnels waiting and resume them when their device reconnects">Riprendi quando il dispositivo si ricollega</string>
+    <string name="port_forward_resumes_when_reconnected" comment="Notification text while waiting for a device. %1$s is the tunnel name">%1$s riprende quando si ricollega</string>
+    <string name="port_forward_same_as_target" comment="Chip that keeps the local port equal to the computer's port">Stesso del bersaglio</string>
+    <string name="port_forward_save_and_restart" comment="Button that saves changes to a running tunnel and restarts it">Salva e riavvia</string>
+    <string name="port_forward_save_failed" comment="Toast when a tunnel could not be saved">Impossibile salvare il tunnel</string>
+    <string name="port_forward_saved" comment="Section title for tunnels that are saved but not running">Salvato</string>
+    <string name="port_forward_section_check" comment="Editor section title for testing the connection">Controlla</string>
+    <string name="port_forward_section_device" comment="Editor section title: the device and socket the tunnel reaches">Sul dispositivo</string>
+    <string name="port_forward_section_local" comment="Editor section title: how the tunnel is reached on this phone">Su questo telefono</string>
+    <string name="port_forward_section_options" comment="Editor section title for optional settings">Opzioni</string>
+    <string name="port_forward_section_target" comment="Editor section title: where the server to reach is">Dov\'è?</string>
+    <string name="port_forward_share_on_network" comment="Switch that lets other devices on Wi-Fi use this tunnel">Condividi su rete Wi-Fi</string>
+    <string name="port_forward_share_on_network_description" comment="Warning under the switch that shares a tunnel on Wi-Fi">Chiunque su questa rete può usarla</string>
+    <string name="port_forward_socket_name" comment="Field label for the name of an abstract socket on the device">Nome del socket</string>
+    <string name="port_forward_socket_path" comment="Field label for the path of a socket file on the device">Percorso socket</string>
+    <string name="port_forward_start_on_app_open" comment="Switch that starts the tunnel whenever the app opens">Avvia all\'apertura dell\'app</string>
+    <string name="port_forward_start_on_device_connect" comment="Switch that starts the tunnel whenever its device connects">Avvia quando questo dispositivo si connette</string>
+    <string name="port_forward_starting" comment="Notification title shown while the first port forwarding tunnel is starting">Tunnel di avvio…</string>
+    <string name="port_forward_status_ready" comment="Status of a running port forwarding tunnel with no connections at the moment">Pronto</string>
+    <string name="port_forward_status_starting" comment="Status of a port forwarding tunnel that is starting">Avvio</string>
+    <string name="port_forward_status_waiting_for_device" comment="Short status of a tunnel waiting for its device to reconnect">In attesa del dispositivo</string>
+    <string name="port_forward_status_waiting_for_network" comment="Status of a port forwarding tunnel that waits for the phone to reconnect to a network">In attesa di rete</string>
+    <string name="port_forward_stop_on_task_removed" comment="Setting title: stop tunnels when the app is swiped away from recent apps">Ferma i tunnel quando l\'app è chiusa dai recenti</string>
+    <string name="port_forward_target_type" comment="Field label for the kind of socket a device tunnel reaches">Target type</string>
+    <string name="port_forward_test_connection" comment="Title of the card that tests whether the target answers">Verifica connessione</string>
+    <string name="port_forward_test_hint" comment="Shown in the test card before testing">Controlla che le risposte di destinazione prima di iniziare</string>
+    <string name="port_forward_test_http" comment="Test result for a website. %1$d reply time in milliseconds, %2$d the HTTP status code">Raggiungibile · %1$d ms · %2$d HTTP</string>
+    <string name="port_forward_test_http_server" comment="Test result for a website. %1$d reply time in milliseconds, %2$d the HTTP status code, %3$s the server software name">Raggiungibile · %1$d ms · %2$d HTTP · %3$s</string>
+    <string name="port_forward_test_reachable" comment="Test result for a reachable server that is not a website. %1$d is the reply time in milliseconds">Raggiungibile · %1$d ms</string>
+    <string name="port_forward_testing" comment="Shown while testing whether a server can be reached">Test…</string>
+    <string name="port_forward_transport_usb" comment="How a device is connected: by USB cable">USB</string>
+    <string name="port_forward_transport_wifi" comment="How a device is connected: by Wireless Debugging over Wi-Fi">Wi-Fi</string>
+    <string name="port_forward_tunnel_running" comment="Snackbar after a tunnel started. %1$s is the tunnel name">%1$s è in esecuzione</string>
+    <string name="port_forward_type_abstract" comment="Kind of device socket: a Linux abstract Unix socket, such as the one Chrome DevTools uses">Presa astratta</string>
+    <string name="port_forward_type_abstract_short" comment="Short button label for the abstract Unix socket kind. Keep very short">Astratto</string>
+    <string name="port_forward_type_filesystem" comment="Kind of device socket: a Unix socket file on the device">socket del filesystem</string>
+    <string name="port_forward_type_filesystem_short" comment="Short button label for the Unix socket file kind. Keep very short">File</string>
+    <string name="port_forward_type_jdwp" comment="Kind of device socket: the Java debugger of an app process. JDWP is a protocol name and must not be translated">Debug Java (JDWP)</string>
+    <string name="port_forward_type_jdwp_short" comment="Short button label for the Java debugger socket kind. JDWP is a protocol name, do not translate">JDWP</string>
+    <string name="port_forward_type_tcp" comment="Kind of device socket: a TCP port">Porta TCP</string>
+    <string name="port_forward_type_tcp_short" comment="Short button label for the TCP port socket kind. Keep very short">TCP</string>
+    <string name="port_forward_unexpected_stop_alerts" comment="Setting title: notify when a tunnel stops without the user stopping it">Avviso quando un tunnel si ferma inaspettatamente</string>
+    <string name="port_forward_use_device" comment="Button that moves a tunnel to the device now connected. %1$s is the device name">Usa %1$s</string>
+    <string name="port_forward_use_port" comment="Button that moves a tunnel to a free port. %1$d is the port number">Usa %1$d</string>
+    <string name="port_forward_used_by_tunnel" comment="Error under the local port field. %1$s is the name of the tunnel that already uses the port">Usato da \"%1$s\"</string>
+    <string name="port_forward_wait_forever" comment="Option for how long to wait for a device: no limit">Mai</string>
+    <string name="port_forward_wait_timeout" comment="Setting title: how long a tunnel waits for its device before it stops">Smettila di aspettare dopo</string>
+    <string name="port_forward_waiting_for_device" comment="Status of a tunnel waiting for its device to reconnect. %1$s is the device name">In attesa di %1$s</string>
+    <string name="port_forwarding" comment="Feature name and screen title for relaying network ports to this phone, like adb forward">Inoltro porta</string>
+    <string name="port_forwarding_alerts" comment="Name of the notification channel used when a port forwarding tunnel stops by itself">Segnalazioni di inoltro porta</string>
+    <string name="port_forwarding_alerts_channel_description" comment="Description of the notification channel for tunnels that stopped without the user stopping them">Ti dice quando un tunnel si ferma da solo</string>
+    <string name="port_forwarding_channel_description" comment="Description of the notification channel that shows which port forwarding tunnels are running">Mostra quali tunnel sono in esecuzione e ti permette di fermarli</string>
     <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">Possibili cause</string>
     <string name="power" comment="Button that presses the power key on the mirrored device">Potenza</string>
     <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">Pre-rilascio (GitHub)</string>
@@ -961,6 +1115,7 @@
     <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">Ripristino impostazioni non riuscito</string>
     <string name="reset_settings_successful" comment="Toast notification confirming settings have been reset to defaults">Ripristino impostazioni riuscito</string>
     <string name="resolution" comment="Section title in the video quality sheet for the video's size">Risoluzione</string>
+    <string name="restart" comment="Button that starts stopped items again">Riavvia</string>
     <string name="restart_app" comment="Button that closes and relaunches the app">Riavvia app</string>
     <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">Riavvio richiesto</string>
     <string name="restore">Ripristina</string>
@@ -986,6 +1141,8 @@
     <string name="save_as_profile" comment="Button label to export/save current custom theme as a reusable profile">Salva come profilo…</string>
     <string name="save_changes" comment="Action button to persist edited settings or tile parameters">Salva modifiche</string>
     <string name="save_key" comment="Button label to save entered API key string in settings">Salva chiave</string>
+    <string name="save_theme" comment="Button label to save and apply the imported or generated color scheme">Salva tema</string>
+    <string name="save_to_file" comment="Menu item that saves the logs as a text file at a location the user picks">Salva su file</string>
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">Salva l\'intero output</string>
     <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">Dispositivi salvati</string>
     <string name="saver" comment="Video quality level that uses the least data and battery">Risparmio</string>
@@ -996,6 +1153,7 @@
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">Moltiplicatore della densità dello schermo</string>
     <string name="screen_mirror" comment="Title of the screen showing and controlling the connected device's screen live">Specchio schermo</string>
     <string name="screenshot" comment="Button that takes a screenshot on the mirrored device">Screenshot</string>
+    <string name="scroll_bottom_vibration" comment="Settings preference title for vibrating when scrolling reaches the bottom">Scorri vibrazione in basso</string>
     <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">Scorri in fondo</string>
     <string name="scroll_to_top" comment="Accessibility label and tooltip for the button that jumps to the first line of the command output">Scorri verso l\'alto</string>
     <string name="search">Cerca</string>
@@ -1020,6 +1178,7 @@
     <string name="select_backup_folder_message" comment="Dialog message prompting user to grant folder access for local automated backups">Seleziona una cartella in cui verranno salvati i backup. L\'app necessita dei permessi di lettura e scrittura per questa cartella.</string>
     <string name="select_backup_folder_title" comment="Dialog title when no backup directory has been configured">Nessuna cartella di backup</string>
     <string name="select_folder" comment="Action button to open system directory picker for backup storage">Seleziona cartella</string>
+    <string name="select_logs" comment="Menu item on the logcat screen that starts choosing log entries to copy, share or save">Seleziona log</string>
     <string name="select_partition" comment="Dropdown hint or dialog header for picking target fastboot partition">Seleziona partizione</string>
     <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">Seleziona un tema sopra per modificarne i valori esadecimali grezzi qui.</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">Seleziona orario</string>
@@ -1103,9 +1262,12 @@
     <string name="stack_trace" comment="Header title for crash log exception stack trace section">Traccia dello stack</string>
     <string name="stargazers" comment="GitHub repository star count label in About screen">Stargazer</string>
     <string name="start">Inizia</string>
+    <string name="startup" comment="Settings group title for what happens when the app opens">Startup</string>
     <string name="status_with_detail" comment="Home card status line. %1$s is a connection state such as Connected, %2$s is the device name, e.g. Connected (Pixel 7)">%1$s (%2$s)</string>
     <string name="status_with_device_and_mode" comment="Wireless debugging home card status line. %1$s is a connection state such as Connected, %2$s is the device name, %3$s is This Device or Other device, e.g. Connected (Pixel 7, Other device)">%1$s (%2$s, %3$s)</string>
     <string name="stop">Interrompi</string>
+    <string name="stop_all" comment="Action that stops every running item, such as all port forwarding tunnels">Ferma tutto</string>
+    <string name="stopped" comment="State of something that is not running">Fermato</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">%.1f MB utilizzati dai modelli di IA</string>
     <string name="stream_statistics" comment="Overlay over the mirrored video. %1$s is a size, %2$s a frame rate, %3$d a count of dropped frames, %4$s a data rate, %5$s a codec">%1$s · %2$s · %3$d lasciato · %4$s · %5$s</string>
     <string name="style_filled">Riempito</string>
@@ -1146,7 +1308,12 @@
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Stile carattere del terminale</string>
     <string name="terms_of_service" comment="Title for the Terms of Service legal document">Termini di servizio</string>
     <string name="tertiary">Terziario</string>
+    <string name="test" comment="Button that checks whether a server can be reached">Prova</string>
     <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Modalità tema</string>
+    <string name="theme_import_failed" comment="Toast shown when a color scheme file fails to be read or deserialized">Impossibile importare lo schema di colori</string>
+    <string name="theme_name" comment="Label for the text field where user can edit the name of an imported theme">Nome del tema</string>
+    <string name="theme_preview" comment="Title for the bottom sheet showing preview of an imported theme">Anteprima tema</string>
+    <string name="theme_saved_applied" comment="Toast message shown after successfully importing and applying a theme">Tema salvato e applicato</string>
     <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Pensare</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Librerie di terze parti</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">Questa applicazione</string>
@@ -1172,6 +1339,7 @@
     <string name="troubleshoot">Risoluzione dei problemi</string>
     <string name="troubleshoot_reconnect">Aggiorna la connessione di debug wireless disattivandola e riattivandola</string>
     <string name="try_different_search">Prova un termine di ricerca diverso</string>
+    <string name="turn_off" comment="Button that turns an option off">Disattiva</string>
     <string name="turn_off_mobile_data">Disattiva i dati mobili se la connessione Wi-Fi non ha accesso a Internet</string>
     <string name="tweak_your_experience">Personalizza la tua esperienza</string>
     <string name="type">Tipo</string>
@@ -1264,7 +1432,15 @@
         <item quantity="one">%1$d nuovo elemento</item>
         <item quantity="other">%1$d nuovi elementi</item>
     </plurals>
+    <plurals name="logs_copied" comment="Toast shown after copying logcat entries to the clipboard; %1$d = number of entries copied">
+        <item quantity="one">Log di %1$d copiato</item>
+        <item quantity="other">Copied %1$d logs</item>
+    </plurals>
     <plurals name="profiles_selected" comment="Header of the logcat filter profile list while choosing profiles to edit or delete; %1$d = number chosen">
+        <item quantity="one">%1$d selezionato</item>
+        <item quantity="other">%1$d selezionato</item>
+    </plurals>
+    <plurals name="selected_count" comment="Title of a top bar while choosing list items; %1$d = number of items selected">
         <item quantity="one">%1$d selezionato</item>
         <item quantity="other">%1$d selezionato</item>
     </plurals>
@@ -1322,4 +1498,40 @@
     <string name="changelog_v1_0_0">\nAggiunti altri esempi di comandi.\nModifiche minori dell\'interfaccia utente.\nModificato il nome del pacchetto per evitare confusione di versione con l\'app originale.</string>
     <string name="changelog_v0_9_1">\nAggiunti i registri delle modifiche nell\'app.\nAggiunto l\'output della shell evidenziato.\nModifiche minori dell\'interfaccia utente.</string>
     <string name="changelog_v0_9_0">\nAggiunti temi Material dinamici.\nRinnovata l\'intera interfaccia utente per un aspetto rinnovato.</string>
+    <plurals name="port_forward_tunnels_running" comment="Notification title. %1$d is the number of running port forwarding tunnels">
+        <item quantity="one">%1$d tunnel in esecuzione</item>
+        <item quantity="other">Gallerie %1$d in esecuzione</item>
+    </plurals>
+    <plurals name="port_forward_notification_waiting_count" comment="Part of the notification summary. %1$d is the number of tunnels waiting for a network">
+        <item quantity="one">%1$d in attesa</item>
+        <item quantity="other">%1$d in attesa</item>
+    </plurals>
+    <plurals name="port_forward_notification_attention_count" comment="Part of the notification summary. %1$d is the number of tunnels with a problem">
+        <item quantity="one">%1$d ha bisogno di attenzione</item>
+        <item quantity="other">%1$d ha bisogno di attenzione</item>
+    </plurals>
+    <plurals name="n_seconds" comment="A duration in seconds. %1$d is the number">
+        <item quantity="one">%1$d secondo</item>
+        <item quantity="other">%1$d secondi</item>
+    </plurals>
+    <plurals name="port_forward_interrupted" comment="Banner when Android stopped tunnels while they were running. %1$d is the number of tunnels">
+        <item quantity="one">Tunnel di %1$d si è fermato inaspettatamente</item>
+        <item quantity="other">I tunnel di %1$d si sono fermati inaspettatamente</item>
+    </plurals>
+    <plurals name="port_forward_stopped_all" comment="Snackbar after stopping all tunnels. %1$d is the number of tunnels">
+        <item quantity="one">Galleria %1$d interrotta</item>
+        <item quantity="other">Gallerie %1$d fermate</item>
+    </plurals>
+    <plurals name="port_forward_disable_sharing_message" comment="Dialog text before turning off sharing. %1$d is the number of shared tunnels that will restart">
+        <item quantity="one">Il tunnel condiviso %1$d verrà riavviato solo su questo telefono.</item>
+        <item quantity="other">I tunnel condivisi di %1$d si riavvieranno solo su questo telefono.</item>
+    </plurals>
+    <plurals name="port_forward_running_count" comment="Badge on the home card. %1$d is the number of running tunnels">
+        <item quantity="one">%1$d in esecuzione</item>
+        <item quantity="other">%1$d in esecuzione</item>
+    </plurals>
+    <plurals name="disconnect_stops_tunnels" comment="Dialog text: port forwarding tunnels to this device stop when it disconnects. %1$d is the number of tunnels">
+        <item quantity="one">Il tunnel %1$d a questo dispositivo si fermerà.</item>
+        <item quantity="other">I tunnel di %1$d a questo dispositivo si fermeranno.</item>
+    </plurals>
 </resources>
