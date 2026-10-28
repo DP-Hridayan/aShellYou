@@ -1,19 +1,16 @@
-@file:OptIn(
-    ExperimentalMaterial3ExpressiveApi::class,
-    ExperimentalMaterial3Api::class
-)
+@file:OptIn(ExperimentalFlexBoxApi::class)
 
 package `in`.hridayan.ashell.home.presentation.screens
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalFlexBoxApi
 import androidx.compose.foundation.layout.FlexAlignItems
 import androidx.compose.foundation.layout.FlexBox
 import androidx.compose.foundation.layout.FlexDirection
@@ -34,8 +31,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -79,7 +74,6 @@ import `in`.hridayan.ashell.home.presentation.model.DeviceLinkStatus
 import `in`.hridayan.ashell.home.presentation.model.PortForwardCardStatus
 import `in`.hridayan.ashell.home.presentation.model.WifiAdbCardStatus
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     localAdbWorkingMode: Int = LocalAdbWorkingMode.BASIC,
@@ -610,9 +604,14 @@ fun PortForwardCard(
 @Composable
 private fun portForwardDescription(status: PortForwardCardStatus): String {
     if (status.runningNames.isEmpty()) return stringResource(R.string.des_port_forwarding)
-    val shown = status.runningNames.take(PORT_FORWARD_NAMES_SHOWN).joinToString(PORT_FORWARD_NAME_SEPARATOR)
+    val shown =
+        status.runningNames.take(PORT_FORWARD_NAMES_SHOWN).joinToString(PORT_FORWARD_NAME_SEPARATOR)
     val hidden = status.runningNames.size - PORT_FORWARD_NAMES_SHOWN
-    return if (hidden > 0) stringResource(R.string.port_forward_names_and_more, shown, hidden) else shown
+    return if (hidden > 0) stringResource(
+        R.string.port_forward_names_and_more,
+        shown,
+        hidden
+    ) else shown
 }
 
 @Composable

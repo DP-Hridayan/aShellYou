@@ -18,7 +18,6 @@ import androidx.compose.material.icons.rounded.PowerSettingsNew
 import androidx.compose.material.icons.rounded.RadioButtonUnchecked
 import androidx.compose.material.icons.rounded.Screenshot
 import androidx.compose.material.icons.rounded.SwipeDown
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.FloatingToolbarDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -103,7 +102,6 @@ fun DeviceKeyBar(
  * One row of keys. When not [contained], the row has no container of its own, because it sits
  * inside a panel that already provides one.
  */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun KeyGroup(vertical: Boolean, contained: Boolean, content: @Composable () -> Unit) {
     if (!contained) {
@@ -205,7 +203,6 @@ private fun QualityKey(vertical: Boolean, onClick: () -> Unit) {
     )
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun HomeKeyButton(enabled: Boolean, onClick: () -> Unit) {
     val label = stringResource(R.string.home)
@@ -227,7 +224,6 @@ private fun HomeKeyButton(enabled: Boolean, onClick: () -> Unit) {
     }
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun KeyButton(
     icon: ImageVector,

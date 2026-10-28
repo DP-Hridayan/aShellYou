@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetValue
@@ -251,7 +250,6 @@ private fun frameRateFootnote(frameRate: FrameRateChoice, viewerRefreshRate: Int
 }
 
 /** Laid out like a switch item on the settings screens, so the same setting looks the same here. */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun StatsOverlaySwitch(isOn: Boolean, onChange: (Boolean) -> Unit) {
     val toggle = withHaptic(HapticFeedbackType.ToggleOn) { onChange(!isOn) }

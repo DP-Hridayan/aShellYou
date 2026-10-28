@@ -3,7 +3,6 @@ package `in`.hridayan.ashell.core.presentation.components.modifier
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -34,7 +33,6 @@ private val RECTANGLE_CORNER_RADIUS = 0.dp
  * @param toggled Whether the shape should morph to [secondShape].
  * @param elevation The elevation shadow to cast with the morphing shape.
  */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun Modifier.morphClip(
     firstShape: RoundedPolygon,

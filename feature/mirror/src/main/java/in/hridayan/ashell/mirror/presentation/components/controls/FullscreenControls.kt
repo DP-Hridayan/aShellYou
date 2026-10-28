@@ -34,7 +34,6 @@ import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.FullscreenExit
 import androidx.compose.material.icons.rounded.Tune
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -186,7 +185,6 @@ fun FullscreenControls(
  * drag and never also counts as a tap, which separate click and drag handlers on nested nodes can't
  * guarantee.
  */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun FloatingBall(
     isPanelOpen: Boolean,
@@ -310,7 +308,6 @@ private data class PanelAnchor(
     val area: IntSize
 )
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun ControlPanel(
     anchor: PanelAnchor,
@@ -366,7 +363,6 @@ private fun panelOffset(anchor: PanelAnchor, size: IntSize, gapPx: Float): IntOf
     return IntOffset(x.roundToInt().coerceAtLeast(0), y.roundToInt())
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun PanelHeader(onExitFullscreen: () -> Unit, onLeave: () -> Unit) {
     Row(horizontalArrangement = Arrangement.spacedBy(PanelSpacing)) {

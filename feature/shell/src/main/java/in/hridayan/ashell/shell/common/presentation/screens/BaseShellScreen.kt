@@ -1,5 +1,4 @@
 @file:OptIn(
-    ExperimentalMaterial3ExpressiveApi::class,
     ExperimentalMaterial3Api::class,
     ExperimentalAnimationApi::class,
     ExperimentalSharedTransitionApi::class
@@ -16,7 +15,6 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
@@ -55,12 +53,11 @@ import androidx.compose.material.icons.automirrored.rounded.Send
 import androidx.compose.material.icons.rounded.Fullscreen
 import androidx.compose.material.icons.rounded.KeyboardDoubleArrowDown
 import androidx.compose.material.icons.rounded.KeyboardDoubleArrowUp
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ExposedDropdownMenu
 import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -70,10 +67,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -142,9 +140,6 @@ import `in`.hridayan.ashell.shell.common.domain.model.Suggestion
 import `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet.BookmarksBottomSheet
 import `in`.hridayan.ashell.shell.common.presentation.components.button.UtilityButtonGroup
 import `in`.hridayan.ashell.shell.common.presentation.components.card.SuggestionCard
-import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.rememberDrawerState
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.BookmarksSortDialog
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.ClearOutputConfirmationDialog
 import `in`.hridayan.ashell.shell.common.presentation.components.dialog.DeleteBookmarksDialog
