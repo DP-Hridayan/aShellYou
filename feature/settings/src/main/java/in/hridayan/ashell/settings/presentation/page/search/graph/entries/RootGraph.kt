@@ -17,12 +17,6 @@ internal fun SearchScreenScope.rootGraph(aiEnabled: Boolean) {
         icon(R.drawable.ic_sentiment_neutral)
     }
 
-    entry(key = SettingsKeys.QuickSettingsTiles) {
-        title(R.string.qs_tiles)
-        description(R.string.des_qs_tiles)
-        icon(R.drawable.ic_dashboard)
-    }
-
     entry(key = SettingsKeys.PortForwarding) {
         title(R.string.port_forwarding)
         description(R.string.des_port_forward_settings)

@@ -5,13 +5,18 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -133,9 +138,13 @@ fun AiChatScreen(
     ) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
+            contentWindowInsets = WindowInsets.safeDrawing,
             topBar = {
                 TopAppBar(
                     scrollBehavior = scrollBehavior,
+                    windowInsets = WindowInsets.safeDrawing.only(
+                        WindowInsetsSides.Horizontal + WindowInsetsSides.Top
+                    ),
                     title = {
                         val currentSession =
                             uiState.sessions.find { it.id == uiState.currentSessionId }
@@ -157,6 +166,9 @@ fun AiChatScreen(
             bottomBar = {
                 Column(
                     modifier = Modifier
+                        .windowInsetsPadding(
+                            WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal)
+                        )
                         .navigationBarsPadding()
                         .padding(horizontal = 16.dp, vertical = 30.dp)
                         .imePadding(),

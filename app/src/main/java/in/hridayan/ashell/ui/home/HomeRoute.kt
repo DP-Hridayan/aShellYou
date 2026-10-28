@@ -107,6 +107,9 @@ fun HomeRoute(
         },
         onSideloadClick = {
             navController.navigate(NavRoutes.AdbSideloadScreen)
+        },
+        onQsTilesClick = {
+            navController.navigate(NavRoutes.TileDashboardScreen)
         }
     )
 

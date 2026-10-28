@@ -32,12 +32,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.core.common.settings.LocalSettings
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
-import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.switch.AppSwitch
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 
@@ -237,7 +240,20 @@ fun EditorSwitchRow(
     position: GroupPosition,
     description: String? = null
 ) {
-    CustomCard(modifier = Modifier.fillMaxWidth(), shape = position.card, onClick = withHaptic { onCheckedChange(!checked) }) {
+    val haptic = LocalHapticFeedback.current
+    val isHapticEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
+    val toggle = { isChecked: Boolean ->
+        if (isHapticEnabled) {
+            haptic.performHapticFeedback(HapticFeedbackType.ContextClick)
+        }
+        onCheckedChange(isChecked)
+    }
+
+    CustomCard(
+        modifier = Modifier.fillMaxWidth(),
+        shape = position.card,
+        onClick = { toggle(!checked) }
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -259,7 +275,7 @@ fun EditorSwitchRow(
                     )
                 }
             }
-            AppSwitch(checked = checked, onCheckedChange = onCheckedChange)
+            AppSwitch(checked = checked, onCheckedChange = toggle)
         }
     }
 }

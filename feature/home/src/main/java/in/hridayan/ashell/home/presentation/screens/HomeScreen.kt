@@ -99,7 +99,8 @@ fun HomeScreen(
     onPortForwardClick: () -> Unit = {},
     onAiChatClick: () -> Unit = {},
     onSideloadClick: () -> Unit = {},
-    onReboot: (Array<String>) -> Unit = {}
+    onReboot: (Array<String>) -> Unit = {},
+    onQsTilesClick: () -> Unit = {}
 ) {
     val dialogManager = LocalDialogManager.current
 
@@ -293,22 +294,30 @@ fun HomeScreen(
             }
 
             item {
-                Column(
+                FlexBox(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                    config = {
+                        direction(FlexDirection.Row)
+                        wrap(FlexWrap.Wrap)
+                        gap(10.dp)
+                        alignItems(FlexAlignItems.Stretch)
+                    }
                 ) {
                     LogcatCard(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.flex { grow(1f) },
                         isRunning = isLogcatRunning,
-                        onClick = withHaptic {
-                            onLogcatClick()
-                        }
+                        onClick = onLogcatClick
                     )
 
                     PortForwardCard(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.flex { grow(1f) },
                         status = portForwardStatus,
                         onClick = onPortForwardClick
+                    )
+
+                    QsTilesCard(
+                        modifier = Modifier.flex { grow(1f) },
+                        onClick = onQsTilesClick
                     )
                 }
             }
@@ -635,6 +644,29 @@ private fun PortForwardBadges(status: PortForwardCardStatus) {
 
 private const val PORT_FORWARD_NAMES_SHOWN = 2
 private const val PORT_FORWARD_NAME_SEPARATOR = ", "
+
+@Composable
+fun QsTilesCard(
+    modifier: Modifier = Modifier,
+    shape: CustomCardShape = CardCornerShape.SINGLE_CARD,
+    onClick: () -> Unit
+) {
+    NavItemCard(
+        modifier = modifier,
+        shape = shape,
+        title = stringResource(R.string.qs_tiles),
+        description = stringResource(R.string.des_qs_tiles),
+        leadingIcon = { tint ->
+            Icon(
+                modifier = Modifier.size(20.dp),
+                painter = painterResource(R.drawable.ic_dashboard),
+                contentDescription = null,
+                tint = tint
+            )
+        },
+        onClick = withHaptic { onClick() }
+    )
+}
 
 @Composable
 private fun NavItemCompactCard(

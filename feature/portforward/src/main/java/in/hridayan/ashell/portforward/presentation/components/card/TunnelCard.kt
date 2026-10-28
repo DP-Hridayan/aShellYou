@@ -20,7 +20,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
@@ -31,6 +33,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import `in`.hridayan.ashell.core.common.settings.LocalSettings
+import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.switch.AppSwitch
@@ -117,11 +121,18 @@ private fun TunnelCardHeader(item: TunnelItem, onRunningChange: (Boolean) -> Uni
             overflow = TextOverflow.Ellipsis
         )
         val runningLabel = stringResource(if (item.isRunning) R.string.running else R.string.stopped)
+        val haptic = LocalHapticFeedback.current
+        val isHapticEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
         AppSwitch(
             modifier = Modifier.semantics { contentDescription = runningLabel },
             checked = item.isRunning,
             enabled = item.isRunning || item.canStart,
-            onCheckedChange = onRunningChange
+            onCheckedChange = { isChecked ->
+                if (isHapticEnabled) {
+                    haptic.performHapticFeedback(HapticFeedbackType.ContextClick)
+                }
+                onRunningChange(isChecked)
+            }
         )
     }
 }

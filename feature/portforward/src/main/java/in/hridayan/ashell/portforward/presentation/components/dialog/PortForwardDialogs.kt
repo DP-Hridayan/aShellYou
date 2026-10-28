@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.radio.RadioOptionCard
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
@@ -97,15 +98,17 @@ private fun DialogHeading(title: String) {
 
 @Composable
 private fun DialogButtons(confirmLabel: String, onConfirm: () -> Unit, onDismiss: () -> Unit) {
+    val dismiss = withHaptic { onDismiss() }
+    val confirm = withHaptic { onConfirm() }
     OverflowButtonGroup(
         modifier = Modifier.padding(top = 24.dp),
         items = listOf(
             ButtonGroupItem(
                 buttonConfig = ButtonConfigDefaults.defaultConfig(type = ButtonType.OutlinedButton),
                 text = stringResource(R.string.cancel),
-                onClick = onDismiss
+                onClick = dismiss
             ),
-            ButtonGroupItem(text = confirmLabel, onClick = onConfirm)
+            ButtonGroupItem(text = confirmLabel, onClick = confirm)
         )
     )
 }

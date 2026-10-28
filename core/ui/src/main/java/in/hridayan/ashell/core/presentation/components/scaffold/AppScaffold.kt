@@ -6,8 +6,12 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
@@ -117,8 +121,12 @@ private fun AppScaffoldImpl(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
+        contentWindowInsets = WindowInsets.safeDrawing,
         topBar = {
             LargeTopAppBar(
+                windowInsets = WindowInsets.safeDrawing.only(
+                    WindowInsetsSides.Horizontal + WindowInsetsSides.Top
+                ),
                 title = {
                     val collapsedFraction = scrollBehavior.state.collapsedFraction
                     val expandedFontSize = 33.sp

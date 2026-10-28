@@ -2,6 +2,8 @@ package `in`.hridayan.ashell.portforward.presentation.components.editor
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
@@ -11,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import `in`.hridayan.ashell.core.resources.R
@@ -39,14 +42,15 @@ fun TunnelEditorContent(
     modifier: Modifier = Modifier
 ) {
     val needsPermission = state.needsLocalNetworkPermission(localNetwork)
+    val layoutDirection = LocalLayoutDirection.current
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
             .imePadding(),
         state = listState,
         contentPadding = PaddingValues(
-            start = EditorSpacing.PageHorizontal,
-            end = EditorSpacing.PageHorizontal,
+            start = EditorSpacing.PageHorizontal + contentPadding.calculateStartPadding(layoutDirection),
+            end = EditorSpacing.PageHorizontal + contentPadding.calculateEndPadding(layoutDirection),
             top = contentPadding.calculateTopPadding(),
             bottom = contentPadding.calculateBottomPadding() + EditorSpacing.BottomClearance
         )

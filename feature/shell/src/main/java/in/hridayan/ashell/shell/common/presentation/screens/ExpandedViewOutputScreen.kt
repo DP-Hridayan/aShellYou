@@ -9,11 +9,17 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -46,6 +52,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -213,11 +220,15 @@ fun ExpandedViewOutputScreen(
         ) {
             Scaffold(
                 containerColor = containerColor,
+                contentWindowInsets = WindowInsets.safeDrawing,
                 topBar = {
                     val coroutineScope = rememberCoroutineScope()
                     val smoothScroll = LocalSettings.current[SettingsKeys.SmoothScrolling]
 
                     TopAppBar(
+                        windowInsets = WindowInsets.safeDrawing.only(
+                            WindowInsetsSides.Horizontal + WindowInsetsSides.Top
+                        ),
                         title = {
                             Text(
                                 text = stringResource(R.string.output),
@@ -329,10 +340,17 @@ fun ExpandedViewOutputScreen(
                     sections
                 }
 
+                val layoutDirection = LocalLayoutDirection.current
+
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(top = paddingValues.calculateTopPadding())
+                        .padding(
+                            start = paddingValues.calculateStartPadding(layoutDirection),
+                            end = paddingValues.calculateEndPadding(layoutDirection),
+                            top = paddingValues.calculateTopPadding(),
+                            bottom = paddingValues.calculateBottomPadding()
+                        )
                 ) {
                     val selectionState = rememberLazySelectionState()
 

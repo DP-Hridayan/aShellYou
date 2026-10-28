@@ -12,12 +12,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -76,8 +80,12 @@ fun SettingsScreen() {
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        contentWindowInsets = WindowInsets.safeDrawing,
         topBar = {
             TopAppBar(
+                windowInsets = WindowInsets.safeDrawing.only(
+                    WindowInsetsSides.Horizontal + WindowInsetsSides.Top
+                ),
                 title = { },
                 navigationIcon = {
                     BackButton {
@@ -190,14 +198,6 @@ fun SettingsScreen() {
             }
 
             group {
-                clickableItem(SettingsKeys.QuickSettingsTiles) {
-                    title(R.string.qs_tiles)
-                    description(R.string.des_qs_tiles)
-                    icon(R.drawable.ic_dashboard)
-                    iconColors { tertiaryIconColors }
-                    onClick { navController.navigate(NavRoutes.TileDashboardScreen) }
-                }
-
                 clickableItem(SettingsKeys.PortForwarding) {
                     title(R.string.port_forwarding)
                     description(R.string.des_port_forward_settings)
