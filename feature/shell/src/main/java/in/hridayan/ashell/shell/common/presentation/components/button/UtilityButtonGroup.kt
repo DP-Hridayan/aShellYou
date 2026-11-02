@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package `in`.hridayan.ashell.shell.common.presentation.components.button
 
 import androidx.compose.foundation.layout.Arrangement
@@ -13,7 +11,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults

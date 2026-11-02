@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalSharedTransitionApi::class)
-
 package `in`.hridayan.ashell.core.common
 
 import android.content.BroadcastReceiver
@@ -9,7 +7,6 @@ import android.content.IntentFilter
 import android.os.PowerManager
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.animation.AnimatedContentScope
-import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable

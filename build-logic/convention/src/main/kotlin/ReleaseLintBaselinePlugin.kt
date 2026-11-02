@@ -1,3 +1,4 @@
+import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -24,32 +25,25 @@ class ReleaseLintBaselinePlugin : Plugin<Project> {
                 }
             }
 
-            project.afterEvaluate {
-
-                val baselineTasks = project.tasks.matching {
-                    it.name.startsWith("updateLintBaseline") && it.name.endsWith("Release")
-                }
+            val androidComponents = project.extensions.getByType(ApplicationAndroidComponentsExtension::class.java)
+            androidComponents.onVariants(androidComponents.selector().withBuildType("release")) { variant ->
+                val variantNameCapitalized = variant.name.replaceFirstChar { it.uppercase() }
+                val updateLintBaselineTaskName = "updateLintBaseline$variantNameCapitalized"
+                val lintTaskName = "lint$variantNameCapitalized"
+                val assembleTaskName = "assemble$variantNameCapitalized"
+                val bundleTaskName = "bundle$variantNameCapitalized"
 
                 updateBaseline.configure {
-                    dependsOn(baselineTasks)
+                    dependsOn(updateLintBaselineTaskName)
                 }
 
-                project.tasks.matching {
-                    it.name.startsWith("lint") && it.name.endsWith("Release")
-                }.configureEach {
-                    outputs.upToDateWhen { false }
-                }
-
-                project.tasks.matching {
-                    it.name.startsWith("assemble") && it.name.endsWith("Release")
-                }.configureEach {
-                    dependsOn(updateBaseline)
-                }
-
-                project.tasks.matching {
-                    it.name.startsWith("bundle") && it.name.endsWith("Release")
-                }.configureEach {
-                    dependsOn(updateBaseline)
+                project.tasks.configureEach {
+                    if (name == assembleTaskName || name == bundleTaskName) {
+                        dependsOn(updateLintBaselineTaskName)
+                    }
+                    if (name == lintTaskName) {
+                        outputs.upToDateWhen { false }
+                    }
                 }
             }
         }

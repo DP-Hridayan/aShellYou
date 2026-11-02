@@ -29,7 +29,6 @@ import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButtonMenu
 import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.Icon
@@ -104,7 +103,6 @@ import `in`.hridayan.ashell.core.utils.showToast
 import kotlinx.coroutines.launch
 
 @SuppressLint("RememberInComposition")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CommandExamplesScreen(
     viewModel: CommandExamplesViewModel = hiltViewModel()

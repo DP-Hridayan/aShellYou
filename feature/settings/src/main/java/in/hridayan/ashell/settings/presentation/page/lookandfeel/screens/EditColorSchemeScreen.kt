@@ -24,7 +24,6 @@ import androidx.compose.material.icons.rounded.Save
 import androidx.compose.material.icons.rounded.Warning
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -60,7 +59,6 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.ColorPickerBottomSheet
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel.GenerateColorSchemeViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditColorSchemeScreen(
     themeId: Int,

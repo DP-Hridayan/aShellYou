@@ -8,7 +8,6 @@ import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Fullscreen
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material3.AssistChip
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -26,7 +25,6 @@ import `in`.hridayan.ashell.core.common.domain.model.ExternalDeviceTransport
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MirrorTopBar(
     state: MirrorTopBarState,

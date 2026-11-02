@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 
 import android.os.Build
@@ -15,7 +13,6 @@ import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.rounded.LightMode
 import androidx.compose.material.icons.rounded.TextFields
 import androidx.compose.material.icons.rounded.VerticalAlignBottom
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -241,4 +238,3 @@ fun LookAndFeelScreen(
         )
     }
 }
-

@@ -11,7 +11,6 @@ import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -38,7 +37,6 @@ import `in`.hridayan.ashell.settings.presentation.components.dialog.Authenticati
 import `in`.hridayan.ashell.settings.presentation.components.dialog.NoLockScreenDialog
 import `in`.hridayan.settingsgraph.ui.SettingsColumn
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PrivacySecurityScreen() {
     val navController = LocalNavController.current
