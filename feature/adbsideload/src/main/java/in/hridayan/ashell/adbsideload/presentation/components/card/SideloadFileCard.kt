@@ -23,12 +23,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.modifier.dashedBorder
 import `in`.hridayan.ashell.core.resources.R
 
@@ -66,7 +68,7 @@ private fun EmptyFileCard(
                 cornerRadius = 24.dp,
                 color = MaterialTheme.colorScheme.outlineVariant,
             )
-            .clickable { onPickFile() },
+            .clickable(onClick = withHaptic { onPickFile() }),
     ) {
         Column(
             modifier = Modifier
@@ -120,7 +122,7 @@ private fun SelectedFileCard(
                 tint = MaterialTheme.colorScheme.primary
             )
             FileInfo(fileName = fileName, fileSize = fileSize, modifier = Modifier.weight(1f))
-            IconButton(onClick = onClearFile) {
+            IconButton(onClick = withHaptic(HapticFeedbackType.VirtualKey) { onClearFile() }) {
                 Icon(
                     imageVector = Icons.Default.Close,
                     contentDescription = stringResource(R.string.clear),

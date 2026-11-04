@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -31,6 +32,7 @@ import `in`.hridayan.ashell.adbsideload.domain.model.SideloadOperation
 import `in`.hridayan.ashell.adbsideload.domain.model.SideloadStatus
 import `in`.hridayan.ashell.adbsideload.presentation.components.text.sideloadStatusText
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
 import java.util.Locale
@@ -71,7 +73,7 @@ fun SideloadProgressCard(
                 ProgressBar(progress = operation.progress)
                 ProgressDetails(operation = operation)
                 OutlinedButton(
-                    onClick = onCancel,
+                    onClick = withHaptic(HapticFeedbackType.Reject) { onCancel() },
                     modifier = Modifier.fillMaxWidth(),
                     shapes = ButtonDefaults.shapes()
                 ) {
@@ -79,7 +81,7 @@ fun SideloadProgressCard(
                 }
             } else {
                 Button(
-                    onClick = onDone,
+                    onClick = withHaptic(HapticFeedbackType.Confirm) { onDone() },
                     modifier = Modifier.fillMaxWidth(),
                     shapes = ButtonDefaults.shapes(),
                     colors = ButtonDefaults.buttonColors(
