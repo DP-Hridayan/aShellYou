@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalFlexBoxApi::class)
 
 package `in`.hridayan.ashell.ai.presentation.components.card
 
@@ -6,6 +6,11 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.ExperimentalFlexBoxApi
+import androidx.compose.foundation.layout.FlexAlignItems
+import androidx.compose.foundation.layout.FlexBox
+import androidx.compose.foundation.layout.FlexDirection
+import androidx.compose.foundation.layout.FlexWrap
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,6 +30,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -153,39 +159,43 @@ private fun SavedKeySection(
 ) {
     val isVerifying = verificationState is VerificationState.Loading
 
-    Row(
+    FlexBox(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
+        config = {
+            direction(FlexDirection.Row)
+            wrap(FlexWrap.Wrap)
+            gap(10.dp)
+            alignItems(FlexAlignItems.Center)
+        }
     ) {
-        Text(
-            text = stringResource(R.string.api_key_is_saved),
-            style = MaterialTheme.typography.bodyMedium
-        )
-
-        TextButton(onClick = withHaptic { onDeleteApiKey() }) {
+        OutlinedButton(
+            modifier = Modifier.flex { grow(1f) },
+            onClick = withHaptic { onDeleteApiKey() },
+            shapes = ButtonDefaults.shapes()
+        ) {
             Text(text = stringResource(R.string.remove))
+        }
+
+        Button(
+            onClick = withHaptic { onVerifyApiKey() },
+            enabled = !isVerifying,
+            shapes = ButtonDefaults.shapes(),
+            modifier = Modifier.flex { grow(1f) }
+        ) {
+            if (isVerifying) {
+                LoadingIndicator(modifier = Modifier.size(ButtonDefaults.IconSize))
+                Spacer(Modifier.width(ButtonDefaults.IconSpacing))
+            }
+
+            Text(
+                text = stringResource(
+                    if (isVerifying) R.string.verifying else R.string.verify_api_key
+                )
+            )
         }
     }
 
     Spacer(Modifier.height(8.dp))
-
-    Button(
-        onClick = withHaptic { onVerifyApiKey() },
-        enabled = !isVerifying,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        if (isVerifying) {
-            LoadingIndicator(modifier = Modifier.size(ButtonDefaults.IconSize))
-            Spacer(Modifier.width(ButtonDefaults.IconSpacing))
-        }
-
-        Text(
-            text = stringResource(
-                if (isVerifying) R.string.verifying else R.string.verify_api_key
-            )
-        )
-    }
 
     VerificationMessage(verificationState = verificationState)
 }
@@ -255,11 +265,10 @@ private fun ColumnScope.InputKeySection(
 
     Spacer(Modifier.height(8.dp))
 
-    // The key is left in the field on failure so a rejected key can be corrected rather than retyped.
     Button(
         onClick = withHaptic { onSaveApiKey(keyInput) },
         enabled = keyInput.isNotBlank() && !isVerifying,
-        modifier = Modifier.align(Alignment.End),
+        modifier = Modifier.fillMaxWidth(),
     ) {
         if (isVerifying) {
             LoadingIndicator(modifier = Modifier.size(ButtonDefaults.IconSize))
