@@ -98,4 +98,8 @@ class CommandRepositoryImpl @Inject constructor(
     override suspend fun updateFavoriteStatus(commandId: Int, isFavourite: Boolean) {
         commandDao.updateFavoriteStatus(commandId, isFavourite)
     }
+
+    override suspend fun doesCommandExist(command: String): Boolean {
+        return commandDao.doesCommandExist(command) > 0
+    }
 }

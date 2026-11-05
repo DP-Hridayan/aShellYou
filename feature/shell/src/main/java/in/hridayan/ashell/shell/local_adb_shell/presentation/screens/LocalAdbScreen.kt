@@ -36,8 +36,7 @@ import `in`.hridayan.ashell.core.utils.DeviceUtils
 import `in`.hridayan.ashell.core.utils.ToastUtils.makeToast
 import `in`.hridayan.ashell.core.utils.isShizukuOrPlusInstalled
 import `in`.hridayan.ashell.core.utils.launchShizukuApp
-import `in`.hridayan.ashell.core.utils.showToast
-import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
+import `in`.hridayan.ashell.shell.common.domain.model.ShellMode
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.ShellViewModel
 import `in`.hridayan.ashell.shell.local_adb_shell.presentation.components.dialog.DeveloperOptionsOffDialog
@@ -170,6 +169,8 @@ fun LocalAdbScreen(
         modeText = modeText,
         connectedDevice = DeviceUtils.DEVICE_MODEL,
         showLocalAdbModes = true,
+        shellViewModel = shellViewModel,
+        shellMode = ShellMode.LOCAL,
     )
 
     if (showShizukuUnavailableDialog) {

@@ -24,7 +24,7 @@ import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
 import io.ktor.utils.io.ByteReadChannel
-import io.ktor.utils.io.readUTF8Line
+import io.ktor.utils.io.readLine
 import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.jsonPrimitive
 
@@ -206,7 +206,7 @@ internal class OpenAiCompatibleProviderClient(
     ) {
         var finished = false
         while (!channel.isClosedForRead && !finished) {
-            val line = channel.readUTF8Line()
+            val line = channel.readLine()
             finished = line == null ||
                 isStreamEnd(line) ||
                 consumeStreamLine(line, accumulator, onChunk)

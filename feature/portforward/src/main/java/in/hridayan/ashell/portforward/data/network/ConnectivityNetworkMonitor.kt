@@ -14,10 +14,11 @@ import javax.inject.Singleton
 /** Follows the default network for the life of the process. */
 @Singleton
 class ConnectivityNetworkMonitor @Inject constructor(
-    @param:ApplicationContext context: Context
+    @ApplicationContext context: Context
 ) : NetworkMonitor {
 
-    private val connectivity: ConnectivityManager? = context.getSystemService(ConnectivityManager::class.java)
+    private val connectivity: ConnectivityManager? =
+        context.getSystemService(ConnectivityManager::class.java)
     private val _isConnected = MutableStateFlow(connectivity?.activeNetwork != null)
     override val isConnected: StateFlow<Boolean> = _isConnected.asStateFlow()
 

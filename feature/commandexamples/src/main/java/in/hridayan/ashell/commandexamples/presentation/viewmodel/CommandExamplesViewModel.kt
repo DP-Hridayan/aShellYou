@@ -21,6 +21,7 @@ import `in`.hridayan.ashell.core.resources.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -44,6 +45,13 @@ class CommandExamplesViewModel @Inject constructor(
 ) : ViewModel() {
     private val _aiAccessPrompt = MutableStateFlow<ActiveProviderKeyStatus?>(null)
     val aiAccessPrompt: StateFlow<ActiveProviderKeyStatus?> = _aiAccessPrompt.asStateFlow()
+
+    internal var stringResolver: ((Int) -> String)? = null
+    private var checkDuplicateJob: Job? = null
+
+    private fun getString(resId: Int): String {
+        return stringResolver?.invoke(resId) ?: appContext.getString(resId)
+    }
 
     fun dismissAiAccessPrompt() {
         _aiAccessPrompt.value = null
@@ -164,13 +172,30 @@ class CommandExamplesViewModel @Inject constructor(
         )
     }
 
-    fun onCommandFieldTextChange(newValue: TextFieldValue) = with(_states.value) {
+    fun onCommandFieldTextChange(newValue: TextFieldValue, isNewCommand: Boolean = false) = with(_states.value) {
         _states.value = this.copy(
             commandField = commandField.copy(
                 fieldValue = newValue,
-                isError = false
+                isError = false,
+                errorMessage = ""
             )
         )
+
+        checkDuplicateJob?.cancel()
+        val trimmed = newValue.text.trim()
+        if (isNewCommand && trimmed.isNotEmpty()) {
+            checkDuplicateJob = viewModelScope.launch {
+                val exists = commandRepository.doesCommandExist(trimmed)
+                if (exists && _states.value.commandField.fieldValue.text.trim() == trimmed) {
+                    _states.value = _states.value.copy(
+                        commandField = _states.value.commandField.copy(
+                            isError = true,
+                            errorMessage = getString(R.string.command_already_exists)
+                        )
+                    )
+                }
+            }
+        }
     }
 
     fun onDescriptionFieldTextChange(newValue: TextFieldValue) = with(_states.value) {
@@ -198,7 +223,7 @@ class CommandExamplesViewModel @Inject constructor(
             _states.value = this.copy(
                 labelField = labelField.copy(
                     isError = true,
-                    errorMessage = appContext.getString(R.string.field_cannot_be_blank)
+                    errorMessage = getString(R.string.field_cannot_be_blank)
                 )
             )
             return@with
@@ -210,7 +235,7 @@ class CommandExamplesViewModel @Inject constructor(
             _states.value = this.copy(
                 labelField = labelField.copy(
                     isError = true,
-                    errorMessage = appContext.getString(R.string.error_labels_limit_reached)
+                    errorMessage = getString(R.string.error_labels_limit_reached)
                 )
             )
             return@with
@@ -279,18 +304,32 @@ class CommandExamplesViewModel @Inject constructor(
             _states.value = this.copy(
                 commandField = commandField.copy(
                     isError = isCommandFieldBlank,
-                    errorMessage = appContext.getString(R.string.field_cannot_be_blank)
+                    errorMessage = if (isCommandFieldBlank) getString(R.string.field_cannot_be_blank) else commandField.errorMessage
                 ),
                 descriptionField = descriptionField.copy(
                     isError = isDescriptionFieldBlank,
-                    errorMessage = appContext.getString(R.string.field_cannot_be_blank)
+                    errorMessage = getString(R.string.field_cannot_be_blank)
                 )
             )
 
             return@with
         }
 
+        if (this.commandField.isError) {
+            return@with
+        }
+
         viewModelScope.launch {
+            if (commandRepository.doesCommandExist(command)) {
+                _states.value = _states.value.copy(
+                    commandField = _states.value.commandField.copy(
+                        isError = true,
+                        errorMessage = getString(R.string.command_already_exists)
+                    )
+                )
+                return@launch
+            }
+
             commandRepository.insertCommand(
                 CommandEntity(
                     command = command,
@@ -315,23 +354,43 @@ class CommandExamplesViewModel @Inject constructor(
 
         _states.value = this.copy(
             commandField = commandField.copy(
-                fieldValue = TextFieldValue(commandById?.command ?: "")
+                fieldValue = TextFieldValue(commandById?.command ?: ""),
+                isError = false,
+                errorMessage = ""
             ),
             descriptionField = descriptionField.copy(
-                fieldValue = TextFieldValue(commandById?.description ?: "")
+                fieldValue = TextFieldValue(commandById?.description ?: ""),
+                isError = false,
+                errorMessage = ""
             ),
             labelField = labelField.copy(
                 fieldValue = TextFieldValue(""),
-                labels = commandById?.labels ?: emptyList()
+                labels = commandById?.labels ?: emptyList(),
+                isError = false,
+                errorMessage = ""
             )
         )
     }
 
     fun clearInputFields() = with(_states.value) {
+        checkDuplicateJob?.cancel()
         _states.value = this.copy(
-            commandField = commandField.copy(fieldValue = TextFieldValue("")),
-            descriptionField = descriptionField.copy(fieldValue = TextFieldValue("")),
-            labelField = labelField.copy(fieldValue = TextFieldValue(""), labels = emptyList())
+            commandField = commandField.copy(
+                fieldValue = TextFieldValue(""),
+                isError = false,
+                errorMessage = ""
+            ),
+            descriptionField = descriptionField.copy(
+                fieldValue = TextFieldValue(""),
+                isError = false,
+                errorMessage = ""
+            ),
+            labelField = labelField.copy(
+                fieldValue = TextFieldValue(""),
+                labels = emptyList(),
+                isError = false,
+                errorMessage = ""
+            )
         )
     }
 
@@ -346,11 +405,11 @@ class CommandExamplesViewModel @Inject constructor(
             _states.value = this.copy(
                 commandField = commandField.copy(
                     isError = isCommandFieldBlank,
-                    errorMessage = appContext.getString(R.string.field_cannot_be_blank)
+                    errorMessage = if (isCommandFieldBlank) getString(R.string.field_cannot_be_blank) else commandField.errorMessage
                 ),
                 descriptionField = descriptionField.copy(
                     isError = isDescriptionFieldBlank,
-                    errorMessage = appContext.getString(R.string.field_cannot_be_blank)
+                    errorMessage = getString(R.string.field_cannot_be_blank)
                 )
             )
             return@with
@@ -411,7 +470,7 @@ class CommandExamplesViewModel @Inject constructor(
                     _aiAccessPrompt.value = ActiveProviderKeyStatus.NoProviderSelected
                 } else {
                     _aiAnalysisState.value = AiAnalysisUiState.Error(
-                        e.localizedMessage ?: appContext.getString(R.string.unexpected_error)
+                        e.localizedMessage ?: getString(R.string.unexpected_error)
                     )
                 }
             }

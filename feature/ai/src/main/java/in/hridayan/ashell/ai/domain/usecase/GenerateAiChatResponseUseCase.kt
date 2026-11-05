@@ -138,7 +138,7 @@ class GenerateAiChatResponseUseCase @Inject constructor(
             .count { it.role == ROLE_USER }
 
         return session?.title.isNullOrBlank() ||
-            session?.title.equals(DEFAULT_SESSION_TITLE, ignoreCase = true) ||
+            session.title.equals(DEFAULT_SESSION_TITLE, ignoreCase = true) ||
             userMessageCount in TITLE_REFRESH_TURNS
     }
 

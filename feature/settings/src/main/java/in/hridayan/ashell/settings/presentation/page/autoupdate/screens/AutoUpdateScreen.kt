@@ -80,6 +80,7 @@ fun AutoUpdateScreen(
         )
     }
     var apkUrl by rememberSaveable { mutableStateOf("") }
+    var downloadSize by rememberSaveable { mutableStateOf<Long?>(null) }
     var changelog by rememberSaveable { mutableStateOf("") }
 
     val networkError = stringResource(R.string.network_error)
@@ -94,6 +95,7 @@ fun AutoUpdateScreen(
                     if (result.isUpdateAvailable) {
                         tagName = result.release.tagName
                         apkUrl = result.release.apkUrl.toString()
+                        downloadSize = result.release.downloadSize
                         changelog = result.release.body.toString()
                         showUpdateSheet = true
                     } else {
@@ -237,6 +239,7 @@ fun AutoUpdateScreen(
             onDismiss = { showUpdateSheet = false },
             latestVersion = tagName,
             apkUrl = apkUrl,
+            downloadSize = downloadSize,
             body = changelog
         )
     }

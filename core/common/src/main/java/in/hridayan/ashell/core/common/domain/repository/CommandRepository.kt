@@ -19,4 +19,5 @@ interface CommandRepository {
     fun searchCommands(query: String): Flow<List<CommandEntity>>
     suspend fun incrementUseCount(commandId: Int)
     suspend fun updateFavoriteStatus(commandId: Int, isFavourite: Boolean)
+    suspend fun doesCommandExist(command: String): Boolean
 }

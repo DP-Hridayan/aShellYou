@@ -34,6 +34,7 @@ import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.isConnectedToWifi
 import `in`.hridayan.ashell.core.utils.showToast
+import `in`.hridayan.ashell.shell.common.domain.model.ShellMode
 import `in`.hridayan.ashell.shell.common.presentation.model.DeviceConnection
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.DeviceTunnelsViewModel
@@ -92,6 +93,8 @@ fun WifiAdbScreen(
             currentDevice?.isOwnDevice == true -> DeviceConnection.OWN_DEVICE
             else -> DeviceConnection.OTHER_DEVICE
         },
+        shellViewModel = shellViewModel,
+        shellMode = ShellMode.WIFI,
         onOpenScreen = {
             navController.navigate(NavRoutes.MirrorScreen(ExternalDeviceTransport.WIFI_ADB))
         },

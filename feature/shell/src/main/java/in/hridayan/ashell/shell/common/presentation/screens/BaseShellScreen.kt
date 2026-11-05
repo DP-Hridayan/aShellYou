@@ -127,6 +127,7 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.ClipboardUtils
 import `in`.hridayan.ashell.core.utils.findActivity
 import `in`.hridayan.ashell.core.utils.showToast
+import `in`.hridayan.ashell.shell.common.domain.model.ShellMode
 import `in`.hridayan.ashell.shell.common.domain.model.Suggestion
 import `in`.hridayan.ashell.shell.common.presentation.components.bottomsheet.BookmarksBottomSheet
 import `in`.hridayan.ashell.shell.common.presentation.components.button.UtilityButtonGroup
@@ -177,6 +178,7 @@ fun BaseShellScreen(
     onOpenFiles: () -> Unit = {},
     onOpenPorts: () -> Unit = {},
     portsBadgeCount: Int = 0,
+    shellMode: ShellMode = ShellMode.LOCAL,
     extraContent: @Composable () -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -186,6 +188,10 @@ fun BaseShellScreen(
     val dialogManager = LocalDialogManager.current
     val settings = LocalSettings.current
     val focusManager = LocalFocusManager.current
+
+    LaunchedEffect(shellMode) {
+        shellViewModel.setShellMode(shellMode)
+    }
 
     val states by shellViewModel.states.collectAsState()
     val aiAnalysisState by shellViewModel.aiAnalysisState.collectAsState()

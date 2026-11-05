@@ -5,6 +5,7 @@ package `in`.hridayan.ashell.settings.presentation.components.bottomsheet
 import android.app.Activity
 import android.content.Intent
 import android.provider.Settings
+import android.text.format.Formatter
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.animateFloatAsState
@@ -12,6 +13,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -84,6 +86,7 @@ fun UpdateBottomSheet(
     onDismiss: () -> Unit,
     latestVersion: String = "",
     apkUrl: String = "",
+    downloadSize: Long? = null,
     body: String = "",
     viewModel: AutoUpdateViewModel = hiltViewModel()
 ) {
@@ -198,30 +201,41 @@ fun UpdateBottomSheet(
             fontWeight = FontWeight.Bold
         )
 
-        InfoChip(
+        FlowRow(
             modifier = Modifier.padding(horizontal = 20.dp),
-            text = stringResource(R.string.latest_version) + " : $latestVersion"
-        )
-
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(5.dp)
-        )
-
-        InfoChip(
-            modifier = Modifier.padding(horizontal = 20.dp),
-            text = stringResource(R.string.current_version) + " : ${
-                context.packageManager.getPackageInfo(
-                    context.packageName,
-                    0
-                ).versionName ?: ""
-            }",
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-                contentColor = MaterialTheme.colorScheme.onSurface
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            InfoChip(
+                text = stringResource(R.string.latest_version) + " : $latestVersion"
             )
-        )
+
+            InfoChip(
+                text = stringResource(R.string.current_version) + " : ${
+                    context.packageManager.getPackageInfo(
+                        context.packageName,
+                        0
+                    ).versionName ?: ""
+                }",
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                    contentColor = MaterialTheme.colorScheme.onSurface
+                )
+            )
+
+            if (downloadSize != null && downloadSize > 0L) {
+                val formattedSize = remember(downloadSize) {
+                    Formatter.formatShortFileSize(context, downloadSize)
+                }
+                InfoChip(
+                    text = stringResource(R.string.download_size) + " : $formattedSize",
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                        contentColor = MaterialTheme.colorScheme.onSurface
+                    )
+                )
+            }
+        }
 
         if (latestChangelogText.isNotEmpty()) {
             Spacer(

@@ -53,6 +53,7 @@ fun AppUiEntry(
 
     var tagName by rememberSaveable { mutableStateOf(BuildConfig.VERSION_NAME) }
     var apkUrl by rememberSaveable { mutableStateOf("") }
+    var downloadSize by rememberSaveable { mutableStateOf<Long?>(null) }
     var changelog by rememberSaveable { mutableStateOf("") }
     val savedVersionCode = settings[SettingsKeys.SavedVersionCode]
     val firstLaunchFlow = settings[SettingsKeys.FirstLaunch]
@@ -62,6 +63,7 @@ fun AppUiEntry(
             if (result is UpdateResult.Success && result.isUpdateAvailable) {
                 tagName = result.release.tagName
                 apkUrl = result.release.apkUrl.toString()
+                downloadSize = result.release.downloadSize
                 changelog = result.release.body.toString()
                 Log.d("AppEntry", result.release.apkUrl.toString())
                 showUpdateSheet = true
@@ -146,6 +148,7 @@ fun AppUiEntry(
                 onDismiss = { showUpdateSheet = false },
                 latestVersion = tagName,
                 apkUrl = apkUrl,
+                downloadSize = downloadSize,
                 body = changelog
             )
         }

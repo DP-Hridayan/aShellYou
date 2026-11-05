@@ -55,7 +55,7 @@ fun ShellSideDrawer(
         if (actions.contains(DeviceActionId.SCREEN)) {
             add(
                 DrawerActionItem(
-                    title = stringResource(R.string.screen),
+                    title = stringResource(R.string.screen_mirror),
                     icon = { ActionIcon(action = DeviceActionId.SCREEN) },
                     badgeCount = badges[DeviceActionId.SCREEN] ?: 0,
                     onClick = { onAction(DeviceActionId.SCREEN) }
@@ -236,7 +236,7 @@ private fun ActionIcon(
 }
 
 private fun DeviceActionId.labelResId(): Int = when (this) {
-    DeviceActionId.SCREEN -> R.string.screen
+    DeviceActionId.SCREEN -> R.string.screen_mirror
     DeviceActionId.FILES -> R.string.file_browser
     DeviceActionId.PORTS -> R.string.port_forwarding
     DeviceActionId.SHARE_OUTPUT -> R.string.share

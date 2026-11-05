@@ -12,5 +12,8 @@ data class GithubAssetDto(
     val browserDownloadUrl: String,
 
     @SerialName("download_count")
-    val downloadCount: Long
+    val downloadCount: Long,
+
+    @SerialName("size")
+    val size: Long = 0L
 )

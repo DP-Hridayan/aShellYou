@@ -19,6 +19,7 @@ import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.dialog.OtgDeviceWaitingDialog
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.ui.otg.OtgViewModel
+import `in`.hridayan.ashell.shell.common.domain.model.ShellMode
 import `in`.hridayan.ashell.shell.common.presentation.model.DeviceConnection
 import `in`.hridayan.ashell.shell.common.presentation.screens.BaseShellScreen
 import `in`.hridayan.ashell.shell.common.presentation.viewmodel.DeviceTunnelsViewModel
@@ -80,6 +81,8 @@ fun OtgAdbScreen(
         showLocalAdbModes = false,
         runCommandIfPermissionGranted = runCommandIfPermissionGranted,
         deviceConnection = if (isConnected) DeviceConnection.OTHER_DEVICE else DeviceConnection.NONE,
+        shellViewModel = shellViewModel,
+        shellMode = ShellMode.OTG,
         onOpenScreen = { navController.navigate(NavRoutes.MirrorScreen(ExternalDeviceTransport.OTG)) },
         onOpenPorts = { navController.navigate(NavRoutes.PortsScreen(ExternalDeviceTransport.OTG)) },
         portsBadgeCount = tunnelSummary.runningOn(ExternalDeviceTransport.OTG),

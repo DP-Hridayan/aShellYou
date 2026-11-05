@@ -71,12 +71,12 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import `in`.hridayan.ashell.commandexamples.presentation.component.bottomsheet.AddCommandBottomSheet
 import `in`.hridayan.ashell.commandexamples.presentation.component.bottomsheet.CommandsFilterBottomSheet
+import `in`.hridayan.ashell.commandexamples.presentation.component.bottomsheet.EditCommandBottomSheet
 import `in`.hridayan.ashell.commandexamples.presentation.component.card.CommandExampleCard
-import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.AddCommandDialog
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.CommandExamplesDialogKey
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.CommandsSortDialog
-import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.EditCommandDialog
 import `in`.hridayan.ashell.commandexamples.presentation.component.dialog.LoadDefaultCommandsDialog
 import `in`.hridayan.ashell.commandexamples.presentation.viewmodel.CommandExamplesViewModel
 import `in`.hridayan.ashell.core.common.LocalDialogManager
@@ -130,6 +130,8 @@ fun CommandExamplesScreen(
 
     var showFilterCommandBottomSheet by rememberSaveable { mutableStateOf(false) }
     var showAiAnalysisSheet by rememberSaveable { mutableStateOf(false) }
+    var showAddCommandBottomSheet by rememberSaveable { mutableStateOf(false) }
+    var editingCommandId by rememberSaveable { mutableStateOf<Int?>(null) }
 
     val showNoResultsUi =
         (states.search.textFieldValue.text.isNotEmpty() || filteredLabels.isNotEmpty()) && commands.isEmpty()
@@ -143,7 +145,7 @@ fun CommandExamplesScreen(
         },
         stringResource(R.string.add_new_item) to {
             viewModel.clearInputFields()
-            dialogManager.show(CommandExamplesDialogKey.Add)
+            showAddCommandBottomSheet = true
         }
     )
 
@@ -250,7 +252,7 @@ fun CommandExamplesScreen(
                             onEdit = {
                                 coroutineScope.launch {
                                     viewModel.setFieldsForEdit(id = entity.id)
-                                    dialogManager.show(CommandExamplesDialogKey.Edit(entity.id))
+                                    editingCommandId = entity.id
                                 }
                             },
                             onDelete = {
@@ -373,6 +375,21 @@ fun CommandExamplesScreen(
         })
     }
 
+    if (showAddCommandBottomSheet) {
+        AddCommandBottomSheet(onDismiss = {
+            showAddCommandBottomSheet = false
+        })
+    }
+
+    editingCommandId?.let { id ->
+        EditCommandBottomSheet(
+            id = id,
+            onDismiss = {
+                editingCommandId = null
+            }
+        )
+    }
+
     if (showAiAnalysisSheet) {
         AiAnalysisBottomSheet(
             uiState = aiAnalysisState,
@@ -401,13 +418,6 @@ fun CommandExamplesScreen(
         )
 
         CommandExamplesDialogKey.SortCommands -> CommandsSortDialog(onDismiss = { dialogManager.dismiss() })
-        CommandExamplesDialogKey.Add -> AddCommandDialog(onDismiss = { dialogManager.dismiss() })
-        is CommandExamplesDialogKey.Edit ->
-            EditCommandDialog(
-                onDismiss = { dialogManager.dismiss() },
-                id = (dialogManager.activeDialog as CommandExamplesDialogKey.Edit).commandId
-            )
-
         else -> dialogManager.dismiss()
     }
 

@@ -31,13 +31,14 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.TcpIpUtils
 import `in`.hridayan.ashell.shell.common.data.permission.PermissionProvider
 import `in`.hridayan.ashell.shell.common.domain.model.PackageInfo
+import `in`.hridayan.ashell.shell.common.domain.model.ShellMode
 import `in`.hridayan.ashell.shell.common.domain.model.Suggestion
 import `in`.hridayan.ashell.shell.common.domain.model.SuggestionLabel
 import `in`.hridayan.ashell.shell.common.domain.model.SuggestionType
-import `in`.hridayan.ashell.shell.common.domain.repository.PackageRepository
 import `in`.hridayan.ashell.shell.common.domain.usecase.DetectSuggestionTypeUseCase
 import `in`.hridayan.ashell.shell.common.domain.usecase.ExtractLastCommandOutputUseCase
 import `in`.hridayan.ashell.shell.common.domain.usecase.GetSaveOutputFileNameUseCase
+import `in`.hridayan.ashell.shell.common.domain.usecase.ObserveShellPackagesUseCase
 import `in`.hridayan.ashell.shell.common.presentation.model.CommandResult
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellScreenState
 import `in`.hridayan.ashell.shell.common.presentation.model.ShellState
@@ -70,12 +71,14 @@ private const val LOOPBACK_HOST = "127.0.0.1"
 
 private const val OUTPUT_FLUSH_INTERVAL_MS = 250L
 private const val OUTPUT_FLUSH_BATCH_SIZE = 100
+private const val PACKAGE_SUGGESTION_LIMIT = 50
+private const val PERMISSION_SUGGESTION_LIMIT = 50
 
 @HiltViewModel
 class ShellViewModel @Inject constructor(
     private val shellRepository: ShellRepository,
     private val commandExamplesRepository: CommandRepository,
-    private val packageRepository: PackageRepository,
+    private val observeShellPackagesUseCase: ObserveShellPackagesUseCase,
     private val detectSuggestionTypeUseCase: DetectSuggestionTypeUseCase,
     private val analyzeCommandUseCase: AnalyzeCommandUseCase,
     private val queryCommandUseCase: QueryCommandUseCase,
@@ -131,79 +134,87 @@ class ShellViewModel @Inject constructor(
             emptyList()
         )
 
-    private val _packages = MutableStateFlow<List<PackageInfo>>(emptyList())
+    private val _shellMode = MutableStateFlow(ShellMode.LOCAL)
+    val shellMode: StateFlow<ShellMode> = _shellMode.asStateFlow()
 
-    init {
-        viewModelScope.launch {
-            _packages.value = packageRepository.getInstalledPackages()
-        }
+    fun setShellMode(mode: ShellMode) {
+        _shellMode.value = mode
     }
+
+    private val packages: StateFlow<List<PackageInfo>> =
+        observeShellPackagesUseCase(_shellMode).stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            emptyList()
+        )
 
     @OptIn(FlowPreview::class)
     val suggestions: StateFlow<List<Suggestion>> =
-        _states
-            .map { it.commandField.fieldValue.text }
-            .combine(allCommands) { text, commands ->
-                val context = detectSuggestionTypeUseCase(text)
+        combine(
+            _states.map { it.commandField.fieldValue.text },
+            allCommands,
+            packages
+        ) { text, commands, packageList ->
+            val context = detectSuggestionTypeUseCase(text)
 
-                withContext(Dispatchers.Default) {
-                    when (context.suggestionType) {
-                        SuggestionType.COMMAND -> {
-                            if (context.filterPrefix.isBlank()) {
-                                emptyList()
-                            } else {
-                                commands.filter {
-                                    it.command.contains(context.filterPrefix, ignoreCase = true)
-                                }.map { cmd ->
-                                    Suggestion(
-                                        id = cmd.id.toString(),
-                                        text = cmd.command,
-                                        type = SuggestionType.COMMAND
-                                    )
-                                }
-                            }
-                        }
-
-                        SuggestionType.PACKAGE -> {
-                            _packages.value.filter {
-                                it.packageName.startsWith(context.filterPrefix, ignoreCase = true)
-                            }.take(50).map { pkg ->
+            withContext(Dispatchers.Default) {
+                when (context.suggestionType) {
+                    SuggestionType.COMMAND -> {
+                        if (context.filterPrefix.isBlank()) {
+                            emptyList()
+                        } else {
+                            commands.filter {
+                                it.command.contains(context.filterPrefix, ignoreCase = true)
+                            }.map { cmd ->
                                 Suggestion(
-                                    id = pkg.packageName,
-                                    text = pkg.packageName,
-                                    type = SuggestionType.PACKAGE,
-                                    label = if (pkg.isSystemApp) SuggestionLabel.SYSTEM else SuggestionLabel.USER
-                                )
-                            }
-                        }
-
-                        SuggestionType.PERMISSION -> {
-                            PermissionProvider.adbPermissions.filter {
-                                it.startsWith(context.filterPrefix, ignoreCase = true)
-                            }.take(50).map { perm ->
-                                Suggestion(
-                                    id = perm,
-                                    text = perm,
-                                    type = SuggestionType.PERMISSION
-                                )
-                            }
-                        }
-
-                        SuggestionType.ADB -> {
-                            AdbCommandCatalog.commands.filter {
-                                it.startsWith(context.filterPrefix, ignoreCase = true) &&
-                                        !it.equals(context.filterPrefix, ignoreCase = true)
-                            }.map { command ->
-                                Suggestion(
-                                    id = command,
-                                    text = command,
-                                    type = SuggestionType.ADB
+                                    id = cmd.id.toString(),
+                                    text = cmd.command,
+                                    type = SuggestionType.COMMAND
                                 )
                             }
                         }
                     }
+
+                    SuggestionType.PACKAGE -> {
+                        packageList.filter {
+                            it.packageName.startsWith(context.filterPrefix, ignoreCase = true)
+                        }.take(PACKAGE_SUGGESTION_LIMIT).map { pkg ->
+                            Suggestion(
+                                id = pkg.packageName,
+                                text = pkg.packageName,
+                                type = SuggestionType.PACKAGE,
+                                label = if (pkg.isSystemApp) SuggestionLabel.SYSTEM else SuggestionLabel.USER
+                            )
+                        }
+                    }
+
+                    SuggestionType.PERMISSION -> {
+                        PermissionProvider.adbPermissions.filter {
+                            it.startsWith(context.filterPrefix, ignoreCase = true)
+                        }.take(PERMISSION_SUGGESTION_LIMIT).map { perm ->
+                            Suggestion(
+                                id = perm,
+                                text = perm,
+                                type = SuggestionType.PERMISSION
+                            )
+                        }
+                    }
+
+                    SuggestionType.ADB -> {
+                        AdbCommandCatalog.commands.filter {
+                            it.startsWith(context.filterPrefix, ignoreCase = true) &&
+                                    !it.equals(context.filterPrefix, ignoreCase = true)
+                        }.map { command ->
+                            Suggestion(
+                                id = command,
+                                text = command,
+                                type = SuggestionType.ADB
+                            )
+                        }
+                    }
                 }
             }
+        }
             .distinctUntilChanged()
             .stateIn(
                 viewModelScope,

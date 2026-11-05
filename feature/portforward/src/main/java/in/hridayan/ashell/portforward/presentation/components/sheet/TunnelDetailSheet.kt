@@ -21,9 +21,10 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -46,9 +47,14 @@ import `in`.hridayan.ashell.portforward.text.resolve
 /** Everything about one tunnel: where it relays, its counters and its recent activity. */
 @Composable
 fun TunnelDetailSheet(item: TunnelItem, actions: TunnelDetailActions) {
+    val sheetState = rememberBottomSheetState(
+        initialValue = SheetValue.Hidden,
+        enabledValues = setOf(SheetValue.Hidden, SheetValue.Expanded)
+    )
+
     ModalBottomSheet(
         onDismissRequest = actions.onDismiss,
-        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+        sheetState = sheetState,
         containerColor = MaterialTheme.colorScheme.surface
     ) {
         LazyColumn(
@@ -61,7 +67,13 @@ fun TunnelDetailSheet(item: TunnelItem, actions: TunnelDetailActions) {
             item(key = "buttons") { DetailButtons(item, actions) }
             item.runtime?.let { runtime ->
                 item(key = "stats") { DetailStats(runtime) }
-                item(key = "activity_title") { ActivityTitle(item.spec, runtime, actions.onCopyActivity) }
+                item(key = "activity_title") {
+                    ActivityTitle(
+                        item.spec,
+                        runtime,
+                        actions.onCopyActivity
+                    )
+                }
                 items(runtime.events) { event -> ActivityRow(item.spec, event) }
             }
             item(key = "bottom") { Spacer(modifier = Modifier.height(24.dp)) }
@@ -72,9 +84,17 @@ fun TunnelDetailSheet(item: TunnelItem, actions: TunnelDetailActions) {
 @Composable
 private fun DetailHeader(item: TunnelItem) {
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        Text(text = item.spec.name, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.SemiBold)
         Text(
-            text = stringResource(R.string.port_forward_endpoints, item.spec.localAddress, item.spec.targetAddress),
+            text = item.spec.name,
+            style = MaterialTheme.typography.headlineSmall,
+            fontWeight = FontWeight.SemiBold
+        )
+        Text(
+            text = stringResource(
+                R.string.port_forward_endpoints,
+                item.spec.localAddress,
+                item.spec.targetAddress
+            ),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -139,7 +159,15 @@ private fun ActivityTitle(spec: TunnelSpec, runtime: TunnelRuntime, onCopy: (Str
             style = MaterialTheme.typography.titleSmall
         )
         if (runtime.events.isNotEmpty()) {
-            TextButton(onClick = withHaptic { onCopy(activityText(context, spec, runtime.events)) }) {
+            TextButton(onClick = withHaptic {
+                onCopy(
+                    activityText(
+                        context,
+                        spec,
+                        runtime.events
+                    )
+                )
+            }) {
                 Text(stringResource(R.string.copy))
             }
         }
