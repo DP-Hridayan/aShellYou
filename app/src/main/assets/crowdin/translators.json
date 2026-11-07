@@ -684,5 +684,20 @@
       }
     ],
     "avatar": "crowdin/contributors_pfp/contributor_17839363.webp"
+  },
+  {
+    "id": "17960341",
+    "username": "Angel-cas2007",
+    "name": "ANGEL CASTILLO 1 (Angel-cas2007)",
+    "translated": 1,
+    "approved": 0,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17960341/medium/f7308c60cfa7fc81a04c8840ccee13fd.jpeg",
+    "languages": [
+      {
+        "id": "es-ES",
+        "name": "Spanish"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_17960341.webp"
   }
 ]

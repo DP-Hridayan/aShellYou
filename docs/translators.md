@@ -369,6 +369,17 @@ Thanks to these translators and proofreaders, this project exists:
         <sub><b>1 words</b></sub>
       </td>
     </tr>
+    <tr>
+      <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/Angel-cas2007"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17960341/medium/f7308c60cfa7fc81a04c8840ccee13fd.jpeg" />
+          <br />
+          <sub><b>ANGEL CASTILLO 1</b></sub>
+          <br />
+          <sub><b>(Angel-cas2007)</b></sub></a>
+        <br />
+        <sub><b>1 words</b></sub>
+      </td>
+    </tr>
   </tbody>
 </table><a href="https://crowdin.com/project/ashellyou" target="_blank">Translate in Crowdin 🚀</a>
 <!-- CROWDIN-CONTRIBUTORS-END -->
