@@ -22,7 +22,7 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>(AY_Translator)</b></sub></a>
         <br />
-        <sub><b>28772 words</b></sub>
+        <sub><b>28788 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/mikropsoft"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15972315/medium/23948a4df1f365f3bd7accc92c87bc4e.jpg" />
@@ -365,6 +365,17 @@ Thanks to these translators and proofreaders, this project exists:
           <sub><b>WeMakeBest</b></sub>
           <br />
           <sub><b>(wemakebest4you)</b></sub></a>
+        <br />
+        <sub><b>1 words</b></sub>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/Angel-cas2007"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17960341/medium/f7308c60cfa7fc81a04c8840ccee13fd.jpeg" />
+          <br />
+          <sub><b>ANGEL CASTILLO 1</b></sub>
+          <br />
+          <sub><b>(Angel-cas2007)</b></sub></a>
         <br />
         <sub><b>1 words</b></sub>
       </td>

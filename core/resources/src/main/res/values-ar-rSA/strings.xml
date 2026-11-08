@@ -255,6 +255,7 @@
     <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">حاوية الثلاثي</string>
     <string name="comma_separated_values" comment="Helper text under a logcat filter field that accepts several values, such as tags or process IDs">فصل قيم متعددة بفواصل</string>
     <string name="command" comment="Label/header for an ADB command snippet">أمر</string>
+    <string name="command_already_exists" comment="Error message displayed under command input field when the entered command already exists in the database">الأمر موجود مسبقاً</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">تحليل الأوامر</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">وحدة تحكم الأوامر</string>
     <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">تنفيذ الأوامر</string>
@@ -484,6 +485,7 @@ It does not collect or share personal data, but users should be aware of the imp
     <string name="download">تنزيل</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">فشل التنزيل</string>
     <string name="download_material_icons" comment="Button label to download the Material Icons font pack for QS tile icon chooser">تنزيل أيقونات Material</string>
+    <string name="download_size" comment="Label showing file size of the update package to download">حجم التحميل</string>
     <string name="downloading" comment="Progress status text while downloading update package">جاري تحميل…</string>
     <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">جاري تنزيل النسخة الاحتياطية من Google Drive…</string>
     <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">جاري تنزيل حزمة الأيقونات…</string>
@@ -1167,7 +1169,7 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">الجدول الزمني</string>
     <string name="screen" comment="Device dock button that opens a live view of the connected device's screen which can also be controlled">شاشة</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">مضاعف كثافة الشاشة</string>
-    <string name="screen_mirror" comment="Title of the screen showing and controlling the connected device's screen live">مرآة الشاشة</string>
+    <string name="screen_mirror" comment="Title of the screen showing and controlling the connected device's screen live, and the drawer button that opens it">مرآة الشاشة</string>
     <string name="screenshot" comment="Button that takes a screenshot on the mirrored device">لقطة الشاشة</string>
     <string name="scroll_bottom_vibration" comment="Settings preference title for vibrating when scrolling reaches the bottom">إهتزاز التمرير أسفل</string>
     <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">التمرير إلى الأسفل</string>
