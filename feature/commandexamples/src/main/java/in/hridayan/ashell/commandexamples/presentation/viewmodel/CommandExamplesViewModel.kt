@@ -46,6 +46,13 @@ class CommandExamplesViewModel @Inject constructor(
     private val _aiAccessPrompt = MutableStateFlow<ActiveProviderKeyStatus?>(null)
     val aiAccessPrompt: StateFlow<ActiveProviderKeyStatus?> = _aiAccessPrompt.asStateFlow()
 
+    val hasActiveAiProviderKey: StateFlow<Boolean> = requireActiveProviderKey.hasActiveProviderKey()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = false
+        )
+
     internal var stringResolver: ((Int) -> String)? = null
     private var checkDuplicateJob: Job? = null
 

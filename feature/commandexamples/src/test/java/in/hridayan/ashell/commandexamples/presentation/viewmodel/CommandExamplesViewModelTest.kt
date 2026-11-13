@@ -227,4 +227,9 @@ class CommandExamplesViewModelTest {
         assertFalse(onSuccessCalled)
         assertEquals(1, commandRepository.commands.size)
     }
+
+    @Test
+    fun `hasActiveAiProviderKey reflects key availability`() = runTest(dispatcher) {
+        assertFalse(viewModel.hasActiveAiProviderKey.value)
+    }
 }
