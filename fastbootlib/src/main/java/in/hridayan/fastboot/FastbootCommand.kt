@@ -10,6 +10,8 @@ package `in`.hridayan.fastboot
 class FastbootCommand private constructor(val command: String) {
 
     companion object {
+        private val VALID_PARTITION = Regex("^[a-zA-Z0-9_-]{1,64}$")
+
         /** Query a bootloader variable. */
         fun getVar(name: String) = FastbootCommand("getvar:$name")
 
@@ -26,10 +28,20 @@ class FastbootCommand private constructor(val command: String) {
         fun rebootFastboot() = FastbootCommand("reboot-fastboot")
 
         /** Erase a partition. */
-        fun erase(partition: String) = FastbootCommand("erase:$partition")
+        fun erase(partition: String): FastbootCommand {
+            require(partition.matches(VALID_PARTITION)) {
+                "Invalid partition name: '$partition'"
+            }
+            return FastbootCommand("erase:$partition")
+        }
 
         /** Write the downloaded image to a partition. */
-        fun flash(partition: String) = FastbootCommand("flash:$partition")
+        fun flash(partition: String): FastbootCommand {
+            require(partition.matches(VALID_PARTITION)) {
+                "Invalid partition name: '$partition'"
+            }
+            return FastbootCommand("flash:$partition")
+        }
 
         /** Boot the downloaded image without flashing it. */
         fun boot() = FastbootCommand("boot")

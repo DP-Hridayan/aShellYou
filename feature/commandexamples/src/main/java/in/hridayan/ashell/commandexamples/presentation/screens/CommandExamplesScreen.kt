@@ -125,6 +125,7 @@ fun CommandExamplesScreen(
     val filteredLabels by viewModel.filteredLabels.collectAsState()
     val states by viewModel.states.collectAsState()
     val aiAnalysisState by viewModel.aiAnalysisState.collectAsState()
+    val hasActiveAiProviderKey by viewModel.hasActiveAiProviderKey.collectAsState()
     val isKeyboardVisible = isKeyboardVisible()
     val isNewCommandsAvailable = LocalSettings.current[SettingsKeys.NewCommandsAvailable]
 
@@ -390,7 +391,7 @@ fun CommandExamplesScreen(
         )
     }
 
-    if (showAiAnalysisSheet) {
+    if (showAiAnalysisSheet && hasActiveAiProviderKey) {
         AiAnalysisBottomSheet(
             uiState = aiAnalysisState,
             onDismiss = {

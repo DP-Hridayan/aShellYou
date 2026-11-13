@@ -39,7 +39,7 @@ fun FastbootRebootOptionsDialog(
 ) {
     val interactionSources1 = remember { List(2) { MutableInteractionSource() } }
     val interactionSources2 = remember { List(2) { MutableInteractionSource() } }
-    val buttonSize = 110.dp
+    val buttonSize = 72.dp
     val iconSize = 36.dp
 
     DialogContainer(onDismiss = onDismiss) {
@@ -52,7 +52,7 @@ fun FastbootRebootOptionsDialog(
         ) {
             ButtonGroup(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround,
+                horizontalArrangement = Arrangement.SpaceBetween,
                 overflowIndicator = { menuState ->
                     ButtonGroupDefaults.OverflowIndicator(menuState = menuState)
                 }
@@ -149,7 +149,7 @@ fun FastbootRebootOptionsDialog(
 
             ButtonGroup(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceAround,
+                horizontalArrangement = Arrangement.SpaceBetween,
                 overflowIndicator = { menuState ->
                     ButtonGroupDefaults.OverflowIndicator(menuState = menuState)
                 }

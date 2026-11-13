@@ -195,6 +195,7 @@ fun BaseShellScreen(
 
     val states by shellViewModel.states.collectAsState()
     val aiAnalysisState by shellViewModel.aiAnalysisState.collectAsState()
+    val hasActiveAiProviderKey by shellViewModel.hasActiveAiProviderKey.collectAsState()
     val bookmarks by bookmarkViewModel.searchedBookmarks.collectAsStateWithLifecycle()
     val bookmarkCount by bookmarkViewModel.getBookmarkCount.collectAsState(initial = 0)
     val searchQuery by bookmarkViewModel.bookmarksSearchQuery.collectAsStateWithLifecycle()
@@ -514,9 +515,9 @@ fun BaseShellScreen(
                                                     states.commandField.fieldValue.text
                                                 if (commandToAnalyze.isNotBlank()) {
                                                     shellViewModel.analyzeCommand(
-                                                        commandToAnalyze
+                                                        command = commandToAnalyze,
+                                                        onAnalyseStart = { showAiAnalysisSheet = true }
                                                     )
-                                                    showAiAnalysisSheet = true
                                                 } else {
                                                     showToast(
                                                         context,
@@ -774,7 +775,7 @@ fun BaseShellScreen(
         else -> dialogManager.dismiss()
     }
 
-    if (showAiAnalysisSheet) {
+    if (showAiAnalysisSheet && hasActiveAiProviderKey) {
         AiAnalysisBottomSheet(
             uiState = aiAnalysisState,
             onDismiss = { showAiAnalysisSheet = false },

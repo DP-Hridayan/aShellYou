@@ -2,8 +2,10 @@ package `in`.hridayan.ashell.core.common.domain.usecase.ai
 
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -133,5 +135,48 @@ class ActiveLlmProviderUseCaseTest {
 
         assertTrue(outcome is ActiveProviderKeyStatus.Allowed)
         assertEquals(LlmProvider.Gemini, (outcome as ActiveProviderKeyStatus.Allowed).provider)
+    }
+
+    @Test
+    fun `hasActiveProviderKey emits false when no provider selected`() = runTest {
+        val settings = FakeSettingsRepository()
+        val keys = FakeApiKeyRepository(mapOf(LlmProvider.Gemini.id to "key"))
+
+        val hasKey = RequireActiveProviderKeyUseCase(
+            GetActiveLlmProviderUseCase(settings),
+            keys
+        ).hasActiveProviderKey().first()
+
+        assertFalse(hasKey)
+    }
+
+    @Test
+    fun `hasActiveProviderKey emits false when active provider has no key`() = runTest {
+        val settings = FakeSettingsRepository(
+            mapOf(SettingsKeys.AiCloudProvider.name to LlmProvider.OpenRouter.id)
+        )
+        val keys = FakeApiKeyRepository(mapOf(LlmProvider.Gemini.id to "key"))
+
+        val hasKey = RequireActiveProviderKeyUseCase(
+            GetActiveLlmProviderUseCase(settings),
+            keys
+        ).hasActiveProviderKey().first()
+
+        assertFalse(hasKey)
+    }
+
+    @Test
+    fun `hasActiveProviderKey emits true when active provider has key`() = runTest {
+        val settings = FakeSettingsRepository(
+            mapOf(SettingsKeys.AiCloudProvider.name to LlmProvider.Gemini.id)
+        )
+        val keys = FakeApiKeyRepository(mapOf(LlmProvider.Gemini.id to "key"))
+
+        val hasKey = RequireActiveProviderKeyUseCase(
+            GetActiveLlmProviderUseCase(settings),
+            keys
+        ).hasActiveProviderKey().first()
+
+        assertTrue(hasKey)
     }
 }

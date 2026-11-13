@@ -13,6 +13,8 @@ import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashStatus
 import `in`.hridayan.ashell.shell.fastboot.domain.model.RebootMode
 import `in`.hridayan.ashell.shell.fastboot.domain.policy.FlashCancellation
 import `in`.hridayan.ashell.shell.fastboot.domain.repository.FastbootRepository
+import `in`.hridayan.ashell.shell.fastboot.domain.validation.PartitionValidationResult
+import `in`.hridayan.ashell.shell.fastboot.domain.validation.PartitionValidator
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -144,6 +146,7 @@ class FastbootViewModel @Inject constructor(
     }
 
     fun flashPartition(partition: String, imageUri: Uri) {
+        if (PartitionValidator.validate(partition) != PartitionValidationResult.Valid) return
         flashJob?.cancel()
         _flashOperation.value = FlashOperation(partition = partition, status = FlashStatus.READING_FILE)
         flashJob = viewModelScope.launch {

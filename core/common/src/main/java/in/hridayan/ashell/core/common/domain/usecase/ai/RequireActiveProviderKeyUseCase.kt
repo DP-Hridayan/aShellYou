@@ -2,6 +2,11 @@ package `in`.hridayan.ashell.core.common.domain.usecase.ai
 
 import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider
 import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -37,4 +42,23 @@ class RequireActiveProviderKeyUseCase @Inject constructor(
             ActiveProviderKeyStatus.Allowed(provider)
         }
     }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    fun asFlow(): Flow<ActiveProviderKeyStatus> =
+        getActiveLlmProvider.asFlow().flatMapLatest { provider ->
+            if (provider == null) {
+                flowOf(ActiveProviderKeyStatus.NoProviderSelected)
+            } else {
+                apiKeyRepository.hasKey(provider).map { hasKey ->
+                    if (hasKey && !apiKeyRepository.getKey(provider).isNullOrBlank()) {
+                        ActiveProviderKeyStatus.Allowed(provider)
+                    } else {
+                        ActiveProviderKeyStatus.NoKeyFor(provider)
+                    }
+                }
+            }
+        }
+
+    fun hasActiveProviderKey(): Flow<Boolean> =
+        asFlow().map { it is ActiveProviderKeyStatus.Allowed }
 }

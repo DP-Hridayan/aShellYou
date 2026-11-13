@@ -94,6 +94,13 @@ class ShellViewModel @Inject constructor(
     private val _aiAccessPrompt = MutableStateFlow<ActiveProviderKeyStatus?>(null)
     val aiAccessPrompt: StateFlow<ActiveProviderKeyStatus?> = _aiAccessPrompt.asStateFlow()
 
+    val hasActiveAiProviderKey: StateFlow<Boolean> = requireActiveProviderKey.hasActiveProviderKey()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = false
+        )
+
     private val _tcpIpEvent = MutableSharedFlow<WifiAdbEvent>(replay = 0)
     val tcpIpEvent: SharedFlow<WifiAdbEvent> = _tcpIpEvent.asSharedFlow()
 
@@ -611,7 +618,7 @@ class ShellViewModel @Inject constructor(
         }
     }
 
-    fun analyzeCommand(command: String) {
+    fun analyzeCommand(command: String, onAnalyseStart: () -> Unit = {}) {
         if (command.isBlank()) return
 
         viewModelScope.launch {
@@ -619,6 +626,7 @@ class ShellViewModel @Inject constructor(
 
             _aiAnalysisState.value = AiAnalysisUiState.Loading
             try {
+                onAnalyseStart()
                 val result = analyzeCommandUseCase(command)
                 _aiAnalysisState.value = AiAnalysisUiState.Success(result)
             } catch (e: Exception) {
