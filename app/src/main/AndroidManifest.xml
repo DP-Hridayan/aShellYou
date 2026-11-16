@@ -79,30 +79,27 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="file" />
                 <data android:scheme="content" />
-                <data android:mimeType="*/*" />
-                <data android:pathPattern=".*\\.ashellyoucolorscheme" />
+                <data android:scheme="file" />
+                <data android:host="*" />
                 <data android:pathSuffix=".ashellyoucolorscheme" />
+                <data android:mimeType="*/*" />
             </intent-filter>
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="file" />
                 <data android:scheme="content" />
-                <data android:pathPattern=".*\\.ashellyoucolorscheme" />
+                <data android:scheme="file" />
+                <data android:host="*" />
                 <data android:pathSuffix=".ashellyoucolorscheme" />
             </intent-filter>
 
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="*/*" />
-                <data android:pathPattern=".*\\.ashellyoucolorscheme" />
-                <data android:pathSuffix=".ashellyoucolorscheme" />
+                <data android:mimeType="application/octet-stream" />
+                <data android:mimeType="application/json" />
             </intent-filter>
 
             <meta-data

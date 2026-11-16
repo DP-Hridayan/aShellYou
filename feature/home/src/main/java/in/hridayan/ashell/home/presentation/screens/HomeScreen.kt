@@ -237,17 +237,33 @@ fun HomeScreen(
             }
 
             item {
-                AutoResizeableText(
-                    modifier = Modifier.padding(
-                        top = 20.dp,
-                        bottom = 5.dp,
-                        start = 5.dp,
-                        end = 5.dp
-                    ),
-                    text = stringResource(R.string.fastboot_and_recovery),
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.primary
-                )
+                FlowRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            top = 20.dp,
+                            bottom = 5.dp,
+                            start = 5.dp,
+                            end = 5.dp
+                        ),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                    itemVerticalAlignment = Alignment.CenterVertically
+                ) {
+                    AutoResizeableText(
+                        modifier = Modifier.weight(1f, fill = false),
+                        text = stringResource(R.string.fastboot_and_recovery),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+
+                    Badge(
+                        badgeText = stringResource(R.string.experimental),
+                        badgeContainerColor = MaterialTheme.colorScheme.error,
+                        badgeContentColor = MaterialTheme.colorScheme.onError,
+                        borderEnabled = false
+                    )
+                }
             }
 
             item {
@@ -274,17 +290,33 @@ fun HomeScreen(
             }
 
             item {
-                AutoResizeableText(
-                    modifier = Modifier.padding(
-                        top = 20.dp,
-                        bottom = 5.dp,
-                        start = 5.dp,
-                        end = 5.dp
-                    ),
-                    text = stringResource(R.string.utilities),
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.primary
-                )
+                FlowRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            top = 20.dp,
+                            bottom = 5.dp,
+                            start = 5.dp,
+                            end = 5.dp
+                        ),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                    itemVerticalAlignment = Alignment.CenterVertically
+                ) {
+                    AutoResizeableText(
+                        modifier = Modifier.weight(1f, fill = false),
+                        text = stringResource(R.string.utilities),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+
+                    Badge(
+                        badgeText = stringResource(R.string.experimental),
+                        badgeContainerColor = MaterialTheme.colorScheme.error,
+                        badgeContentColor = MaterialTheme.colorScheme.onError,
+                        borderEnabled = false
+                    )
+                }
             }
 
             item {
