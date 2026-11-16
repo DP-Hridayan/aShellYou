@@ -269,6 +269,9 @@ Importar</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Configurar directorio de guardado</string>
     <string name="confirm">Confirmar</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
+    <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">Estás a punto de flashear %1$s con %2$s. Esta operación no se puede deshacer.</string>
+    <string name="confirm_custom_partition_flash_title" comment="Confirmation dialog title before flashing a custom partition">Confirmar Parpadeo de Partición Personalizada</string>
+    <string name="confirm_high_risk_flash_title" comment="Confirmation dialog title before flashing a high-risk partition such as super, vbmeta, or userdata">Confirmar Flash de alto riesgo</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Confirmar eliminación</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">¿Estás seguro de que quieres eliminar \"%1$s\"? Si se está usando actualmente, la aplicación volverá a la fuente del sistema.</string>
     <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">¡Atención! Esta acción es irreversible\n¿Estás seguro de que quieres eliminar estos %1$d marcadores seleccionados?</string>
@@ -306,9 +309,17 @@ Importar</string>
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">Crear nuevo mosaico</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">Crear con IA</string>
     <string name="critical">Crítico</string>
+    <string name="critical_partition_ack" comment="Checkbox label where the user acknowledges the risk of flashing a critical partition">Entiendo que flashear esta partición conlleva un alto riesgo de brinchar permanentemente el dispositivo.</string>
+    <string name="critical_partition_warning" comment="Warning banner shown when a user types a critical bootloader or hardware partition">Partición de alto riesgo. Parpadear una imagen incorrecta puede ser un bloque duro permanente del dispositivo.</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Visita nuestra plataforma de traducción de Crowdin para colaborar</string>
     <string name="current_version" comment="About screen card label showing installed application version number">Versión actual</string>
     <string name="custom" comment="Dropdown entry that lets the user type a value instead of picking a preset">Personalizado…</string>
+    <string name="custom_partition_hint" comment="Placeholder text for entering a custom partition name in fastboot">ej. producto, odm, boot_a</string>
+    <string name="custom_partition_invalid_format" comment="Error message when custom partition name contains invalid characters">Sólo letras, números, guiones y guiones bajos están permitidos</string>
+    <string name="custom_partition_name" comment="Field label for custom partition input in fastboot flash sheet">Nombre de partición personalizada</string>
+    <string name="custom_partition_switch_to_common" comment="Button label to switch back from custom partition input to common partitions list">Elegir de particiones comunes</string>
+    <string name="custom_partition_too_long" comment="Error message when custom partition name exceeds maximum character limit">El nombre de la partición no puede exceder los 64 caracteres</string>
+    <string name="custom_partition_warning_desc" comment="Warning message explaining the risk of flashing custom partitions in fastboot">Flashear una partición incorrecta puede dejar su dispositivo sin arrancar. Asegúrese de conocer la tabla de particiones exacta de su dispositivo.</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">Escala de interfaz personalizada</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Cortar %1$d elementos</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Cortar al portapapeles</string>

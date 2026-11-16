@@ -11,28 +11,38 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenu
 import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -56,6 +66,10 @@ import `in`.hridayan.ashell.core.presentation.components.slidetoconfirm.SlideToC
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.fastboot.domain.model.FlashOperation
+import `in`.hridayan.ashell.shell.fastboot.domain.validation.PartitionRisk
+import `in`.hridayan.ashell.shell.fastboot.domain.validation.PartitionValidationResult
+import `in`.hridayan.ashell.shell.fastboot.domain.validation.PartitionValidator
+import `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog.CustomPartitionFlashConfirmDialog
 import `in`.hridayan.ashell.shell.fastboot.presentation.components.section.FlashOperationProgressContent
 
 @Composable
@@ -68,6 +82,8 @@ fun FlashPartitionBottomSheet(
 ) {
     var selectedPartition by rememberSaveable { mutableStateOf(DEFAULT_PARTITION) }
     var customPartition by rememberSaveable { mutableStateOf("") }
+    var isCustomPartition by rememberSaveable { mutableStateOf(false) }
+    var showConfirmDialog by rememberSaveable { mutableStateOf(false) }
     var selectedFileUri by rememberSaveable { mutableStateOf<Uri?>(null) }
     var selectedFileName by rememberSaveable { mutableStateOf<String?>(null) }
 
@@ -75,7 +91,15 @@ fun FlashPartitionBottomSheet(
 
     val isOperationRunning = flashOperation.status.isActive
     val isOperationVisible = isOperationRunning || flashOperation.status.isFinished
-    val targetPartition = customPartition.ifBlank { selectedPartition }
+    val targetPartition = if (isCustomPartition) customPartition.trim() else selectedPartition
+    val partitionValidation = if (isCustomPartition) {
+        PartitionValidator.validate(customPartition)
+    } else {
+        PartitionValidationResult.Valid
+    }
+    val partitionRisk = PartitionValidator.assessRisk(targetPartition)
+    val isPartitionValid = !isCustomPartition || partitionValidation == PartitionValidationResult.Valid
+    val canSlideToFlash = selectedFileUri != null && isPartitionValid && !isOperationRunning
 
     val filePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument()
@@ -103,6 +127,7 @@ fun FlashPartitionBottomSheet(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
                 .padding(24.dp),
         ) {
             AutoResizeableText(
@@ -119,13 +144,21 @@ fun FlashPartitionBottomSheet(
             )
 
             PartitionSelector(
+                isCustom = isCustomPartition,
                 selectedPartition = selectedPartition,
                 customPartition = customPartition,
+                validationResult = partitionValidation,
+                risk = partitionRisk,
                 enabled = !isOperationVisible,
+                onSelectCustomMode = { isCustomPartition = true },
+                onSwitchToCommon = {
+                    isCustomPartition = false
+                    customPartition = ""
+                },
                 onCustomPartitionChange = { customPartition = it },
                 onPartitionSelected = { partition ->
                     selectedPartition = partition
-                    customPartition = ""
+                    isCustomPartition = false
                 }
             )
 
@@ -151,22 +184,47 @@ fun FlashPartitionBottomSheet(
                     selectedFileName = selectedFileName
                 )
 
-                SlideToConfirm(
-                    modifier = Modifier.fillMaxWidth(),
-                    onConfirm = withHaptic(HapticFeedbackType.GestureThresholdActivate) {
-                        selectedFileUri?.let { uri -> onFlash(targetPartition, uri) }
-                    },
-                    enabled = selectedFileUri != null,
-                    confirmed = isOperationRunning,
-                    initialText = stringResource(R.string.slide_to_flash),
-                    finalText = stringResource(R.string.flashing),
-                    containerColor = MaterialTheme.colorScheme.errorContainer,
-                    contentColor = MaterialTheme.colorScheme.onErrorContainer,
-                    thumbContainerColor = MaterialTheme.colorScheme.error,
-                    thumbContentColor = MaterialTheme.colorScheme.onError,
-                )
+                key(showConfirmDialog) {
+                    SlideToConfirm(
+                        modifier = Modifier.fillMaxWidth(),
+                        onConfirm = withHaptic(HapticFeedbackType.GestureThresholdActivate) {
+                            val needsConfirmation =
+                                isCustomPartition || partitionRisk != PartitionRisk.STANDARD
+                            if (needsConfirmation) {
+                                showConfirmDialog = true
+                            } else {
+                                selectedFileUri?.let { uri -> onFlash(targetPartition, uri) }
+                            }
+                        },
+                        enabled = canSlideToFlash,
+                        confirmed = isOperationRunning,
+                        initialText = stringResource(R.string.slide_to_flash),
+                        finalText = stringResource(R.string.flashing),
+                        containerColor = MaterialTheme.colorScheme.errorContainer,
+                        contentColor = MaterialTheme.colorScheme.onErrorContainer,
+                        thumbContainerColor = MaterialTheme.colorScheme.error,
+                        thumbContentColor = MaterialTheme.colorScheme.onError,
+                    )
+                }
             }
         }
+    }
+
+    if (showConfirmDialog && selectedFileUri != null) {
+        CustomPartitionFlashConfirmDialog(
+            title = stringResource(
+                if (isCustomPartition) R.string.confirm_custom_partition_flash_title
+                else R.string.confirm_high_risk_flash_title
+            ),
+            partition = targetPartition,
+            fileName = selectedFileName ?: stringResource(R.string.file),
+            risk = partitionRisk,
+            onDismiss = { showConfirmDialog = false },
+            onConfirm = {
+                showConfirmDialog = false
+                selectedFileUri?.let { uri -> onFlash(targetPartition, uri) }
+            }
+        )
     }
 }
 
@@ -188,11 +246,42 @@ private fun resolveDisplayName(context: android.content.Context, uri: Uri): Stri
 
 @Composable
 private fun PartitionSelector(
+    isCustom: Boolean,
     selectedPartition: String,
     customPartition: String,
+    validationResult: PartitionValidationResult,
+    risk: PartitionRisk,
     enabled: Boolean,
+    onSelectCustomMode: () -> Unit,
+    onSwitchToCommon: () -> Unit,
     onCustomPartitionChange: (String) -> Unit,
     onPartitionSelected: (String) -> Unit,
+) {
+    if (isCustom) {
+        CustomPartitionField(
+            customPartition = customPartition,
+            validationResult = validationResult,
+            risk = risk,
+            enabled = enabled,
+            onCustomPartitionChange = onCustomPartitionChange,
+            onSwitchToCommon = onSwitchToCommon
+        )
+    } else {
+        CommonPartitionDropdown(
+            selectedPartition = selectedPartition,
+            enabled = enabled,
+            onPartitionSelected = onPartitionSelected,
+            onSelectCustomMode = onSelectCustomMode
+        )
+    }
+}
+
+@Composable
+private fun CommonPartitionDropdown(
+    selectedPartition: String,
+    enabled: Boolean,
+    onPartitionSelected: (String) -> Unit,
+    onSelectCustomMode: () -> Unit,
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
 
@@ -201,10 +290,10 @@ private fun PartitionSelector(
         onExpandedChange = { if (enabled) expanded = it }
     ) {
         OutlinedTextField(
-            value = customPartition.ifBlank { selectedPartition },
-            onValueChange = onCustomPartitionChange,
+            value = selectedPartition,
+            onValueChange = {},
             label = { Text(stringResource(R.string.partition)) },
-            readOnly = customPartition.isBlank(),
+            readOnly = true,
             enabled = enabled,
             singleLine = true,
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
@@ -230,14 +319,124 @@ private fun PartitionSelector(
                     }
                 )
             }
+            HorizontalDivider()
             DropdownMenuItem(
                 text = { Text(text = stringResource(R.string.custom), fontStyle = FontStyle.Italic) },
                 onClick = {
-                    onCustomPartitionChange("")
                     expanded = false
+                    onSelectCustomMode()
                 }
             )
         }
+    }
+}
+
+@Composable
+private fun CustomPartitionField(
+    customPartition: String,
+    validationResult: PartitionValidationResult,
+    risk: PartitionRisk,
+    enabled: Boolean,
+    onCustomPartitionChange: (String) -> Unit,
+    onSwitchToCommon: () -> Unit,
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        OutlinedTextField(
+            value = customPartition,
+            onValueChange = onCustomPartitionChange,
+            label = { Text(stringResource(R.string.custom_partition_name)) },
+            placeholder = { Text(stringResource(R.string.custom_partition_hint)) },
+            enabled = enabled,
+            singleLine = true,
+            isError = validationResult is PartitionValidationResult.InvalidFormat ||
+                validationResult is PartitionValidationResult.TooLong,
+            supportingText = {
+                when (validationResult) {
+                    PartitionValidationResult.Blank,
+                    PartitionValidationResult.Valid -> Unit
+                    PartitionValidationResult.InvalidFormat -> {
+                        Text(stringResource(R.string.custom_partition_invalid_format))
+                    }
+                    PartitionValidationResult.TooLong -> {
+                        Text(stringResource(R.string.custom_partition_too_long))
+                    }
+                }
+            },
+            trailingIcon = {
+                if (customPartition.isNotEmpty()) {
+                    IconButton(onClick = withHaptic { onCustomPartitionChange("") }) {
+                        Icon(
+                            imageVector = Icons.Rounded.Close,
+                            contentDescription = stringResource(R.string.clear)
+                        )
+                    }
+                }
+            },
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = MaterialTheme.typography.bodyMedium.copy(
+                fontFamily = FontFamily.Monospace,
+                fontWeight = FontWeight.Medium
+            )
+        )
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
+            TextButton(onClick = withHaptic { onSwitchToCommon() }) {
+                Text(stringResource(R.string.custom_partition_switch_to_common))
+            }
+        }
+
+        if (customPartition.isNotBlank()) {
+            CustomPartitionWarningCard(risk = risk)
+        }
+    }
+}
+
+@Composable
+private fun CustomPartitionWarningCard(risk: PartitionRisk) {
+    val isCritical = risk == PartitionRisk.CRITICAL
+    val containerColor = if (isCritical) {
+        MaterialTheme.colorScheme.errorContainer
+    } else {
+        MaterialTheme.colorScheme.tertiaryContainer
+    }
+    val contentColor = if (isCritical) {
+        MaterialTheme.colorScheme.onErrorContainer
+    } else {
+        MaterialTheme.colorScheme.onTertiaryContainer
+    }
+    val message = if (isCritical) {
+        stringResource(R.string.critical_partition_warning)
+    } else {
+        stringResource(R.string.custom_partition_warning_desc)
+    }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(MaterialTheme.shapes.medium)
+            .background(containerColor)
+            .padding(12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Icon(
+            imageVector = Icons.Default.Warning,
+            contentDescription = null,
+            tint = contentColor,
+            modifier = Modifier.size(20.dp)
+        )
+        Text(
+            text = message,
+            style = MaterialTheme.typography.bodySmall,
+            color = contentColor,
+            fontWeight = FontWeight.Medium
+        )
     }
 }
 

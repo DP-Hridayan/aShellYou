@@ -268,6 +268,9 @@
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">保存ディレクトリの設定</string>
     <string name="confirm">確認</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">警告 ！この操作は元に戻せません。\n本当にすべてのブックマークを削除しますか？</string>
+    <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">%1$s を %2$sでフラッシュしようとしています。この操作は元に戻せません。</string>
+    <string name="confirm_custom_partition_flash_title" comment="Confirmation dialog title before flashing a custom partition">カスタムパーティションフラッシュの確認</string>
+    <string name="confirm_high_risk_flash_title" comment="Confirmation dialog title before flashing a high-risk partition such as super, vbmeta, or userdata">高リスクフラッシュの確認</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">削除の確認</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">「%1$s」を削除してもよろしいですか？現在適用されている場合、アプリはシステムフォントに戻ります。</string>
     <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">警告 ！この操作は元に戻せません\n選択した %1$d 件のブックマークを本当に削除しますか？</string>
@@ -305,9 +308,17 @@
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">新しいタイルを作成</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">AIで作成</string>
     <string name="critical">重大</string>
+    <string name="critical_partition_ack" comment="Checkbox label where the user acknowledges the risk of flashing a critical partition">このパーティションを点滅させることは、デバイスを永久にレンガするリスクが高いことを理解しています。</string>
+    <string name="critical_partition_warning" comment="Warning banner shown when a user types a critical bootloader or hardware partition">高リスクパーティション。誤った画像を点滅させると、お使いのデバイスが永久にハードブロックされる可能性があります。</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">貢献するには、Crowdin翻訳プラットフォームにアクセスしてください</string>
     <string name="current_version" comment="About screen card label showing installed application version number">最近のバージョン</string>
     <string name="custom" comment="Dropdown entry that lets the user type a value instead of picking a preset">カスタム…</string>
+    <string name="custom_partition_hint" comment="Placeholder text for entering a custom partition name in fastboot">例: product, odm, boot_a</string>
+    <string name="custom_partition_invalid_format" comment="Error message when custom partition name contains invalid characters">文字、数字、ハイフン、アンダースコアのみ使用できます</string>
+    <string name="custom_partition_name" comment="Field label for custom partition input in fastboot flash sheet">カスタムパーティション名</string>
+    <string name="custom_partition_switch_to_common" comment="Button label to switch back from custom partition input to common partitions list">一般的なパーティションから選択</string>
+    <string name="custom_partition_too_long" comment="Error message when custom partition name exceeds maximum character limit">パーティション名は64文字を超えることはできません</string>
+    <string name="custom_partition_warning_desc" comment="Warning message explaining the risk of flashing custom partitions in fastboot">不正なパーティションを書き込むと、デバイスが起動できなくなる可能性があります。デバイスの正確なパーティションテーブルを知っていることを確認してください。</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">カスタムUIスケール</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d 項目を切り取り</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">クリップボードに切り取り</string>

@@ -269,6 +269,9 @@
     <string name="confirm">确定</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">警告！此操作不可逆
 你确定要删除所有书签吗？</string>
+    <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">您将要用 %1$s 刷入 %2$s。此操作不能撤消。</string>
+    <string name="confirm_custom_partition_flash_title" comment="Confirmation dialog title before flashing a custom partition">确认自定义分区 Flash</string>
+    <string name="confirm_high_risk_flash_title" comment="Confirmation dialog title before flashing a high-risk partition such as super, vbmeta, or userdata">确认高风险闪光灯</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">确认删除</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">您确定要移除“%1$s”吗？如果当前正在使用，应用将恢复为系统字体。</string>
     <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">警告！此操作不可逆
@@ -308,9 +311,17 @@
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">创建新瓷贴</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">使用 AI 创建</string>
     <string name="critical">严重</string>
+    <string name="critical_partition_ack" comment="Checkbox label where the user acknowledges the risk of flashing a critical partition">我知道这种分区的闪烁很有可能永久碎片设备。</string>
+    <string name="critical_partition_warning" comment="Warning banner shown when a user types a critical bootloader or hardware partition">高风险分区。刷入错误的图像可能会永久硬砖您的设备。</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">访问我们的 Crowdin 翻译平台进行贡献</string>
     <string name="current_version" comment="About screen card label showing installed application version number">当前版本</string>
     <string name="custom" comment="Dropdown entry that lets the user type a value instead of picking a preset">自定义……</string>
+    <string name="custom_partition_hint" comment="Placeholder text for entering a custom partition name in fastboot">例如：产品 odm, boot_a</string>
+    <string name="custom_partition_invalid_format" comment="Error message when custom partition name contains invalid characters">只允许字母、数字、连字符和下划线</string>
+    <string name="custom_partition_name" comment="Field label for custom partition input in fastboot flash sheet">自定义分区名称</string>
+    <string name="custom_partition_switch_to_common" comment="Button label to switch back from custom partition input to common partitions list">从共同分区中选择</string>
+    <string name="custom_partition_too_long" comment="Error message when custom partition name exceeds maximum character limit">分区名称不能超过 64 个字符</string>
+    <string name="custom_partition_warning_desc" comment="Warning message explaining the risk of flashing custom partitions in fastboot">刷入错误的分区可能会使您的设备无法启动。请确保您知道您的设备的确切分区表。</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">自定义 UI 缩放</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">剪切 %1$d 项目</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">剪切到剪贴板</string>
