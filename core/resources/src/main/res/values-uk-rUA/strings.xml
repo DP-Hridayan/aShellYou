@@ -268,6 +268,9 @@
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Налаштувати каталог збереження</string>
     <string name="confirm">Підтвердити</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Увага! Цю дію неможливо скасувати.\nВи впевнені, що хочете видалити всі закладки?</string>
+    <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">You are about to flash %1$s with %2$s. This operation cannot be undone.</string>
+    <string name="confirm_custom_partition_flash_title" comment="Confirmation dialog title before flashing a custom partition">Підтвердити Спалах власного розділу</string>
+    <string name="confirm_high_risk_flash_title" comment="Confirmation dialog title before flashing a high-risk partition such as super, vbmeta, or userdata">Підтвердіть Flash з високим ризиком</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Підтвердити видалення</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Ви впевнені, що хочете видалити \"%1$s\"? Якщо він наразі застосований, програма повернеться до системного шрифту.</string>
     <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Попередження ! Ця дія є незворотною\nВи впевнені, що хочете видалити ці %1$d вибрані закладки?</string>
@@ -305,9 +308,17 @@
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">Створити нову плитку</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">Створити за допомогою AI</string>
     <string name="critical">Критичний</string>
+    <string name="critical_partition_ack" comment="Checkbox label where the user acknowledges the risk of flashing a critical partition">Я розумію, що миготіння цього розділу несе високий ризик назавжди паркування пристрою.</string>
+    <string name="critical_partition_warning" comment="Warning banner shown when a user types a critical bootloader or hardware partition">Швидкісний розділ. Встановлення неправильного зображення може завдати шкоди вашому пристрої.</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Відвідайте нашу платформу перекладів crowdin, щоб зробити свій внесок</string>
     <string name="current_version" comment="About screen card label showing installed application version number">Поточна версія</string>
     <string name="custom" comment="Dropdown entry that lets the user type a value instead of picking a preset">Користувальницьке…</string>
+    <string name="custom_partition_hint" comment="Placeholder text for entering a custom partition name in fastboot">наприклад, товар, odm, boot_a</string>
+    <string name="custom_partition_invalid_format" comment="Error message when custom partition name contains invalid characters">Тільки літери, цифри, дефіси та підкреслення дозволені</string>
+    <string name="custom_partition_name" comment="Field label for custom partition input in fastboot flash sheet">Назва власної секції</string>
+    <string name="custom_partition_switch_to_common" comment="Button label to switch back from custom partition input to common partitions list">Вибрати із загальних розділів</string>
+    <string name="custom_partition_too_long" comment="Error message when custom partition name exceeds maximum character limit">Назва розділу не може перевищувати 64 символи</string>
+    <string name="custom_partition_warning_desc" comment="Warning message explaining the risk of flashing custom partitions in fastboot">Встановлення неправильного розділу може залишити пристрій неактивним. Переконайтеся, що ви знаєте точну таблицю розділів вашого пристрою.</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">Свій масштаб UI</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Вирізати %1$d елементів</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Вирізати в буфер обміну</string>

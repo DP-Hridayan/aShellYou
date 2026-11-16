@@ -268,6 +268,9 @@
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">پیکربندی پوشه ذخیره‌سازی</string>
     <string name="confirm">تأیید</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">هشدار! این عمل برگشت‌ناپذیر است\nآیا مطمئن هستید که می‌خواهید همه نشانک‌ها را حذف کنید؟</string>
+    <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">You are about to flash %1$s with %2$s. This operation cannot be undone.</string>
+    <string name="confirm_custom_partition_flash_title" comment="Confirmation dialog title before flashing a custom partition">Confirm Custom Partition Flash</string>
+    <string name="confirm_high_risk_flash_title" comment="Confirmation dialog title before flashing a high-risk partition such as super, vbmeta, or userdata">Confirm High-Risk Flash</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">تأیید حذف</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">آیا مطمئن هستید که می‌خواهید \"%1$s\" را حذف کنید؟ اگر در حال حاضر اعمال شده باشد، برنامه به فونت سیستم بازخواهد گشت.</string>
     <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">هشدار! این عمل برگشت‌ناپذیر است\nآیا مطمئن هستید که می‌خواهید این %1$d نشانک انتخاب شده را حذف کنید؟</string>
@@ -305,9 +308,17 @@
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">ایجاد کاشی جدید</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">ایجاد با هوش مصنوعی</string>
     <string name="critical">بحرانی</string>
+    <string name="critical_partition_ack" comment="Checkbox label where the user acknowledges the risk of flashing a critical partition">I understand that flashing this partition carries a high risk of permanently bricking the device.</string>
+    <string name="critical_partition_warning" comment="Warning banner shown when a user types a critical bootloader or hardware partition">High-risk partition. Flashing an incorrect image may permanently hard-brick your device.</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">برای مشارکت به پلتفرم ترجمه Crowdin ما سر بزنید</string>
     <string name="current_version" comment="About screen card label showing installed application version number">نسخه فعلی</string>
     <string name="custom" comment="Dropdown entry that lets the user type a value instead of picking a preset">سفارشی…</string>
+    <string name="custom_partition_hint" comment="Placeholder text for entering a custom partition name in fastboot">e.g. product, odm, boot_a</string>
+    <string name="custom_partition_invalid_format" comment="Error message when custom partition name contains invalid characters">Only letters, numbers, hyphens, and underscores are allowed</string>
+    <string name="custom_partition_name" comment="Field label for custom partition input in fastboot flash sheet">Custom partition name</string>
+    <string name="custom_partition_switch_to_common" comment="Button label to switch back from custom partition input to common partitions list">Choose from common partitions</string>
+    <string name="custom_partition_too_long" comment="Error message when custom partition name exceeds maximum character limit">Partition name cannot exceed 64 characters</string>
+    <string name="custom_partition_warning_desc" comment="Warning message explaining the risk of flashing custom partitions in fastboot">Flashing an incorrect partition can leave your device unbootable. Make sure you know your device\'s exact partition table.</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">مقیاس سفارشی رابط کاربری</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">%1$d مورد برش داده شد</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">برش به کلیپ‌بورد</string>
