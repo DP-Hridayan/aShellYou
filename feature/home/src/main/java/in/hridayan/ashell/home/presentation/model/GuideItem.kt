@@ -31,7 +31,7 @@ object GuideCatalog {
                 id = "local_adb",
                 titleRes = R.string.local_adb,
                 descriptionRes = R.string.guide_local_adb_desc,
-                iconRes = R.drawable.ic_terminal,
+                iconRes = R.drawable.ic_adb,
                 url = UrlConst.URL_WIKI_LOCAL_ADB,
                 category = GuideCategory.Connection
             ),
@@ -55,7 +55,7 @@ object GuideCatalog {
                 id = "fastboot",
                 titleRes = R.string.fastboot,
                 descriptionRes = R.string.guide_fastboot_desc,
-                iconRes = R.drawable.ic_fastboot,
+                iconRes = R.drawable.ic_flash_on,
                 url = UrlConst.URL_WIKI_FASTBOOT_OTG,
                 category = GuideCategory.Advanced
             ),
@@ -63,7 +63,7 @@ object GuideCatalog {
                 id = "adb_sideload",
                 titleRes = R.string.adb_sideload,
                 descriptionRes = R.string.guide_sideload_desc,
-                iconRes = R.drawable.ic_upload_file,
+                iconRes = R.drawable.ic_mobile_arrow_down,
                 url = UrlConst.URL_WIKI_ADB_SIDELOAD,
                 category = GuideCategory.Advanced
             ),
@@ -71,7 +71,7 @@ object GuideCatalog {
                 id = "screen_mirror",
                 titleRes = R.string.screen_mirror,
                 descriptionRes = R.string.guide_screen_mirror_desc,
-                iconRes = R.drawable.ic_mobile,
+                iconRes = R.drawable.ic_screen_cast,
                 url = UrlConst.URL_WIKI_SCREEN_MIRRORING,
                 category = GuideCategory.Advanced
             ),
@@ -79,7 +79,7 @@ object GuideCatalog {
                 id = "logcat",
                 titleRes = R.string.logcat,
                 descriptionRes = R.string.guide_logcat_desc,
-                iconRes = R.drawable.ic_troubleshoot,
+                iconRes = R.drawable.ic_bug,
                 url = UrlConst.URL_WIKI_LOGCAT_VIEWER,
                 category = GuideCategory.Utilities
             ),
@@ -119,7 +119,7 @@ object GuideCatalog {
                 id = "ai_assistant",
                 titleRes = R.string.ai_shell_assistant,
                 descriptionRes = R.string.guide_ai_assistant_desc,
-                iconRes = R.drawable.ic_bolt,
+                iconRes = R.drawable.ic_help,
                 url = UrlConst.URL_WIKI_AI_ASSISTANT,
                 category = GuideCategory.Utilities
             ),
@@ -135,7 +135,7 @@ object GuideCatalog {
                 id = "faqs",
                 titleRes = R.string.faqs,
                 descriptionRes = R.string.guide_faqs_desc,
-                iconRes = R.drawable.ic_help,
+                iconRes = R.drawable.ic_help2,
                 url = UrlConst.URL_WIKI_FAQS,
                 category = GuideCategory.Community
             ),
