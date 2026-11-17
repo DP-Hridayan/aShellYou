@@ -1384,6 +1384,7 @@
     <string name="theme_name" comment="Label for the text field where user can edit the name of an imported theme">Theme name</string>
     <string name="theme_preview" comment="Title for the bottom sheet showing preview of an imported theme">Theme preview</string>
     <string name="theme_saved_applied" comment="Toast message shown after successfully importing and applying a theme">Theme saved and applied</string>
+    <string name="signature_special" comment="Label shown on immutable designer special theme pill">Signature Special</string>
     <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Thinking</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Third-party libraries</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">This application</string>

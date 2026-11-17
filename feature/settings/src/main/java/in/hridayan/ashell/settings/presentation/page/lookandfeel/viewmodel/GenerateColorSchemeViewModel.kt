@@ -10,6 +10,7 @@ import `in`.hridayan.ashell.core.common.domain.usecase.ai.RequireActiveProviderK
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.theme.data.ColorSchemePayload
 import `in`.hridayan.ashell.core.presentation.theme.data.CustomColorSchemeDao
+import `in`.hridayan.ashell.core.presentation.theme.domain.model.PresetColorSchemes
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.UserGeneratedColorScheme
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.toDomain
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.toEntity
@@ -42,11 +43,11 @@ class GenerateColorSchemeViewModel @Inject constructor(
     }
 
     val savedColorSchemes = customColorSchemeDao.getAllColorSchemes()
-        .map { list -> list.map { it.toDomain() } }
+        .map { list -> PresetColorSchemes.allPresets + list.map { it.toDomain() } }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
+            initialValue = PresetColorSchemes.allPresets
         )
 
     val appliedThemeId = settingsRepository.getInt(SettingsKeys.AppliedCustomThemeId)
@@ -70,6 +71,7 @@ class GenerateColorSchemeViewModel @Inject constructor(
     }
 
     fun deleteTheme(theme: UserGeneratedColorScheme) {
+        if (PresetColorSchemes.isPreset(theme.id)) return
         viewModelScope.launch {
             customColorSchemeDao.deleteColorScheme(theme.toEntity())
         }
