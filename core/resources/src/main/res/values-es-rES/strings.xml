@@ -271,9 +271,9 @@ Importar</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">Estás a punto de flashear %1$s con %2$s. Esta operación no se puede deshacer.</string>
     <string name="confirm_custom_partition_flash_title" comment="Confirmation dialog title before flashing a custom partition">Confirmar Parpadeo de Partición Personalizada</string>
-    <string name="confirm_high_risk_flash_title" comment="Confirmation dialog title before flashing a high-risk partition such as super, vbmeta, or userdata">Confirmar Flash de alto riesgo</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Confirmar eliminación</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">¿Estás seguro de que quieres eliminar \"%1$s\"? Si se está usando actualmente, la aplicación volverá a la fuente del sistema.</string>
+    <string name="confirm_high_risk_flash_title" comment="Confirmation dialog title before flashing a high-risk partition such as super, vbmeta, or userdata">Confirmar Flash de alto riesgo</string>
     <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">¡Atención! Esta acción es irreversible\n¿Estás seguro de que quieres eliminar estos %1$d marcadores seleccionados?</string>
     <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">¡Atención! Esta acción es irreversible\n¿Estás seguro de que quieres eliminar este marcador?</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">¿Está seguro de que desea eliminar este mosaico?</string>
@@ -431,12 +431,12 @@ Importar</string>
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">Restore app data from the saved backup file.\nThe saved database will overwrite the current database</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">Enable this option to save output of the whole shell session.\nIf disabled only the last command output will be saved.</string>
     <string name="des_screen_density" comment="Description under Screen density multiplier setting item">Ajustar la densidad de pantalla para que los elementos de la interfaz se vean más grandes o más pequeños</string>
+    <string name="des_scroll_bottom_vibration" comment="Description under the scroll bottom vibration setting toggle">Vibrar al llegar al final del contenido desplazable</string>
     <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">Selecciona un archivo de imagen de arranque para flashear en la partición seleccionada</string>
     <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">Entrar directamente a la pantalla de ADB local al iniciar la aplicación</string>
     <string name="des_show_stream_statistics" comment="Description of the Show stream statistics switch">Tasa de fotogramas, fotogramas y tasa de datos, sobre el vídeo</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">Vincula opcionalmente tu cuenta de Google para realizar copias de seguridad en la nube</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">Activar esta opción permite un desplazamiento suave en la salida del shell cuando se hace clic en la flecha superior o inferior</string>
-    <string name="des_scroll_bottom_vibration" comment="Description under the scroll bottom vibration setting toggle">Vibrar al llegar al final del contenido desplazable</string>
     <string name="des_terms_of_service" comment="Subtitle description under Terms of Service menu item">Reglas y directrices para usar aShell You</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">Cuando está activado, el mosaico alterna entre los estados ENCENDIDO y APAGADO en cada toque, ejecutando un comando diferente para cada estado</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">Personas que ayudaron a traducir aShell You</string>
@@ -752,8 +752,8 @@ Importar</string>
     <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">Descarga ~380 KB una vez para explorar más de 2500 iconos de Material</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">Descarga máxima</string>
     <string name="medium">Medio</string>
-    <string name="menu" comment="Navigation menu button label">Menú</string>
     <string name="megabits_per_second" comment="%1$s is a data rate in megabits per second">%1$s Mbps</string>
+    <string name="menu" comment="Navigation menu button label">Menú</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">Combinar</string>
     <string name="message">Mensaje</string>
     <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Enviar mensaje al agente ADB</string>
@@ -954,7 +954,7 @@ Importar</string>
     <string name="port_forward_error_nothing_listening" comment="Port forwarding error: no app on the connected device listens on that socket. %1$s is the port or socket name">Nada está escuchando en %1$s en el dispositivo</string>
     <string name="port_forward_error_port_in_use" comment="Port forwarding error: the chosen port on this phone is already taken by another app. %1$d is the port number">El puerto %1$d es usado por otra aplicación</string>
     <string name="port_forward_error_port_privileged" comment="Port forwarding error: apps cannot listen on ports below 1024">Usar puerto 1024 o superior</string>
-    <string name="port_forward_error_target_refused" comment="Port forwarding error: the computer refused the connection. vite --host is a command shown verbatim as an example and must not be translated">Rechazado. ¿Está escuchando el servidor en la red? Por ejemplo, vite --host</string>
+    <string name="port_forward_error_target_refused" comment="Port forwarding error: the computer refused the connection. vite --host is a command shown verbatim as an example and must not be translated">Rechazado. ¿Está escuchando el servidor en la red? Por ejemplo, vite —host</string>
     <string name="port_forward_error_target_timeout" comment="Port forwarding error: the computer did not answer in time">No hay respuesta. Comprueba el cortafuegos del ordenador y que ambos estén en el mismo Wi-Fi</string>
     <string name="port_forward_error_too_many_connections" comment="Port forwarding warning: the tunnel reached its connection limit and refuses new connections">Demasiadas conexiones. Se rechazan nuevas conexiones</string>
     <string name="port_forward_error_unexpected" comment="Port forwarding error with technical details. %1$s is the system's error message">Algo salió mal: %1$s</string>
@@ -1323,11 +1323,12 @@ Importar</string>
     <string name="terms_of_service" comment="Title for the Terms of Service legal document">Términos de Servicio</string>
     <string name="tertiary">Terciario</string>
     <string name="test" comment="Button that checks whether a server can be reached">Prueba</string>
-    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Modo de tema</string>
     <string name="theme_import_failed" comment="Toast shown when a color scheme file fails to be read or deserialized">Error al importar el esquema de color</string>
+    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Modo de tema</string>
     <string name="theme_name" comment="Label for the text field where user can edit the name of an imported theme">Nombre del tema</string>
     <string name="theme_preview" comment="Title for the bottom sheet showing preview of an imported theme">Vista previa del tema</string>
     <string name="theme_saved_applied" comment="Toast message shown after successfully importing and applying a theme">Tema guardado y aplicado</string>
+    <string name="signature_special" comment="Label shown on immutable designer special theme pill">Firma especial</string>
     <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Pensando</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Librerías de terceros</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">Esta aplicación</string>
@@ -1462,6 +1463,43 @@ Importar</string>
         <item quantity="one">%1$d minuto</item>
         <item quantity="other">%1$d minutos</item>
     </plurals>
+    <plurals name="port_forward_tunnels_running" comment="Notification title. %1$d is the number of running port forwarding tunnels">
+        <item quantity="one">Túnel %1$d en ejecución</item>
+        <item quantity="other">Túneles %1$d en ejecución</item>
+    </plurals>
+    <plurals name="port_forward_notification_waiting_count" comment="Part of the notification summary. %1$d is the number of tunnels waiting for a network">
+        <item quantity="one">%1$d en espera</item>
+        <item quantity="other">%1$d en espera</item>
+    </plurals>
+    <plurals name="port_forward_notification_attention_count" comment="Part of the notification summary. %1$d is the number of tunnels with a problem">
+        <item quantity="one">%1$d necesita atención</item>
+        <item quantity="other">%1$d necesita atención</item>
+    </plurals>
+    <plurals name="n_seconds" comment="A duration in seconds. %1$d is the number">
+        <item quantity="one">%1$d segundo</item>
+        <item quantity="other">%1$d segundos</item>
+    </plurals>
+    <plurals name="port_forward_interrupted" comment="Banner when Android stopped tunnels while they were running. %1$d is the number of tunnels">
+        <item quantity="one">Túnel %1$d se paró inesperadamente</item>
+        <item quantity="other">%1$d túneles se pararon inesperadamente</item>
+    </plurals>
+    <plurals name="port_forward_stopped_all" comment="Snackbar after stopping all tunnels. %1$d is the number of tunnels">
+        <item quantity="one">Túnel %1$d detenido</item>
+        <item quantity="other">%1$d túneles parados</item>
+    </plurals>
+    <plurals name="port_forward_disable_sharing_message" comment="Dialog text before turning off sharing. %1$d is the number of shared tunnels that will restart">
+        <item quantity="one">%1$d túnel compartido se reiniciará solo en este teléfono.</item>
+        <item quantity="other">%1$d túneles compartidos se reiniciarán solo en este teléfono.</item>
+    </plurals>
+    <plurals name="port_forward_running_count" comment="Badge on the home card. %1$d is the number of running tunnels">
+        <item quantity="one">%1$d en ejecución</item>
+        <item quantity="other">%1$d en ejecución</item>
+    </plurals>
+    <plurals name="disconnect_stops_tunnels" comment="Dialog text: port forwarding tunnels to this device stop when it disconnects. %1$d is the number of tunnels">
+        <item quantity="one">%1$d túnel hacia este dispositivo se detendrá.</item>
+        <item quantity="other">%1$d túneles hacia este dispositivo se detendrán.</item>
+    </plurals>
+    <string name="changelog_v8_0_0">Added Fastboot, ADB Sideload and dedicated Logcat viewer\nAdded Port forwarding feature\nAdded ADB TCP/IP connection mode in Local Adb\nAdded Scrcpy screen mirroring feature in Wireless Debugging and USB debugging modes\nAdded capability to run certain adb commands like adb tcpip, adb pair, adb connect, adb devices, etc. through Wireless Debugging (WiFi-ADB) shell and Local ADB TCP/IP mode\nAdded Backup Scheduler (for Github builds only)\nAdded the ability to select and copy text directly from shell output\nImproved bookmarks view\nAdded app UI and font scale customisation with auto-scale feature\nAdded the ability to change app typography font with the ability to import user\'s font files\nAdded option to launch Local ADB screen as default work place\nAdded a lot of icons in the QS tile icon chooser feature\nApp icon is now themed based on Material You color scheme\nAdded checks for invalid or non-existent directories when using ADB commands like cd\nAdded Privacy Policy regarding user data handling\nLots of UI and UX improvements\nFixed a whole lot of bugs</string>
     <string name="changelog_v7_4_0">You can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app</string>
     <string name="changelog_v7_3_0">Improved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">Maintenance update!</string>
@@ -1512,40 +1550,4 @@ Importar</string>
     <string name="changelog_v1_0_0">Added some more command examples.\nMinor UI changes.\nChanged package name to avoid version confusion with original app.</string>
     <string name="changelog_v0_9_1">Added changelogs into the app.\nAdded highlighted shell output.\nMinor UI changes.</string>
     <string name="changelog_v0_9_0">Added dynamic material theming.\nRevamped whole UI to give a fresh look.</string>
-    <plurals name="port_forward_tunnels_running" comment="Notification title. %1$d is the number of running port forwarding tunnels">
-        <item quantity="one">Túnel %1$d en ejecución</item>
-        <item quantity="other">Túneles %1$d en ejecución</item>
-    </plurals>
-    <plurals name="port_forward_notification_waiting_count" comment="Part of the notification summary. %1$d is the number of tunnels waiting for a network">
-        <item quantity="one">%1$d en espera</item>
-        <item quantity="other">%1$d en espera</item>
-    </plurals>
-    <plurals name="port_forward_notification_attention_count" comment="Part of the notification summary. %1$d is the number of tunnels with a problem">
-        <item quantity="one">%1$d necesita atención</item>
-        <item quantity="other">%1$d necesita atención</item>
-    </plurals>
-    <plurals name="n_seconds" comment="A duration in seconds. %1$d is the number">
-        <item quantity="one">%1$d segundo</item>
-        <item quantity="other">%1$d segundos</item>
-    </plurals>
-    <plurals name="port_forward_interrupted" comment="Banner when Android stopped tunnels while they were running. %1$d is the number of tunnels">
-        <item quantity="one">Túnel %1$d se paró inesperadamente</item>
-        <item quantity="other">%1$d túneles se pararon inesperadamente</item>
-    </plurals>
-    <plurals name="port_forward_stopped_all" comment="Snackbar after stopping all tunnels. %1$d is the number of tunnels">
-        <item quantity="one">Túnel %1$d detenido</item>
-        <item quantity="other">%1$d túneles parados</item>
-    </plurals>
-    <plurals name="port_forward_disable_sharing_message" comment="Dialog text before turning off sharing. %1$d is the number of shared tunnels that will restart">
-        <item quantity="one">%1$d túnel compartido se reiniciará solo en este teléfono.</item>
-        <item quantity="other">%1$d túneles compartidos se reiniciarán solo en este teléfono.</item>
-    </plurals>
-    <plurals name="port_forward_running_count" comment="Badge on the home card. %1$d is the number of running tunnels">
-        <item quantity="one">%1$d en ejecución</item>
-        <item quantity="other">%1$d en ejecución</item>
-    </plurals>
-    <plurals name="disconnect_stops_tunnels" comment="Dialog text: port forwarding tunnels to this device stop when it disconnects. %1$d is the number of tunnels">
-        <item quantity="one">%1$d túnel hacia este dispositivo se detendrá.</item>
-        <item quantity="other">%1$d túneles hacia este dispositivo se detendrán.</item>
-    </plurals>
 </resources>
