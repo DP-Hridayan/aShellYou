@@ -29,4 +29,14 @@ class GuideCatalogTest {
         val categories = guides.map { it.category }.toSet()
         assertEquals(GuideCategory.entries.toSet(), categories)
     }
+
+    @Test
+    fun getAllGuides_allFeatureGuidesTargetOfficialWikiOrTelegram() {
+        val guides = GuideCatalog.getAllGuides()
+        for (guide in guides) {
+            val isOfficialWiki = guide.url.startsWith("https://github.com/DP-Hridayan/aShellYou/wiki")
+            val isTelegram = guide.url.startsWith("https://t.me/")
+            assertTrue(isOfficialWiki || isTelegram)
+        }
+    }
 }

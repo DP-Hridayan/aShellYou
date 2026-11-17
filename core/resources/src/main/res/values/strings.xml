@@ -56,6 +56,7 @@
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Agent skills</string>
     <string name="ai_agent_shortcut">AI Agent</string>
     <string name="ai_agent_shortcut_long_label">AI ADB Agent</string>
+    <string name="ai_shell_assistant" comment="Title for AI shell assistant feature guide">AI Shell Assistant</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">Cache duration</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">Enable cache</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">Allow</string>
@@ -549,6 +550,7 @@
     <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">Failed to download file</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">Failed to open USB connection. Is USB debugging enabled?</string>
     <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">Failed to upload file</string>
+    <string name="faqs" comment="Title for FAQs and troubleshooting feature guide">FAQs &amp; Troubleshooting</string>
     <string name="fastboot" comment="Refers to Fastboot mode protocol for Android bootloader partition flashing over OTG" translatable="false">Fastboot</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">Coming Soon</string>
@@ -702,7 +704,11 @@
     <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">Sign in or create a free Groq account</string>
     <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">Open the API Keys page and click Create API Key</string>
     <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">Copy your API key and paste it here</string>
+    <string name="guide_ai_assistant_desc" comment="Guide description for AI Shell Assistant guide">Configure AI providers to generate shell commands and troubleshoot issues</string>
+    <string name="guide_command_examples_desc" comment="Guide description for Command Examples guide">Browse, execute, and customize preloaded shell command templates</string>
+    <string name="guide_faqs_desc" comment="Guide description for FAQs and troubleshooting guide">Find answers to frequently asked questions and common connection issues</string>
     <string name="guide_fastboot_desc" comment="Guide description for Fastboot OTG guide">Manage bootloader mode, flash partition images, and reboot to recovery</string>
+    <string name="guide_file_browser_desc" comment="Guide description for File Browser guide">Browse, download, upload, and manage files on the connected device</string>
     <string name="guide_local_adb_desc" comment="Guide description for local ADB and Shizuku guide">Run elevated shell commands on your own device using Shizuku or root access</string>
     <string name="guide_logcat_desc" comment="Guide description for Logcat viewer guide">Inspect live device logcat streams with regex search and package filtering</string>
     <string name="guide_otg_adb_desc" comment="Guide description for OTG ADB walkthrough">Connect another Android device via USB OTG cable for direct hardware shell access</string>

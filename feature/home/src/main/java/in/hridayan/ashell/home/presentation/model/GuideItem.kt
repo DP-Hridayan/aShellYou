@@ -31,8 +31,8 @@ object GuideCatalog {
                 id = "local_adb",
                 titleRes = R.string.local_adb,
                 descriptionRes = R.string.guide_local_adb_desc,
-                iconRes = R.drawable.ic_adb,
-                url = UrlConst.URL_SHIZUKU_SITE,
+                iconRes = R.drawable.ic_terminal,
+                url = UrlConst.URL_WIKI_LOCAL_ADB,
                 category = GuideCategory.Connection
             ),
             GuideItem(
@@ -55,16 +55,16 @@ object GuideCatalog {
                 id = "fastboot",
                 titleRes = R.string.fastboot,
                 descriptionRes = R.string.guide_fastboot_desc,
-                iconRes = R.drawable.ic_flash_on,
-                url = UrlConst.URL_WIKI_FASTBOOT,
+                iconRes = R.drawable.ic_fastboot,
+                url = UrlConst.URL_WIKI_FASTBOOT_OTG,
                 category = GuideCategory.Advanced
             ),
             GuideItem(
                 id = "adb_sideload",
                 titleRes = R.string.adb_sideload,
                 descriptionRes = R.string.guide_sideload_desc,
-                iconRes = R.drawable.ic_mobile_arrow_down,
-                url = UrlConst.URL_WIKI_SIDELOAD,
+                iconRes = R.drawable.ic_upload_file,
+                url = UrlConst.URL_WIKI_ADB_SIDELOAD,
                 category = GuideCategory.Advanced
             ),
             GuideItem(
@@ -72,15 +72,15 @@ object GuideCatalog {
                 titleRes = R.string.screen_mirror,
                 descriptionRes = R.string.guide_screen_mirror_desc,
                 iconRes = R.drawable.ic_mobile,
-                url = UrlConst.URL_WIKI_SCREEN_MIRROR,
+                url = UrlConst.URL_WIKI_SCREEN_MIRRORING,
                 category = GuideCategory.Advanced
             ),
             GuideItem(
                 id = "logcat",
                 titleRes = R.string.logcat,
                 descriptionRes = R.string.guide_logcat_desc,
-                iconRes = R.drawable.ic_bug,
-                url = UrlConst.URL_WIKI_LOGCAT,
+                iconRes = R.drawable.ic_troubleshoot,
+                url = UrlConst.URL_WIKI_LOGCAT_VIEWER,
                 category = GuideCategory.Utilities
             ),
             GuideItem(
@@ -92,11 +92,35 @@ object GuideCatalog {
                 category = GuideCategory.Utilities
             ),
             GuideItem(
+                id = "file_browser",
+                titleRes = R.string.file_browser,
+                descriptionRes = R.string.guide_file_browser_desc,
+                iconRes = R.drawable.ic_directory,
+                url = UrlConst.URL_WIKI_FILE_BROWSER,
+                category = GuideCategory.Utilities
+            ),
+            GuideItem(
                 id = "qs_tiles",
                 titleRes = R.string.qs_tiles,
                 descriptionRes = R.string.guide_qs_tiles_desc,
                 iconRes = R.drawable.ic_dashboard,
-                url = UrlConst.URL_WIKI_QS_TILES,
+                url = UrlConst.URL_WIKI_QUICK_SETTINGS_TILES,
+                category = GuideCategory.Utilities
+            ),
+            GuideItem(
+                id = "command_examples",
+                titleRes = R.string.commands,
+                descriptionRes = R.string.guide_command_examples_desc,
+                iconRes = R.drawable.ic_list_alt,
+                url = UrlConst.URL_WIKI_COMMAND_EXAMPLES,
+                category = GuideCategory.Utilities
+            ),
+            GuideItem(
+                id = "ai_assistant",
+                titleRes = R.string.ai_shell_assistant,
+                descriptionRes = R.string.guide_ai_assistant_desc,
+                iconRes = R.drawable.ic_bolt,
+                url = UrlConst.URL_WIKI_AI_ASSISTANT,
                 category = GuideCategory.Utilities
             ),
             GuideItem(
@@ -105,6 +129,14 @@ object GuideCatalog {
                 descriptionRes = R.string.guide_wiki_desc,
                 iconRes = R.drawable.ic_github,
                 url = UrlConst.URL_WIKI_ROOT,
+                category = GuideCategory.Community
+            ),
+            GuideItem(
+                id = "faqs",
+                titleRes = R.string.faqs,
+                descriptionRes = R.string.guide_faqs_desc,
+                iconRes = R.drawable.ic_help,
+                url = UrlConst.URL_WIKI_FAQS,
                 category = GuideCategory.Community
             ),
             GuideItem(
