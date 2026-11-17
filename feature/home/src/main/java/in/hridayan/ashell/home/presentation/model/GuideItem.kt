@@ -28,11 +28,11 @@ object GuideCatalog {
     fun getAllGuides(): List<GuideItem> {
         return listOf(
             GuideItem(
-                id = "wireless_debugging",
-                titleRes = R.string.wireless_debugging,
-                descriptionRes = R.string.guide_wireless_debugging_desc,
-                iconRes = R.drawable.ic_wireless,
-                url = UrlConst.URL_WIRELESS_DEBUGGING_INSTRUCTIONS,
+                id = "local_adb",
+                titleRes = R.string.local_adb,
+                descriptionRes = R.string.guide_local_adb_desc,
+                iconRes = R.drawable.ic_adb,
+                url = UrlConst.URL_SHIZUKU_SITE,
                 category = GuideCategory.Connection
             ),
             GuideItem(
@@ -44,18 +44,18 @@ object GuideCatalog {
                 category = GuideCategory.Connection
             ),
             GuideItem(
-                id = "local_adb",
-                titleRes = R.string.local_adb,
-                descriptionRes = R.string.guide_local_adb_desc,
-                iconRes = R.drawable.ic_terminal,
-                url = UrlConst.URL_SHIZUKU_SITE,
+                id = "wireless_debugging",
+                titleRes = R.string.wireless_debugging,
+                descriptionRes = R.string.guide_wireless_debugging_desc,
+                iconRes = R.drawable.ic_wireless,
+                url = UrlConst.URL_WIRELESS_DEBUGGING_INSTRUCTIONS,
                 category = GuideCategory.Connection
             ),
             GuideItem(
                 id = "fastboot",
                 titleRes = R.string.fastboot,
                 descriptionRes = R.string.guide_fastboot_desc,
-                iconRes = R.drawable.ic_fastboot,
+                iconRes = R.drawable.ic_flash_on,
                 url = UrlConst.URL_WIKI_FASTBOOT,
                 category = GuideCategory.Advanced
             ),
@@ -63,7 +63,7 @@ object GuideCatalog {
                 id = "adb_sideload",
                 titleRes = R.string.adb_sideload,
                 descriptionRes = R.string.guide_sideload_desc,
-                iconRes = R.drawable.ic_upload_file,
+                iconRes = R.drawable.ic_mobile_arrow_down,
                 url = UrlConst.URL_WIKI_SIDELOAD,
                 category = GuideCategory.Advanced
             ),
@@ -79,7 +79,7 @@ object GuideCatalog {
                 id = "logcat",
                 titleRes = R.string.logcat,
                 descriptionRes = R.string.guide_logcat_desc,
-                iconRes = R.drawable.ic_troubleshoot,
+                iconRes = R.drawable.ic_bug,
                 url = UrlConst.URL_WIKI_LOGCAT,
                 category = GuideCategory.Utilities
             ),

@@ -33,16 +33,6 @@ import `in`.hridayan.ashell.home.presentation.model.GuideCatalog
 import `in`.hridayan.ashell.home.presentation.model.GuideCategory
 import `in`.hridayan.ashell.home.presentation.model.GuideItem
 
-private val HeaderHorizontalPadding = 20.dp
-private val HeaderTopPadding = 4.dp
-private val HeaderBottomPadding = 12.dp
-private val HeaderTitleSubtitleSpacing = 4.dp
-private val CategoryHeaderTopPadding = 18.dp
-private val CategoryHeaderBottomPadding = 6.dp
-private val CategoryHeaderHorizontalPadding = 20.dp
-private val CardItemVerticalSpacing = 3.dp
-private val BottomNavigationSpacerHeight = 28.dp
-
 @Composable
 fun GuidesBottomSheet(
     modifier: Modifier = Modifier,
@@ -61,6 +51,7 @@ fun GuidesBottomSheet(
     ModalBottomSheet(
         modifier = modifier,
         sheetState = sheetState,
+        dragHandle = null,
         onDismissRequest = onDismiss
     ) {
         GuidesBottomSheetContent(
@@ -94,7 +85,15 @@ private fun GuidesBottomSheetContent(
                 val categoryGuides = groupedGuides[category].orEmpty()
                 if (categoryGuides.isNotEmpty()) {
                     item {
-                        GuideCategorySectionHeader(category = category)
+                        GuideCategorySectionHeader(
+                            modifier = modifier.padding(
+                                start = 20.dp,
+                                end = 20.dp,
+                                top = 25.dp,
+                                bottom = 8.dp
+                            ),
+                            category = category
+                        )
                     }
 
                     items(
@@ -108,10 +107,13 @@ private fun GuidesBottomSheetContent(
                         )
 
                         if (index > 0) {
-                            Spacer(modifier = Modifier.height(CardItemVerticalSpacing))
+                            Spacer(modifier = Modifier.height(2.dp))
                         }
 
                         GuideItemCard(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 15.dp),
                             guide = guide,
                             shape = shape,
                             onClick = { onGuideClick(guide) }
@@ -124,7 +126,7 @@ private fun GuidesBottomSheetContent(
                 Spacer(
                     modifier = Modifier
                         .navigationBarsPadding()
-                        .height(BottomNavigationSpacerHeight)
+                        .height(28.dp)
                 )
             }
         }
@@ -138,12 +140,7 @@ private fun GuidesBottomSheetHeader(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(
-                start = HeaderHorizontalPadding,
-                end = HeaderHorizontalPadding,
-                top = HeaderTopPadding,
-                bottom = HeaderBottomPadding
-            )
+            .padding(start = 20.dp, end = 20.dp, top = 20.dp)
     ) {
         Text(
             text = stringResource(R.string.feature_guides),
@@ -152,7 +149,7 @@ private fun GuidesBottomSheetHeader(
             color = MaterialTheme.colorScheme.onSurface
         )
 
-        Spacer(modifier = Modifier.height(HeaderTitleSubtitleSpacing))
+        Spacer(modifier = Modifier.height(4.dp))
 
         Text(
             text = stringResource(R.string.feature_guides_summary),
@@ -168,12 +165,7 @@ private fun GuideCategorySectionHeader(
     modifier: Modifier = Modifier
 ) {
     Text(
-        modifier = modifier.padding(
-            start = CategoryHeaderHorizontalPadding,
-            end = CategoryHeaderHorizontalPadding,
-            top = CategoryHeaderTopPadding,
-            bottom = CategoryHeaderBottomPadding
-        ),
+        modifier = modifier,
         text = stringResource(category.titleRes),
         style = MaterialTheme.typography.labelLarge,
         color = MaterialTheme.colorScheme.primary,

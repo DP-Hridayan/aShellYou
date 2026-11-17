@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.home.presentation.component.bottomsheet
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,8 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -18,28 +18,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
+import `in`.hridayan.ashell.core.presentation.components.card.cardPressClip
+import `in`.hridayan.ashell.core.presentation.components.card.cardPressRotation
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.home.presentation.model.GuideItem
-
-private val IconContainerSize = 42.dp
-private val IconSize = 22.dp
-private val TrailingIconSize = 18.dp
-private val IconCornerRadius = 12.dp
-private const val TrailingIconAlpha = 0.65f
-private val CardHorizontalPadding = 16.dp
-private val ContentHorizontalPadding = 16.dp
-private val ContentVerticalPadding = 14.dp
-private val IconTextSpacing = 14.dp
-private val TextTrailingSpacing = 10.dp
-private val TitleDescSpacing = 3.dp
 
 @Composable
 fun GuideItemCard(
@@ -49,9 +38,7 @@ fun GuideItemCard(
     onClick: () -> Unit
 ) {
     CustomCard(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = CardHorizontalPadding),
+        modifier = modifier,
         shape = shape,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
@@ -61,25 +48,25 @@ fun GuideItemCard(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = ContentHorizontalPadding, vertical = ContentVerticalPadding),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(15.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(15.dp)
         ) {
             Box(
                 modifier = Modifier
-                    .size(IconContainerSize)
-                    .clip(RoundedCornerShape(IconCornerRadius))
+                    .size(42.dp)
+                    .cardPressRotation()
+                    .cardPressClip(CircleShape)
                     .background(MaterialTheme.colorScheme.secondaryContainer),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    modifier = Modifier.size(IconSize),
                     painter = painterResource(guide.iconRes),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             }
 
-            Spacer(modifier = Modifier.width(IconTextSpacing))
 
             Column(
                 modifier = Modifier.weight(1f)
@@ -91,7 +78,7 @@ fun GuideItemCard(
                     color = MaterialTheme.colorScheme.onSurface
                 )
 
-                Spacer(modifier = Modifier.height(TitleDescSpacing))
+                Spacer(modifier = Modifier.height(5.dp))
 
                 Text(
                     text = stringResource(guide.descriptionRes),
@@ -100,13 +87,11 @@ fun GuideItemCard(
                 )
             }
 
-            Spacer(modifier = Modifier.width(TextTrailingSpacing))
-
             Icon(
-                modifier = Modifier.size(TrailingIconSize),
+                modifier = Modifier.size(18.dp),
                 painter = painterResource(R.drawable.ic_open_in_new),
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = TrailingIconAlpha)
+                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.65f)
             )
         }
     }
