@@ -56,6 +56,7 @@
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Agent skills</string>
     <string name="ai_agent_shortcut">AI Agent</string>
     <string name="ai_agent_shortcut_long_label">AI ADB Agent</string>
+    <string name="ai_shell_assistant" comment="Title for AI shell assistant feature guide">AI Shell Assistant</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">Cache duration</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">Enable cache</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">Allow</string>
@@ -269,10 +270,12 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Command not found!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">Input ADB Command</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Commands</string>
+    <string name="community_and_support" comment="Category header for community and documentation links in feature guides">Community &amp; Support</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Configure save directory</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">You are about to flash %1$s with %2$s. This operation cannot be undone.</string>
+    <string name="connection_and_shell" comment="Category header for connection and shell guides">Connection &amp; Shell</string>
     <string name="confirm_custom_partition_flash_title" comment="Confirmation dialog title before flashing a custom partition">Confirm Custom Partition Flash</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Confirm delete</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Are you sure you want to remove "%1$s"? If it is currently applied, the app will revert to the System font.</string>
@@ -547,6 +550,7 @@
     <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">Failed to download file</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">Failed to open USB connection. Is USB debugging enabled?</string>
     <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">Failed to upload file</string>
+    <string name="faqs" comment="Title for FAQs and troubleshooting feature guide">FAQs &amp; Troubleshooting</string>
     <string name="fastboot" comment="Refers to Fastboot mode protocol for Android bootloader partition flashing over OTG" translatable="false">Fastboot</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">Coming Soon</string>
@@ -592,6 +596,8 @@
     <string name="fb_upload_failed" comment="%1$s = error message">Upload failed: %1$s</string>
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">File uploaded successfully</string>
     <string name="fb_uploading" comment="%1$s = file name">Uploading %1$s</string>
+    <string name="feature_guides" comment="Title of the bottom sheet displaying guides and documentation for app features">Feature Guides</string>
+    <string name="feature_guides_summary" comment="Subtitle in guides bottom sheet explaining its contents">Walkthroughs, setup instructions, and documentation for aShell You features</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Feature request</string>
     <string name="feedback">Feedback</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Fetching backup time …</string>
@@ -698,8 +704,24 @@
     <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">Sign in or create a free Groq account</string>
     <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">Open the API Keys page and click Create API Key</string>
     <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">Copy your API key and paste it here</string>
+    <string name="guide_ai_assistant_desc" comment="Guide description for AI Shell Assistant guide">Configure AI providers to generate shell commands and troubleshoot issues</string>
+    <string name="guide_command_examples_desc" comment="Guide description for Command Examples guide">Browse, execute, and customize preloaded shell command templates</string>
+    <string name="guide_faqs_desc" comment="Guide description for FAQs and troubleshooting guide">Find answers to frequently asked questions and common connection issues</string>
+    <string name="guide_fastboot_desc" comment="Guide description for Fastboot OTG guide">Manage bootloader mode, flash partition images, and reboot to recovery</string>
+    <string name="guide_file_browser_desc" comment="Guide description for File Browser guide">Browse, download, upload, and manage files on the connected device</string>
+    <string name="guide_local_adb_desc" comment="Guide description for local ADB and Shizuku guide">Run elevated shell commands on your own device using Shizuku or root access</string>
+    <string name="guide_logcat_desc" comment="Guide description for Logcat viewer guide">Inspect live device logcat streams with regex search and package filtering</string>
+    <string name="guide_otg_adb_desc" comment="Guide description for OTG ADB walkthrough">Connect another Android device via USB OTG cable for direct hardware shell access</string>
+    <string name="guide_port_forward_desc" comment="Guide description for port forwarding guide">Forward TCP/IP ports and configure reverse socket tunnels between devices</string>
+    <string name="guide_qs_tiles_desc" comment="Guide description for Quick Settings tiles guide">Execute predefined shell commands directly with one tap from the notification shade</string>
+    <string name="guide_screen_mirror_desc" comment="Guide description for Scrcpy screen mirroring guide">Stream and mirror the target device screen with low latency over OTG</string>
+    <string name="guide_sideload_desc" comment="Guide description for ADB sideload guide">Flash update ZIP packages and custom recoveries in recovery mode</string>
+    <string name="guide_telegram_desc" comment="Guide description for Telegram community support">Join the Telegram group for discussions, announcements, and direct support</string>
+    <string name="guide_wiki_desc" comment="Guide description for official GitHub wiki">Browse the complete official documentation, FAQ, and tutorials</string>
+    <string name="guide_wireless_debugging_desc" comment="Guide description for wireless debugging walkthrough">Pair and execute shell commands over local Wi-Fi without a PC</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Haptics &amp; Vibration</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Have a nice day!</string>
+    <string name="help" comment="Accessibility description and label for help button">Help</string>
     <string name="heuristic">Heuristic</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Hex Editor</string>
     <string name="hide_device_tools" comment="Accessibility action that collapses the device tools side toolbar">Hide device tools</string>
@@ -903,6 +925,7 @@
     <string name="notification_settings" comment="Button label to open system notification settings screen">Notification settings</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">If you cannot enter the Pairing Code from the notification, then you might need to change the Notification Shade to Android. Go to Notification Settings ~ Notification Style to change the Notification Style.  Otherwise you might not be able to enter the pairing code from the notification.</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">Notification styles</string>
+    <string name="official_wiki" comment="Title for official GitHub wiki link in feature guides bottom sheet">Official Wiki</string>
     <string name="off">Off</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">Off</string>
     <string name="ok">OK</string>

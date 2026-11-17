@@ -94,7 +94,8 @@ fun HomeScreen(
     onAiChatClick: () -> Unit = {},
     onSideloadClick: () -> Unit = {},
     onReboot: (Array<String>) -> Unit = {},
-    onQsTilesClick: () -> Unit = {}
+    onQsTilesClick: () -> Unit = {},
+    onHelpClick: () -> Unit = {}
 ) {
     val dialogManager = LocalDialogManager.current
 
@@ -134,11 +135,13 @@ fun HomeScreen(
                 actions = {
                     IconButton(
                         modifier = Modifier.padding(start = 10.dp),
-                        onClick = withHaptic {}
+                        onClick = withHaptic {
+                            onHelpClick()
+                        }
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.ic_help2),
-                            contentDescription = null,
+                            contentDescription = stringResource(R.string.help),
                         )
                     }
 
