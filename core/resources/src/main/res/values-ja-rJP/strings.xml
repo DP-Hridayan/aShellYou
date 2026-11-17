@@ -270,9 +270,9 @@
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">警告 ！この操作は元に戻せません。\n本当にすべてのブックマークを削除しますか？</string>
     <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">%1$s を %2$sでフラッシュしようとしています。この操作は元に戻せません。</string>
     <string name="confirm_custom_partition_flash_title" comment="Confirmation dialog title before flashing a custom partition">カスタムパーティションフラッシュの確認</string>
-    <string name="confirm_high_risk_flash_title" comment="Confirmation dialog title before flashing a high-risk partition such as super, vbmeta, or userdata">高リスクフラッシュの確認</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">削除の確認</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">「%1$s」を削除してもよろしいですか？現在適用されている場合、アプリはシステムフォントに戻ります。</string>
+    <string name="confirm_high_risk_flash_title" comment="Confirmation dialog title before flashing a high-risk partition such as super, vbmeta, or userdata">高リスクフラッシュの確認</string>
     <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">警告 ！この操作は元に戻せません\n選択した %1$d 件のブックマークを本当に削除しますか？</string>
     <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">警告！この操作は元に戻せません\n本当にこのブックマークを削除しますか？</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">これを削除してもいいですか？</string>
@@ -430,12 +430,12 @@
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">保存したバックアップファイルからアプリのデータを復元します\n保存したデータベースは現在のデータベースを上書きします</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">このオプションを有効にすると、シェルセッション全体の出力を保存します。\n無効にすると、最後のコマンド出力のみが保存されます。</string>
     <string name="des_screen_density" comment="Description under Screen density multiplier setting item">画面密度を調整して、UI要素を大きくまたは小さく表示します</string>
+    <string name="des_scroll_bottom_vibration" comment="Description under the scroll bottom vibration setting toggle">スクロール可能なコンテンツの最後に到達したときに振動する</string>
     <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">選択したパーティションにフラッシュするブートイメージファイルを選択してください</string>
     <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">アプリ起動時に直接ローカルADB画面に入る</string>
     <string name="des_show_stream_statistics" comment="Description of the Show stream statistics switch">フレームレート、フレームレート、データレート、ビデオの上にドロップしました。</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">クラウドバックアップ用にGoogleアカウントを必要に応じてリンクする</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">上矢印または下矢印をクリックしたときにシェルのスムーズなスクロールを有効にします</string>
-    <string name="des_scroll_bottom_vibration" comment="Description under the scroll bottom vibration setting toggle">スクロール可能なコンテンツの最後に到達したときに振動する</string>
     <string name="des_terms_of_service" comment="Subtitle description under Terms of Service menu item">aShell Youを使用するためのルールとガイドライン</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">有効にすると、タップするたびにタイルがON状態とOFF状態の間で切り替わり、状態ごとに異なるコマンドを実行します</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">aShellYouの翻訳を手伝ってくれた人々</string>
@@ -751,8 +751,8 @@
     <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">~380 KBを一度ダウンロードして2,500種類以上のマテリアルアイコンを閲覧する</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">ダウンロード</string>
     <string name="medium">中</string>
-    <string name="menu" comment="Navigation menu button label">メニュー</string>
     <string name="megabits_per_second" comment="%1$s is a data rate in megabits per second">%1$s Mbps</string>
+    <string name="menu" comment="Navigation menu button label">メニュー</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">結合</string>
     <string name="message">メッセージ</string>
     <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">ADBエージェントにメッセージを送信…</string>
@@ -953,7 +953,7 @@
     <string name="port_forward_error_nothing_listening" comment="Port forwarding error: no app on the connected device listens on that socket. %1$s is the port or socket name">デバイスで %1$s を聴いているものはありません</string>
     <string name="port_forward_error_port_in_use" comment="Port forwarding error: the chosen port on this phone is already taken by another app. %1$d is the port number">Port %1$d is used by another app</string>
     <string name="port_forward_error_port_privileged" comment="Port forwarding error: apps cannot listen on ports below 1024">ポート1024以上を使用</string>
-    <string name="port_forward_error_target_refused" comment="Port forwarding error: the computer refused the connection. vite --host is a command shown verbatim as an example and must not be translated">拒否されました。サーバーはネットワーク上で待機していますか？例えば、vite --host</string>
+    <string name="port_forward_error_target_refused" comment="Port forwarding error: the computer refused the connection. vite --host is a command shown verbatim as an example and must not be translated">拒否されました。サーバーはネットワーク上で待ち受けていますか？例えば、vite — host</string>
     <string name="port_forward_error_target_timeout" comment="Port forwarding error: the computer did not answer in time">返信がありません。コンピュータのファイアウォールを確認し、両方が同じWi-Fiに接続されていることを確認してください</string>
     <string name="port_forward_error_too_many_connections" comment="Port forwarding warning: the tunnel reached its connection limit and refuses new connections">接続が多すぎます。新しい接続は拒否されます。</string>
     <string name="port_forward_error_unexpected" comment="Port forwarding error with technical details. %1$s is the system's error message">何か問題が発生しました: %1$s</string>
@@ -1322,11 +1322,12 @@
     <string name="terms_of_service" comment="Title for the Terms of Service legal document">利用規約</string>
     <string name="tertiary">ターシャリー</string>
     <string name="test" comment="Button that checks whether a server can be reached">テスト</string>
-    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">テーマモード</string>
     <string name="theme_import_failed" comment="Toast shown when a color scheme file fails to be read or deserialized">カラースキームのインポートに失敗しました</string>
+    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">テーマモード</string>
     <string name="theme_name" comment="Label for the text field where user can edit the name of an imported theme">テーマ名</string>
     <string name="theme_preview" comment="Title for the bottom sheet showing preview of an imported theme">テーマのプレビュー</string>
     <string name="theme_saved_applied" comment="Toast message shown after successfully importing and applying a theme">テーマを保存して適用しました</string>
+    <string name="signature_special" comment="Label shown on immutable designer special theme pill">署名</string>
     <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">考え</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">サードパーティ製ライブラリ</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">このアプリケーション</string>
@@ -1453,6 +1454,34 @@
     <plurals name="timeout_minutes" comment="Option for minute timeouts">
         <item quantity="other">%1$d 分</item>
     </plurals>
+    <plurals name="port_forward_tunnels_running" comment="Notification title. %1$d is the number of running port forwarding tunnels">
+        <item quantity="other">%1$d トンネルを実行中</item>
+    </plurals>
+    <plurals name="port_forward_notification_waiting_count" comment="Part of the notification summary. %1$d is the number of tunnels waiting for a network">
+        <item quantity="other">%1$d 待機中</item>
+    </plurals>
+    <plurals name="port_forward_notification_attention_count" comment="Part of the notification summary. %1$d is the number of tunnels with a problem">
+        <item quantity="other">%1$d 注意が必要</item>
+    </plurals>
+    <plurals name="n_seconds" comment="A duration in seconds. %1$d is the number">
+        <item quantity="other">%1$d 秒</item>
+    </plurals>
+    <plurals name="port_forward_interrupted" comment="Banner when Android stopped tunnels while they were running. %1$d is the number of tunnels">
+        <item quantity="other">%1$d トンネルが予期せず停止しました</item>
+    </plurals>
+    <plurals name="port_forward_stopped_all" comment="Snackbar after stopping all tunnels. %1$d is the number of tunnels">
+        <item quantity="other">%1$d トンネルが停止しました</item>
+    </plurals>
+    <plurals name="port_forward_disable_sharing_message" comment="Dialog text before turning off sharing. %1$d is the number of shared tunnels that will restart">
+        <item quantity="other">%1$d 共有トンネルはこの端末でのみ再起動します。</item>
+    </plurals>
+    <plurals name="port_forward_running_count" comment="Badge on the home card. %1$d is the number of running tunnels">
+        <item quantity="other">%1$d 実行中</item>
+    </plurals>
+    <plurals name="disconnect_stops_tunnels" comment="Dialog text: port forwarding tunnels to this device stop when it disconnects. %1$d is the number of tunnels">
+        <item quantity="other">%1$d このデバイスへのトンネルは停止します。</item>
+    </plurals>
+    <string name="changelog_v8_0_0">Added Fastboot, ADB Sideload and dedicated Logcat viewer\nAdded Port forwarding feature\nAdded ADB TCP/IP connection mode in Local Adb\nAdded Scrcpy screen mirroring feature in Wireless Debugging and USB debugging modes\nAdded capability to run certain adb commands like adb tcpip, adb pair, adb connect, adb devices, etc. through Wireless Debugging (WiFi-ADB) shell and Local ADB TCP/IP mode\nAdded Backup Scheduler (for Github builds only)\nAdded the ability to select and copy text directly from shell output\nImproved bookmarks view\nAdded app UI and font scale customisation with auto-scale feature\nAdded the ability to change app typography font with the ability to import user\'s font files\nAdded option to launch Local ADB screen as default work place\nAdded a lot of icons in the QS tile icon chooser feature\nApp icon is now themed based on Material You color scheme\nAdded checks for invalid or non-existent directories when using ADB commands like cd\nAdded Privacy Policy regarding user data handling\nLots of UI and UX improvements\nFixed a whole lot of bugs</string>
     <string name="changelog_v7_4_0">\n設定画面内でサブ設定を検索できるようになりました\nカラースキームのパレットスタイルを追加\nアプリ内で直接アプリ言語を設定するオプションを追加しました</string>
     <string name="changelog_v7_3_0">\n変更履歴画面のUIを改善\nAboutセクションに翻訳貢献者を追加\nアプリおよびアプリで使用されている他のライブラリに関する詳細なライセンス情報を表示するライセンス画面を追加しました</string>
     <string name="changelog_v7_2_1">\nメンテナンスの更新！</string>
@@ -1503,31 +1532,4 @@
     <string name="changelog_v1_0_0">\nいくつかのコマンド例を追加\n軽微なUI変更\nパッケージ名を変更。</string>
     <string name="changelog_v0_9_1">\nアプリにチェンジログを追加\nハイライトされたシェル出力を追加\n軽微なUI変更。</string>
     <string name="changelog_v0_9_0">\n動的なマテリアルテーマを追加\nUI全体を刷新。</string>
-    <plurals name="port_forward_tunnels_running" comment="Notification title. %1$d is the number of running port forwarding tunnels">
-        <item quantity="other">%1$d トンネルを実行中</item>
-    </plurals>
-    <plurals name="port_forward_notification_waiting_count" comment="Part of the notification summary. %1$d is the number of tunnels waiting for a network">
-        <item quantity="other">%1$d 待機中</item>
-    </plurals>
-    <plurals name="port_forward_notification_attention_count" comment="Part of the notification summary. %1$d is the number of tunnels with a problem">
-        <item quantity="other">%1$d 注意が必要</item>
-    </plurals>
-    <plurals name="n_seconds" comment="A duration in seconds. %1$d is the number">
-        <item quantity="other">%1$d 秒</item>
-    </plurals>
-    <plurals name="port_forward_interrupted" comment="Banner when Android stopped tunnels while they were running. %1$d is the number of tunnels">
-        <item quantity="other">%1$d トンネルが予期せず停止しました</item>
-    </plurals>
-    <plurals name="port_forward_stopped_all" comment="Snackbar after stopping all tunnels. %1$d is the number of tunnels">
-        <item quantity="other">%1$d トンネルが停止しました</item>
-    </plurals>
-    <plurals name="port_forward_disable_sharing_message" comment="Dialog text before turning off sharing. %1$d is the number of shared tunnels that will restart">
-        <item quantity="other">%1$d 共有トンネルはこの端末でのみ再起動します。</item>
-    </plurals>
-    <plurals name="port_forward_running_count" comment="Badge on the home card. %1$d is the number of running tunnels">
-        <item quantity="other">%1$d 実行中</item>
-    </plurals>
-    <plurals name="disconnect_stops_tunnels" comment="Dialog text: port forwarding tunnels to this device stop when it disconnects. %1$d is the number of tunnels">
-        <item quantity="other">%1$d このデバイスへのトンネルは停止します。</item>
-    </plurals>
 </resources>

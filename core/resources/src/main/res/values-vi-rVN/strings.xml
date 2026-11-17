@@ -268,11 +268,11 @@
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Chọn thư mục lưu</string>
     <string name="confirm">Xác nhận</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Cảnh báo! Hành động này không thể hoàn tác.\nBạn có chắc chắn muốn xóa tất cả dấu trang không?</string>
-    <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">You are about to flash %1$s with %2$s. This operation cannot be undone.</string>
-    <string name="confirm_custom_partition_flash_title" comment="Confirmation dialog title before flashing a custom partition">Confirm Custom Partition Flash</string>
-    <string name="confirm_high_risk_flash_title" comment="Confirmation dialog title before flashing a high-risk partition such as super, vbmeta, or userdata">Confirm High-Risk Flash</string>
+    <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">Bạn sắp flash %1$s bằng %2$s. Thao tác này không thể hoàn tác.</string>
+    <string name="confirm_custom_partition_flash_title" comment="Confirmation dialog title before flashing a custom partition">Xác nhận flash phân vùng tùy chỉnh</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Xác nhận xóa</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Bạn có chắc chắn muốn xóa \"%1$s\" không? Nếu đang sử dụng, ứng dụng sẽ quay về phông chữ hệ thống.</string>
+    <string name="confirm_high_risk_flash_title" comment="Confirmation dialog title before flashing a high-risk partition such as super, vbmeta, or userdata">Xác nhận flash có rủi ro cao</string>
     <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Cảnh báo! Hành động này không thể hoàn tác\nBạn có chắc chắn muốn xóa %1$d dấu trang đã chọn này không?</string>
     <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">Cảnh báo! Hành động này không thể hoàn tác\nBạn có chắc chắn muốn xóa dấu trang này không?</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">Bạn có chắc chắn muốn xóa ô này không?</string>
@@ -308,17 +308,17 @@
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">Tạo ô mới</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">Tạo bằng AI</string>
     <string name="critical">Nghiêm trọng</string>
-    <string name="critical_partition_ack" comment="Checkbox label where the user acknowledges the risk of flashing a critical partition">I understand that flashing this partition carries a high risk of permanently bricking the device.</string>
-    <string name="critical_partition_warning" comment="Warning banner shown when a user types a critical bootloader or hardware partition">High-risk partition. Flashing an incorrect image may permanently hard-brick your device.</string>
+    <string name="critical_partition_ack" comment="Checkbox label where the user acknowledges the risk of flashing a critical partition">Tôi hiểu rằng việc flash phân vùng này có nguy cơ cao làm thiết bị bị brick vĩnh viễn.</string>
+    <string name="critical_partition_warning" comment="Warning banner shown when a user types a critical bootloader or hardware partition">Phân vùng có rủi ro cao. Flash tệp image không chính xác có thể khiến thiết bị của bạn bị hard-brick vĩnh viễn.</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Truy cập nền tảng dịch thuật Crowdin của chúng tôi để đóng góp</string>
     <string name="current_version" comment="About screen card label showing installed application version number">Phiên bản hiện tại</string>
     <string name="custom" comment="Dropdown entry that lets the user type a value instead of picking a preset">Tùy chỉnh…</string>
-    <string name="custom_partition_hint" comment="Placeholder text for entering a custom partition name in fastboot">e.g. product, odm, boot_a</string>
-    <string name="custom_partition_invalid_format" comment="Error message when custom partition name contains invalid characters">Only letters, numbers, hyphens, and underscores are allowed</string>
-    <string name="custom_partition_name" comment="Field label for custom partition input in fastboot flash sheet">Custom partition name</string>
-    <string name="custom_partition_switch_to_common" comment="Button label to switch back from custom partition input to common partitions list">Choose from common partitions</string>
-    <string name="custom_partition_too_long" comment="Error message when custom partition name exceeds maximum character limit">Partition name cannot exceed 64 characters</string>
-    <string name="custom_partition_warning_desc" comment="Warning message explaining the risk of flashing custom partitions in fastboot">Flashing an incorrect partition can leave your device unbootable. Make sure you know your device\'s exact partition table.</string>
+    <string name="custom_partition_hint" comment="Placeholder text for entering a custom partition name in fastboot">ví dụ: product, odm, boot_a</string>
+    <string name="custom_partition_invalid_format" comment="Error message when custom partition name contains invalid characters">Chỉ cho phép chữ cái, chữ số, dấu gạch nối và dấu gạch dưới</string>
+    <string name="custom_partition_name" comment="Field label for custom partition input in fastboot flash sheet">Tên phân vùng tùy chỉnh</string>
+    <string name="custom_partition_switch_to_common" comment="Button label to switch back from custom partition input to common partitions list">Chọn từ các phân vùng phổ biến</string>
+    <string name="custom_partition_too_long" comment="Error message when custom partition name exceeds maximum character limit">Tên phân vùng không được vượt quá 64 ký tự</string>
+    <string name="custom_partition_warning_desc" comment="Warning message explaining the risk of flashing custom partitions in fastboot">Flash sai phân vùng có thể khiến thiết bị không thể khởi động. Hãy đảm bảo bạn biết chính xác bảng phân vùng của thiết bị.</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">Tùy chỉnh tỷ lệ UI</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Cắt %1$d mục</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Cắt vào bộ nhớ tạm</string>
@@ -430,12 +430,12 @@
     <string name="des_restore_app_data" comment="Subtitle description under Restore app data item">Khôi phục dữ liệu ứng dụng từ tệp sao lưu đã lưu.\nCơ sở dữ liệu đã lưu sẽ ghi đè lên cơ sở dữ liệu hiện tại</string>
     <string name="des_save_whole_output" comment="Description under Save whole output setting toggle">Bật tùy chọn này để lưu toàn bộ đầu ra của phiên shell.\nNếu tắt, chỉ đầu ra của lệnh cuối cùng mới được lưu.</string>
     <string name="des_screen_density" comment="Description under Screen density multiplier setting item">Điều chỉnh mật độ màn hình để phần tử UI hiển thị lớn hơn hoặc nhỏ hơn</string>
+    <string name="des_scroll_bottom_vibration" comment="Description under the scroll bottom vibration setting toggle">Rung khi cuộn đến cuối nội dung</string>
     <string name="des_select_file_for_flashing" comment="Instructional description prompt for picking boot image file to flash">Chọn một tệp boot image để flash vào phân vùng đã chọn</string>
     <string name="des_set_local_adb_as_default_launch" comment="Description under Set Local ADB as default launch setting">Mở trực tiếp màn hình ADB Cục bộ khi vào ứng dụng</string>
     <string name="des_show_stream_statistics" comment="Description of the Show stream statistics switch">Tốc độ khung hình, khung hình bị bỏ và tốc độ dữ liệu, hiển thị trên video</string>
     <string name="des_sign_in_with_google" comment="Description card text for Google Account sign-in in cloud backup settings">Liên kết tài khoản Google của bạn để sao lưu đám mây</string>
     <string name="des_smooth_scroll" comment="Description under Smooth scrolling setting toggle">Bật cuộn mượt trong đầu ra của shell, khi nhấn phím mũi tên Lên hoặc Xuống</string>
-    <string name="des_scroll_bottom_vibration" comment="Description under the scroll bottom vibration setting toggle">Rung khi cuộn đến cuối nội dung</string>
     <string name="des_terms_of_service" comment="Subtitle description under Terms of Service menu item">Quy tắc và hướng dẫn sử dụng aShell You</string>
     <string name="des_toggleable" comment="Description for Toggleable setting in Quick Settings tile editor">Khi được bật, ô sẽ chuyển đổi giữa trạng thái BẬT và TẮT mỗi lần nhấn, thực hiện lệnh khác nhau cho mỗi trạng thái</string>
     <string name="des_translators" comment="Subtitle description under Translators list in About section">Người đã giúp dịch aShell You</string>
@@ -751,8 +751,8 @@
     <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">Tải xuống ~380 KB một lần để duyệt qua hơn 2.500 biểu tượng Material</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">Tải xuống tối đa</string>
     <string name="medium">Trung bình</string>
-    <string name="menu" comment="Navigation menu button label">Trình đơn</string>
     <string name="megabits_per_second" comment="%1$s is a data rate in megabits per second">%1$s Mbps</string>
+    <string name="menu" comment="Navigation menu button label">Trình đơn</string>
     <string name="merge" comment="Resolution option in file browser conflict dialog to merge directory contents">Hợp nhất</string>
     <string name="message">Thông điệp</string>
     <string name="message_adb_agent" comment="Placeholder text in AI chat text input field">Nhắn tin cho ADB Agent</string>
@@ -953,7 +953,7 @@
     <string name="port_forward_error_nothing_listening" comment="Port forwarding error: no app on the connected device listens on that socket. %1$s is the port or socket name">Không có gì đang lắng nghe tại %1$s trên thiết bị</string>
     <string name="port_forward_error_port_in_use" comment="Port forwarding error: the chosen port on this phone is already taken by another app. %1$d is the port number">Cổng %1$d đang được ứng dụng khác sử dụng</string>
     <string name="port_forward_error_port_privileged" comment="Port forwarding error: apps cannot listen on ports below 1024">Sử dụng cổng 1024 trở lên</string>
-    <string name="port_forward_error_target_refused" comment="Port forwarding error: the computer refused the connection. vite --host is a command shown verbatim as an example and must not be translated">Bị từ chối. Máy chủ có đang lắng nghe trên mạng không? Ví dụ: vite --host</string>
+    <string name="port_forward_error_target_refused" comment="Port forwarding error: the computer refused the connection. vite --host is a command shown verbatim as an example and must not be translated">Refused. Is the server listening on the network? For example, vite —host</string>
     <string name="port_forward_error_target_timeout" comment="Port forwarding error: the computer did not answer in time">Không có phản hồi. Hãy kiểm tra tường lửa của máy tính và đảm bảo cả hai dùng chung Wi-Fi</string>
     <string name="port_forward_error_too_many_connections" comment="Port forwarding warning: the tunnel reached its connection limit and refuses new connections">Quá nhiều kết nối. Kết nối mới bị từ chối</string>
     <string name="port_forward_error_unexpected" comment="Port forwarding error with technical details. %1$s is the system's error message">Đã xảy ra lỗi: %1$s</string>
@@ -1322,11 +1322,12 @@
     <string name="terms_of_service" comment="Title for the Terms of Service legal document">Điều khoản dịch vụ</string>
     <string name="tertiary">Màu bổ sung</string>
     <string name="test" comment="Button that checks whether a server can be reached">Kiểm tra</string>
-    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Chế độ giao diện</string>
     <string name="theme_import_failed" comment="Toast shown when a color scheme file fails to be read or deserialized">Không thể nhập bảng màu</string>
+    <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Chế độ giao diện</string>
     <string name="theme_name" comment="Label for the text field where user can edit the name of an imported theme">Tên chủ đề</string>
     <string name="theme_preview" comment="Title for the bottom sheet showing preview of an imported theme">Xem trước chủ đề</string>
     <string name="theme_saved_applied" comment="Toast message shown after successfully importing and applying a theme">Đã lưu và áp dụng chủ đề</string>
+    <string name="signature_special" comment="Label shown on immutable designer special theme pill">Signature Special</string>
     <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Đang suy nghĩ</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Thư viện bên thứ ba</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">Ứng dụng này</string>
@@ -1453,6 +1454,34 @@
     <plurals name="timeout_minutes" comment="Option for minute timeouts">
         <item quantity="other">%1$d phút</item>
     </plurals>
+    <plurals name="port_forward_tunnels_running" comment="Notification title. %1$d is the number of running port forwarding tunnels">
+        <item quantity="other">%1$d đường hầm đang chạy</item>
+    </plurals>
+    <plurals name="port_forward_notification_waiting_count" comment="Part of the notification summary. %1$d is the number of tunnels waiting for a network">
+        <item quantity="other">%1$d đang chờ</item>
+    </plurals>
+    <plurals name="port_forward_notification_attention_count" comment="Part of the notification summary. %1$d is the number of tunnels with a problem">
+        <item quantity="other">%1$d cần chú ý</item>
+    </plurals>
+    <plurals name="n_seconds" comment="A duration in seconds. %1$d is the number">
+        <item quantity="other">%1$d giây</item>
+    </plurals>
+    <plurals name="port_forward_interrupted" comment="Banner when Android stopped tunnels while they were running. %1$d is the number of tunnels">
+        <item quantity="other">%1$d đường hầm dừng bất ngờ</item>
+    </plurals>
+    <plurals name="port_forward_stopped_all" comment="Snackbar after stopping all tunnels. %1$d is the number of tunnels">
+        <item quantity="other">Đã dừng %1$d đường hầm</item>
+    </plurals>
+    <plurals name="port_forward_disable_sharing_message" comment="Dialog text before turning off sharing. %1$d is the number of shared tunnels that will restart">
+        <item quantity="other">%1$d đường hầm được chia sẻ sẽ khởi động lại chỉ trên điện thoại này.</item>
+    </plurals>
+    <plurals name="port_forward_running_count" comment="Badge on the home card. %1$d is the number of running tunnels">
+        <item quantity="other">%1$d đang chạy</item>
+    </plurals>
+    <plurals name="disconnect_stops_tunnels" comment="Dialog text: port forwarding tunnels to this device stop when it disconnects. %1$d is the number of tunnels">
+        <item quantity="other">%1$d đường hầm tới thiết bị này sẽ dừng.</item>
+    </plurals>
+    <string name="changelog_v8_0_0">Added Fastboot, ADB Sideload and dedicated Logcat viewer\nAdded Port forwarding feature\nAdded ADB TCP/IP connection mode in Local Adb\nAdded Scrcpy screen mirroring feature in Wireless Debugging and USB debugging modes\nAdded capability to run certain adb commands like adb tcpip, adb pair, adb connect, adb devices, etc. through Wireless Debugging (WiFi-ADB) shell and Local ADB TCP/IP mode\nAdded Backup Scheduler (for Github builds only)\nAdded the ability to select and copy text directly from shell output\nImproved bookmarks view\nAdded app UI and font scale customisation with auto-scale feature\nAdded the ability to change app typography font with the ability to import user\'s font files\nAdded option to launch Local ADB screen as default work place\nAdded a lot of icons in the QS tile icon chooser feature\nApp icon is now themed based on Material You color scheme\nAdded checks for invalid or non-existent directories when using ADB commands like cd\nAdded Privacy Policy regarding user data handling\nLots of UI and UX improvements\nFixed a whole lot of bugs</string>
     <string name="changelog_v7_4_0">\nGiờ đây bạn có thể tìm kiếm cài đặt phụ trong màn hình cài đặt\nĐã thêm kiểu bảng màu cho phối màu\nĐã thêm tùy chọn đặt ngôn ngữ ứng dụng ngay trong ứng dụng</string>
     <string name="changelog_v7_3_0">\nĐã cải thiện giao diện trên màn hình nhật ký thay đổi\nĐã thêm danh sách người dịch vào phần Giới thiệu.\nĐã thêm Màn hình giấy phép hiển thị thông tin chi tiết về giấy phép của ứng dụng và thư viện khác mà ứng dụng sử dụng</string>
     <string name="changelog_v7_2_1">\nBản cập nhật bảo trì!</string>
@@ -1503,31 +1532,4 @@
     <string name="changelog_v1_0_0">\nĐã thêm một số mẫu lệnh.\nThay đổi nhỏ về giao diện.\nĐã thay đổi tên gói để tránh nhầm lẫn với ứng dụng gốc.</string>
     <string name="changelog_v0_9_1">\nĐã thêm nhật ký thay đổi vào ứng dụng.\nĐã thêm đánh dấu đầu ra shell.\nThay đổi nhỏ về UI.</string>
     <string name="changelog_v0_9_0">\nĐã thêm chủ đề động.\nĐã thiết kế lại toàn bộ UI.</string>
-    <plurals name="port_forward_tunnels_running" comment="Notification title. %1$d is the number of running port forwarding tunnels">
-        <item quantity="other">%1$d đường hầm đang chạy</item>
-    </plurals>
-    <plurals name="port_forward_notification_waiting_count" comment="Part of the notification summary. %1$d is the number of tunnels waiting for a network">
-        <item quantity="other">%1$d đang chờ</item>
-    </plurals>
-    <plurals name="port_forward_notification_attention_count" comment="Part of the notification summary. %1$d is the number of tunnels with a problem">
-        <item quantity="other">%1$d cần chú ý</item>
-    </plurals>
-    <plurals name="n_seconds" comment="A duration in seconds. %1$d is the number">
-        <item quantity="other">%1$d giây</item>
-    </plurals>
-    <plurals name="port_forward_interrupted" comment="Banner when Android stopped tunnels while they were running. %1$d is the number of tunnels">
-        <item quantity="other">%1$d đường hầm dừng bất ngờ</item>
-    </plurals>
-    <plurals name="port_forward_stopped_all" comment="Snackbar after stopping all tunnels. %1$d is the number of tunnels">
-        <item quantity="other">Đã dừng %1$d đường hầm</item>
-    </plurals>
-    <plurals name="port_forward_disable_sharing_message" comment="Dialog text before turning off sharing. %1$d is the number of shared tunnels that will restart">
-        <item quantity="other">%1$d đường hầm được chia sẻ sẽ khởi động lại chỉ trên điện thoại này.</item>
-    </plurals>
-    <plurals name="port_forward_running_count" comment="Badge on the home card. %1$d is the number of running tunnels">
-        <item quantity="other">%1$d đang chạy</item>
-    </plurals>
-    <plurals name="disconnect_stops_tunnels" comment="Dialog text: port forwarding tunnels to this device stop when it disconnects. %1$d is the number of tunnels">
-        <item quantity="other">%1$d đường hầm tới thiết bị này sẽ dừng.</item>
-    </plurals>
 </resources>
