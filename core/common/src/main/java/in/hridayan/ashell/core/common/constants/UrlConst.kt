@@ -26,6 +26,13 @@ object UrlConst {
         "https://github.com/DP-Hridayan/aShellYou/wiki/Wireless-Debugging-Setup"
     const val URL_OTG_INSTRUCTIONS =
         "https://github.com/DP-Hridayan/aShellYou/wiki/OTG-ADB-Setup-Guide"
+    const val URL_WIKI_ROOT = "https://github.com/DP-Hridayan/aShellYou/wiki"
+    const val URL_WIKI_FASTBOOT = "https://github.com/DP-Hridayan/aShellYou/wiki/Fastboot-Guide"
+    const val URL_WIKI_SCREEN_MIRROR = "https://github.com/DP-Hridayan/aShellYou/wiki/Screen-Mirroring"
+    const val URL_WIKI_SIDELOAD = "https://github.com/DP-Hridayan/aShellYou/wiki/ADB-Sideload"
+    const val URL_WIKI_PORT_FORWARDING = "https://github.com/DP-Hridayan/aShellYou/wiki/Port-Forwarding"
+    const val URL_WIKI_LOGCAT = "https://github.com/DP-Hridayan/aShellYou/wiki/Logcat-Viewer"
+    const val URL_WIKI_QS_TILES = "https://github.com/DP-Hridayan/aShellYou/wiki/Quick-Settings-Tiles"
     const val URL_SHIZUKU_SITE = "https://shizuku.rikka.app"
     const val URL_CROWDIN_PROJECT = "https://crowdin.com/project/ashellyou"
     const val URL_GOOGLE_GEMINI_API_KEY = "https://aistudio.google.com/app/apikey"
