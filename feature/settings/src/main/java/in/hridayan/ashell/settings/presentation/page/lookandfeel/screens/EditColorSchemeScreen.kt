@@ -32,6 +32,7 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -54,6 +55,7 @@ import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.navigateBack
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
+import `in`.hridayan.ashell.core.presentation.theme.domain.model.PresetColorSchemes
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.UserGeneratedColorScheme
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.settings.presentation.components.bottomsheet.ColorPickerBottomSheet
@@ -66,6 +68,14 @@ fun EditColorSchemeScreen(
     viewModel: GenerateColorSchemeViewModel = hiltViewModel()
 ) {
     val navController = LocalNavController.current
+
+    if (PresetColorSchemes.isPreset(themeId)) {
+        LaunchedEffect(Unit) {
+            navController.navigateBack()
+        }
+        return
+    }
+
     val savedColorSchemes by viewModel.savedColorSchemes.collectAsState()
 
     // Find the theme being edited

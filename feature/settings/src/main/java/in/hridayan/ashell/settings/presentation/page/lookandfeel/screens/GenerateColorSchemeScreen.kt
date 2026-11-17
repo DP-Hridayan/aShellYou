@@ -5,6 +5,7 @@ package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.Spring
@@ -37,6 +38,7 @@ import androidx.compose.foundation.layout.FlexDirection
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -112,6 +114,7 @@ import `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold
 import `in`.hridayan.ashell.core.presentation.components.search.CustomSearchBar
 import `in`.hridayan.ashell.core.presentation.components.svg.DynamicColorImageVectors
 import `in`.hridayan.ashell.core.presentation.theme.AshellYouAnimationSpecs
+import `in`.hridayan.ashell.core.presentation.theme.domain.model.PresetColorSchemes
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.UserGeneratedColorScheme
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.toDomain
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.toEntity
@@ -433,6 +436,7 @@ fun ThemeMaterialCarousel(
 
             filteredThemes.getOrNull(carouselState.currentItem)?.let { currentTheme ->
                 ThemeActionPill(
+                    modifier = Modifier.animateContentSize(),
                     theme = currentTheme,
                     onShare = onShare,
                     onEdit = onEdit,
@@ -677,51 +681,91 @@ private fun ThemeCardHeader(
 
 @Composable
 private fun ThemeActionPill(
+    modifier: Modifier = Modifier,
     theme: UserGeneratedColorScheme,
     onShare: (UserGeneratedColorScheme) -> Unit,
     onEdit: (UserGeneratedColorScheme) -> Unit,
     onDeleteRequested: () -> Unit
 ) {
-    Row(
-        modifier = Modifier
-            .wrapContentWidth()
-            .border(
-                width = 1.dp,
-                color = MaterialTheme.colorScheme.outline,
-                shape = RoundedCornerShape(50)
-            )
-            .padding(horizontal = 4.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
-    ) {
-        IconButton(onClick = withHaptic { onShare(theme) }) {
-            Icon(
-                imageVector = Icons.Rounded.Share,
-                contentDescription = stringResource(id = R.string.share),
-                tint = MaterialTheme.colorScheme.onSurface
-            )
-        }
-        VerticalDivider(
-            modifier = Modifier.height(24.dp),
-            color = MaterialTheme.colorScheme.outlineVariant
-        )
-        IconButton(onClick = withHaptic { onEdit(theme) }) {
-            Icon(
-                imageVector = Icons.Rounded.Edit,
-                contentDescription = stringResource(id = R.string.edit),
-                tint = MaterialTheme.colorScheme.onSurface
-            )
-        }
-        VerticalDivider(
-            modifier = Modifier.height(24.dp),
-            color = MaterialTheme.colorScheme.outlineVariant
-        )
-        IconButton(onClick = withHaptic { onDeleteRequested() }) {
-            Icon(
-                imageVector = Icons.Rounded.Delete,
-                contentDescription = stringResource(id = R.string.delete),
-                tint = MaterialTheme.colorScheme.error
-            )
+    Box(modifier = modifier) {
+        if (PresetColorSchemes.isPreset(theme.id)) {
+            Box(
+                modifier = Modifier
+                    .wrapContentWidth()
+                    .border(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
+                        shape = RoundedCornerShape(50)
+                    )
+                    .background(
+                        color = MaterialTheme.colorScheme.surfaceContainerLow,
+                        shape = RoundedCornerShape(50)
+                    )
+                    .padding(horizontal = 16.dp, vertical = 10.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.AutoAwesome,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = stringResource(id = R.string.special_edition),
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+            }
+        } else {
+            Row(
+                modifier = Modifier
+                    .wrapContentWidth()
+                    .border(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.outline,
+                        shape = RoundedCornerShape(50)
+                    )
+                    .padding(horizontal = 4.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                IconButton(onClick = withHaptic { onShare(theme) }) {
+                    Icon(
+                        imageVector = Icons.Rounded.Share,
+                        contentDescription = stringResource(id = R.string.share),
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+                VerticalDivider(
+                    modifier = Modifier.height(24.dp),
+                    color = MaterialTheme.colorScheme.outlineVariant
+                )
+                IconButton(onClick = withHaptic { onEdit(theme) }) {
+                    Icon(
+                        imageVector = Icons.Rounded.Edit,
+                        contentDescription = stringResource(id = R.string.edit),
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+                VerticalDivider(
+                    modifier = Modifier.height(24.dp),
+                    color = MaterialTheme.colorScheme.outlineVariant
+                )
+                IconButton(onClick = withHaptic { onDeleteRequested() }) {
+                    Icon(
+                        imageVector = Icons.Rounded.Delete,
+                        contentDescription = stringResource(id = R.string.delete),
+                        tint = MaterialTheme.colorScheme.error
+                    )
+                }
+            }
         }
     }
 }
@@ -1070,6 +1114,23 @@ private fun ThemeCardPreview() {
             isCurrentItem = true,
             isApplied = true,
             phase = phase
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun ThemeCardSpecialPreview() {
+    Box(
+        modifier = Modifier
+            .padding(16.dp)
+            .width(260.dp)
+    ) {
+        ThemeCard(
+            theme = PresetColorSchemes.AShellYouSpecial,
+            isCurrentItem = true,
+            isApplied = false,
+            phase = 0f
         )
     }
 }

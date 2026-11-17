@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.core.presentation.theme.data.CustomColorSchemeDao
+import `in`.hridayan.ashell.core.presentation.theme.domain.model.PresetColorSchemes
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.UserGeneratedColorScheme
 import `in`.hridayan.ashell.core.presentation.theme.domain.model.toDomain
 import kotlinx.coroutines.Job
@@ -26,6 +27,11 @@ class UserGeneratedColorSchemeViewModel @Inject constructor(
         colorSchemeJob?.cancel()
         if (id == 0) {
             _activeUserGeneratedColorScheme.value = null
+            return
+        }
+        val preset = PresetColorSchemes.getPresetById(id)
+        if (preset != null) {
+            _activeUserGeneratedColorScheme.value = preset
             return
         }
         colorSchemeJob = viewModelScope.launch {
