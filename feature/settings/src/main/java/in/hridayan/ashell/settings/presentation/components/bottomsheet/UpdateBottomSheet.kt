@@ -181,7 +181,7 @@ fun UpdateBottomSheet(
 
     val latestChangelogText = remember(body) { parseChangelog(body) }
     val versionRange = context.packageManager.getPackageInfo(context.packageName, 0).versionName
-        ?: "".removeSuffix("-debug") + "..." + latestVersion
+        ?: ("".removeSuffix("-debug") + "..." + latestVersion)
     val fullChangelogUrl = UrlConst.URL_GITHUB_REPO + "/compare/" + versionRange
 
     ModalBottomSheet(
