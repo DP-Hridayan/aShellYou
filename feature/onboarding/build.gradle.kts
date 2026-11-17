@@ -30,6 +30,7 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
+    implementation(libs.compose.settings.graph)
 
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
@@ -58,9 +59,6 @@ dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.slf4j.android)
     implementation(libs.androidx.security.crypto)
-    implementation(libs.shizuku.api)
-    implementation(libs.shizuku.provider)
-    implementation(libs.libsu.core)
     implementation(libs.lottie.compose)
     implementation(libs.nayuki.qrcode)
     implementation(libs.sun.security.android)
@@ -75,6 +73,7 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.material)
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)
 }

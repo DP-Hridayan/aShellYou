@@ -5,42 +5,19 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import `in`.hridayan.ashell.core.common.constants.LEGAL_DOCS_VERSION
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
-import `in`.hridayan.ashell.core.common.domain.repository.ShellRepository
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
-    private val settingsRepository: SettingsRepository,
-    private val shellRepository: ShellRepository
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
-
-    fun shizukuPermissionState(): StateFlow<Boolean> = shellRepository.shizukuPermissionState()
 
     fun completeOnboarding() {
         viewModelScope.launch {
             settingsRepository.setInt(SettingsKeys.SavedLegalDocsVersion, LEGAL_DOCS_VERSION)
             settingsRepository.setBoolean(SettingsKeys.FirstLaunch, false)
         }
-    }
-
-    fun setInt(key: SettingsKeys<Int>, value: Int) {
-        viewModelScope.launch {
-            settingsRepository.setInt(key, value)
-        }
-    }
-
-    fun hasRootAccess(): Boolean {
-        return shellRepository.hasRootAccess()
-    }
-
-    suspend fun executeRootCommand(command: String) {
-        shellRepository.executeRootCommand(command)
-    }
-
-    fun requestShizukuPermission() {
-        shellRepository.requestShizukuPermission()
     }
 }

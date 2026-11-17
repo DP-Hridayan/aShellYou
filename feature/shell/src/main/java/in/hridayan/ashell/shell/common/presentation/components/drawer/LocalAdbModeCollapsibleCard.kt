@@ -56,9 +56,10 @@ private val OptionContentPadding = PaddingValues(vertical = 4.dp, horizontal = 2
 fun LocalAdbModeCollapsibleCard(
     selectedMode: Int,
     onModeSelected: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    initialExpanded: Boolean = false
 ) {
-    var isExpanded by rememberSaveable { mutableStateOf(false) }
+    var isExpanded by rememberSaveable { mutableStateOf(initialExpanded) }
 
     CustomCard(
         modifier = modifier

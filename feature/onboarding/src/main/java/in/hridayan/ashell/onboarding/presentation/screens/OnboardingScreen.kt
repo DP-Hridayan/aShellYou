@@ -32,8 +32,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,15 +51,17 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.onboarding.presentation.viewmodel.OnboardingViewModel
 import kotlinx.coroutines.launch
 
+private const val ONBOARDING_PAGE_COUNT = 2
+
 @Composable
 fun OnboardingScreen(viewModel: OnboardingViewModel = hiltViewModel()) {
     val navController = LocalNavController.current
     val weakHaptic = LocalWeakHaptic.current
 
-    val pageCount = 3
-    val pagerState = rememberPagerState(pageCount = { 3 })
+    val pageCount = ONBOARDING_PAGE_COUNT
+    val pagerState = rememberPagerState(pageCount = { ONBOARDING_PAGE_COUNT })
     val coroutineScope = rememberCoroutineScope()
-    var isLegalAccepted by remember { mutableStateOf(false) }
+    var isLegalAccepted by rememberSaveable { mutableStateOf(false) }
 
     BackHandler(enabled = pagerState.currentPage != 0) {
         coroutineScope.launch {
@@ -224,8 +226,7 @@ fun OnboardingScreen(viewModel: OnboardingViewModel = hiltViewModel()) {
         HorizontalPager(
             modifier = Modifier.fillMaxSize(),
             state = pagerState,
-            contentPadding = contentPadding,
-            userScrollEnabled = if (pagerState.currentPage == 1) isLegalAccepted else true
+            contentPadding = contentPadding
         ) { page ->
             Box(
                 modifier = Modifier
@@ -236,7 +237,6 @@ fun OnboardingScreen(viewModel: OnboardingViewModel = hiltViewModel()) {
                 when (page) {
                     0 -> PageOne(pagerState = pagerState)
                     1 -> PageTwo(pagerState = pagerState)
-                    2 -> PageThree(pagerState = pagerState)
                     else -> {}
                 }
             }
@@ -268,4 +268,3 @@ private fun NextButton(
         )
     }
 }
-

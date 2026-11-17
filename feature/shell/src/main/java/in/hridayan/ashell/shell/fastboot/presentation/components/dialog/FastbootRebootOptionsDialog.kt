@@ -1,35 +1,58 @@
 package `in`.hridayan.ashell.shell.fastboot.presentation.components.dialog
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.ExperimentalGridApi
+import androidx.compose.foundation.layout.Grid
+import androidx.compose.foundation.layout.GridTrackSize
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.RestartAlt
-import androidx.compose.material3.ButtonGroup
-import androidx.compose.material3.ButtonGroupDefaults
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.dialog.DialogContainer
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
-import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.fastboot.domain.model.RebootMode
+
+private val GRID_GAP = 12.dp
+private val CELL_PADDING = 8.dp
+private val ICON_SIZE = 36.dp
+private val ICON_LABEL_SPACING = 8.dp
+private val DIALOG_MIN_WIDTH = 280.dp
+
+private sealed interface FastbootRebootOptionIcon {
+    data class Vector(val imageVector: ImageVector) : FastbootRebootOptionIcon
+    data class Drawable(@param:DrawableRes val id: Int) : FastbootRebootOptionIcon
+}
+
+private data class FastbootRebootOptionItem(
+    val nameRes: Int,
+    val icon: FastbootRebootOptionIcon,
+    val containerColor: Color,
+    val contentColor: Color,
+    val mode: RebootMode
+)
 
 @Composable
 fun FastbootRebootOptionsDialog(
@@ -37,212 +60,125 @@ fun FastbootRebootOptionsDialog(
     onDismiss: () -> Unit,
     onReboot: (RebootMode) -> Unit
 ) {
-    val interactionSources1 = remember { List(2) { MutableInteractionSource() } }
-    val interactionSources2 = remember { List(2) { MutableInteractionSource() } }
-    val buttonSize = 72.dp
-    val iconSize = 36.dp
-
     DialogContainer(onDismiss = onDismiss) {
+        FastbootRebootOptionsContent(
+            modifier = modifier,
+            onDismiss = onDismiss,
+            onReboot = onReboot
+        )
+    }
+}
+
+@OptIn(ExperimentalGridApi::class)
+@Composable
+internal fun FastbootRebootOptionsContent(
+    modifier: Modifier = Modifier,
+    onDismiss: () -> Unit = {},
+    onReboot: (RebootMode) -> Unit = {}
+) {
+    val options = listOf(
+        FastbootRebootOptionItem(
+            nameRes = R.string.system,
+            icon = FastbootRebootOptionIcon.Vector(Icons.Rounded.RestartAlt),
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            mode = RebootMode.NORMAL
+        ),
+        FastbootRebootOptionItem(
+            nameRes = R.string.recovery,
+            icon = FastbootRebootOptionIcon.Drawable(R.drawable.ic_restart_recovery),
+            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+            contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+            mode = RebootMode.RECOVERY
+        ),
+        FastbootRebootOptionItem(
+            nameRes = R.string.bootloader,
+            icon = FastbootRebootOptionIcon.Drawable(R.drawable.ic_restart_bootloader),
+            containerColor = MaterialTheme.colorScheme.errorContainer,
+            contentColor = MaterialTheme.colorScheme.onErrorContainer,
+            mode = RebootMode.BOOTLOADER
+        ),
+        FastbootRebootOptionItem(
+            nameRes = R.string.fastboot,
+            icon = FastbootRebootOptionIcon.Drawable(R.drawable.ic_restart_fastboot),
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            mode = RebootMode.FASTBOOTD
+        )
+    )
+
+    Grid(
+        modifier = modifier
+            .fillMaxWidth()
+            .widthIn(min = DIALOG_MIN_WIDTH),
+        config = {
+            column(1.fr)
+            column(1.fr)
+            row(GridTrackSize.Auto)
+            row(GridTrackSize.Auto)
+            gap(GRID_GAP)
+        }
+    ) {
+        options.forEach { option ->
+            FastbootRebootOptionSquare(
+                option = option,
+                onClick = withHaptic {
+                    onReboot(option.mode)
+                    onDismiss()
+                }
+            )
+        }
+    }
+}
+
+@Composable
+private fun FastbootRebootOptionSquare(
+    option: FastbootRebootOptionItem,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        onClick = onClick,
+        modifier = modifier.aspectRatio(1f),
+        shape = MaterialTheme.shapes.large,
+        color = option.containerColor,
+        contentColor = option.contentColor
+    ) {
         Column(
-            modifier = modifier
-                .padding(24.dp)
-                .widthIn(min = 280.dp),
-            verticalArrangement = Arrangement.spacedBy(15.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(CELL_PADDING),
+            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            ButtonGroup(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                overflowIndicator = { menuState ->
-                    ButtonGroupDefaults.OverflowIndicator(menuState = menuState)
-                }
-            ) {
-                customItem(
-                    buttonGroupContent = {
-                        IconButton(
-                            onClick = withHaptic {
-                                onReboot(RebootMode.NORMAL)
-                                onDismiss()
-                            },
-                            modifier = Modifier
-                                .size(buttonSize)
-                                .animateWidth(interactionSources1[0]),
-                            interactionSource = interactionSources1[0],
-                            colors = IconButtonDefaults.iconButtonColors(
-                                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                            )
-                        ) {
-                            Icon(
-                                imageVector = Icons.Rounded.RestartAlt,
-                                contentDescription = null,
-                                modifier = Modifier.size(iconSize),
-                                tint = MaterialTheme.colorScheme.onPrimaryContainer
-                            )
-                        }
-                    },
-                    menuContent = {
-                        DropdownMenuItem(
-                            text = { AutoResizeableText(text = stringResource(R.string.system)) },
-                            onClick = withHaptic {
-                                onReboot(RebootMode.NORMAL)
-                                onDismiss()
-                            }
-                        )
-                    }
+            when (val icon = option.icon) {
+                is FastbootRebootOptionIcon.Vector -> Icon(
+                    imageVector = icon.imageVector,
+                    contentDescription = null,
+                    modifier = Modifier.size(ICON_SIZE),
+                    tint = option.contentColor
                 )
 
-                customItem(
-                    buttonGroupContent = {
-                        IconButton(
-                            onClick = withHaptic {
-                                onReboot(RebootMode.RECOVERY)
-                                onDismiss()
-                            },
-                            modifier = Modifier
-                                .size(buttonSize)
-                                .animateWidth(interactionSources1[1]),
-                            interactionSource = interactionSources1[1],
-                            colors = IconButtonDefaults.iconButtonColors(
-                                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                            )
-                        ) {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_restart_recovery),
-                                contentDescription = null,
-                                modifier = Modifier.size(iconSize),
-                                tint = MaterialTheme.colorScheme.onTertiaryContainer
-                            )
-                        }
-                    },
-                    menuContent = {
-                        DropdownMenuItem(
-                            text = { AutoResizeableText(text = stringResource(R.string.recovery)) },
-                            onClick = withHaptic {
-                                onReboot(RebootMode.RECOVERY)
-                                onDismiss()
-                            }
-                        )
-                    }
+                is FastbootRebootOptionIcon.Drawable -> Icon(
+                    painter = painterResource(icon.id),
+                    contentDescription = null,
+                    modifier = Modifier.size(ICON_SIZE),
+                    tint = option.contentColor
                 )
             }
 
-            Row(
+            Spacer(modifier = Modifier.height(ICON_LABEL_SPACING))
+
+            Text(
+                text = stringResource(option.nameRes),
+                style = MaterialTheme.typography.labelLargeEmphasized,
+                color = option.contentColor,
+                textAlign = TextAlign.Center,
+                maxLines = 1,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 10.dp)
-            ) {
-                AutoResizeableText(
-                    text = stringResource(R.string.system),
-                    style = MaterialTheme.typography.labelLargeEmphasized,
-                    modifier = Modifier.weight(1f),
-                    textAlign = TextAlign.Center
-                )
-                AutoResizeableText(
-                    text = stringResource(R.string.recovery),
-                    style = MaterialTheme.typography.labelLargeEmphasized,
-                    modifier = Modifier.weight(1f),
-                    textAlign = TextAlign.Center
-                )
-            }
-
-            ButtonGroup(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                overflowIndicator = { menuState ->
-                    ButtonGroupDefaults.OverflowIndicator(menuState = menuState)
-                }
-            ) {
-                customItem(
-                    buttonGroupContent = {
-                        IconButton(
-                            onClick = withHaptic {
-                                onReboot(RebootMode.BOOTLOADER)
-                                onDismiss()
-                            },
-                            modifier = Modifier
-                                .size(buttonSize)
-                                .animateWidth(interactionSources2[0]),
-                            interactionSource = interactionSources2[0],
-                            colors = IconButtonDefaults.iconButtonColors(
-                                containerColor = MaterialTheme.colorScheme.errorContainer,
-                                contentColor = MaterialTheme.colorScheme.onErrorContainer
-                            )
-                        ) {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_restart_bootloader),
-                                contentDescription = null,
-                                modifier = Modifier.size(iconSize),
-                                tint = MaterialTheme.colorScheme.onErrorContainer
-                            )
-                        }
-                    },
-                    menuContent = {
-                        DropdownMenuItem(
-                            text = { AutoResizeableText(text = stringResource(R.string.bootloader)) },
-                            onClick = withHaptic {
-                                onReboot(RebootMode.BOOTLOADER)
-                                onDismiss()
-                            }
-                        )
-                    }
-                )
-
-                customItem(
-                    buttonGroupContent = {
-                        IconButton(
-                            onClick = withHaptic {
-                                onReboot(RebootMode.FASTBOOTD)
-                                onDismiss()
-                            },
-                            modifier = Modifier
-                                .size(buttonSize)
-                                .animateWidth(interactionSources2[1]),
-                            interactionSource = interactionSources2[1],
-                            colors = IconButtonDefaults.iconButtonColors(
-                                containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                            )
-                        ) {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_restart_fastboot),
-                                contentDescription = null,
-                                modifier = Modifier.size(iconSize),
-                                tint = MaterialTheme.colorScheme.onSecondaryContainer
-                            )
-                        }
-                    },
-                    menuContent = {
-                        DropdownMenuItem(
-                            text = { AutoResizeableText(text = stringResource(R.string.fastboot)) },
-                            onClick = withHaptic {
-                                onReboot(RebootMode.FASTBOOTD)
-                                onDismiss()
-                            }
-                        )
-                    }
-                )
-            }
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 10.dp)
-            ) {
-                AutoResizeableText(
-                    text = stringResource(R.string.bootloader),
-                    style = MaterialTheme.typography.labelLargeEmphasized,
-                    modifier = Modifier.weight(1f),
-                    textAlign = TextAlign.Center
-                )
-                AutoResizeableText(
-                    text = stringResource(R.string.fastboot),
-                    style = MaterialTheme.typography.labelLargeEmphasized,
-                    modifier = Modifier.weight(1f),
-                    textAlign = TextAlign.Center
-                )
-            }
+                    .basicMarquee()
+            )
         }
     }
 }

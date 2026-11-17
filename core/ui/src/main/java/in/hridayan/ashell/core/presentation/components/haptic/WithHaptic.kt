@@ -5,6 +5,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.retain.retain
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.LocalInspectionMode
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 
@@ -13,6 +14,10 @@ fun withHaptic(
     type: HapticFeedbackType = HapticFeedbackType.ContextClick,
     block: () -> Unit
 ): () -> Unit {
+    if (LocalInspectionMode.current) {
+        return block
+    }
+
     val haptic = LocalHapticFeedback.current
     val isHapticEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
     val latestBlock = rememberUpdatedState(block)

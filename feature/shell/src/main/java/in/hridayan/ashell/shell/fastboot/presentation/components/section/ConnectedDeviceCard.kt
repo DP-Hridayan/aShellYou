@@ -46,9 +46,10 @@ fun ConnectedDeviceCard(
     bootloaderVersion: String?,
     basebandVersion: String?,
     securityPatch: String?,
-    batteryLevel: Int?
+    batteryLevel: Int?,
+    initialExpanded: Boolean = false
 ) {
-    var isExpanded by rememberSaveable { mutableStateOf(false) }
+    var isExpanded by rememberSaveable { mutableStateOf(initialExpanded) }
     val rotateAngle by animateFloatAsState(if (isExpanded) 180f else 0f)
 
     CustomCard(

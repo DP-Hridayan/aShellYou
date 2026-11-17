@@ -2,6 +2,7 @@
 
 package `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.item
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -180,6 +181,13 @@ fun SavedDeviceItem(
                     OutlinedButton(
                         onClick = withHaptic(HapticFeedbackType.Reject) { onDisconnect() },
                         shapes = ButtonDefaults.shapes(),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                        ),
+                        border = BorderStroke(
+                            width = 1.dp,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.75f)
+                        )
                     ) {
                         AutoResizeableText(stringResource(R.string.disconnect))
                     }

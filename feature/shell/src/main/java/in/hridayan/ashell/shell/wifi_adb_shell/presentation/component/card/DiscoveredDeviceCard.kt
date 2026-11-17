@@ -57,9 +57,10 @@ fun DiscoveredDeviceCard(
     stage: CodePairingStage = CodePairingStage.Idle,
     errorMessage: String? = null,
     onPair: (pairingCode: String) -> Unit = {},
-    onCodeChange: () -> Unit = {}
+    onCodeChange: () -> Unit = {},
+    initialCode: String = ""
 ) {
-    var pairingCode by remember { mutableStateOf("") }
+    var pairingCode by remember { mutableStateOf(initialCode) }
     val isBusy = stage != CodePairingStage.Idle
 
     CustomCard(

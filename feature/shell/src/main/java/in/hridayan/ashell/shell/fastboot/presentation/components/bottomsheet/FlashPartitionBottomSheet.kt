@@ -42,7 +42,6 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -124,90 +123,45 @@ fun FlashPartitionBottomSheet(
         dragHandle = null,
         properties = ModalBottomSheetProperties(shouldDismissOnClickOutside = !isOperationRunning)
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .verticalScroll(rememberScrollState())
-                .padding(24.dp),
-        ) {
-            AutoResizeableText(
-                stringResource(R.string.flash_partition),
-                style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.padding(bottom = 24.dp)
-            )
-
-            AutoResizeableText(
-                stringResource(R.string.partition),
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(bottom = 10.dp)
-            )
-
-            PartitionSelector(
-                isCustom = isCustomPartition,
-                selectedPartition = selectedPartition,
-                customPartition = customPartition,
-                validationResult = partitionValidation,
-                risk = partitionRisk,
-                enabled = !isOperationVisible,
-                onSelectCustomMode = { isCustomPartition = true },
-                onSwitchToCommon = {
-                    isCustomPartition = false
-                    customPartition = ""
-                },
-                onCustomPartitionChange = { customPartition = it },
-                onPartitionSelected = { partition ->
-                    selectedPartition = partition
-                    isCustomPartition = false
+        FlashPartitionContent(
+            selectedPartition = selectedPartition,
+            isCustomPartition = isCustomPartition,
+            customPartition = customPartition,
+            partitionValidation = partitionValidation,
+            partitionRisk = partitionRisk,
+            selectedFileName = selectedFileName,
+            isFileAdded = selectedFileUri != null,
+            isOperationVisible = isOperationVisible,
+            flashOperation = flashOperation,
+            canSlideToFlash = canSlideToFlash,
+            isOperationRunning = isOperationRunning,
+            onSelectCustomMode = { isCustomPartition = true },
+            onSwitchToCommon = {
+                isCustomPartition = false
+                customPartition = ""
+            },
+            onCustomPartitionChange = { customPartition = it },
+            onPartitionSelected = { partition ->
+                selectedPartition = partition
+                isCustomPartition = false
+            },
+            onChooseFile = withHaptic { filePickerLauncher.launch(arrayOf("*/*")) },
+            onFileRemoved = withHaptic {
+                selectedFileUri = null
+                selectedFileName = null
+            },
+            onSlideToConfirm = withHaptic(HapticFeedbackType.GestureThresholdActivate) {
+                val needsConfirmation =
+                    isCustomPartition || partitionRisk != PartitionRisk.STANDARD
+                if (needsConfirmation) {
+                    showConfirmDialog = true
+                } else {
+                    selectedFileUri?.let { uri -> onFlash(targetPartition, uri) }
                 }
-            )
-
-            if (isOperationVisible) {
-                FlashOperationProgressContent(
-                    operation = flashOperation,
-                    completedText = stringResource(R.string.flash_complete),
-                    onCancel = onCancel,
-                    onDismiss = onResetOperation
-                )
-            } else {
-                ChooseFileHintBox(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 200.dp)
-                        .padding(vertical = 25.dp),
-                    onClick = withHaptic { filePickerLauncher.launch(arrayOf("*/*")) },
-                    onFileRemoved = withHaptic {
-                        selectedFileUri = null
-                        selectedFileName = null
-                    },
-                    isFileAdded = selectedFileUri != null,
-                    selectedFileName = selectedFileName
-                )
-
-                key(showConfirmDialog) {
-                    SlideToConfirm(
-                        modifier = Modifier.fillMaxWidth(),
-                        onConfirm = withHaptic(HapticFeedbackType.GestureThresholdActivate) {
-                            val needsConfirmation =
-                                isCustomPartition || partitionRisk != PartitionRisk.STANDARD
-                            if (needsConfirmation) {
-                                showConfirmDialog = true
-                            } else {
-                                selectedFileUri?.let { uri -> onFlash(targetPartition, uri) }
-                            }
-                        },
-                        enabled = canSlideToFlash,
-                        confirmed = isOperationRunning,
-                        initialText = stringResource(R.string.slide_to_flash),
-                        finalText = stringResource(R.string.flashing),
-                        containerColor = MaterialTheme.colorScheme.errorContainer,
-                        contentColor = MaterialTheme.colorScheme.onErrorContainer,
-                        thumbContainerColor = MaterialTheme.colorScheme.error,
-                        thumbContentColor = MaterialTheme.colorScheme.onError,
-                    )
-                }
-            }
-        }
+            },
+            onCancel = onCancel,
+            onDismissOperation = onResetOperation
+        )
     }
 
     if (showConfirmDialog && selectedFileUri != null) {
@@ -225,6 +179,97 @@ fun FlashPartitionBottomSheet(
                 selectedFileUri?.let { uri -> onFlash(targetPartition, uri) }
             }
         )
+    }
+}
+
+@Composable
+internal fun FlashPartitionContent(
+    modifier: Modifier = Modifier,
+    selectedPartition: String,
+    isCustomPartition: Boolean,
+    customPartition: String,
+    partitionValidation: PartitionValidationResult,
+    partitionRisk: PartitionRisk,
+    selectedFileName: String?,
+    isFileAdded: Boolean,
+    isOperationVisible: Boolean,
+    flashOperation: FlashOperation,
+    canSlideToFlash: Boolean,
+    isOperationRunning: Boolean,
+    onSelectCustomMode: () -> Unit,
+    onSwitchToCommon: () -> Unit,
+    onCustomPartitionChange: (String) -> Unit,
+    onPartitionSelected: (String) -> Unit,
+    onChooseFile: () -> Unit,
+    onFileRemoved: () -> Unit,
+    onSlideToConfirm: () -> Unit,
+    onCancel: () -> Unit,
+    onDismissOperation: () -> Unit,
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState())
+            .padding(24.dp),
+    ) {
+        AutoResizeableText(
+            stringResource(R.string.flash_partition),
+            style = MaterialTheme.typography.headlineSmall,
+            modifier = Modifier.padding(bottom = 24.dp)
+        )
+
+        AutoResizeableText(
+            stringResource(R.string.partition),
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.padding(bottom = 10.dp)
+        )
+
+        PartitionSelector(
+            isCustom = isCustomPartition,
+            selectedPartition = selectedPartition,
+            customPartition = customPartition,
+            validationResult = partitionValidation,
+            risk = partitionRisk,
+            enabled = !isOperationVisible,
+            onSelectCustomMode = onSelectCustomMode,
+            onSwitchToCommon = onSwitchToCommon,
+            onCustomPartitionChange = onCustomPartitionChange,
+            onPartitionSelected = onPartitionSelected
+        )
+
+        if (isOperationVisible) {
+            FlashOperationProgressContent(
+                operation = flashOperation,
+                completedText = stringResource(R.string.flash_complete),
+                onCancel = onCancel,
+                onDismiss = onDismissOperation
+            )
+        } else {
+            ChooseFileHintBox(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 200.dp)
+                    .padding(vertical = 25.dp),
+                onClick = onChooseFile,
+                onFileRemoved = onFileRemoved,
+                isFileAdded = isFileAdded,
+                selectedFileName = selectedFileName
+            )
+
+            SlideToConfirm(
+                modifier = Modifier.fillMaxWidth(),
+                onConfirm = onSlideToConfirm,
+                enabled = canSlideToFlash,
+                confirmed = isOperationRunning,
+                initialText = stringResource(R.string.slide_to_flash),
+                finalText = stringResource(R.string.flashing),
+                containerColor = MaterialTheme.colorScheme.errorContainer,
+                contentColor = MaterialTheme.colorScheme.onErrorContainer,
+                thumbContainerColor = MaterialTheme.colorScheme.error,
+                thumbContentColor = MaterialTheme.colorScheme.onError,
+            )
+        }
     }
 }
 

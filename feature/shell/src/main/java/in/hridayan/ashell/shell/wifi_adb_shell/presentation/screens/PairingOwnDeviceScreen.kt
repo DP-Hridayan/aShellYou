@@ -468,7 +468,7 @@ private fun NotificationAccessRequestCard(
 }
 
 @Composable
-private fun NotificationPairingHintCard(modifier: Modifier = Modifier) {
+internal fun NotificationPairingHintCard(modifier: Modifier = Modifier) {
     IconWithTextCard(
         modifier = modifier,
         shape = CustomCardShape(50),
@@ -482,7 +482,7 @@ private fun NotificationPairingHintCard(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun NotificationStylesHintCard(
+internal fun NotificationStylesHintCard(
     modifier: Modifier = Modifier,
     onClickButton: () -> Unit = {}
 ) {
@@ -549,7 +549,7 @@ fun WifiEnableCard(modifier: Modifier = Modifier, onClickButton: () -> Unit) {
 }
 
 @Composable
-private fun Instructions(modifier: Modifier = Modifier, onClickDevOptionsButton: () -> Unit) {
+internal fun Instructions(modifier: Modifier = Modifier, onClickDevOptionsButton: () -> Unit) {
     Column(
         modifier = modifier,
     ) {

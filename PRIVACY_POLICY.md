@@ -1,7 +1,7 @@
 # Privacy Policy for aShell You
 
 **Effective Date:** September 2, 2026</br>
-**Last Updated:** September 12, 2026</br>
+**Last Updated:** November 17, 2026</br>
 **Contact:** [hridayanofficial@gmail.com](mailto:hridayanofficial@gmail.com)
 
 DP Hridayan ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy
@@ -43,11 +43,14 @@ If you choose to use the AI Assistant feature, the following data is stored loca
 - **AI Analysis Cache:** A locally cached copy of AI-generated analyses of shell commands, indexed
   by a SHA-256 hash of the command text, the model identifier, the raw analysis JSON, and a
   timestamp. This caching is purely local and avoids redundant network calls.
+- **OpenRouter Free Model Catalog Cache:** A local cache of available free models and their
+  context lengths fetched from OpenRouter (`https://openrouter.ai/api/v1/models`), refreshed once
+  every 24 hours to reduce redundant network queries.
 - **Command Execution Permissions:** A local record of your per-command decisions on whether the AI
   is always permitted to execute a specific shell command without further prompting.
-- **API Key Storage:** Your AI provider API key (e.g., Google Gemini API key) is stored in a private
-  SharedPreferences file (`ai_api_keys`) encrypted using Google Tink (AES256_GCM) backed by the
-  Android Keystore. This key is never transmitted to our servers.
+- **API Key Storage:** Your AI provider API keys (Google Gemini, Groq, or OpenRouter) are stored in
+  a private SharedPreferences file (`ai_api_keys`) encrypted using Google Tink (AES256_GCM) backed by
+  the Android Keystore. These keys are never transmitted to our servers.
 
 ### 1.3 Crash Reports
 
@@ -119,13 +122,19 @@ used solely to establish trusted ADB connections and are never transmitted to ou
 All user preferences are stored in a local DataStore preferences file. The following categories of
 settings are stored locally:
 
-- **Appearance:** Theme mode, dynamic colors, color palette, font family, font size, UI density.
-- **Behavior:** Haptics/vibration, soft keyboard handling, smooth scrolling, output save directory.
+- **Appearance:** Theme mode, dynamic colors, color palette, font family, font size, UI density,
+  custom color scheme parameters.
+- **Behavior:** Haptics/vibration, soft keyboard handling, smooth scrolling, output save directory,
+  Shizuku background helper retention.
+- **Port Forwarding:** Auto-start preferences, auto-resume on reconnect, unexpected stop alerts,
+  connection timeouts, maximum concurrent connections, and local network sharing toggle.
+- **Screen Mirroring:** Video bitrate, target frame rate, display resolution, video codec (H.264,
+  H.265, AV1), quality presets, and performance statistics overlay toggle.
 - **Backup:** Auto-backup schedule, backup type (local/cloud), last backup timestamps and error
   states.
-- **AI:** Selected cloud AI provider, AI cache enabled status, which AI tools are active (command
-  execution, QS tiles, package querying, database), cache duration in days. *(GitHub build only --
-  not present in the F-Droid build.)*
+- **AI:** Selected cloud AI provider (Google Gemini, Groq, OpenRouter), AI cache enabled status,
+  which AI tools are active (command execution, QS tiles, package querying, database), cache duration
+  in days. *(GitHub build only -- not present in the F-Droid build.)*
 - **Account (Google):** Your Google account email address and profile photo URL are stored locally
   when you sign in for Google Drive backup. The profile photo itself is also cached locally as a
   file on your device for offline display. *(GitHub build only -- not present in the F-Droid
@@ -153,6 +162,33 @@ fingerprint, face unlock) or secure lock screen credentials (PIN, pattern, passw
 - **Local Preference:** The toggle state for enabling or disabling the App Lock is stored locally in
   your device's preferences.
 
+### 1.12 Port Forwarding Database
+
+If you configure port forwarding tunnels, the App maintains a local Room database (`port_forward_database`):
+
+- **Saved Tunnels:** User-defined tunnel configurations, including tunnel name, local listening port,
+  network sharing preference (local interface vs. LAN), target host or IP, target port, target path,
+  auto-start preference, device serial/identifier, device name, and transport type.
+- **Recent Hosts:** A history of destination hostnames or IP addresses, last used ports, and access
+  timestamps to provide convenient input autocompletion.
+
+This data remains strictly on your device and is never uploaded to any server, except when included
+in encrypted local or cloud backups that you explicitly configure.
+
+### 1.13 Screen Mirroring (scrcpy)
+
+When using the Screen Mirroring feature to view and control an external device over USB OTG or
+Wireless ADB:
+
+- **Volatile In-Memory Processing:** Video frames (H.264, H.265, or AV1) streamed from the target
+  device's `scrcpy-server` are decoded directly in volatile memory using Android's hardware `MediaCodec`
+  and rendered to a `SurfaceView`.
+- **No Video Recording or Storage:** Screen contents, audio, and touch/keyboard input streams are
+  **never recorded to disk, never cached, and never transmitted** to any third-party or developer
+  servers.
+- **Local Display Settings:** Preferences for video resolution, bitrate, framerate, and codec are
+  stored locally in the App's DataStore settings.
+
 ---
 
 ## 2. Build Flavours
@@ -167,7 +203,7 @@ Available from: [GitHub Releases](https://github.com/DP-Hridayan/aShellYou/relea
 This is the full-featured build. It includes all features described in this Privacy Policy,
 including:
 
-- The **AI Assistant** (powered by third-party LLM providers such as Google Gemini).
+- The **AI Assistant** (powered by third-party LLM providers such as Google Gemini, Groq, and OpenRouter).
 - **Google Drive** cloud backup and restore (via Google Play Services and the Google Drive API).
 - **In-app update** functionality (APK download from GitHub).
 - Proprietary Google libraries: `play-services-auth`, `credentials`, `google-api-services-drive`,
@@ -183,15 +219,16 @@ This build is **100% Free and Open-Source Software (FOSS)**. It contains **no pr
 practices are **completely absent** in this build -- not hidden or disabled, but entirely excluded
 from the compiled APK:
 
-| Feature removed                      | Data practices that do NOT apply                                                                                         |
-|--------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| AI Assistant                         | No LLM API calls, no chat history, no AI analysis cache, no API key storage, no logcat/package data sent to AI providers |
-| Google Drive Backup                  | No Google Sign-In, no OAuth, no Google account email/photo stored, no `AutoBackupWorker` cloud uploads                   |
-| Google Gemini / Google Play Services | No proprietary Google libraries included in the APK                                                                      |
+| Feature removed                      | Data practices that do NOT apply                                                                                                          |
+|--------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| AI Assistant                         | No LLM API calls, no chat history, no AI analysis cache, no API key storage, no model catalog fetches, no logcat/package data sent to AI providers |
+| Google Drive Backup                  | No Google Sign-In, no OAuth, no Google account email/photo stored, no `AutoBackupWorker` cloud uploads                                    |
+| Google Gemini / Google Play Services | No proprietary Google libraries included in the APK                                                                                       |
 
 **What the F-Droid build retains:** All core shell features (Shizuku, Root, Wireless ADB, USB OTG),
-local backup/restore, crash reporter, QS tiles, logcat, ADB sideload, command history, bookmarks,
-and custom themes. Local backup functionality uses only local storage (no cloud option).
+port forwarding, screen mirroring (scrcpy), local backup/restore, crash reporter, QS tiles, logcat,
+ADB sideload, command history, bookmarks, and custom themes. Local backup functionality uses only
+local storage (no cloud option).
 
 > **Note:** The `QUERY_ALL_PACKAGES` permission in the F-Droid build is used solely for command
 > auto-complete suggestions (the AI tool use case is absent).
@@ -207,15 +244,17 @@ purpose:
 |----------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `READ_EXTERNAL_STORAGE` / `WRITE_EXTERNAL_STORAGE` | To save shell command outputs to `.txt` files, import local shell scripts, and manage local backup files on external storage on older Android versions.                                                                                                                                                                                  |
 | `MANAGE_EXTERNAL_STORAGE`                          | Required on Android 11+ to allow the backup and restore feature to read and write backup archive files from user-selected directories.                                                                                                                                                                                                   |
-| `INTERNET`                                         | For Wireless ADB connections over a local TCP network; sending prompts to AI providers (Gemini API); fetching release metadata from GitHub; and syncing backups with Google Drive.                                                                                                                                                       |
+| `INTERNET`                                         | For Wireless ADB connections over a local TCP network; connecting to cloud AI providers (Google Gemini, Groq, OpenRouter) and fetching model catalog metadata; fetching release metadata from GitHub; syncing backups with Google Drive; and routing local port forwarding tunnels.                                                     |
 | `ACCESS_NETWORK_STATE` / `ACCESS_WIFI_STATE`       | To detect network availability before initiating Wireless ADB connections or other network operations, and to surface network status in the UI.                                                                                                                                                                                          |
+| `ACCESS_LOCAL_NETWORK`                             | Required on Android 17+ to discover, connect to, and expose port forwarding tunnels to devices on the local Wi-Fi / area network.                                                                                                                                                                                                        |
 | `NEARBY_WIFI_DEVICES`                              | To discover other Android devices available for Wireless ADB pairing and connection on the local network using mDNS/NSD (Network Service Discovery).                                                                                                                                                                                     |
 | `CHANGE_WIFI_MULTICAST_STATE`                      | Required by the JmDNS library to enable Multicast DNS packet reception for discovering ADB targets on the local Wi-Fi network.                                                                                                                                                                                                           |
-| `POST_NOTIFICATIONS`                               | To display persistent foreground notifications for active Wireless ADB connections, running background logcat streams, and background backup operations, and to provide quick-action controls for them.                                                                                                                                  |
+| `POST_NOTIFICATIONS`                               | To display persistent foreground notifications for active Wireless ADB connections, running background logcat streams, active port forwarding tunnels, and background backup operations, and to provide quick-action controls for them.                                                                                                  |
 | `FOREGROUND_SERVICE`                               | Base permission required to run any foreground service, enabling long-running operations to continue while the app is not in the foreground.                                                                                                                                                                                             |
-| `FOREGROUND_SERVICE_CONNECTED_DEVICE`              | Specifically required to run foreground services that maintain active ADB connections to connected devices over Wi-Fi or OTG, preventing the OS from terminating the TCP socket.                                                                                                                                                         |
+| `FOREGROUND_SERVICE_CONNECTED_DEVICE`              | Specifically required to run foreground services that maintain active ADB connections (Wi-Fi or OTG) and active port forwarding tunnels, preventing the OS from terminating network sockets.                                                                                                                                              |
 | `FOREGROUND_SERVICE_DATA_SYNC`                     | Specifically required for the background Logcat streaming service to capture continuous logcat data without interruption.                                                                                                                                                                                                                |
-| `USB_PERMISSION` / `android.hardware.usb.host`     | To communicate with secondary Android devices physically connected via a USB OTG cable for ADB command execution and file sideloading.                                                                                                                                                                                                   |
+| `WAKE_LOCK`                                        | Used during active ADB sideloading and screen mirroring sessions to keep the device's processor awake, preventing connection drops and transmission interruptions.                                                                                                                                                                      |
+| `USB_PERMISSION` / `android.hardware.usb.host`     | To communicate with secondary Android devices physically connected via a USB OTG cable for ADB command execution, screen mirroring, port forwarding, and file sideloading.                                                                                                                                                              |
 | `REQUEST_INSTALL_PACKAGES`                         | Used exclusively for the in-app update flow: after you explicitly choose to download and install a new release APK fetched from GitHub, this permission allows the App to initiate the installation.                                                                                                                                     |
 | `QUERY_ALL_PACKAGES`                               | Required for two purposes: (1) to provide intelligent auto-complete suggestions for installed package names when you type commands like `pm grant <package>`; and (2) to allow the AI Assistant's `query_installed_apps` tool to retrieve a structured list of installed apps so it can generate accurate, context-aware shell commands. |
 | `READ_PHONE_STATE`                                 | This permission is **explicitly removed** in the App manifest (`tools:node="remove"`). It is not requested or used. It appears only because a transitively included library declares it, and the App actively suppresses it.                                                                                                             |
@@ -229,20 +268,32 @@ purpose:
 > proprietary libraries. The only external network call in the F-Droid build is to the GitHub API (
 > Section 4.3) for checking updates, if you use that feature.
 
-### 4.1 Google Gemini AI API
+### 4.1 Cloud AI Providers (Gemini, Groq, OpenRouter)
 
 **GitHub build only. Not present in the F-Droid build.**
 
-When you submit a query to the AI Assistant, the App constructs an HTTPS POST request to Google's
-Gemini API (`https://generativelanguage.googleapis.com`). The request body includes:
+The AI Assistant allows you to choose your preferred cloud AI provider (Google Gemini, Groq, or
+OpenRouter) and configure your own API key. When you submit a prompt or request an analysis, the App
+constructs an HTTPS POST request directly to the chosen provider's official endpoint:
 
-- A system prompt instructing the model how to respond.
-- Your message and the full conversation history of the current session.
-- Definitions of available AI tools (schemas for `execute_command`, `get_structured_logcat`, and
-  `query_installed_apps`).
-- A generation configuration (output format, etc.).
+- **Google Gemini:** `https://generativelanguage.googleapis.com`
+- **Groq:** `https://api.groq.com/openai/v1/chat/completions`
+- **OpenRouter:** `https://openrouter.ai/api/v1/chat/completions`
 
-**Contextual data sent by AI tools (only when the AI invokes them and only with your permission):**
+The request payload includes:
+
+- A system prompt instructing the model how to operate within aShell You.
+- Your message and the conversation history of the active session.
+- Tool schemas (specifications for `execute_command`, `get_structured_logcat`, and `query_installed_apps`).
+- Generation parameters (temperature, model name, etc.).
+
+**OpenRouter Model Catalog Discovery:**
+To dynamically discover available free models and context lengths without requiring app updates, the
+App sends an unauthenticated HTTPS GET request to `https://openrouter.ai/api/v1/models`. The result is
+cached locally on your device for 24 hours. When communicating with OpenRouter, the App sends standard
+attribution headers (`HTTP-Referer: https://github.com/DP-Hridayan/aShellYou` and `X-Title: aShell You`).
+
+**Contextual Data Sent by AI Tools (only when the AI invokes them and only with your permission):**
 
 - `execute_command`: The command string and target device mode. The App will always display a
   permission prompt before executing any command on behalf of the AI, unless you have previously
@@ -254,13 +305,15 @@ Gemini API (`https://generativelanguage.googleapis.com`). The request body inclu
 - `query_installed_apps`: A structured list of apps installed on your device (app name, package
   name, system/user classification).
 
-Your API key is transmitted directly to Google's servers only (as a query parameter in the HTTPS
-request) and is never sent to our servers. The AI's response is stored locally in your chat history
-as described in Section 1.2.
+Your API keys are stored in encrypted local storage and sent directly to the selected provider via
+secure HTTPS headers or query parameters. They are never sent to our servers. The AI's response is
+stored locally in your chat history as described in Section 1.2.
 
-For how Google handles this data, refer to
-the [Google Gemini API Terms](https://ai.google.dev/gemini-api/terms)
-and [Google's Privacy Policy](https://policies.google.com/privacy).
+For how each provider handles data, refer to their respective terms and privacy policies:
+
+- **Google Gemini:** [Google Gemini API Terms](https://ai.google.dev/gemini-api/terms) and [Google Privacy Policy](https://policies.google.com/privacy)
+- **Groq:** [Groq Terms of Service](https://groq.com/terms-of-use/) and [Groq Privacy Policy](https://groq.com/privacy-policy/)
+- **OpenRouter:** [OpenRouter Terms of Service](https://openrouter.ai/terms) and [OpenRouter Privacy Policy](https://openrouter.ai/privacy)
 
 ### 4.2 Google Drive (Backup and Restore)
 
@@ -273,9 +326,9 @@ inaccessible to other apps. The App cannot read, list, modify, or delete any oth
 Google Drive.
 
 Data uploaded to this folder is an encrypted binary backup archive containing your settings (
-DataStore preferences), command history, bookmarks, and QS tile configurations. The App's
-`AutoBackupWorker` background task may perform this upload automatically and silently according to
-the backup schedule you configure in the App's settings.
+DataStore preferences), command history, bookmarks, QS tile configurations, and port forwarding rules.
+The App's `AutoBackupWorker` background task may perform this upload automatically and silently
+according to the backup schedule you configure in the App's settings.
 
 Refer to the [Google Privacy Policy](https://policies.google.com/privacy) for how Google handles
 data stored in Drive.
@@ -354,6 +407,29 @@ storage using Android's standard file picker, and transfer it to a connected ADB
 Wi-Fi or USB OTG) using the ADB sideload protocol. The App does not inspect or transmit the contents
 of sideloaded files to any external server.
 
+### 6.4 Port Forwarding & Local Network Tunneling
+
+When you use the Port Forwarding feature:
+
+- The App creates local TCP sockets to forward network traffic to ports on connected ADB target
+  devices (via USB OTG or Wi-Fi ADB) or to other specified IP addresses and ports on your local
+  network.
+- **LAN Sharing:** If you enable "Share on Local Network" for a tunnel, the App binds the local
+  listening port to all network interfaces (`0.0.0.0`), allowing other devices on the same Wi-Fi
+  or local network to connect to that forwarded port.
+- All tunneled network traffic is routed point-to-point directly through device sockets. The App
+  does not inspect, log, or forward tunnel payload data to any external server.
+
+### 6.5 Screen Mirroring (scrcpy)
+
+When mirroring an external device's display:
+
+- The App deploys the open-source `scrcpy-server` binary to the connected target device over ADB.
+- A local video and control connection is established directly across the ADB communication channel
+  (USB cable or local Wi-Fi ADB socket).
+- Streamed video frames and touch/key injection events remain strictly between your device and the
+  connected target device. No display data is broadcast or transmitted outside the immediate ADB link.
+
 ---
 
 ## 7. Files Written to Your Device
@@ -363,6 +439,9 @@ At your explicit request, the App may write the following to your device's stora
 - **Command output text files:** Saved to a directory of your choosing on external storage.
 - **Local backup archives:** Encrypted backup files saved to a user-selected directory.
 - **Downloaded release APKs:** Saved to the App's external files directory prior to installation.
+- **Exported Logcat files:** System log entries that you choose to save or share from the Logcat
+  screen, saved either to a user-selected document location or temporarily cached in internal app
+  storage (`context.cacheDir/logcat_export`) for sharing via Android's system share sheet.
 
 These files are entirely under your control.
 
@@ -376,6 +455,9 @@ complete control:
 - **Delete all App data:** Android Settings Apps aShell You Storage Clear Data. This permanently
   removes all databases, preferences, ADB keys, cached files, profile photos, and API keys.
 - **Delete AI chat history:** Use the session management options within the AI chat interface.
+- **Delete AI API keys:** Remove stored API keys for any configured provider in the AI Settings screen.
+- **Delete port forwarding tunnels & hosts:** Delete individual tunnels or clear recent host
+  suggestions within the Port Forwarding settings or by clearing app data.
 - **Delete crash logs:** Use the Crash History screen within the App.
 - **Delete cloud backups:** Use the App's Backup & Restore screen, or access your Google Drive's app
   data directly.
@@ -398,10 +480,10 @@ please contact us.
 
 We take reasonable technical measures to protect data processed by the App:
 
-- AI provider API keys are encrypted at rest using AES256_GCM (Google Tink) backed by the Android
-  Keystore hardware security module.
-- Local and cloud backup archives are encrypted before being written to disk or uploaded to Google
-  Drive.
+- AI provider API keys for all supported providers (Google Gemini, Groq, OpenRouter) are encrypted
+  at rest using AES256_GCM (Google Tink) backed by the Android Keystore hardware security module.
+- Local and cloud backup archives containing settings, command history, bookmarks, QS tiles, and
+  port forwarding rules are encrypted before being written to disk or uploaded to Google Drive.
 - ADB RSA key files are stored in the App's private internal storage, inaccessible to other
   applications.
 - Wireless ADB pairing uses the SPAKE2 cryptographic protocol to prevent credential interception.
@@ -430,8 +512,3 @@ If you have any questions, concerns, or requests regarding this Privacy Policy, 
 
 *This Privacy Policy is based on a thorough technical analysis of the aShell You application source
 code and reflects the actual data handling behavior of the App as implemented.*
-
-
-
-
-

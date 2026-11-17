@@ -46,7 +46,8 @@ fun ShellSideDrawer(
     badges: Map<DeviceActionId, Int> = emptyMap(),
     onAction: (DeviceActionId) -> Unit,
     onNavigateSettings: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    initialExpandedLocalAdbModes: Boolean = false
 ) {
     val settings = LocalSettings.current
     val currentLocalAdbMode = settings[SettingsKeys.LocalAdbWorkingMode]
@@ -152,7 +153,8 @@ fun ShellSideDrawer(
                     selectedMode = currentLocalAdbMode,
                     onModeSelected = { newMode ->
                         settings.set(SettingsKeys.LocalAdbWorkingMode, newMode)
-                    }
+                    },
+                    initialExpanded = initialExpandedLocalAdbModes
                 )
             }
 
