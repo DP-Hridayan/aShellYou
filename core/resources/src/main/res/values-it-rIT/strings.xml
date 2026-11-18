@@ -54,6 +54,7 @@
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Funzionalità dell\'agente</string>
     <string name="ai_agent_shortcut">AI Agent</string>
     <string name="ai_agent_shortcut_long_label">AI ADB Agent</string>
+    <string name="ai_shell_assistant" comment="Title for AI shell assistant feature guide">Assistente AI Shell</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">Durata della cache</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">Abilita cache</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">Consenti</string>
@@ -265,10 +266,12 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Comando non trovato!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">Inserisci comando ADB</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Comandi</string>
+    <string name="community_and_support" comment="Category header for community and documentation links in feature guides">Supporto Community &amp;</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Configura cartella di salvataggio</string>
     <string name="confirm">Conferma</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Attenzione! Questa azione è irreversibile\nSei sicuro di voler eliminare tutti i segnalibri?</string>
     <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">Stai per lampeggiare %1$s con %2$s. Questa operazione non può essere annullata.</string>
+    <string name="connection_and_shell" comment="Category header for connection and shell guides">Connessione &amp; Shell</string>
     <string name="confirm_custom_partition_flash_title" comment="Confirmation dialog title before flashing a custom partition">Conferma Flash Partizione Personalizzato</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Conferma eliminazione</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Sei sicuro di voler rimuovere \"%1$s\"? Se è attualmente applicato, l\'app tornerà al font di sistema.</string>
@@ -542,6 +545,7 @@
     <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">Impossibile scaricare il file</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">Impossibile aprire la connessione USB. Il debug USB è abilitato?</string>
     <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">Impossibile caricare il file</string>
+    <string name="faqs" comment="Title for FAQs and troubleshooting feature guide">FAQ &amp; Risoluzione Dei Problemi</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">Prossimamente</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">Console dei comandi</string>
@@ -586,6 +590,8 @@
     <string name="fb_upload_failed" comment="%1$s = error message">Caricamento non riuscito: %1$s</string>
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">File caricato con successo</string>
     <string name="fb_uploading" comment="%1$s = file name">Caricamento di %1$s in corso</string>
+    <string name="feature_guides" comment="Title of the bottom sheet displaying guides and documentation for app features">Guide Di Funzionalità</string>
+    <string name="feature_guides_summary" comment="Subtitle in guides bottom sheet explaining its contents">Walkthroughs, istruzioni di installazione e documentazione per le funzioni di aShell You</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Richiesta di funzionalità</string>
     <string name="feedback">Feedback</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Recupero tempo di backup…</string>
@@ -651,8 +657,24 @@
     <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">Accedi o crea un account Groq gratuito</string>
     <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">Aprire la pagina delle chiavi API e fare clic su Crea chiave API</string>
     <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">Copia la tua chiave API e incollala qui</string>
+    <string name="guide_ai_assistant_desc" comment="Guide description for AI Shell Assistant guide">Configura i provider AI per generare comandi di shell e risolvere i problemi</string>
+    <string name="guide_command_examples_desc" comment="Guide description for Command Examples guide">Sfoglia, esegui e personalizza i modelli di comandi di shell precaricati</string>
+    <string name="guide_faqs_desc" comment="Guide description for FAQs and troubleshooting guide">Trova le risposte alle domande frequenti e ai problemi di connessione comuni</string>
+    <string name="guide_fastboot_desc" comment="Guide description for Fastboot OTG guide">Gestire la modalità bootloader, le immagini di partizione flash e riavviare in recovery</string>
+    <string name="guide_file_browser_desc" comment="Guide description for File Browser guide">Sfogliare, scaricare, caricare e gestire i file sul dispositivo connesso</string>
+    <string name="guide_local_adb_desc" comment="Guide description for local ADB and Shizuku guide">Esegui comandi di shell elevati sul tuo dispositivo utilizzando Shizuku o l\'accesso root</string>
+    <string name="guide_logcat_desc" comment="Guide description for Logcat viewer guide">Ispeziona i flussi logcat del dispositivo in diretta con ricerca regex e filtraggio dei pacchetti</string>
+    <string name="guide_otg_adb_desc" comment="Guide description for OTG ADB walkthrough">Collegare un altro dispositivo Android tramite cavo OTG USB per l\'accesso diretto alla shell hardware</string>
+    <string name="guide_port_forward_desc" comment="Guide description for port forwarding guide">Avanti porte TCP/IP e configura tunnel reverse socket tra dispositivi</string>
+    <string name="guide_qs_tiles_desc" comment="Guide description for Quick Settings tiles guide">Esegue i comandi di shell predefiniti direttamente con un tocco dalla barra di notifica</string>
+    <string name="guide_screen_mirror_desc" comment="Guide description for Scrcpy screen mirroring guide">Streaming e specchio dello schermo del dispositivo di destinazione con bassa latenza su OTG</string>
+    <string name="guide_sideload_desc" comment="Guide description for ADB sideload guide">Flash aggiornamento pacchetti ZIP e recuperi personalizzati in modalità di recupero</string>
+    <string name="guide_telegram_desc" comment="Guide description for Telegram community support">Unisciti al gruppo Telegram per discussioni, annunci e supporto diretto</string>
+    <string name="guide_wiki_desc" comment="Guide description for official GitHub wiki">Sfoglia la documentazione ufficiale completa, le FAQ e i tutorial</string>
+    <string name="guide_wireless_debugging_desc" comment="Guide description for wireless debugging walkthrough">Copiare ed eseguire comandi shell su Wi-Fi locale senza PC</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Feedback aptico &amp; Vibrazione</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Buona giornata!</string>
+    <string name="help" comment="Accessibility description and label for help button">Aiuto</string>
     <string name="heuristic">Euristico</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Editor esadecimale</string>
     <string name="hide_device_tools" comment="Accessibility action that collapses the device tools side toolbar">Nascondi strumenti dispositivo</string>
@@ -851,6 +873,7 @@
     <string name="notification_settings" comment="Button label to open system notification settings screen">Impostazioni notifiche</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">Se non riesci a inserire il codice di accoppiamento dalla notifica, potrebbe essere necessario modificare l\'area delle notifiche su Android. Vai su Impostazioni notifiche ~ Stile notifica per modificare lo stile delle notifiche. Altrimenti potresti non essere in grado di inserire il codice di accoppiamento dalla notifica.</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">Stili di notifica</string>
+    <string name="official_wiki" comment="Title for official GitHub wiki link in feature guides bottom sheet">Wiki Ufficiale</string>
     <string name="off">Disattiva</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">Disattivo</string>
     <string name="ok">OK</string>
@@ -1327,7 +1350,7 @@
     <string name="theme_name" comment="Label for the text field where user can edit the name of an imported theme">Nome del tema</string>
     <string name="theme_preview" comment="Title for the bottom sheet showing preview of an imported theme">Anteprima tema</string>
     <string name="theme_saved_applied" comment="Toast message shown after successfully importing and applying a theme">Tema salvato e applicato</string>
-    <string name="signature_special" comment="Label shown on immutable designer special theme pill">Firma Speciale</string>
+    <string name="special_edition" comment="Label shown on immutable designer special theme pill">Edizione Speciale</string>
     <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Pensare</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Librerie di terze parti</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">Questa applicazione</string>

@@ -22,7 +22,7 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>(AY_Translator)</b></sub></a>
         <br />
-        <sub><b>28788 words</b></sub>
+        <sub><b>29871 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/mikropsoft"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15972315/medium/23948a4df1f365f3bd7accc92c87bc4e.jpg" />
@@ -56,7 +56,7 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>(Guzleon)</b></sub></a>
         <br />
-        <sub><b>3900 words</b></sub>
+        <sub><b>4075 words</b></sub>
       </td>
     </tr>
     <tr>

@@ -54,6 +54,7 @@
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">智能代理技能</string>
     <string name="ai_agent_shortcut">AI Agent</string>
     <string name="ai_agent_shortcut_long_label">AI ADB Agent</string>
+    <string name="ai_shell_assistant" comment="Title for AI shell assistant feature guide">AI Shell 助理</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">缓存时长</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">启用缓存</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">允许</string>
@@ -265,11 +266,13 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">找不到命令！</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">输入 ADB 命令</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">命令</string>
+    <string name="community_and_support" comment="Category header for community and documentation links in feature guides">Community &amp; Support</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">配置输出保存目录</string>
     <string name="confirm">确定</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">警告！此操作不可逆
 你确定要删除所有书签吗？</string>
     <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">您将要用 %1$s 刷入 %2$s。此操作不能撤消。</string>
+    <string name="connection_and_shell" comment="Category header for connection and shell guides">Connection &amp; Shell</string>
     <string name="confirm_custom_partition_flash_title" comment="Confirmation dialog title before flashing a custom partition">确认自定义分区 Flash</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">确认删除</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">您确定要移除“%1$s”吗？如果当前正在使用，应用将恢复为系统字体。</string>
@@ -545,6 +548,7 @@
     <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">下载文件失败</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">无法打开 USB 连接。是否启用 USB 调试？</string>
     <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">上传文件失败</string>
+    <string name="faqs" comment="Title for FAQs and troubleshooting feature guide">FAQs &amp; Troubleshooting</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery 工具</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">即将推出</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">命令控制台</string>
@@ -589,6 +593,8 @@
     <string name="fb_upload_failed" comment="%1$s = error message">上传失败: %1$s</string>
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">文件上传成功</string>
     <string name="fb_uploading" comment="%1$s = file name">正在上传 %1$s</string>
+    <string name="feature_guides" comment="Title of the bottom sheet displaying guides and documentation for app features">功能指南</string>
+    <string name="feature_guides_summary" comment="Subtitle in guides bottom sheet explaining its contents">您功能的 aShell 的通道、设置说明和文档</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">功能建议</string>
     <string name="feedback">反馈</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">正在获取备份时间……</string>
@@ -654,8 +660,24 @@
     <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">登录或创建一个免费的 Groq 帐户</string>
     <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">打开 API 密钥页面并点击创建 API 密钥</string>
     <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">复制您的 API 密钥并粘贴到这里</string>
+    <string name="guide_ai_assistant_desc" comment="Guide description for AI Shell Assistant guide">配置 AI 提供商生成shell 命令和疑难解答问题</string>
+    <string name="guide_command_examples_desc" comment="Guide description for Command Examples guide">浏览、执行和自定义预加载的 shell 命令模板</string>
+    <string name="guide_faqs_desc" comment="Guide description for FAQs and troubleshooting guide">寻找常见问题和常见连接问题的答案</string>
+    <string name="guide_fastboot_desc" comment="Guide description for Fastboot OTG guide">管理引导模式、刷入分区图像并重启至恢复</string>
+    <string name="guide_file_browser_desc" comment="Guide description for File Browser guide">浏览、下载、上传和管理已连接设备上的文件</string>
+    <string name="guide_local_adb_desc" comment="Guide description for local ADB and Shizuku guide">使用 Shizuku 或 root 权限在您自己的设备上运行高程的 shell 命令</string>
+    <string name="guide_logcat_desc" comment="Guide description for Logcat viewer guide">使用正则表达式搜索和包过滤检查实时设备日志流</string>
+    <string name="guide_otg_adb_desc" comment="Guide description for OTG ADB walkthrough">通过 USB OTG 电缆连接另一台安卓设备以获取直接硬件外壳访问</string>
+    <string name="guide_port_forward_desc" comment="Guide description for port forwarding guide">转发TCP/IP 端口并在设备间配置反向套接字隧道。</string>
+    <string name="guide_qs_tiles_desc" comment="Guide description for Quick Settings tiles guide">直接通过点击通知阴影执行预定义的 shell 命令</string>
+    <string name="guide_screen_mirror_desc" comment="Guide description for Scrcpy screen mirroring guide">在OTG上播放和镜像低延迟的目标设备屏幕</string>
+    <string name="guide_sideload_desc" comment="Guide description for ADB sideload guide">在恢复模式下刷新ZIP软件包和自定义恢复</string>
+    <string name="guide_telegram_desc" comment="Guide description for Telegram community support">加入 Telegram 群組进行讨论，公告和直接支持</string>
+    <string name="guide_wiki_desc" comment="Guide description for official GitHub wiki">浏览完整的官方文档、常见问题和教程</string>
+    <string name="guide_wireless_debugging_desc" comment="Guide description for wireless debugging walkthrough">在没有PC 的情况下通过 Wi-Fi 配对并执行 shell 命令</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">触感&amp;震动</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">祝您有个美好的一天！</string>
+    <string name="help" comment="Accessibility description and label for help button">帮助</string>
     <string name="heuristic">启发式</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">十六进制编辑器</string>
     <string name="hide_device_tools" comment="Accessibility action that collapses the device tools side toolbar">隐藏设备工具</string>
@@ -854,6 +876,7 @@
     <string name="notification_settings" comment="Button label to open system notification settings screen">通知设置</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">如果你无法通过通知输入配对码，那么你可能需要将通知阴影更改为 Android。前往“通知设置”~“通知样式”更改通知样式。否则，你可能无法通过通知输入配对码。</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">通知样式</string>
+    <string name="official_wiki" comment="Title for official GitHub wiki link in feature guides bottom sheet">官方维基</string>
     <string name="off">开启</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">关闭</string>
     <string name="ok">确定</string>
@@ -1330,7 +1353,7 @@
     <string name="theme_name" comment="Label for the text field where user can edit the name of an imported theme">主题名称</string>
     <string name="theme_preview" comment="Title for the bottom sheet showing preview of an imported theme">主题预览</string>
     <string name="theme_saved_applied" comment="Toast message shown after successfully importing and applying a theme">主题已保存并应用</string>
-    <string name="signature_special" comment="Label shown on immutable designer special theme pill">特殊签名</string>
+    <string name="special_edition" comment="Label shown on immutable designer special theme pill">特殊版</string>
     <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">思维方式</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">第三方库</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">此应用程序</string>

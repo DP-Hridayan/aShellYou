@@ -55,6 +55,7 @@ Importar</string>
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Habilidades del agente</string>
     <string name="ai_agent_shortcut">Agente de IA</string>
     <string name="ai_agent_shortcut_long_label">AI ADB Agent</string>
+    <string name="ai_shell_assistant" comment="Title for AI shell assistant feature guide">Asistente de proyectil de IA</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">Duración de la caché</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">Activar caché</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">Permitir</string>
@@ -266,10 +267,12 @@ Importar</string>
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">¡Comando no encontrado!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">Introducir comando ADB</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Comandos</string>
+    <string name="community_and_support" comment="Category header for community and documentation links in feature guides">Comunidad &amp; Soporte</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Configurar directorio de guardado</string>
     <string name="confirm">Confirmar</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">Estás a punto de flashear %1$s con %2$s. Esta operación no se puede deshacer.</string>
+    <string name="connection_and_shell" comment="Category header for connection and shell guides">Conexión &amp; Shell</string>
     <string name="confirm_custom_partition_flash_title" comment="Confirmation dialog title before flashing a custom partition">Confirmar Parpadeo de Partición Personalizada</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Confirmar eliminación</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">¿Estás seguro de que quieres eliminar \"%1$s\"? Si se está usando actualmente, la aplicación volverá a la fuente del sistema.</string>
@@ -543,6 +546,7 @@ Importar</string>
     <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">Error al descargar el archivo</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">No se pudo abrir la conexión USB. ¿La depuración USB está activada?</string>
     <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">Error al subir el archivo</string>
+    <string name="faqs" comment="Title for FAQs and troubleshooting feature guide">FAQs &amp; Resolución de problemas</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">Próximamente</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">Consola de comandos</string>
@@ -587,6 +591,8 @@ Importar</string>
     <string name="fb_upload_failed" comment="%1$s = error message">Error al subir: %1$s</string>
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">Archivo subido correctamente</string>
     <string name="fb_uploading" comment="%1$s = file name">Subiendo %1$s</string>
+    <string name="feature_guides" comment="Title of the bottom sheet displaying guides and documentation for app features">Guías de características</string>
+    <string name="feature_guides_summary" comment="Subtitle in guides bottom sheet explaining its contents">Carreteras, instrucciones de configuración y documentación para las funciones de aprovecha</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Solicitud de función</string>
     <string name="feedback">Comentarios</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Obteniendo la hora de la copia de seguridad…</string>
@@ -652,8 +658,24 @@ Importar</string>
     <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">Inicia sesión o crea una cuenta Groq gratuita</string>
     <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">Abre la página de claves API y haz clic en Crear clave API</string>
     <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">Copia tu clave API y pégala aquí</string>
+    <string name="guide_ai_assistant_desc" comment="Guide description for AI Shell Assistant guide">Configurar proveedores IA para generar comandos de shell y problemas de solución de problemas</string>
+    <string name="guide_command_examples_desc" comment="Guide description for Command Examples guide">Examinar, ejecutar y personalizar plantillas de comando precargadas de shell</string>
+    <string name="guide_faqs_desc" comment="Guide description for FAQs and troubleshooting guide">Encuentra respuestas a preguntas frecuentes y problemas de conexión comunes</string>
+    <string name="guide_fastboot_desc" comment="Guide description for Fastboot OTG guide">Administrar modo de cargador de arranque, imágenes de particiones flash y reiniciar en recovery</string>
+    <string name="guide_file_browser_desc" comment="Guide description for File Browser guide">Examinar, descargar, subir y administrar archivos en el dispositivo conectado</string>
+    <string name="guide_local_adb_desc" comment="Guide description for local ADB and Shizuku guide">Ejecutar comandos de shell elevados en su propio dispositivo usando Shizuku o acceso root</string>
+    <string name="guide_logcat_desc" comment="Guide description for Logcat viewer guide">Inspeccionar flujos logcat de dispositivos en vivo con búsqueda regex y filtrado de paquetes</string>
+    <string name="guide_otg_adb_desc" comment="Guide description for OTG ADB walkthrough">Conecte otro dispositivo Android a través del cable USB OTG para acceder directamente al shell del hardware</string>
+    <string name="guide_port_forward_desc" comment="Guide description for port forwarding guide">Reenviar puertos TCP/IP y configurar túneles de socket inversos entre dispositivos</string>
+    <string name="guide_qs_tiles_desc" comment="Guide description for Quick Settings tiles guide">Ejecutar comandos predefinidos directamente con un toque de la sombra de notificación</string>
+    <string name="guide_screen_mirror_desc" comment="Guide description for Scrcpy screen mirroring guide">Stream y espejo de la pantalla del dispositivo de destino con baja latencia sobre OTG</string>
+    <string name="guide_sideload_desc" comment="Guide description for ADB sideload guide">Flash actualizar paquetes ZIP y recuperaciones personalizadas en modo de recuperación</string>
+    <string name="guide_telegram_desc" comment="Guide description for Telegram community support">Únete al grupo de Telegram para discusiones, anuncios y apoyo directo</string>
+    <string name="guide_wiki_desc" comment="Guide description for official GitHub wiki">Navegar la documentación oficial completa, FAQ, y tutoriales</string>
+    <string name="guide_wireless_debugging_desc" comment="Guide description for wireless debugging walkthrough">Emparejar y ejecutar comandos de shell sobre Wi-Fi local sin PC</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Haptics &amp; Vibration</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">¡Que tengas un buen día!</string>
+    <string name="help" comment="Accessibility description and label for help button">Ayuda</string>
     <string name="heuristic">Heurístico</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Editor hexadecimal</string>
     <string name="hide_device_tools" comment="Accessibility action that collapses the device tools side toolbar">Ocultar herramientas de dispositivo</string>
@@ -852,6 +874,7 @@ Importar</string>
     <string name="notification_settings" comment="Button label to open system notification settings screen">Ajustes de notificaciones</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">Si no puedes introducir el código de emparejamiento desde la notificación, es posible que necesites cambiar el Panel de notificaciones a Android. Ve a Ajustes de notificaciones ~ Estilos de notificación para cambiar el estilo. De lo contrario, puede que no puedas introducir el código de emparejamiento desde la notificación.</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">Estilos de notificación</string>
+    <string name="official_wiki" comment="Title for official GitHub wiki link in feature guides bottom sheet">Wiki oficial</string>
     <string name="off">Apagado</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">Apagado</string>
     <string name="ok">Aceptar</string>
@@ -1328,7 +1351,7 @@ Importar</string>
     <string name="theme_name" comment="Label for the text field where user can edit the name of an imported theme">Nombre del tema</string>
     <string name="theme_preview" comment="Title for the bottom sheet showing preview of an imported theme">Vista previa del tema</string>
     <string name="theme_saved_applied" comment="Toast message shown after successfully importing and applying a theme">Tema guardado y aplicado</string>
-    <string name="signature_special" comment="Label shown on immutable designer special theme pill">Firma especial</string>
+    <string name="special_edition" comment="Label shown on immutable designer special theme pill">Edición Especial</string>
     <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Pensando</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Librerías de terceros</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">Esta aplicación</string>
@@ -1499,7 +1522,7 @@ Importar</string>
         <item quantity="one">%1$d túnel hacia este dispositivo se detendrá.</item>
         <item quantity="other">%1$d túneles hacia este dispositivo se detendrán.</item>
     </plurals>
-    <string name="changelog_v8_0_0">Added Fastboot, ADB Sideload and dedicated Logcat viewer\nAdded Port forwarding feature\nAdded ADB TCP/IP connection mode in Local Adb\nAdded Scrcpy screen mirroring feature in Wireless Debugging and USB debugging modes\nAdded capability to run certain adb commands like adb tcpip, adb pair, adb connect, adb devices, etc. through Wireless Debugging (WiFi-ADB) shell and Local ADB TCP/IP mode\nAdded Backup Scheduler (for Github builds only)\nAdded the ability to select and copy text directly from shell output\nImproved bookmarks view\nAdded app UI and font scale customisation with auto-scale feature\nAdded the ability to change app typography font with the ability to import user\'s font files\nAdded option to launch Local ADB screen as default work place\nAdded a lot of icons in the QS tile icon chooser feature\nApp icon is now themed based on Material You color scheme\nAdded checks for invalid or non-existent directories when using ADB commands like cd\nAdded Privacy Policy regarding user data handling\nLots of UI and UX improvements\nFixed a whole lot of bugs</string>
+    <string name="changelog_v8_0_0">Se añadieron Fastboot, ADB Sideload y un visor de Logcat dedicado\nSe añadió la función de redirección de puertos\nSe añadió el modo de conexión ADB TCP/IP en ADB local\nSe añadió la función de duplicación de pantalla mediante Scrcpy en los modos de Depuración inalámbrica y Depuración por USB\nSe añadió la capacidad de ejecutar determinados comandos ADB, como adb tcpip, adb pair, adb connect, adb devices, entre otros, a través de la consola de Depuración inalámbrica (WiFi-ADB) y del modo ADB TCP/IP local\nSe añadió un Programador de Copias de seguridad (solo disponible en las compilaciones de GitHub)\nSe añadió la posibilidad de seleccionar y copiar texto directamente desde la salida de la consola (shell)\nMejorada la vista de marcadores\nSe añadió la personalización de la interfaz de la aplicación y de la escala de fuente, con una función de escalado automático\nSe añadió la posibilidad de cambiar la tipografía de la aplicación, incluyendo la opción de importar archivos de fuentes personalizados del usuario\nSe añadió la opción de establecer la pantalla de ADB local como espacio de trabajo predeterminado\nSe añadieron numerosos iconos a la función de selección de iconos para los mosaicos de Ajustes rápidos (QS)\nEl icono de la aplicación ahora se adapta al esquema de colores de Material You\nSe añadieron comprobaciones para detectar directorios no válidos o inexistentes al utilizar comandos ADB como cd\nSe añadió una Política de privacidad relativa al tratamiento de los datos de los usuarios\nNumerosas mejoras en la interfaz de usuario (UI) y la experiencia de usuario (UX)\nSe corrigieron numerosos errores</string>
     <string name="changelog_v7_4_0">You can now search Sub-settings inside Settings screens\nAdded Palette Styles for color schemes\nAdded option to set app language directly in-app</string>
     <string name="changelog_v7_3_0">Improved UI in changelog screen\nAdded translation contributors in about section\nAdded Licenses screen that shows detailed license information about the app and other libraries used by the app</string>
     <string name="changelog_v7_2_1">Maintenance update!</string>
