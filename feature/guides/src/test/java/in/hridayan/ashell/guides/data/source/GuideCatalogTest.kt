@@ -1,5 +1,6 @@
-package `in`.hridayan.ashell.home.presentation.model
+package `in`.hridayan.ashell.guides.data.source
 
+import `in`.hridayan.ashell.guides.domain.model.GuideCategory
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

@@ -1,27 +1,9 @@
-package `in`.hridayan.ashell.home.presentation.model
+package `in`.hridayan.ashell.guides.data.source
 
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import `in`.hridayan.ashell.core.common.constants.UrlConst
 import `in`.hridayan.ashell.core.resources.R
-
-enum class GuideCategory(
-    @StringRes val titleRes: Int
-) {
-    Connection(R.string.connection_and_shell),
-    Advanced(R.string.fastboot_and_recovery),
-    Utilities(R.string.utilities),
-    Community(R.string.community_and_support)
-}
-
-data class GuideItem(
-    val id: String,
-    @StringRes val titleRes: Int,
-    @StringRes val descriptionRes: Int,
-    @DrawableRes val iconRes: Int,
-    val url: String,
-    val category: GuideCategory
-)
+import `in`.hridayan.ashell.guides.domain.model.GuideCategory
+import `in`.hridayan.ashell.guides.domain.model.GuideItem
 
 object GuideCatalog {
 

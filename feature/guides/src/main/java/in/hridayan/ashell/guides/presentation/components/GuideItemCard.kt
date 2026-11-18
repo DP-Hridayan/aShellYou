@@ -1,4 +1,4 @@
-package `in`.hridayan.ashell.home.presentation.component.bottomsheet
+package `in`.hridayan.ashell.guides.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -28,7 +29,8 @@ import `in`.hridayan.ashell.core.presentation.components.card.cardPressRotation
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.home.presentation.model.GuideItem
+import `in`.hridayan.ashell.guides.domain.model.GuideCategory
+import `in`.hridayan.ashell.guides.domain.model.GuideItem
 
 @Composable
 fun GuideItemCard(
@@ -37,6 +39,8 @@ fun GuideItemCard(
     shape: CustomCardShape,
     onClick: () -> Unit
 ) {
+    val (iconBackgroundColor, iconTintColor) = resolveGuideIconColors(guide.category)
+
     CustomCard(
         modifier = modifier,
         shape = shape,
@@ -56,17 +60,16 @@ fun GuideItemCard(
                 modifier = Modifier
                     .size(42.dp)
                     .cardPressRotation()
-                    .cardPressClip(CircleShape)
-                    .background(MaterialTheme.colorScheme.secondaryContainer),
+                    .cardPressClip(CircleShape,  elevation = 1.dp)
+                    .background(iconBackgroundColor),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     painter = painterResource(guide.iconRes),
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSecondaryContainer
+                    tint = iconTintColor
                 )
             }
-
 
             Column(
                 modifier = Modifier.weight(1f)
@@ -93,6 +96,27 @@ fun GuideItemCard(
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.65f)
             )
+        }
+    }
+}
+
+@Composable
+private fun resolveGuideIconColors(category: GuideCategory): Pair<Color, Color> {
+    return when (category) {
+        GuideCategory.Connection -> {
+            MaterialTheme.colorScheme.primaryContainer to MaterialTheme.colorScheme.onPrimaryContainer
+        }
+
+        GuideCategory.Advanced -> {
+            MaterialTheme.colorScheme.errorContainer to MaterialTheme.colorScheme.onErrorContainer
+        }
+
+        GuideCategory.Utilities -> {
+            MaterialTheme.colorScheme.tertiaryContainer to MaterialTheme.colorScheme.onTertiaryContainer
+        }
+
+        GuideCategory.Community -> {
+            MaterialTheme.colorScheme.secondaryContainer to MaterialTheme.colorScheme.onSecondaryContainer
         }
     }
 }

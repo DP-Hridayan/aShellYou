@@ -224,6 +224,7 @@ dependencies {
     implementation(project(":feature:mirror"))
     implementation(project(":feature:portforward"))
     implementation(project(":feature:crashreporter"))
+    implementation(project(":feature:guides"))
     githubImplementation(project(":feature:ai"))
 
     implementation(libs.kotlin.reflect)

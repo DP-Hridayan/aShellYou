@@ -17,7 +17,6 @@ import `in`.hridayan.ashell.core.navigation.LocalNavController
 import `in`.hridayan.ashell.core.navigation.NavRoutes
 import `in`.hridayan.ashell.core.presentation.components.dialog.OtgDeviceWaitingDialog
 import `in`.hridayan.ashell.core.ui.otg.OtgViewModel
-import `in`.hridayan.ashell.home.presentation.component.bottomsheet.GuidesBottomSheet
 import `in`.hridayan.ashell.home.presentation.model.PortForwardCardStatus
 import `in`.hridayan.ashell.home.presentation.screens.HomeScreen
 import `in`.hridayan.ashell.home.presentation.viewmodel.HomeViewModel
@@ -53,7 +52,6 @@ fun HomeRoute(
     var showPairModeChooseDialog by remember { mutableStateOf(false) }
     var showOtgDeviceWaitingDialog by remember { mutableStateOf(false) }
     var showFastbootDeviceWaitingDialog by remember { mutableStateOf(false) }
-    var showGuidesBottomSheet by remember { mutableStateOf(false) }
 
     HomeScreen(
         localAdbWorkingMode = localAdbWorkingMode,
@@ -114,7 +112,7 @@ fun HomeRoute(
             navController.navigate(NavRoutes.TileDashboardScreen)
         },
         onHelpClick = {
-            showGuidesBottomSheet = true
+            navController.navigate(NavRoutes.GuidesScreen)
         }
     )
 
@@ -177,12 +175,6 @@ fun HomeRoute(
                 showSavedDevicesBottomSheet = false
                 navController.navigate(NavRoutes.WifiAdbScreen())
             }
-        )
-    }
-
-    if (showGuidesBottomSheet) {
-        GuidesBottomSheet(
-            onDismiss = { showGuidesBottomSheet = false }
         )
     }
 }
