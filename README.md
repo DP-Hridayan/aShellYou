@@ -77,7 +77,7 @@
         <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/05.jpeg" width="100%" alt="Fastboot OTG" />
       </td>
       <td align="center" width="33%">
-        <b>Real-Time Logcat</b><br/><br/>
+        <b>Logcat viewer</b><br/><br/>
         <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/06.jpeg" width="100%" alt="Real-Time Logcat" />
       </td>
     </tr>
