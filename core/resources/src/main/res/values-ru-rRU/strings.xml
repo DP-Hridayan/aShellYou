@@ -54,6 +54,7 @@
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Навыки агента</string>
     <string name="ai_agent_shortcut">AI Агент</string>
     <string name="ai_agent_shortcut_long_label">AI ADB Агент</string>
+    <string name="ai_shell_assistant" comment="Title for AI shell assistant feature guide">Помощник AI Shell</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">Продолжительность кеша</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">Включить кэширование</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">Разрешить</string>
@@ -265,14 +266,16 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Команда не найдена!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">Ввод команды ADB</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Команды</string>
+    <string name="community_and_support" comment="Category header for community and documentation links in feature guides">Сообщество &amp; поддержка</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Настроить каталог сохранения</string>
     <string name="confirm">Подтвердить</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Внимание! Это действие необратимо\nВы уверены, что хотите удалить все закладки?</string>
     <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">Вы собираетесь прошить %1$s с %2$s. Эта операция не может быть отменена.</string>
-    <string name="confirm_custom_partition_flash_title" comment="Confirmation dialog title before flashing a custom partition">Подтверждение Flash пользовательского раздела</string>
+    <string name="connection_and_shell" comment="Category header for connection and shell guides">Соединение &amp; Shell</string>
+    <string name="confirm_custom_partition_flash_title" comment="Confirmation dialog title before flashing a custom partition">Подтвердить Прошивку собственного раздела</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Подтвердить удаление</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Вы уверены, что хотите удалить \"%1$s\"? Если он применяется, приложение вернется к системному шрифту.</string>
-    <string name="confirm_high_risk_flash_title" comment="Confirmation dialog title before flashing a high-risk partition such as super, vbmeta, or userdata">Подтверждение вспышки высокого риска</string>
+    <string name="confirm_high_risk_flash_title" comment="Confirmation dialog title before flashing a high-risk partition such as super, vbmeta, or userdata">Подтвердить Прошивку Высокого-Риска</string>
     <string name="confirm_multiple_bookmarks_delete_message" comment="Warning message prompt in confirmation dialog before deleting multiple selected saved bookmarks">Предупреждение ! Это действие необратимо\nВы уверены, что хотите удалить эти %1$d избранные закладки?</string>
     <string name="confirm_single_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting a single saved bookmark">Предупреждение ! Это действие необратимо\nВы уверены, что хотите удалить эту закладку?</string>
     <string name="confirm_tile_delete_message" comment="Confirmation dialog message before deleting a Quick Settings tile configuration">Вы уверены, что хотите удалить эту плитку?</string>
@@ -308,17 +311,17 @@
     <string name="create_new_tile" comment="Screen header or button label to add a new custom Quick Settings tile">Создать новую плитку</string>
     <string name="create_with_ai" comment="Action button in tile editor to generate an ADB command tile using AI assistant">Создать с помощью AI</string>
     <string name="critical">Критический</string>
-    <string name="critical_partition_ack" comment="Checkbox label where the user acknowledges the risk of flashing a critical partition">Я понимаю, что мигание этого раздела сопряжено с большим риском постоянного брика устройства.</string>
-    <string name="critical_partition_warning" comment="Warning banner shown when a user types a critical bootloader or hardware partition">Очень опасный раздел. Прошивка некорректного изображения может навсегда привести ваше устройство.</string>
+    <string name="critical_partition_ack" comment="Checkbox label where the user acknowledges the risk of flashing a critical partition">Я понимаю, что перепрошивка этого раздела несет высокий риск окончательной блокировки устройства.</string>
+    <string name="critical_partition_warning" comment="Warning banner shown when a user types a critical bootloader or hardware partition">Раздел высоких рисков. Перепрошивка неправильного изображения может привести к постоянной жесткой блокировке устройства.</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">Посетите нашу платформу переводов crowdin, чтобы внести свой вклад</string>
     <string name="current_version" comment="About screen card label showing installed application version number">Текущая версия</string>
     <string name="custom" comment="Dropdown entry that lets the user type a value instead of picking a preset">Пользовательское…</string>
-    <string name="custom_partition_hint" comment="Placeholder text for entering a custom partition name in fastboot">напр. product, odm, boot_a</string>
+    <string name="custom_partition_hint" comment="Placeholder text for entering a custom partition name in fastboot">например продукт, odm, boot_a</string>
     <string name="custom_partition_invalid_format" comment="Error message when custom partition name contains invalid characters">Разрешены только буквы, цифры, дефисы и подчеркивания</string>
-    <string name="custom_partition_name" comment="Field label for custom partition input in fastboot flash sheet">Пользовательское имя раздела</string>
-    <string name="custom_partition_switch_to_common" comment="Button label to switch back from custom partition input to common partitions list">Выбрать из обычных разделов</string>
+    <string name="custom_partition_name" comment="Field label for custom partition input in fastboot flash sheet">Собственное имя раздела</string>
+    <string name="custom_partition_switch_to_common" comment="Button label to switch back from custom partition input to common partitions list">Выберите из распространенных разделов</string>
     <string name="custom_partition_too_long" comment="Error message when custom partition name exceeds maximum character limit">Имя раздела не может превышать 64 символа</string>
-    <string name="custom_partition_warning_desc" comment="Warning message explaining the risk of flashing custom partitions in fastboot">Прошивка неправильного раздела может оставить устройство незагрузочным. Убедитесь, что вы знаете точную таблицу разделов вашего устройства.</string>
+    <string name="custom_partition_warning_desc" comment="Warning message explaining the risk of flashing custom partitions in fastboot">Прошивание неправильного раздела может привести к загрузке устройства. Убедитесь, что вы знаете точную таблицу разделов устройства.</string>
     <string name="custom_ui_scale" comment="Settings preference title for adjusting custom UI interface scaling percentage">Свой масштаб UI</string>
     <string name="cut_items" comment="%1$d = number of items cut to clipboard">Вырезать %1$d элементов</string>
     <string name="cut_to_clipboard" comment="Toast notification when items are cut to file browser clipboard">Вырезать в буфер обмена</string>
@@ -542,6 +545,7 @@
     <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">Не удалось загрузить файл</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">Не удалось открыть USB соединение. Включена ли отладка по USB?</string>
     <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">Не удалось загрузить файл</string>
+    <string name="faqs" comment="Title for FAQs and troubleshooting feature guide">FAQs &amp; Устранение неполадок</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">Вскоре</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">Командная консоль</string>
@@ -586,6 +590,8 @@
     <string name="fb_upload_failed" comment="%1$s = error message">Загрузка не удалась: %1$s</string>
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">Файл успешно загружен</string>
     <string name="fb_uploading" comment="%1$s = file name">Загрузка %1$s</string>
+    <string name="feature_guides" comment="Title of the bottom sheet displaying guides and documentation for app features">Инструкции по функциям</string>
+    <string name="feature_guides_summary" comment="Subtitle in guides bottom sheet explaining its contents">Прохождения, настройки инструкций и документации для aShell You</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Запрос функции</string>
     <string name="feedback">Обратная связь</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Получение времени резервного копирования …</string>
@@ -651,8 +657,24 @@
     <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">Войдите в систему или создайте бесплатную учетную запись Groq</string>
     <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">Откройте страницу \"Ключи API\" и нажмите \"Создать ключ API\"</string>
     <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">Скопируйте ваш ключ API и вставьте его здесь</string>
+    <string name="guide_ai_assistant_desc" comment="Guide description for AI Shell Assistant guide">Настройка AI провайдеров для создания команд оболочки и устранения неполадок</string>
+    <string name="guide_command_examples_desc" comment="Guide description for Command Examples guide">Просмотр, выполнение и настройка шаблонов команд предустановленной оболочки</string>
+    <string name="guide_faqs_desc" comment="Guide description for FAQs and troubleshooting guide">Найдите ответы на часто задаваемые вопросы и общие вопросы о связи</string>
+    <string name="guide_fastboot_desc" comment="Guide description for Fastboot OTG guide">Управление режимом загрузчика, изображениями флэш-раздела и перезагрузкой в режим восстановления</string>
+    <string name="guide_file_browser_desc" comment="Guide description for File Browser guide">Просматривайте, загружайте, загружайте и управляйте файлами на подключенном устройстве</string>
+    <string name="guide_local_adb_desc" comment="Guide description for local ADB and Shizuku guide">Выполняйте команды повышенной оболочки на вашем собственном устройстве с помощью Shizuku или root доступа</string>
+    <string name="guide_logcat_desc" comment="Guide description for Logcat viewer guide">Инспектировать лог-потоки живых устройств с фильтрацией регулярного поиска и пакетов</string>
+    <string name="guide_otg_adb_desc" comment="Guide description for OTG ADB walkthrough">Подключите другое устройство Android через кабель USB OTG для прямого доступа к аппаратной оболочке</string>
+    <string name="guide_port_forward_desc" comment="Guide description for port forwarding guide">Пересылка портов TCP/IP и настройка обратных сокетов между устройствами</string>
+    <string name="guide_qs_tiles_desc" comment="Guide description for Quick Settings tiles guide">Выполнить предопределенные команды оболочки сразу одним нажатием из тени уведомления</string>
+    <string name="guide_screen_mirror_desc" comment="Guide description for Scrcpy screen mirroring guide">Поток и зеркалирование целевого экрана устройства с низкой задержкой над OTG</string>
+    <string name="guide_sideload_desc" comment="Guide description for ADB sideload guide">Прошить обновления ZIP пакетов и пользовательских восстановлений в режиме восстановления</string>
+    <string name="guide_telegram_desc" comment="Guide description for Telegram community support">Присоединяйтесь к группе Telegram для обсуждений, объявлений и прямой поддержки</string>
+    <string name="guide_wiki_desc" comment="Guide description for official GitHub wiki">Просмотреть всю официальную документацию, FAQ и учебники</string>
+    <string name="guide_wireless_debugging_desc" comment="Guide description for wireless debugging walkthrough">Соединить и выполнить команды оболочки через локальную Wi-Fi без ПК</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Тактильная отдача &amp; Вибрация</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Приятного дня!</string>
+    <string name="help" comment="Accessibility description and label for help button">Справка</string>
     <string name="heuristic">Эвристический</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Hex редактор</string>
     <string name="hide_device_tools" comment="Accessibility action that collapses the device tools side toolbar">Скрыть инструменты устройства</string>
@@ -851,6 +873,7 @@
     <string name="notification_settings" comment="Button label to open system notification settings screen">Настройки уведомлений</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">Если вы не можете ввести код сопряжения из уведомления, возможно, вам нужно будет изменить панель уведомлений на Android. Чтобы изменить стиль уведомлений, перейдите к Настройка уведомлений ~ Стиль уведомлений. В противном случае вы можете не ввести код сопряжения из сообщения.</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">Стили уведомлений</string>
+    <string name="official_wiki" comment="Title for official GitHub wiki link in feature guides bottom sheet">Официальная вики</string>
     <string name="off">Выключить</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">\"Выкл\"</string>
     <string name="ok">ОК</string>
@@ -953,7 +976,7 @@
     <string name="port_forward_error_nothing_listening" comment="Port forwarding error: no app on the connected device listens on that socket. %1$s is the port or socket name">Ничего не слушает на %1$s на устройстве</string>
     <string name="port_forward_error_port_in_use" comment="Port forwarding error: the chosen port on this phone is already taken by another app. %1$d is the port number">Порт %1$d используется другим приложением</string>
     <string name="port_forward_error_port_privileged" comment="Port forwarding error: apps cannot listen on ports below 1024">Использовать порт 1024 или выше</string>
-    <string name="port_forward_error_target_refused" comment="Port forwarding error: the computer refused the connection. vite --host is a command shown verbatim as an example and must not be translated">Отказано. Прослушивает сервер в сети? Например vite - хост</string>
+    <string name="port_forward_error_target_refused" comment="Port forwarding error: the computer refused the connection. vite --host is a command shown verbatim as an example and must not be translated">Отказано. Сервер прослушивает сеть? Например, быстрый — хост</string>
     <string name="port_forward_error_target_timeout" comment="Port forwarding error: the computer did not answer in time">Ответа нет. Проверьте брандмауэр компьютера и убедитесь, что оба устройства подключены к одной и той же сети Wi-Fi</string>
     <string name="port_forward_error_too_many_connections" comment="Port forwarding warning: the tunnel reached its connection limit and refuses new connections">Слишком много подключений. Новые отклоняются</string>
     <string name="port_forward_error_unexpected" comment="Port forwarding error with technical details. %1$s is the system's error message">Что-то пошло не так: %1$s</string>
@@ -1327,7 +1350,7 @@
     <string name="theme_name" comment="Label for the text field where user can edit the name of an imported theme">Имя темы</string>
     <string name="theme_preview" comment="Title for the bottom sheet showing preview of an imported theme">Предпросмотр темы</string>
     <string name="theme_saved_applied" comment="Toast message shown after successfully importing and applying a theme">Тема сохранена и применена</string>
-    <string name="signature_special" comment="Label shown on immutable designer special theme pill">Специальная подпись</string>
+    <string name="special_edition" comment="Label shown on immutable designer special theme pill">Специальное издание</string>
     <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Мысль</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Сторонние библиотеки</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">Это приложение</string>
@@ -1532,7 +1555,7 @@
         <item quantity="many">%1$d туннелей к этому устройству остановятся.</item>
         <item quantity="other">%1$d туннелей к этому устройству остановятся.</item>
     </plurals>
-    <string name="changelog_v8_0_0">Added Fastboot, ADB Sideload and dedicated Logcat viewer\nAdded Port forwarding feature\nAdded ADB TCP/IP connection mode in Local Adb\nAdded Scrcpy screen mirroring feature in Wireless Debugging and USB debugging modes\nAdded capability to run certain adb commands like adb tcpip, adb pair, adb connect, adb devices, etc. through Wireless Debugging (WiFi-ADB) shell and Local ADB TCP/IP mode\nAdded Backup Scheduler (for Github builds only)\nAdded the ability to select and copy text directly from shell output\nImproved bookmarks view\nAdded app UI and font scale customisation with auto-scale feature\nAdded the ability to change app typography font with the ability to import user\'s font files\nAdded option to launch Local ADB screen as default work place\nAdded a lot of icons in the QS tile icon chooser feature\nApp icon is now themed based on Material You color scheme\nAdded checks for invalid or non-existent directories when using ADB commands like cd\nAdded Privacy Policy regarding user data handling\nLots of UI and UX improvements\nFixed a whole lot of bugs</string>
+    <string name="changelog_v8_0_0">Добавлены Fastboot, ADB Sideload и специальный просмотрщик Logcat\nДобавлена ​​функция переадресации портов\nДобавлен ADB TCP/IP режим подключения в Local Adb\nДобавлена ​​функция зеркалирования экрана Scrcpy в режимах беспроводной отладки и отладки по USB\nДобавлена ​​возможность запуска определенных команд adb, таких как adb tcpip, adb Pair, adb Connect, adb devices и т. д., через оболочку беспроводной отладки (WiFi-ADB) и локальный режим ADB TCP/IP\nДобавлен планировщик резервного копирования (только для сборок Github)\nДобавлена ​​возможность выбирать и копировать текст непосредственно из вывода оболочки\nУлучшенный вид закладок\nДобавлен UI приложения и настройка масштаба шрифта с функцией автоматического масштабирования\nДобавлена ​​возможность изменять шрифт оформления приложения с возможностью импорта файлов шрифтов пользователя\nДобавлена ​​возможность запуска локального экрана ADB в качестве рабочего места по умолчанию\nДобавлено ​​много иконок в функцию выбора иконка плитки QS\nИконка приложения теперь оформлена в соответствии с цветовой схемой Material You\nДобавлены проверки на наличие недействительных или несуществующих каталогов при использовании команд ADB, таких как cd\nДобавлено Политика конфиденциальности по обработке данных пользователей\nМного улучшений UI и UX\nИсправлено много ошибок</string>
     <string name="changelog_v7_4_0">\nТеперь вы можете искать под настройки на экранах настроек\nДобавлены стили палитры для цветовых схем\nДобавлена ​​опция установки языка приложения прямо в приложении</string>
     <string name="changelog_v7_3_0">\nУлучшен пользовательский интерфейс в журнале изменений\nДобавлены переводчики в раздел О программе.\nДобавлен экран лицензий, показывающий подробную информацию о лицензии приложения и других библиотек, использующих приложение</string>
     <string name="changelog_v7_2_1">\nОбновление технического обслуживания!</string>
