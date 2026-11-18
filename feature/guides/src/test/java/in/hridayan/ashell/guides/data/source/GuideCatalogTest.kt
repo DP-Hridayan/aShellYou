@@ -2,6 +2,7 @@ package `in`.hridayan.ashell.guides.data.source
 
 import `in`.hridayan.ashell.guides.domain.model.GuideCategory
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -39,5 +40,17 @@ class GuideCatalogTest {
             val isTelegram = guide.url.startsWith("https://t.me/")
             assertTrue(isOfficialWiki || isTelegram)
         }
+    }
+
+    @Test
+    fun getAllGuides_whenAiDisabled_excludesAiAssistant() {
+        val guides = GuideCatalog.getAllGuides(isAiEnabled = false)
+        assertFalse(guides.any { it.id == "ai_assistant" })
+    }
+
+    @Test
+    fun getAllGuides_whenAiEnabled_includesAiAssistant() {
+        val guides = GuideCatalog.getAllGuides(isAiEnabled = true)
+        assertTrue(guides.any { it.id == "ai_assistant" })
     }
 }
