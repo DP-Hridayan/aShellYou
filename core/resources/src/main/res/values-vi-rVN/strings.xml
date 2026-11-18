@@ -54,7 +54,7 @@
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Kỹ năng của trợ lý AI</string>
     <string name="ai_agent_shortcut">Trợ lý AI</string>
     <string name="ai_agent_shortcut_long_label">Trợ lý AI ADB</string>
-    <string name="ai_shell_assistant" comment="Title for AI shell assistant feature guide">AI Shell Assistant</string>
+    <string name="ai_shell_assistant" comment="Title for AI shell assistant feature guide">Trợ lý Shell AI</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">Thời gian lưu bộ nhớ đệm</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">Bật bộ nhớ đệm</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">Cho phép</string>
@@ -209,7 +209,7 @@
     <string name="codec" comment="Section title in the video quality sheet for the video compression format, such as H.264">Bộ giải mã</string>
     <string name="codec_fallback" comment="Message after the other device failed to encode the chosen codec. %1$s is a codec name such as H.265">Thiết bị này không thể mã hóa %1$s nên sẽ dùng H.264</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Thu gọn</string>
-    <string name="collapse_panel_on_click" comment="Title for the switch option in Quick Settings tile builder that collapses the QS notification shade when clicked">Collapse Quick Settings</string>
+    <string name="collapse_panel_on_click" comment="Title for the switch option in Quick Settings tile builder that collapses the QS notification shade when clicked">Thu gọn Cài đặt nhanh</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Đã xảy ra lỗi</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">Độ nổi cao (Hộp thoại)</string>
     <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">Độ nổi cao nhất (Bảng dưới cùng)</string>
@@ -267,12 +267,13 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Không tìm thấy lệnh!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">Nhập lệnh ADB</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Lệnh</string>
-    <string name="community_and_support" comment="Category header for community and documentation links in feature guides">Community &amp; Support</string>
+    <string name="community_and_support" comment="Category header for community and documentation links in feature guides">Cộng đồng &amp; Hỗ trợ</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Chọn thư mục lưu</string>
+    <string name="configuration" comment="Section group title in logs and configuration screen">Cấu hình</string>
     <string name="confirm">Xác nhận</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Cảnh báo! Hành động này không thể hoàn tác.\nBạn có chắc chắn muốn xóa tất cả dấu trang không?</string>
     <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">Bạn sắp flash %1$s bằng %2$s. Thao tác này không thể hoàn tác.</string>
-    <string name="connection_and_shell" comment="Category header for connection and shell guides">Connection &amp; Shell</string>
+    <string name="connection_and_shell" comment="Category header for connection and shell guides">Kết nối &amp; Shell</string>
     <string name="confirm_custom_partition_flash_title" comment="Confirmation dialog title before flashing a custom partition">Xác nhận flash phân vùng tùy chỉnh</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Xác nhận xóa</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Bạn có chắc chắn muốn xóa \"%1$s\" không? Nếu đang sử dụng, ứng dụng sẽ quay về phông chữ hệ thống.</string>
@@ -373,7 +374,7 @@
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Xóa toàn bộ phản hồi phân tích AI đã lưu trong bộ nhớ đệm</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Yêu cầu xác nhận trước khi xóa đầu ra của shell</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">Quản lý khóa API cho mô hình đám mây</string>
-    <string name="des_collapse_panel_on_click" comment="Description explaining that clicking the tile will automatically dismiss the Quick Settings panel simultaneously with executing the command">Automatically dismiss the Quick Settings panel when this tile is clicked</string>
+    <string name="des_collapse_panel_on_click" comment="Description explaining that clicking the tile will automatically dismiss the Quick Settings panel simultaneously with executing the command">Tự động ẩn bảng Cài đặt nhanh khi ô này được nhấn</string>
     <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Cho phép trợ lý AI thực thi lệnh ADB shell</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">Chọn một thư mục để lưu đầu ra của shell</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">Danh sách người đã giúp phát triển aShell You</string>
@@ -391,6 +392,7 @@
     <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">Tự động sao lưu vào tài khoản Google Drive của bạn</string>
     <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">Khi được bật, bản cập nhật sẽ tải xuống trực tiếp từ GitHub ngay trong ứng dụng. Tắt để truy cập trang phát hành GitHub và tải xuống thủ công.</string>
     <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">Tự động sao lưu vào thư mục đã chọn trên thiết bị của bạn</string>
+    <string name="des_export_configuration" comment="Description under Export configuration item in logs and configuration screen">Xuất chi tiết chẩn đoán và cấu hình thiết bị để báo cáo lỗi</string>
     <string name="des_examples" comment="Description under Command templates item in navigation menu">Bộ sưu tập một số mẫu lệnh</string>
     <string name="des_feature_request" comment="Description under Feature request item in About menu">Nếu bạn có bất kỳ ý tưởng hoặc đề xuất nào cho ứng dụng, hãy cho chúng tôi biết</string>
     <string name="des_font_family" comment="Description under Font family setting item">Thay đổi kiểu phông chữ của ứng dụng</string>
@@ -407,6 +409,7 @@
     <string name="des_local_restore" comment="Description card text for local restore option">Chọn tệp sao lưu từ thiết bị của bạn</string>
     <string name="des_log_buffer_size" comment="Description under the Logcat log buffer size setting; explains that older entries are dropped once the limit is reached">Bộ nhớ được giữ lại cho nhật ký đã thu thập. Mục cũ hơn sẽ bị xóa khi đạt đến giới hạn.</string>
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">Đầu ra logcat theo thời gian thực từ thiết bị được kết nối</string>
+    <string name="des_logs_and_configuration" comment="Description under Logs &amp; Configuration item in main settings menu">Xem nhật ký sự cố và xuất cấu hình chẩn đoán</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Màu động, Giao diện Tối, Ngôn ngữ</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">Chưa chọn mô hình</string>
     <string name="des_no_filter_profiles" comment="Body of the empty state in the logcat filter sheet, shown when no filter profiles have been created">Thêm hồ sơ để chọn nhật ký được hiển thị. Khi không chọn hồ sơ nào, mọi nhật ký đều được hiển thị.</string>
@@ -541,13 +544,17 @@
     <string name="exit_full_screen" comment="Button that leaves the full screen view of the mirrored screen">Thoát toàn màn hình</string>
     <string name="expand" comment="Action button to expand a collapsed card section">Mở rộng</string>
     <string name="experimental" comment="Badge or section title marking experimental features">Thử nghiệm</string>
+    <string name="export">Xuất</string>
+    <string name="export_config_share_subject" comment="Subject text for sharing the exported diagnostic configuration report">Cấu hình chẩn đoán aShellYou</string>
+    <string name="export_configuration" comment="Settings item and dialog title to export diagnostic details and device configuration">Xuất cấu hình</string>
+    <string name="export_configuration_preview_description" comment="Explains the content preview in the export configuration bottom sheet">Bản xem trước của cấu hình chẩn đoán sẽ được xuất sang tệp văn bản:</string>
     <string name="failed">Thất bại</string>
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">Nhận quyền giao tiếp USB OTG thất bại</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">Sao chép thất bại</string>
     <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">Tải xuống tệp thất bại</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">Không thể mở kết nối USB. Bạn đã bật Gỡ lỗi USB chưa?</string>
     <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">Tải lên tệp thất bại</string>
-    <string name="faqs" comment="Title for FAQs and troubleshooting feature guide">FAQs &amp; Troubleshooting</string>
+    <string name="faqs" comment="Title for FAQs and troubleshooting feature guide">Câu hỏi thường gặp &amp; Khắc phục sự cố</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">Sắp ra mắt</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">Bảng điều khiển lệnh</string>
@@ -592,8 +599,8 @@
     <string name="fb_upload_failed" comment="%1$s = error message">Tải lên thất bại: %1$s</string>
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">Tải lên tệp thành công</string>
     <string name="fb_uploading" comment="%1$s = file name">Đang tải lên %1$s</string>
-    <string name="feature_guides" comment="Title of the bottom sheet displaying guides and documentation for app features">Feature Guides</string>
-    <string name="feature_guides_summary" comment="Subtitle in guides bottom sheet explaining its contents">Walkthroughs, setup instructions, and documentation for aShell You features</string>
+    <string name="feature_guides" comment="Title of the bottom sheet displaying guides and documentation for app features">Hướng dẫn tính năng</string>
+    <string name="feature_guides_summary" comment="Subtitle in guides bottom sheet explaining its contents">Hướng dẫn từng bước, hướng dẫn thiết lập và tài liệu cho các tính năng của aShell You</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Yêu cầu tính năng</string>
     <string name="feedback">Phản hồi</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Đang tải thời gian sao lưu…</string>
@@ -659,24 +666,24 @@
     <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">Đăng nhập hoặc tạo một tài khoản Groq miễn phí</string>
     <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">Mở trang Khóa API và nhấp vào Tạo khóa API</string>
     <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">Sao chép khóa API của bạn và dán vào đây</string>
-    <string name="guide_ai_assistant_desc" comment="Guide description for AI Shell Assistant guide">Configure AI providers to generate shell commands and troubleshoot issues</string>
-    <string name="guide_command_examples_desc" comment="Guide description for Command Examples guide">Browse, execute, and customize preloaded shell command templates</string>
-    <string name="guide_faqs_desc" comment="Guide description for FAQs and troubleshooting guide">Find answers to frequently asked questions and common connection issues</string>
-    <string name="guide_fastboot_desc" comment="Guide description for Fastboot OTG guide">Manage bootloader mode, flash partition images, and reboot to recovery</string>
-    <string name="guide_file_browser_desc" comment="Guide description for File Browser guide">Browse, download, upload, and manage files on the connected device</string>
-    <string name="guide_local_adb_desc" comment="Guide description for local ADB and Shizuku guide">Run elevated shell commands on your own device using Shizuku or root access</string>
-    <string name="guide_logcat_desc" comment="Guide description for Logcat viewer guide">Inspect live device logcat streams with regex search and package filtering</string>
-    <string name="guide_otg_adb_desc" comment="Guide description for OTG ADB walkthrough">Connect another Android device via USB OTG cable for direct hardware shell access</string>
-    <string name="guide_port_forward_desc" comment="Guide description for port forwarding guide">Forward TCP/IP ports and configure reverse socket tunnels between devices</string>
-    <string name="guide_qs_tiles_desc" comment="Guide description for Quick Settings tiles guide">Execute predefined shell commands directly with one tap from the notification shade</string>
-    <string name="guide_screen_mirror_desc" comment="Guide description for Scrcpy screen mirroring guide">Stream and mirror the target device screen with low latency over OTG</string>
-    <string name="guide_sideload_desc" comment="Guide description for ADB sideload guide">Flash update ZIP packages and custom recoveries in recovery mode</string>
-    <string name="guide_telegram_desc" comment="Guide description for Telegram community support">Join the Telegram group for discussions, announcements, and direct support</string>
-    <string name="guide_wiki_desc" comment="Guide description for official GitHub wiki">Browse the complete official documentation, FAQ, and tutorials</string>
-    <string name="guide_wireless_debugging_desc" comment="Guide description for wireless debugging walkthrough">Pair and execute shell commands over local Wi-Fi without a PC</string>
+    <string name="guide_ai_assistant_desc" comment="Guide description for AI Shell Assistant guide">Cấu hình các nhà cung cấp AI để tạo lệnh shell và khắc phục sự cố</string>
+    <string name="guide_command_examples_desc" comment="Guide description for Command Examples guide">Duyệt, thực thi và tùy chỉnh các mẫu lệnh shell được tải sẵn</string>
+    <string name="guide_faqs_desc" comment="Guide description for FAQs and troubleshooting guide">Tìm câu trả lời cho các câu hỏi thường gặp và các sự cố kết nối phổ biến</string>
+    <string name="guide_fastboot_desc" comment="Guide description for Fastboot OTG guide">Quản lý chế độ bootloader, flash phân khúc hình ảnh và khởi động lại vào recovery</string>
+    <string name="guide_file_browser_desc" comment="Guide description for File Browser guide">Duyệt, tải xuống, tải lên và quản lý tệp trên thiết bị đã kết nối</string>
+    <string name="guide_local_adb_desc" comment="Guide description for local ADB and Shizuku guide">Chạy các lệnh shell đặc quyền trên thiết bị của riêng bạn bằng Shizuku hoặc quyền root</string>
+    <string name="guide_logcat_desc" comment="Guide description for Logcat viewer guide">Kiểm tra luồng logcat trực tiếp của thiết bị bằng tìm kiếm regex và bộ lọc gói</string>
+    <string name="guide_otg_adb_desc" comment="Guide description for OTG ADB walkthrough">Kết nối thiết bị Android khác qua cáp USB OTG để truy cập trực tiếp phần cứng shell</string>
+    <string name="guide_port_forward_desc" comment="Guide description for port forwarding guide">Chuyển tiếp cổng TCP/IP và cấu hình đường hầm socket ngược giữa các thiết bị</string>
+    <string name="guide_qs_tiles_desc" comment="Guide description for Quick Settings tiles guide">Thực thi các lệnh shell định sẵn trực tiếp chỉ với một lần nhấn từ bảng thông báo</string>
+    <string name="guide_screen_mirror_desc" comment="Guide description for Scrcpy screen mirroring guide">Phát trực tuyến và phản chiếu màn hình thiết bị mục tiêu với độ trễ thấp qua OTG</string>
+    <string name="guide_sideload_desc" comment="Guide description for ADB sideload guide">Flash các gói cập nhật ZIP và recovery tùy chỉnh ở chế độ recovery</string>
+    <string name="guide_telegram_desc" comment="Guide description for Telegram community support">Tham gia nhóm Telegram để thảo luận, thông báo và hỗ trợ trực tiếp</string>
+    <string name="guide_wiki_desc" comment="Guide description for official GitHub wiki">Duyệt qua tài liệu chính thức hoàn chỉnh, câu hỏi thường gặp và hướng dẫn</string>
+    <string name="guide_wireless_debugging_desc" comment="Guide description for wireless debugging walkthrough">Ghép nối và thực thi các lệnh shell qua Wi-Fi cục bộ mà không cần PC</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Phản hồi xúc giác &amp; Rung</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Chúc một ngày tốt lành!</string>
-    <string name="help" comment="Accessibility description and label for help button">Help</string>
+    <string name="help" comment="Accessibility description and label for help button">Trợ giúp</string>
     <string name="heuristic">Heuristic</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Trình chỉnh sửa Hex</string>
     <string name="hide_device_tools" comment="Accessibility action that collapses the device tools side toolbar">Ẩn công cụ thiết bị</string>
@@ -762,6 +769,7 @@
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Nguồn Logcat</string>
     <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Nhấn ▶ để bắt đầu logcat</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">Nhật ký</string>
+    <string name="logs_and_configuration" comment="Settings menu title and screen header for viewing logs and exporting diagnostic configuration">Nhật ký &amp; Cấu hình</string>
     <string name="logs_saved" comment="Toast shown after exported logcat entries were written to the file the user picked">Đã lưu nhật ký</string>
     <string name="long_edge_pixels" comment="A limit on a video's longer side. %1$d is a number of pixels">%1$d px</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Giao diện &amp; Cảm nhận</string>
@@ -875,7 +883,7 @@
     <string name="notification_settings" comment="Button label to open system notification settings screen">Cài đặt thông báo</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">Nếu bạn không thể nhập mã ghép nối từ thông báo, có thể bạn cần thay đổi kiểu thông báo thành Android. Để đổi kiểu thông báo, đi tới Cài đặt thông báo ~ Kiểu thông báo. Nếu không, bạn không thể nhập mã ghép nối từ thông báo.</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">Kiểu thông báo</string>
-    <string name="official_wiki" comment="Title for official GitHub wiki link in feature guides bottom sheet">Official Wiki</string>
+    <string name="official_wiki" comment="Title for official GitHub wiki link in feature guides bottom sheet">Wiki chính thức</string>
     <string name="off">Tắt</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">Tắt</string>
     <string name="ok">OK</string>
@@ -978,7 +986,7 @@
     <string name="port_forward_error_nothing_listening" comment="Port forwarding error: no app on the connected device listens on that socket. %1$s is the port or socket name">Không có gì đang lắng nghe tại %1$s trên thiết bị</string>
     <string name="port_forward_error_port_in_use" comment="Port forwarding error: the chosen port on this phone is already taken by another app. %1$d is the port number">Cổng %1$d đang được ứng dụng khác sử dụng</string>
     <string name="port_forward_error_port_privileged" comment="Port forwarding error: apps cannot listen on ports below 1024">Sử dụng cổng 1024 trở lên</string>
-    <string name="port_forward_error_target_refused" comment="Port forwarding error: the computer refused the connection. vite --host is a command shown verbatim as an example and must not be translated">Refused. Is the server listening on the network? For example, vite —host</string>
+    <string name="port_forward_error_target_refused" comment="Port forwarding error: the computer refused the connection. vite --host is a command shown verbatim as an example and must not be translated">Bị từ chối. Máy chủ có đang lắng nghe trên mạng không? Ví dụ: vite —host</string>
     <string name="port_forward_error_target_timeout" comment="Port forwarding error: the computer did not answer in time">Không có phản hồi. Hãy kiểm tra tường lửa của máy tính và đảm bảo cả hai dùng chung Wi-Fi</string>
     <string name="port_forward_error_too_many_connections" comment="Port forwarding warning: the tunnel reached its connection limit and refuses new connections">Quá nhiều kết nối. Kết nối mới bị từ chối</string>
     <string name="port_forward_error_unexpected" comment="Port forwarding error with technical details. %1$s is the system's error message">Đã xảy ra lỗi: %1$s</string>
@@ -1352,7 +1360,7 @@
     <string name="theme_name" comment="Label for the text field where user can edit the name of an imported theme">Tên chủ đề</string>
     <string name="theme_preview" comment="Title for the bottom sheet showing preview of an imported theme">Xem trước chủ đề</string>
     <string name="theme_saved_applied" comment="Toast message shown after successfully importing and applying a theme">Đã lưu và áp dụng chủ đề</string>
-    <string name="special_edition" comment="Label shown on immutable designer special theme pill">Special Edition</string>
+    <string name="special_edition" comment="Label shown on immutable designer special theme pill">Phiên bản đặc biệt</string>
     <string name="thinking" comment="Label for the model's own reasoning, listed alongside tool activity in the AI chat thoughts sheet">Đang suy nghĩ</string>
     <string name="third_party_libraries" comment="Screen title listing open-source third-party dependencies used in aShellYou">Thư viện bên thứ ba</string>
     <string name="this_application" comment="Option label for target scope in Logcat Viewer">Ứng dụng này</string>
@@ -1506,7 +1514,7 @@
     <plurals name="disconnect_stops_tunnels" comment="Dialog text: port forwarding tunnels to this device stop when it disconnects. %1$d is the number of tunnels">
         <item quantity="other">%1$d đường hầm tới thiết bị này sẽ dừng.</item>
     </plurals>
-    <string name="changelog_v8_0_0">\nFor GitHub flavor builds, added AI chatbot with capabilities to execute commands (need user opt-in), manage app database and access app features like Quick Settings Tiles.\nAdded Fastboot, ADB Sideload and dedicated Logcat viewer\nAdded Port forwarding feature\nAdded ADB TCP/IP connection mode in Local Adb\nAdded Scrcpy screen mirroring feature in Wireless Debugging and USB debugging modes\nAdded capability to run certain adb commands like adb tcpip, adb pair, adb connect, adb devices, etc. through Wireless Debugging (WiFi-ADB) shell and Local ADB TCP/IP mode\nAdded TCP mode for Quick Settings Tile execution\nAdded Backup Scheduler (for Github builds only)\nAdded the ability to select and copy text directly from shell output\nImproved bookmarks view\nAdded app UI and font scale customisation with auto-scale feature\nAdded the ability to change app typography font with the ability to import user\'s font files\nAdded option to launch Local ADB screen as default work place\nAdded a lot of icons in the QS tile icon chooser feature\nApp icon is now themed based on Material You color scheme\nAdded checks for invalid or non-existent directories when using ADB commands like cd\nAdded Privacy Policy regarding user data handling\nLots of UI and UX improvements\nFixed a whole lot of bugs</string>
+    <string name="changelog_v8_0_0">\nĐối với các bản dựng theo phong cách GitHub, đã thêm chatbot AI với khả năng thực thi lệnh (cần sự đồng ý của người dùng), quản lý cơ sở dữ liệu ứng dụng và truy cập các tính năng của ứng dụng như Ô Cài đặt nhanh.\nĐã thêm Fastboot, ADB Sideload và trình xem Logcat chuyên dụng.\nĐã thêm tính năng Chuyển tiếp cổng.\nĐã thêm chế độ kết nối ADB TCP/IP trong ADB cục bộ.\nĐã thêm tính năng phản chiếu màn hình Scrcpy trong chế độ Gỡ lỗi không dây và Gỡ lỗi USB.\nĐã thêm khả năng chạy một số lệnh adb như adb tcpip, adb pair, adb connect, adb devices, v.v. thông qua shell Gỡ lỗi không dây (WiFi-ADB) và chế độ ADB TCP/IP cục bộ.\nĐã thêm chế độ TCP để thực thi Ô Cài đặt nhanh.\nĐã thêm Lập lịch sao lưu (chỉ dành cho bản dựng GitHub).\nĐã thêm khả năng chọn và sao chép văn bản trực tiếp từ đầu ra của shell.\nĐã cải thiện chế độ xem dấu trang.\nĐã thêm tính năng tùy chỉnh giao diện ứng dụng và tỷ lệ phông chữ với tính năng tự động chia tỷ lệ.\nĐã thêm khả năng thay đổi phông chữ kiểu chữ của ứng dụng với khả năng nhập tệp phông chữ của người dùng.\nĐã thêm tùy chọn khởi chạy màn hình ADB cục bộ làm nơi làm việc mặc định.\nĐã thêm rất nhiều biểu tượng trong tính năng chọn biểu tượng ô Cài đặt nhanh.\nBiểu tượng ứng dụng giờ đây có chủ đề dựa trên bảng màu Material You.\nĐã thêm các kiểm tra thư mục không hợp lệ hoặc không tồn tại khi sử dụng các lệnh ADB như cd.\nĐã thêm Chính sách quyền riêng tư liên quan đến việc xử lý dữ liệu người dùng.\nNhiều cải tiến về giao diện và trải nghiệm người dùng.\nĐã sửa rất nhiều lỗi.</string>
     <string name="changelog_v7_4_0">\nGiờ đây bạn có thể tìm kiếm cài đặt phụ trong màn hình cài đặt\nĐã thêm kiểu bảng màu cho phối màu\nĐã thêm tùy chọn đặt ngôn ngữ ứng dụng ngay trong ứng dụng</string>
     <string name="changelog_v7_3_0">\nĐã cải thiện giao diện trên màn hình nhật ký thay đổi\nĐã thêm danh sách người dịch vào phần Giới thiệu.\nĐã thêm Màn hình giấy phép hiển thị thông tin chi tiết về giấy phép của ứng dụng và thư viện khác mà ứng dụng sử dụng</string>
     <string name="changelog_v7_2_1">\nBản cập nhật bảo trì!</string>

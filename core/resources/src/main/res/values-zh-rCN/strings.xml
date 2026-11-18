@@ -269,6 +269,7 @@
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">命令</string>
     <string name="community_and_support" comment="Category header for community and documentation links in feature guides">Community &amp; Support</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">配置输出保存目录</string>
+    <string name="configuration" comment="Section group title in logs and configuration screen">配置</string>
     <string name="confirm">确定</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">警告！此操作不可逆
 你确定要删除所有书签吗？</string>
@@ -394,6 +395,7 @@
     <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">自动备份到您的 Google Drive 账号</string>
     <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">开启后，更新将直接从 Github应用程序中下载。关闭以访问Github 发布页面进行手动下载。</string>
     <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">自动备份到设备上的所选文件夹</string>
+    <string name="des_export_configuration" comment="Description under Export configuration item in logs and configuration screen">导出诊断细节和设备配置用于错误报告</string>
     <string name="des_examples" comment="Description under Command templates item in navigation menu">一些常用命令示例</string>
     <string name="des_feature_request" comment="Description under Feature request item in About menu">如果您对应用有任何想法或建议，请告知我们</string>
     <string name="des_font_family" comment="Description under Font family setting item">更改应用程序的字体样式</string>
@@ -410,6 +412,7 @@
     <string name="des_local_restore" comment="Description card text for local restore option">从您的设备选择备份文件</string>
     <string name="des_log_buffer_size" comment="Description under the Logcat log buffer size setting; explains that older entries are dropped once the limit is reached">为收集的日志保留内存。达到限制后，较旧的条目将被丢弃。</string>
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">来自已连接设备的实时 logcat 输出</string>
+    <string name="des_logs_and_configuration" comment="Description under Logs &amp; Configuration item in main settings menu">查看崩溃日志和导出诊断配置</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">莫奈取色，暗色主题以及语言设置</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">未选择模型</string>
     <string name="des_no_filter_profiles" comment="Body of the empty state in the logcat filter sheet, shown when no filter profiles have been created">添加一个配置文件来选择显示哪些日志。如果没有选择任何配置文件，则显示每个日志。</string>
@@ -544,6 +547,10 @@
     <string name="exit_full_screen" comment="Button that leaves the full screen view of the mirrored screen">退出全屏</string>
     <string name="expand" comment="Action button to expand a collapsed card section">展开</string>
     <string name="experimental" comment="Badge or section title marking experimental features">实验性</string>
+    <string name="export">导出</string>
+    <string name="export_config_share_subject" comment="Subject text for sharing the exported diagnostic configuration report">aShellY诊断配置</string>
+    <string name="export_configuration" comment="Settings item and dialog title to export diagnostic details and device configuration">导出配置</string>
+    <string name="export_configuration_preview_description" comment="Explains the content preview in the export configuration bottom sheet">预览将导出到文本文件的诊断配置：</string>
     <string name="failed">失败</string>
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">无法认领接口</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">复制失败</string>
@@ -765,6 +772,7 @@
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat 来源</string>
     <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">点击 ▶ 开始 logcat</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">日志</string>
+    <string name="logs_and_configuration" comment="Settings menu title and screen header for viewing logs and exporting diagnostic configuration">日志 &amp; 配置</string>
     <string name="logs_saved" comment="Toast shown after exported logcat entries were written to the file the user picked">日志已保存</string>
     <string name="long_edge_pixels" comment="A limit on a video's longer side. %1$d is a number of pixels">%1$d px</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">外观 &amp; 体验</string>
@@ -986,7 +994,7 @@
     <string name="port_forward_error_too_many_connections" comment="Port forwarding warning: the tunnel reached its connection limit and refuses new connections">连接太多。新连接被拒绝</string>
     <string name="port_forward_error_unexpected" comment="Port forwarding error with technical details. %1$s is the system's error message">出错了: %1$s</string>
     <string name="port_forward_error_unexpected_unknown" comment="Port forwarding error when there are no technical details">出了错。</string>
-    <string name="port_forward_event_connection_closed" comment="Activity log entry when a connection ended. %1$s data received, %2$s data sent">Connection closed · ↓ %1$s ↑ %2$s</string>
+    <string name="port_forward_event_connection_closed" comment="Activity log entry when a connection ended. %1$s data received, %2$s data sent">连接已关闭 · ↓ %1$s ↑ %2$s</string>
     <string name="port_forward_event_connection_failed" comment="Activity log entry when a connection failed. %1$s is the reason">连接失败: %1$s</string>
     <string name="port_forward_event_connection_opened" comment="Activity log entry when a client connected">连接已打开</string>
     <string name="port_forward_event_connection_refused" comment="Activity log entry when a client was turned away. %1$s is the reason">连接被拒绝: %1$s</string>
@@ -1016,7 +1024,7 @@
     <string name="port_forward_notification_tap_to_manage" comment="Notification text when several tunnels run without problems">点击以管理隧道...</string>
     <string name="port_forward_notifications_off" comment="Banner when notifications are turned off for the app">通知已关闭。您不会看到应用之外的隧道状态。</string>
     <string name="port_forward_opens_at" comment="Preview of the address to open on this phone. %1$s is the address">在 %1$s 打开</string>
-    <string name="port_forward_parsed_address" comment="What the pasted address was split into. %1$s host, %2$s port, %3$s path">Host %1$s · port %2$s · path %3$s</string>
+    <string name="port_forward_parsed_address" comment="What the pasted address was split into. %1$s host, %2$s port, %3$s path">主机 %1$s · 端口 %2$s · 路径 %3$s</string>
     <string name="port_forward_paste_address" comment="Field label for pasting a web address or typing host:port">粘贴网址或地址</string>
     <string name="port_forward_port_free" comment="Shown under the local port field when the port is free">免费的</string>
     <string name="port_forward_port_taken" comment="Short status at the end of the local port field when another app already uses that port">正在使用</string>
@@ -1042,7 +1050,7 @@
     <string name="port_forward_socket_path" comment="Field label for the path of a socket file on the device">套接字路径</string>
     <string name="port_forward_start_on_app_open" comment="Switch that starts the tunnel whenever the app opens">应用程序打开时启动</string>
     <string name="port_forward_start_on_device_connect" comment="Switch that starts the tunnel whenever its device connects">设备连接时启动</string>
-    <string name="port_forward_starting" comment="Notification title shown while the first port forwarding tunnel is starting">Starting tunnel…</string>
+    <string name="port_forward_starting" comment="Notification title shown while the first port forwarding tunnel is starting">Starting tunnel……</string>
     <string name="port_forward_status_ready" comment="Status of a running port forwarding tunnel with no connections at the moment">准备好</string>
     <string name="port_forward_status_starting" comment="Status of a port forwarding tunnel that is starting">正在启动</string>
     <string name="port_forward_status_waiting_for_device" comment="Short status of a tunnel waiting for its device to reconnect">等待设备</string>
@@ -1136,7 +1144,7 @@
     <string name="reconnect_failed_requires_pairing" comment="Toast notification indicating device un-paired and needs re-pairing">重新连接失败。需要重新配置。</string>
     <string name="reconnect_success" comment="Toast message confirming successful wireless ADB reconnection">重新连接成功</string>
     <string name="reconnect_the_device" comment="Button prompt directing user to reconnect target ADB device">重新连接设备</string>
-    <string name="reconnecting" comment="Status shown over a frozen screen mirror while the app waits for the device connection to come back">Reconnecting…</string>
+    <string name="reconnecting" comment="Status shown over a frozen screen mirror while the app waits for the device connection to come back">Reconnecting……</string>
     <string name="recovery_not_responding" comment="Error shown when the target device recovery did not start requesting data after the sideload stream was opened">恢复模式无响应。请在恢复模式中选择“Apply update from ADB”并重试</string>
     <string name="recovery_reported_failure" comment="Error shown when the target device recovery reported that installing the sideloaded package failed">恢复模式报告安装失败</string>
     <string name="refresh">刷新</string>
@@ -1509,7 +1517,26 @@
     <plurals name="disconnect_stops_tunnels" comment="Dialog text: port forwarding tunnels to this device stop when it disconnects. %1$d is the number of tunnels">
         <item quantity="other">前往此设备的%1$d 隧道将停止。</item>
     </plurals>
-    <string name="changelog_v8_0_0">\nFor GitHub flavor builds, added AI chatbot with capabilities to execute commands (need user opt-in), manage app database and access app features like Quick Settings Tiles.\nAdded Fastboot, ADB Sideload and dedicated Logcat viewer\nAdded Port forwarding feature\nAdded ADB TCP/IP connection mode in Local Adb\nAdded Scrcpy screen mirroring feature in Wireless Debugging and USB debugging modes\nAdded capability to run certain adb commands like adb tcpip, adb pair, adb connect, adb devices, etc. through Wireless Debugging (WiFi-ADB) shell and Local ADB TCP/IP mode\nAdded TCP mode for Quick Settings Tile execution\nAdded Backup Scheduler (for Github builds only)\nAdded the ability to select and copy text directly from shell output\nImproved bookmarks view\nAdded app UI and font scale customisation with auto-scale feature\nAdded the ability to change app typography font with the ability to import user\'s font files\nAdded option to launch Local ADB screen as default work place\nAdded a lot of icons in the QS tile icon chooser feature\nApp icon is now themed based on Material You color scheme\nAdded checks for invalid or non-existent directories when using ADB commands like cd\nAdded Privacy Policy regarding user data handling\nLots of UI and UX improvements\nFixed a whole lot of bugs</string>
+    <string name="changelog_v8_0_0">
+For GitHub flavor builds, added AI chatbot with capabilities to execute commands (need user opt-in), manage app database and access app features like Quick Settings Tiles.
+Added Fastboot, ADB Sideload and dedicated Logcat viewer
+Added Port forwarding feature
+Added ADB TCP/IP connection mode in Local Adb
+Added Scrcpy screen mirroring feature in Wireless Debugging and USB debugging modes
+Added capability to run certain adb commands like adb tcpip, adb pair, adb connect, adb devices, etc. through Wireless Debugging (WiFi-ADB) shell and Local ADB TCP/IP mode
+Added TCP mode for Quick Settings Tile execution
+Added Backup Scheduler (for Github builds only)
+Added the ability to select and copy text directly from shell output
+Improved bookmarks view
+Added app UI and font scale customisation with auto-scale feature
+Added the ability to change app typography font with the ability to import user\'s font files
+Added option to launch Local ADB screen as default work place
+Added a lot of icons in the QS tile icon chooser feature
+App icon is now themed based on Material You color scheme
+Added checks for invalid or non-existent directories when using ADB commands like cd
+Added Privacy Policy regarding user data handling
+Lots of UI and UX improvements
+Fixed a whole lot of bugs</string>
     <string name="changelog_v7_4_0">\n现在可以在设置屏幕内搜索子设置\n为配色方案添加了调色板样式\n添加了直接在应用内设置应用语言的选项</string>
     <string name="changelog_v7_3_0">\n改进了更新日志界面的 UI\n在“关于”部分添加了翻译贡献者\n添加了“许可证”屏幕，显示有关应用及应用所用其他库的详细许可证信息</string>
     <string name="changelog_v7_2_1">

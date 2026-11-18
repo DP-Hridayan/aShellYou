@@ -269,6 +269,7 @@
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Komutlar</string>
     <string name="community_and_support" comment="Category header for community and documentation links in feature guides">Community &amp; Support</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Kayıt dizinini belirle</string>
+    <string name="configuration" comment="Section group title in logs and configuration screen">Configuration</string>
     <string name="confirm">Onayla</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Dikkat! Bu işlem geri alınamaz.\nTüm yer işaretlerini silmek istediğinizden emin misiniz?</string>
     <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">%1$s bölümünü %2$s ile flaşlamak üzeresiniz. Bu işlem geri alınamaz.</string>
@@ -391,6 +392,7 @@
     <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">Yedekleri Google Drive hesabınıza düzenli olarak gönderir</string>
     <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">Açıkken güncellemeler GitHub üzerinden doğrudan uygulama içinde iner. Kapalıyken tarayıcı üzerinden GitHub sayfasına yönlendirilirsiniz.</string>
     <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">Yedekleri cihazınızdaki seçili klasöre otomatik kaydeder</string>
+    <string name="des_export_configuration" comment="Description under Export configuration item in logs and configuration screen">Export diagnostic details and device configuration for bug reporting</string>
     <string name="des_examples" comment="Description under Command templates item in navigation menu">Sık kullanılan hazır komut şablonları</string>
     <string name="des_feature_request" comment="Description under Feature request item in About menu">Uygulama için bir fikriniz veya öneriniz mi var? Bize iletin!</string>
     <string name="des_font_family" comment="Description under Font family setting item">Uygulamanın genel yazı tipini değiştirin</string>
@@ -407,6 +409,7 @@
     <string name="des_local_restore" comment="Description card text for local restore option">Telefonunuzdaki mevcut bir yedek dosyasını içeri aktarın</string>
     <string name="des_log_buffer_size" comment="Description under the Logcat log buffer size setting; explains that older entries are dropped once the limit is reached">Günlükler için bellekte tutulacak alan. Dolduğunda en eski kayıtlar temizlenir.</string>
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">Bağlı cihazdan eşzamanlı logcat sistem akışı</string>
+    <string name="des_logs_and_configuration" comment="Description under Logs &amp; Configuration item in main settings menu">View crash logs and export diagnostic configuration</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Dinamik renkler, koyu tema, dil tercihleri</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">Model seçilmedi</string>
     <string name="des_no_filter_profiles" comment="Body of the empty state in the logcat filter sheet, shown when no filter profiles have been created">Hangi kayıtların gösterileceğini seçmek için bir filtre profili ekleyin. Seçim yapılmazsa tüm günlükler akar.</string>
@@ -541,6 +544,10 @@
     <string name="exit_full_screen" comment="Button that leaves the full screen view of the mirrored screen">Tam ekrandan çık</string>
     <string name="expand" comment="Action button to expand a collapsed card section">Genişlet</string>
     <string name="experimental" comment="Badge or section title marking experimental features">Deneysel</string>
+    <string name="export">Export</string>
+    <string name="export_config_share_subject" comment="Subject text for sharing the exported diagnostic configuration report">aShellYou Diagnostic Configuration</string>
+    <string name="export_configuration" comment="Settings item and dialog title to export diagnostic details and device configuration">Export configuration</string>
+    <string name="export_configuration_preview_description" comment="Explains the content preview in the export configuration bottom sheet">Preview of the diagnostic configuration that will be exported to a text file:</string>
     <string name="failed">Başarısız</string>
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">Arayüz kontrolü alınamadı</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">Kopyalanamadı</string>
@@ -762,6 +769,7 @@
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat Kaynağı</string>
     <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Başlatmak için ▶ butonuna dokunun</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">Günlükler</string>
+    <string name="logs_and_configuration" comment="Settings menu title and screen header for viewing logs and exporting diagnostic configuration">Logs &amp; Configuration</string>
     <string name="logs_saved" comment="Toast shown after exported logcat entries were written to the file the user picked">Logs saved</string>
     <string name="long_edge_pixels" comment="A limit on a video's longer side. %1$d is a number of pixels">%1$d px</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Görünüm &amp; Tasarım</string>

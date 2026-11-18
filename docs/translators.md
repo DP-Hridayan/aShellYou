@@ -22,7 +22,7 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>(AY_Translator)</b></sub></a>
         <br />
-        <sub><b>30578 words</b></sub>
+        <sub><b>31617 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/mikropsoft"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/15972315/medium/23948a4df1f365f3bd7accc92c87bc4e.jpg" />
@@ -43,20 +43,20 @@ Thanks to these translators and proofreaders, this project exists:
         <sub><b>12969 words</b></sub>
       </td>
       <td align="center" valign="top">
-        <a href="https://crowdin.com/profile/flagman4634"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17776929/medium/2653304d654949cae989f95bbd434f36_default.png" />
-          <br />
-          <sub><b>flagman4634</b></sub></a>
-        <br />
-        <sub><b>4203 words</b></sub>
-      </td>
-      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/Guzleon"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17661502/medium/d827d6dc8ba3d7d16c40e276e8d1b9a8.png" />
           <br />
           <sub><b>Carlos</b></sub>
           <br />
           <sub><b>(Guzleon)</b></sub></a>
         <br />
-        <sub><b>4075 words</b></sub>
+        <sub><b>4284 words</b></sub>
+      </td>
+      <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/flagman4634"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17776929/medium/2653304d654949cae989f95bbd434f36_default.png" />
+          <br />
+          <sub><b>flagman4634</b></sub></a>
+        <br />
+        <sub><b>4203 words</b></sub>
       </td>
     </tr>
     <tr>

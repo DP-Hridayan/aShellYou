@@ -269,6 +269,7 @@
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Comandi</string>
     <string name="community_and_support" comment="Category header for community and documentation links in feature guides">Supporto Community &amp;</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Configura cartella di salvataggio</string>
+    <string name="configuration" comment="Section group title in logs and configuration screen">Configurazione</string>
     <string name="confirm">Conferma</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Attenzione! Questa azione è irreversibile\nSei sicuro di voler eliminare tutti i segnalibri?</string>
     <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">Stai per lampeggiare %1$s con %2$s. Questa operazione non può essere annullata.</string>
@@ -391,6 +392,7 @@
     <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">Esegue automaticamente il backup sul tuo account Google Drive</string>
     <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">Quando abilitato, gli aggiornamenti verranno scaricati direttamente da GitHub all\'interno dell\'app. Disattiva per visitare invece la pagina delle release di GitHub per il download manuale.</string>
     <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">Esegue automaticamente il backup nella cartella selezionata sul tuo dispositivo</string>
+    <string name="des_export_configuration" comment="Description under Export configuration item in logs and configuration screen">Esporta i dettagli diagnostici e la configurazione del dispositivo per la segnalazione di bug</string>
     <string name="des_examples" comment="Description under Command templates item in navigation menu">Raccolta di alcuni modelli di comandi</string>
     <string name="des_feature_request" comment="Description under Feature request item in About menu">Se hai idee o suggerimenti per l\'app, faccelo sapere</string>
     <string name="des_font_family" comment="Description under Font family setting item">Modifica lo stile dei caratteri dell\'applicazione</string>
@@ -407,6 +409,7 @@
     <string name="des_local_restore" comment="Description card text for local restore option">Scegli un file di backup dal tuo dispositivo</string>
     <string name="des_log_buffer_size" comment="Description under the Logcat log buffer size setting; explains that older entries are dropped once the limit is reached">Memoria conservata per i log raccolti. Le voci più vecchie vengono scartate una volta raggiunto il limite.</string>
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">Output logcat in tempo reale da un dispositivo connesso</string>
+    <string name="des_logs_and_configuration" comment="Description under Logs &amp; Configuration item in main settings menu">Visualizza i crash log e la configurazione diagnostica di esportazione</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Colori dinamici, Tema scuro, Lingua</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">Nessun modello selezionato</string>
     <string name="des_no_filter_profiles" comment="Body of the empty state in the logcat filter sheet, shown when no filter profiles have been created">Aggiungi un profilo per scegliere quali registri sono mostrati. Senza profilo selezionato, ogni log viene mostrato.</string>
@@ -541,6 +544,10 @@
     <string name="exit_full_screen" comment="Button that leaves the full screen view of the mirrored screen">Esci dallo schermo intero</string>
     <string name="expand" comment="Action button to expand a collapsed card section">Espandi</string>
     <string name="experimental" comment="Badge or section title marking experimental features">Sperimentale</string>
+    <string name="export">Esporta</string>
+    <string name="export_config_share_subject" comment="Subject text for sharing the exported diagnostic configuration report">Configurazione diagnostica di aShellYou</string>
+    <string name="export_configuration" comment="Settings item and dialog title to export diagnostic details and device configuration">Esporta configurazione</string>
+    <string name="export_configuration_preview_description" comment="Explains the content preview in the export configuration bottom sheet">Anteprima della configurazione diagnostica che verrà esportata in un file di testo:</string>
     <string name="failed">Non riuscito</string>
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">Impossibile richiedere l\'interfaccia</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">Copia non riuscita</string>
@@ -762,6 +769,7 @@
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Origine Logcat</string>
     <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Tocca ▶ per avviare logcat</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">Log</string>
+    <string name="logs_and_configuration" comment="Settings menu title and screen header for viewing logs and exporting diagnostic configuration">Logs &amp; Configurazione</string>
     <string name="logs_saved" comment="Toast shown after exported logcat entries were written to the file the user picked">Registri salvati</string>
     <string name="long_edge_pixels" comment="A limit on a video's longer side. %1$d is a number of pixels">%1$d px</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Aspetto e sensazione</string>
@@ -1465,7 +1473,7 @@
     </plurals>
     <plurals name="des_delete_profiles" comment="Body of the confirmation dialog shown before deleting several selected logcat filter profiles; %1$d = number of profiles">
         <item quantity="one">Il profilo %1$d verrà rimosso. Questo non può essere annullato.</item>
-        <item quantity="other">%1$d profiles will be removed. This can\'t be undone.</item>
+        <item quantity="other">{_#_}one{%1$d profilo verrà rimosso. Questa operazione non può essere annullata.}other{%1$d profili saranno rimossi. Questa operazione non può essere annullata.}{_#_}</item>
     </plurals>
     <plurals name="logcat_new_entries">
         <item quantity="one">%1$d nuovo elemento</item>
@@ -1473,7 +1481,7 @@
     </plurals>
     <plurals name="logs_copied" comment="Toast shown after copying logcat entries to the clipboard; %1$d = number of entries copied">
         <item quantity="one">Log di %1$d copiato</item>
-        <item quantity="other">Copied %1$d logs</item>
+        <item quantity="other">{_#_}one{%1$d log copiato}other{%1$d log copiati}{_#_}</item>
     </plurals>
     <plurals name="profiles_selected" comment="Header of the logcat filter profile list while choosing profiles to edit or delete; %1$d = number chosen">
         <item quantity="one">%1$d selezionato</item>

@@ -269,6 +269,7 @@
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Befehle</string>
     <string name="community_and_support" comment="Category header for community and documentation links in feature guides">Community &amp; Support</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Speicherverzeichnis konfigurieren</string>
+    <string name="configuration" comment="Section group title in logs and configuration screen">Konfiguration</string>
     <string name="confirm">Bestätigen</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Warnung ! Diese Aktion ist unwiderruflich\nBist du sicher, dass du alle Lesezeichen löschen möchtest?</string>
     <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">Sie sind dabei, %1$s mit %2$szu flashen. Dieser Vorgang kann nicht rückgängig gemacht werden.</string>
@@ -391,6 +392,7 @@
     <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">Automatisch auf Ihrem Google Drive-Konto sichern</string>
     <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">Wenn aktiviert, werden Updates direkt von Github innerhalb der App heruntergeladen. Deaktivieren Sie dies, wenn Sie stattdessen bevorzugen manuelle Updates von der Github Release-Seite zu laden.</string>
     <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">Automatisch im ausgewählten Ordner auf Ihrem Gerät sichern</string>
+    <string name="des_export_configuration" comment="Description under Export configuration item in logs and configuration screen">Diagnosedetails und Gerätekonfiguration für Fehlerberichte exportieren</string>
     <string name="des_examples" comment="Description under Command templates item in navigation menu">Sammlung von Befehlsbeispielen</string>
     <string name="des_feature_request" comment="Description under Feature request item in About menu">Wenn du Ideen oder Vorschläge für die App hast, lass es uns wissen</string>
     <string name="des_font_family" comment="Description under Font family setting item">Den Schriftstil der Anwendung ändern</string>
@@ -407,6 +409,7 @@
     <string name="des_local_restore" comment="Description card text for local restore option">Wählen Sie eine Backup-Datei von Ihrem Gerät aus</string>
     <string name="des_log_buffer_size" comment="Description under the Logcat log buffer size setting; explains that older entries are dropped once the limit is reached">Für gesammelte Protokolle vorgehaltener Speicher. Ältere Einträge werden verworfen, sobald das Limit erreicht ist.</string>
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">Echtzeit-Logcat-Ausgabe von einem verbundenen Gerät</string>
+    <string name="des_logs_and_configuration" comment="Description under Logs &amp; Configuration item in main settings menu">Absturzprotokolle anzeigen und Diagnosekonfiguration exportieren</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Dynamische Farben, Dunkles Thema, Sprache</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">Kein Modell ausgewählt</string>
     <string name="des_no_filter_profiles" comment="Body of the empty state in the logcat filter sheet, shown when no filter profiles have been created">Fügen Sie ein Profil hinzu, um auszuwählen, welche Logs angezeigt werden. Ohne ein Profil wird jedes Log angezeigt.</string>
@@ -541,6 +544,10 @@
     <string name="exit_full_screen" comment="Button that leaves the full screen view of the mirrored screen">Vollbild beenden</string>
     <string name="expand" comment="Action button to expand a collapsed card section">Erweitern</string>
     <string name="experimental" comment="Badge or section title marking experimental features">Experimentell</string>
+    <string name="export">Exportieren</string>
+    <string name="export_config_share_subject" comment="Subject text for sharing the exported diagnostic configuration report">aShellYou Diagnostic Konfiguration</string>
+    <string name="export_configuration" comment="Settings item and dialog title to export diagnostic details and device configuration">Konfiguration exportieren</string>
+    <string name="export_configuration_preview_description" comment="Explains the content preview in the export configuration bottom sheet">Vorschau der Diagnosekonfiguration, die in eine Textdatei exportiert wird:</string>
     <string name="failed">Fehlgeschlagen</string>
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">Konnte Schnittstelle nicht beanspruchen</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">Kopieren fehlgeschlagen</string>
@@ -762,6 +769,7 @@
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat-Quelle</string>
     <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Tippe auf ▶, um Logcat zu starten</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">Protokolle</string>
+    <string name="logs_and_configuration" comment="Settings menu title and screen header for viewing logs and exporting diagnostic configuration">Protokolle &amp; Konfiguration</string>
     <string name="logs_saved" comment="Toast shown after exported logcat entries were written to the file the user picked">Protokolle gespeichert</string>
     <string name="long_edge_pixels" comment="A limit on a video's longer side. %1$d is a number of pixels">%1$d px</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Aussehen &amp; Bedienung</string>
@@ -1333,7 +1341,7 @@
     <string name="tap_to_browse" comment="Card subtitle prompt asking user to tap to select a .zip update file">Tippen, um nach einer .zip-Datei zu suchen</string>
     <string name="tcpip_connect_failed" comment="Toast shown when TCP connection to 127.0.0.1 on the detected port is refused. %1$d is replaced with the port number.">Verbindung zu Port %1$d verweigert. Der ADB-Daemon lauscht möglicherweise nicht.</string>
     <string name="tcpip_enable_opened" comment="Shown when the ADB TCP port was opened. ADB restarts to do this, which disconnects wireless debugging. %1$d is the port number.">TCP-Port %1$d ist geöffnet und der TCP/IP-Modus im lokalen ADB ist bereit. Wireless Debugging wurde getrennt, weil ADB neu gestartet wurde.</string>
-    <string name="tcpip_enable_pending_hint" comment="Hint on the pairing screen when the user came to open the ADB TCP port. %1$d is the port number.">Pair this device and ADB TCP port %1$d will be opened automatically.</string>
+    <string name="tcpip_enable_pending_hint" comment="Hint on the pairing screen when the user came to open the ADB TCP port. %1$d is the port number.">Koppeln Sie dieses Gerät, und der ADB-TCP-Port %1$d wird automatisch geöffnet.</string>
     <string name="tcpip_enable_refused" comment="Shown when ADB refused to open a TCP port. %1$s is the reason ADB gave.">Konnte den TCP-Port nicht öffnen: %1$s</string>
     <string name="tcpip_enable_running" comment="Shown while the app asks ADB to listen on a TCP port. %1$d is the port number.">Öffne ADB TCP Port %1$d…</string>
     <string name="tcpip_enable_unverified" comment="Shown when ADB accepted the request to open a TCP port but the port could not be confirmed. %1$d is the port number.">ADB wurde neu gestartet, um Port %1$dzu öffnen, aber der Port konnte nicht bestätigt werden. Versuchen Sie den TCP/IP-Modus im lokalen ADB.</string>
@@ -1523,7 +1531,7 @@
         <item quantity="one">%1$d Tunnel zu diesem Gerät wird gestoppt.</item>
         <item quantity="other">%1$d Tunnel zu diesem Gerät werden gestoppt.</item>
     </plurals>
-    <string name="changelog_v8_0_0">\nFor GitHub flavor builds, added AI chatbot with capabilities to execute commands (need user opt-in), manage app database and access app features like Quick Settings Tiles.\nAdded Fastboot, ADB Sideload and dedicated Logcat viewer\nAdded Port forwarding feature\nAdded ADB TCP/IP connection mode in Local Adb\nAdded Scrcpy screen mirroring feature in Wireless Debugging and USB debugging modes\nAdded capability to run certain adb commands like adb tcpip, adb pair, adb connect, adb devices, etc. through Wireless Debugging (WiFi-ADB) shell and Local ADB TCP/IP mode\nAdded TCP mode for Quick Settings Tile execution\nAdded Backup Scheduler (for Github builds only)\nAdded the ability to select and copy text directly from shell output\nImproved bookmarks view\nAdded app UI and font scale customisation with auto-scale feature\nAdded the ability to change app typography font with the ability to import user\'s font files\nAdded option to launch Local ADB screen as default work place\nAdded a lot of icons in the QS tile icon chooser feature\nApp icon is now themed based on Material You color scheme\nAdded checks for invalid or non-existent directories when using ADB commands like cd\nAdded Privacy Policy regarding user data handling\nLots of UI and UX improvements\nFixed a whole lot of bugs</string>
+    <string name="changelog_v8_0_0">\nFür GitHub-Builds wurde ein KI-Chatbot mit Funktionen zum Ausführen von Befehlen (erfordert Zustimmung des Benutzers), Verwalten der App-Datenbank und Zugreifen auf App-Funktionen wie Schnelleinstellungs-Kacheln hinzugefügt.\nFastboot, ADB Sideload und ein dedizierter Logcat-Viewer wurden hinzugefügt.\nPortweiterleitungsfunktion hinzugefügt.\nADB-TCP/IP-Verbindungsmodus in Lokales ADB hinzugefügt.\nScrcpy-Bildschirmspiegelungsfunktion in den Modi für drahtloses Debuggen und USB-Debugging hinzugefügt.\nFähigkeit hinzugefügt, bestimmte ADB-Befehle wie adb tcpip, adb pair, adb connect, adb devices usw. über die Shell des drahtlosen Debuggens (WiFi-ADB) und den lokalen ADB-TCP/IP-Modus auszuführen.\nTCP-Modus für die Ausführung von Schnelleinstellungs-Kacheln hinzugefügt.\nBackup-Planer hinzugefügt (nur für GitHub-Builds).\nMöglichkeit hinzugefügt, Text direkt aus der Shell-Ausgabe auszuwählen und zu kopieren.\nLesezeichenansicht verbessert.\nAnpassung der App-Benutzeroberfläche und des Schriftgrößenmaßstabs mit automatischer Skalierungsfunktion hinzugefügt.\nFähigkeit hinzugefügt, die App-Typografie-Schriftart zu ändern und eigene Schriftartendateien zu importieren.\nOption hinzugefügt, den Bildschirm „Lokales ADB“ als Standard-Arbeitsplatz zu starten.\nViele Symbole zur Kachel-Symbolauswahl für Schnelleinstellungen hinzugefügt.\nDas App-Symbol verwendet jetzt ein Design basierend auf dem Material You-Farbschema.\nPrüfungen auf ungültige oder nicht existierende Verzeichnisse bei der Verwendung von ADB-Befehlen wie cd hinzugefügt.\nDatenschutzrichtlinie bezüglich der Handhabung von Benutzerdaten hinzugefügt.\nViele Verbesserungen an Benutzeroberfläche und Benutzererfahrung.\nEine Vielzahl von Fehlern behoben</string>
     <string name="changelog_v7_4_0">\nDu kannst jetzt Untereinstellungen in den Einstellungsbildschirmen durchsuchen\nPalettenstile für Farbschemas hinzugefügt\nOption zum direkten Einstellen der App-Sprache in der App hinzugefügt</string>
     <string name="changelog_v7_3_0">\nVerbesserte Benutzeroberfläche im Changelog-Bildschirm\nÜbersetzungsmitwirkende im Info-Bereich hinzugefügt\nLizenzbildschirm hinzugefügt, der detaillierte Lizenzinformationen über die App und andere von der App verwendete Bibliotheken anzeigt</string>
     <string name="changelog_v7_2_1">\nWartungsaktualisierung!</string>
