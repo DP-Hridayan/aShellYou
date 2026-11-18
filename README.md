@@ -97,7 +97,7 @@
     </tr>
     <tr>
       <td align="center" width="33%">
-        <b>Quick Settings Tiles</b><br/><br/>
+        <b>Custom QS Tiles</b><br/><br/>
         <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/10.jpeg" width="100%" alt="Quick Settings Tiles" />
       </td>
       <td align="center" width="33%">
