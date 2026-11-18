@@ -32,8 +32,8 @@ object PresetColorSchemes {
         errorContainer = "#FFE1E7",
         onErrorContainer = "#420015",
 
-        // Surface & Background
-        background = "#F5F9F6",
+        // Surface & Background (Unified & Seamless)
+        background = "#FAFDFB",
         onBackground = "#141E17",
         surface = "#FAFDFB",
         onSurface = "#141E17",

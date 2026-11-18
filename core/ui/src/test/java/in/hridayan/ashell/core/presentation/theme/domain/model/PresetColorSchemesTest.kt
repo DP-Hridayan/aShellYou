@@ -20,6 +20,7 @@ class PresetColorSchemesTest {
         assertEquals("#237E90", special.secondary)
         assertEquals("#8E6E0F", special.tertiary)
         assertEquals("#C83B60", special.error)
+        assertEquals(special.surface, special.background)
     }
 
     @Test
