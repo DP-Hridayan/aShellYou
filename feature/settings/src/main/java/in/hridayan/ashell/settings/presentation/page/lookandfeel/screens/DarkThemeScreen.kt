@@ -41,7 +41,7 @@ fun DarkThemeScreen(modifier: Modifier = Modifier) {
                     .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
                 listState = listState,
                 contentPadding = innerPadding,
-                topAppBarState = topAppBarState,
+                topAppBarScrollBehavior = topBarScrollBehavior,
                 hapticsEnabled = hapticsEnabled,
             ) {
                 group(R.string.preference) {

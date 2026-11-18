@@ -22,6 +22,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.core.content.IntentCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
@@ -143,6 +144,7 @@ class MainActivity : AppCompatActivity() {
         val coroutineScope = rememberCoroutineScope()
         val importedThemePayload by colorSchemeImportHolder.importedTheme.collectAsState()
         val context = LocalContext.current
+        val res = LocalResources.current
 
         Box(modifier = modifier.scrollBottomHaptic()) {
             AppUiEntry()
@@ -168,13 +170,13 @@ class MainActivity : AppCompatActivity() {
                             if (result.isSuccess) {
                                 Toast.makeText(
                                     context,
-                                    context.getString(R.string.theme_saved_applied),
+                                    res.getString(R.string.theme_saved_applied),
                                     Toast.LENGTH_SHORT
                                 ).show()
                             } else {
                                 Toast.makeText(
                                     context,
-                                    context.getString(R.string.theme_import_failed),
+                                    res.getString(R.string.theme_import_failed),
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -216,6 +218,7 @@ class MainActivity : AppCompatActivity() {
                 IntentCompat.getParcelableExtra(intent, Intent.EXTRA_STREAM, Uri::class.java)
                     ?: intent.data
             }
+
             else -> null
         } ?: return
 

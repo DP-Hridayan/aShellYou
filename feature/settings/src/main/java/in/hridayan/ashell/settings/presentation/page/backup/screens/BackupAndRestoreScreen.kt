@@ -249,7 +249,7 @@ fun BackupAndRestoreScreen(
                     .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
                 listState = listState,
                 contentPadding = innerPadding,
-                topAppBarState = topAppBarState,
+                topAppBarScrollBehavior = topBarScrollBehavior,
                 hapticsEnabled = hapticsEnabled,
             ) {
                 if (isCloudBackupAvailable) {

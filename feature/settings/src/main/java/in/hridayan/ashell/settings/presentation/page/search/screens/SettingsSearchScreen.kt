@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -248,7 +249,7 @@ fun SettingsSearchScreen(
                                     painter = painterResource(R.drawable.ic_delete_sweep),
                                     contentDescription = null
                                 )
-                                Spacer(modifier = Modifier.padding(8.dp))
+                                Spacer(modifier = Modifier.width(4.dp))
                                 Text(stringResource(R.string.clear))
                             }
                         }

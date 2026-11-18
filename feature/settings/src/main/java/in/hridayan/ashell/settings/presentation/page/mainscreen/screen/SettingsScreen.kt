@@ -122,7 +122,7 @@ fun SettingsScreen() {
         SettingsColumn(
             modifier = Modifier,
             contentPadding = paddingValues,
-            topAppBarState = scrollBehavior.state,
+            topAppBarScrollBehavior = scrollBehavior,
             listState = listState,
             hapticsEnabled = hapticsEnabled,
         ) {

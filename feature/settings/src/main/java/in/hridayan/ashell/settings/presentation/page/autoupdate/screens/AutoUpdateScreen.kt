@@ -127,7 +127,7 @@ fun AutoUpdateScreen(
                     .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
                 listState = listState,
                 contentPadding = innerPadding,
-                topAppBarState = topAppBarState,
+                topAppBarScrollBehavior = topBarScrollBehavior,
                 hapticsEnabled = hapticsEnabled,
             ) {
                 item(ITEM_KEY_TOP_SPACER) {

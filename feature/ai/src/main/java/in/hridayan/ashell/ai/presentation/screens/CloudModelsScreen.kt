@@ -66,7 +66,7 @@ fun CloudModelsScreen(
                     .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
                 listState = listState,
                 contentPadding = innerPadding,
-                topAppBarState = topAppBarState,
+                topAppBarScrollBehavior = topBarScrollBehavior,
                 hapticsEnabled = hapticsEnabled,
             ) {
                 group(R.string.active_provider) {
