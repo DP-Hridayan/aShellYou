@@ -54,7 +54,7 @@
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Навички агента</string>
     <string name="ai_agent_shortcut">AI Агент</string>
     <string name="ai_agent_shortcut_long_label">AI ADB Агент</string>
-    <string name="ai_shell_assistant" comment="Title for AI shell assistant feature guide">Помічник ЕІ Шелл</string>
+    <string name="ai_shell_assistant" comment="Title for AI shell assistant feature guide">Помічник AI Shell</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">Тривалість кешу</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">Увімкнути кешування</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">Дозволити</string>
@@ -209,6 +209,7 @@
     <string name="codec" comment="Section title in the video quality sheet for the video compression format, such as H.264">Кодек</string>
     <string name="codec_fallback" comment="Message after the other device failed to encode the chosen codec. %1$s is a codec name such as H.265">Цей пристрій не може кодувати %1$s, тому H.264 використовується</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Згорнути</string>
+    <string name="collapse_panel_on_click" comment="Title for the switch option in Quick Settings tile builder that collapses the QS notification shade when clicked">Згорнути швидкі налаштування</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Сталася помилка</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">Велика висота (діалог)</string>
     <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">Найвища висота (нижній аркуш)</string>
@@ -271,7 +272,7 @@
     <string name="confirm">Підтвердити</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Увага! Цю дію неможливо скасувати.\nВи впевнені, що хочете видалити всі закладки?</string>
     <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">Ви збираєтеся прошити %1$s з %2$s. Цю операцію не можна скасувати.</string>
-    <string name="connection_and_shell" comment="Category header for connection and shell guides">З\'єднання &amp; Кришка</string>
+    <string name="connection_and_shell" comment="Category header for connection and shell guides">З\'єднання &amp; Shell</string>
     <string name="confirm_custom_partition_flash_title" comment="Confirmation dialog title before flashing a custom partition">Підтвердити Прошивку власного розділу</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Підтвердити видалення</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">Ви впевнені, що хочете видалити \"%1$s\"? Якщо він наразі застосований, програма повернеться до системного шрифту.</string>
@@ -372,6 +373,7 @@
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Видалити всі кешовані відповіді аналізу AI</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Запитувати підтвердження перед очищенням виводу оболонки</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">Керувати API ключами для хмарних моделей</string>
+    <string name="des_collapse_panel_on_click" comment="Description explaining that clicking the tile will automatically dismiss the Quick Settings panel simultaneously with executing the command">Автоматично відхиляти панель швидких налаштувань, коли плитка натиснута</string>
     <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Дозволити AI агенту виконувати команди ADB shell</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">Виберіть каталог для збереження виводу оболонки</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">Список учасників, які допомогли у розробці aShell You</string>
@@ -545,7 +547,7 @@
     <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">Не вдалося завантажити файл</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">Не вдалося відкрити USB з\'єднання. Чи увімкнено налагодження USB?</string>
     <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">Не вдалося завантажити файл</string>
-    <string name="faqs" comment="Title for FAQs and troubleshooting feature guide">Питання &amp; Усунення несправностей</string>
+    <string name="faqs" comment="Title for FAQs and troubleshooting feature guide">FAQs &amp; Усунення несправностей</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">Скоро</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">Командна консоль</string>
@@ -590,8 +592,8 @@
     <string name="fb_upload_failed" comment="%1$s = error message">Завантаження не вдалося: %1$s</string>
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">Файл успішно завантажено</string>
     <string name="fb_uploading" comment="%1$s = file name">Завантаження %1$s</string>
-    <string name="feature_guides" comment="Title of the bottom sheet displaying guides and documentation for app features">Посібники на нові функції</string>
-    <string name="feature_guides_summary" comment="Subtitle in guides bottom sheet explaining its contents">Пройдіть інструкції, налаштування та документацію до функції aShell</string>
+    <string name="feature_guides" comment="Title of the bottom sheet displaying guides and documentation for app features">Посібники з функцій</string>
+    <string name="feature_guides_summary" comment="Subtitle in guides bottom sheet explaining its contents">Покрокові інструкції, вказівки щодо налаштування та документація щодо функцій aShell You</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Запит функції</string>
     <string name="feedback">Зворотній зв\'язок</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Отримую час резервного копіювання …</string>
@@ -657,24 +659,24 @@
     <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">Увійдіть або створіть безплатний обліковий запис у Groq</string>
     <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">Відкрийте сторінку Ключі API і натисніть Створити ключ API</string>
     <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">Скопіюйте свій ключ API та вставте його тут</string>
-    <string name="guide_ai_assistant_desc" comment="Guide description for AI Shell Assistant guide">Налаштування провайдерів ШІ для генерації команд та виправлення неполадок</string>
-    <string name="guide_command_examples_desc" comment="Guide description for Command Examples guide">Перегляд, виконуваний файл і налаштування шаблонів команд (shell)</string>
-    <string name="guide_faqs_desc" comment="Guide description for FAQs and troubleshooting guide">Знайдіть відповіді на часті запитання та загальні проблеми з\'єднання</string>
-    <string name="guide_fastboot_desc" comment="Guide description for Fastboot OTG guide">Керування режимом завантажувача, зображення розділу та перезавантаження в рекавері</string>
-    <string name="guide_file_browser_desc" comment="Guide description for File Browser guide">Перегляд, завантаження, завантаження і керування файлами на під\'єднаному пристрої</string>
-    <string name="guide_local_adb_desc" comment="Guide description for local ADB and Shizuku guide">Запустіть команди shell на власному пристрої за допомогою Shizuku або root доступу</string>
-    <string name="guide_logcat_desc" comment="Guide description for Logcat viewer guide">Дослідити потоки реальному часі за допомогою regex пошуку і фільтрації пакунків</string>
-    <string name="guide_otg_adb_desc" comment="Guide description for OTG ADB walkthrough">Підключіть інший Android-пристрій через USB-OTG кабель для прямого доступу до оболонки</string>
-    <string name="guide_port_forward_desc" comment="Guide description for port forwarding guide">Переслати порти TCP/IP та налаштувати зворотний зв\'язок сокету на пристроях</string>
-    <string name="guide_qs_tiles_desc" comment="Guide description for Quick Settings tiles guide">Виконати попередньо визначені команди консолі безпосередньо одним натисканням на тінь сповіщень</string>
-    <string name="guide_screen_mirror_desc" comment="Guide description for Scrcpy screen mirroring guide">Потокове і дзеркало цільового екрану з низькою затримкою над OTG</string>
-    <string name="guide_sideload_desc" comment="Guide description for ADB sideload guide">Прошивка оновлення ZIP пакунків та налаштоване відновлення у режимі відновлення</string>
-    <string name="guide_telegram_desc" comment="Guide description for Telegram community support">Приєднатися до групи Telegram для обговорень, оголошень та прямої підтримки</string>
-    <string name="guide_wiki_desc" comment="Guide description for official GitHub wiki">Перегляд повної офіційної документації, FAQ, і підручників</string>
-    <string name="guide_wireless_debugging_desc" comment="Guide description for wireless debugging walkthrough">Підключення та виконання команд консолі через локальний Wi-Fi без ПК</string>
+    <string name="guide_ai_assistant_desc" comment="Guide description for AI Shell Assistant guide">Налаштувати AI постачальників для генерації команд оболонки та усунення несправностей</string>
+    <string name="guide_command_examples_desc" comment="Guide description for Command Examples guide">Перегляд, виконання та налаштування вбудованих шаблонів команд оболонки</string>
+    <string name="guide_faqs_desc" comment="Guide description for FAQs and troubleshooting guide">Знайдіть відповіді на поширені запитання та розв\'язання типових проблем із підключенням</string>
+    <string name="guide_fastboot_desc" comment="Guide description for Fastboot OTG guide">Керування режимом завантажувача, створення образів розділів та перезавантаження в режим відновлення</string>
+    <string name="guide_file_browser_desc" comment="Guide description for File Browser guide">Перегляд, завантаження, вивантаження та керування файлами на підключеному пристрої</string>
+    <string name="guide_local_adb_desc" comment="Guide description for local ADB and Shizuku guide">Запускайте команди оболонки з підвищеними правами на своєму пристрої, використовуючи Shizuku або root доступ</string>
+    <string name="guide_logcat_desc" comment="Guide description for Logcat viewer guide">Перевірка потоків logcat пристроїв у реальному часі за допомогою пошуку за регулярними виразами та фільтрації пакетів</string>
+    <string name="guide_otg_adb_desc" comment="Guide description for OTG ADB walkthrough">Під\'єднати інший пристрій Android через кабель USB OTG для прямого доступу до апаратної оболонки</string>
+    <string name="guide_port_forward_desc" comment="Guide description for port forwarding guide">Переадресація портів TCP/IP та налаштування зворотних тунелів сокетів між пристроями</string>
+    <string name="guide_qs_tiles_desc" comment="Guide description for Quick Settings tiles guide">Виконати попередньо визначені команди оболонки безпосередньо одним дотиком із панелі сповіщень</string>
+    <string name="guide_screen_mirror_desc" comment="Guide description for Scrcpy screen mirroring guide">Транслюйте та віддзеркалюйте екран цільового пристрою з низькою затримкою через OTG</string>
+    <string name="guide_sideload_desc" comment="Guide description for ADB sideload guide">Прошити оновлення ZIP пакетів і користувацькі recoverys в режимі recovery</string>
+    <string name="guide_telegram_desc" comment="Guide description for Telegram community support">Приєднуйтесь до групи Telegram для обговорень, оголошень та прямої підтримки</string>
+    <string name="guide_wiki_desc" comment="Guide description for official GitHub wiki">Ознайомтеся з повною офіційною документацією, FAQ, та навчальними матеріалами</string>
+    <string name="guide_wireless_debugging_desc" comment="Guide description for wireless debugging walkthrough">Сполучити та виконати команди оболонки через локальний Wi-Fi без ПК</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Тактильна віддача &amp; Вібрація</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">Приємного дня!</string>
-    <string name="help" comment="Accessibility description and label for help button">Довідка</string>
+    <string name="help" comment="Accessibility description and label for help button">Допомога</string>
     <string name="heuristic">Евристичний</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Hex Редактор</string>
     <string name="hide_device_tools" comment="Accessibility action that collapses the device tools side toolbar">Приховати інструменти пристрою</string>
@@ -873,7 +875,7 @@
     <string name="notification_settings" comment="Button label to open system notification settings screen">Налаштування сповіщень</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">Якщо ви не можете ввести код сполучення зі сповіщення, можливо, вам потрібно буде змінити панель сповіщень на Android. Щоб змінити стиль сповіщень, перейдіть до Налаштувань сповіщень ~ Стиль сповіщень. В іншому випадку ви можете не ввести код сполучення з повідомлення.</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">Стилі сповіщень</string>
-    <string name="official_wiki" comment="Title for official GitHub wiki link in feature guides bottom sheet">Офіційна вікі</string>
+    <string name="official_wiki" comment="Title for official GitHub wiki link in feature guides bottom sheet">Офіційний Wiki</string>
     <string name="off">Вимкнено</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">\"Вимк\"</string>
     <string name="ok">ОК</string>
@@ -1555,7 +1557,7 @@
         <item quantity="many">%1$d тунелі до цього пристрою буде зупинено.</item>
         <item quantity="other">%1$d тунелі до цього пристрою буде зупинено.</item>
     </plurals>
-    <string name="changelog_v8_0_0">Додано Fastboot, ADB Sideload і спеціальну програму перегляду Logcat\nДодана функція переадресації портів\nДодано ADB TCP/IP режим підключення в Local Adb\nДодано функцію дзеркального відображення екрана Scrcpy у режимах бездротового налагодження та налагодження USB\nДодано можливість запускати певні команди adb, як-от adb tcpip, adb pair, adb connect, adb devices тощо, через оболонку бездротового налагодження (WiFi-ADB) і локальний режим ADB TCP/IP\nДодано планувальник резервного копіювання (лише для збірок Github)\nДодано можливість вибору та копіювання тексту безпосередньо з виводу оболонки\nПокращений перегляд закладок\nДодано налаштування інтерфейсу користувача програми та масштабу шрифту з функцією автоматичного масштабування\nДодано можливість змінювати шрифт типографіки програми з можливістю імпортувати файли шрифтів користувача\nДодано можливість запускати локальний екран ADB як робоче місце за замовчуванням\nДодано багато іконок у функцію вибору іконка плитки QS\nІконка застосунка тепер оформлена відповідно до колірної схеми Material You\nДодано перевірки на наявність недійсних або неіснуючих каталогів під час використання команд ADB, таких як cd\nДодано Політику конфіденційності щодо обробки даних користувачів\nБагато покращень UI та UX\nВиправлено багато помилок</string>
+    <string name="changelog_v8_0_0">\nFor GitHub flavor builds, added AI chatbot with capabilities to execute commands (need user opt-in), manage app database and access app features like Quick Settings Tiles.\nAdded Fastboot, ADB Sideload and dedicated Logcat viewer\nAdded Port forwarding feature\nAdded ADB TCP/IP connection mode in Local Adb\nAdded Scrcpy screen mirroring feature in Wireless Debugging and USB debugging modes\nAdded capability to run certain adb commands like adb tcpip, adb pair, adb connect, adb devices, etc. through Wireless Debugging (WiFi-ADB) shell and Local ADB TCP/IP mode\nAdded TCP mode for Quick Settings Tile execution\nAdded Backup Scheduler (for Github builds only)\nAdded the ability to select and copy text directly from shell output\nImproved bookmarks view\nAdded app UI and font scale customisation with auto-scale feature\nAdded the ability to change app typography font with the ability to import user\'s font files\nAdded option to launch Local ADB screen as default work place\nAdded a lot of icons in the QS tile icon chooser feature\nApp icon is now themed based on Material You color scheme\nAdded checks for invalid or non-existent directories when using ADB commands like cd\nAdded Privacy Policy regarding user data handling\nLots of UI and UX improvements\nFixed a whole lot of bugs</string>
     <string name="changelog_v7_4_0">\nТепер ви можете шукати під налаштування на екранах налаштувань\nДодано стилі палітри для колірних схем\nДодано опцію встановлення мови додатка безпосередньо в додатку</string>
     <string name="changelog_v7_3_0">\nПокращено інтерфейс користувача в екрані журналу змін\nДодано перекладачів у розділ Про програму.\nДодано екран ліцензій, який показує детальну інформацію про ліцензію програми та інших бібліотек, які використовує додаток</string>
     <string name="changelog_v7_2_1">\nОновлення технічного обслуговування!</string>
