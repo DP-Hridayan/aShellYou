@@ -64,4 +64,26 @@ class TileConfigSerializationTest {
         assertEquals(original.id, deserialized.id)
         assertEquals(original.name, deserialized.name)
     }
+
+    @Test
+    fun serializeAndDeserialize_withTcpIpExecutionMode_preservesValue() {
+        val original = TileConfig(
+            id = 3,
+            name = "TCP Tile",
+            iconId = "wifi",
+            executionMode = TileExecutionMode.TCPIP,
+            activeState = TileActiveState(
+                isToggleable = false,
+                isActive = false,
+                activeCommand = TextFieldValue("svc wifi enable"),
+            ),
+            isCustom = true,
+        )
+
+        val serialized = json.encodeToString(TileConfig.serializer(), original)
+        val deserialized = json.decodeFromString<TileConfig>(serialized)
+
+        assertEquals(TileExecutionMode.TCPIP, deserialized.executionMode)
+        assertEquals("TCP Tile", deserialized.name)
+    }
 }

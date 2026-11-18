@@ -9,12 +9,14 @@ import javax.inject.Named
 class CollapseQsPanelUseCaseImpl @Inject constructor(
     @Named("shizuku") private val shizukuExecutor: CommandExecutor,
     @Named("root") private val rootExecutor: CommandExecutor,
+    @Named("tcpip") private val tcpIpExecutor: CommandExecutor,
 ) : CollapseQsPanelUseCase {
 
     override suspend fun invoke(executionMode: Int): Boolean {
         val executor = when (executionMode) {
             TileExecutionMode.SHIZUKU -> shizukuExecutor
             TileExecutionMode.ROOT -> rootExecutor
+            TileExecutionMode.TCPIP -> tcpIpExecutor
             else -> return false
         }
 

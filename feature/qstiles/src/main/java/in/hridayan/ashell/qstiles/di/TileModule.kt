@@ -8,6 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import `in`.hridayan.ashell.qstiles.data.executor.RootExecutor
 import `in`.hridayan.ashell.qstiles.data.executor.ShizukuExecutor
+import `in`.hridayan.ashell.qstiles.data.executor.TcpIpExecutor
 import `in`.hridayan.ashell.qstiles.data.provider.TileNotificationHelper
 import `in`.hridayan.ashell.qstiles.data.repository.TileLogRepositoryImpl
 import `in`.hridayan.ashell.qstiles.data.repository.TileRepositoryImpl
@@ -44,6 +45,11 @@ object TileModule {
 
     @Provides
     @Singleton
+    @Named("tcpip")
+    fun provideTcpIpExecutor(impl: TcpIpExecutor): CommandExecutor = impl
+
+    @Provides
+    @Singleton
     fun provideTileNotificationHelper(
         @ApplicationContext context: Context
     ): TileNotificationHelper = TileNotificationHelper(context)
@@ -53,9 +59,11 @@ object TileModule {
     fun provideCollapseQsPanelUseCase(
         @Named("shizuku") shizukuExecutor: CommandExecutor,
         @Named("root") rootExecutor: CommandExecutor,
+        @Named("tcpip") tcpIpExecutor: CommandExecutor,
     ): CollapseQsPanelUseCase = CollapseQsPanelUseCaseImpl(
         shizukuExecutor = shizukuExecutor,
-        rootExecutor = rootExecutor
+        rootExecutor = rootExecutor,
+        tcpIpExecutor = tcpIpExecutor
     )
 
     @Provides
@@ -63,11 +71,13 @@ object TileModule {
     fun provideTileExecutionManager(
         @Named("shizuku") shizukuExecutor: CommandExecutor,
         @Named("root") rootExecutor: CommandExecutor,
+        @Named("tcpip") tcpIpExecutor: CommandExecutor,
         logRepository: TileLogRepository,
         notificationHelper: TileNotificationHelper
     ): TileExecutionManager = TileExecutionManager(
         shizukuExecutor = shizukuExecutor,
         rootExecutor = rootExecutor,
+        tcpIpExecutor = tcpIpExecutor,
         logRepository = logRepository,
         notificationHelper = notificationHelper
     )

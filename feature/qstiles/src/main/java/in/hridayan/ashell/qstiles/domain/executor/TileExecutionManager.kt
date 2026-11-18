@@ -34,6 +34,7 @@ import javax.inject.Singleton
 class TileExecutionManager @Inject constructor(
     private val shizukuExecutor: CommandExecutor,
     private val rootExecutor: CommandExecutor,
+    private val tcpIpExecutor: CommandExecutor,
     private val logRepository: TileLogRepository,
     private val notificationHelper: TileNotificationHelper
 ) {
@@ -125,6 +126,7 @@ class TileExecutionManager @Inject constructor(
         val executor = when (tile.executionMode) {
             TileExecutionMode.SHIZUKU -> shizukuExecutor
             TileExecutionMode.ROOT -> rootExecutor
+            TileExecutionMode.TCPIP -> tcpIpExecutor
             else -> return CommandResult(
                 output = "Unknown execution mode: ${tile.executionMode}",
                 isSuccess = false,

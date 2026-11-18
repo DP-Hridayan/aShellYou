@@ -21,6 +21,10 @@ class ButtonGroupOptionsProvider {
                 value = TileExecutionMode.ROOT,
                 labelResId = R.string.root
             ),
+            ButtonGroupOptions(
+                value = TileExecutionMode.TCPIP,
+                labelResId = R.string.tcpip_mode
+            ),
         )
     }
 }

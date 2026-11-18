@@ -44,6 +44,7 @@ class GetQsTileSlotsTool @Inject constructor(
             existingTiles.sortedBy { it.id }.forEach { tile ->
                 val modeStr = when (tile.executionMode) {
                     TileExecutionMode.ROOT -> "Root"
+                    TileExecutionMode.TCPIP -> "TCP/IP"
                     else -> "Shizuku"
                 }
                 val typeStr = if (tile.activeState.isToggleable) {

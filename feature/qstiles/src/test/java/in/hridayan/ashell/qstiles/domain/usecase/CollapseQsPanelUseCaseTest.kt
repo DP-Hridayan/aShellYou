@@ -16,13 +16,15 @@ class CollapseQsPanelUseCaseTest {
 
     private lateinit var fakeShizukuExecutor: FakeCommandExecutor
     private lateinit var fakeRootExecutor: FakeCommandExecutor
+    private lateinit var fakeTcpIpExecutor: FakeCommandExecutor
     private lateinit var useCase: CollapseQsPanelUseCase
 
     @Before
     fun setUp() {
         fakeShizukuExecutor = FakeCommandExecutor()
         fakeRootExecutor = FakeCommandExecutor()
-        useCase = CollapseQsPanelUseCaseImpl(fakeShizukuExecutor, fakeRootExecutor)
+        fakeTcpIpExecutor = FakeCommandExecutor()
+        useCase = CollapseQsPanelUseCaseImpl(fakeShizukuExecutor, fakeRootExecutor, fakeTcpIpExecutor)
     }
 
     @Test
@@ -32,6 +34,7 @@ class CollapseQsPanelUseCaseTest {
         assertTrue(result)
         assertEquals("cmd statusbar collapse", fakeShizukuExecutor.lastExecutedCommand)
         assertEquals(null, fakeRootExecutor.lastExecutedCommand)
+        assertEquals(null, fakeTcpIpExecutor.lastExecutedCommand)
     }
 
     @Test
@@ -41,6 +44,17 @@ class CollapseQsPanelUseCaseTest {
         assertTrue(result)
         assertEquals("cmd statusbar collapse", fakeRootExecutor.lastExecutedCommand)
         assertEquals(null, fakeShizukuExecutor.lastExecutedCommand)
+        assertEquals(null, fakeTcpIpExecutor.lastExecutedCommand)
+    }
+
+    @Test
+    fun invoke_withTcpIpMode_executesCommandViaTcpIp() = runTest {
+        val result = useCase(TileExecutionMode.TCPIP)
+
+        assertTrue(result)
+        assertEquals("cmd statusbar collapse", fakeTcpIpExecutor.lastExecutedCommand)
+        assertEquals(null, fakeShizukuExecutor.lastExecutedCommand)
+        assertEquals(null, fakeRootExecutor.lastExecutedCommand)
     }
 
     @Test
@@ -50,6 +64,7 @@ class CollapseQsPanelUseCaseTest {
         assertFalse(result)
         assertEquals(null, fakeShizukuExecutor.lastExecutedCommand)
         assertEquals(null, fakeRootExecutor.lastExecutedCommand)
+        assertEquals(null, fakeTcpIpExecutor.lastExecutedCommand)
     }
 
     @Test

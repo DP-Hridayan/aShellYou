@@ -7,7 +7,6 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import `in`.hridayan.ashell.core.common.notification.NotificationChannelManager
 import `in`.hridayan.ashell.core.resources.R
-import `in`.hridayan.ashell.qstiles.data.provider.TileNotificationHelper.Companion.GROUP_KEY
 import `in`.hridayan.ashell.qstiles.domain.model.TileErrorType
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -39,7 +38,7 @@ class TileNotificationHelper @Inject constructor(
         notificationId: Int
     ) {
         val reason = when (errorType) {
-            TileErrorType.PERMISSION_DENIED -> "Permission denied — check Shizuku or Root access."
+            TileErrorType.PERMISSION_DENIED -> "Permission denied — check Shizuku, Root, or TCP/IP access."
             TileErrorType.TIMEOUT -> "Command timed out."
             TileErrorType.EXECUTION_FAILED -> "Command failed: $errorMessage"
             TileErrorType.UNKNOWN -> "An unknown error occurred."

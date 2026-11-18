@@ -813,12 +813,12 @@ private fun TileLogCard(
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
-                    val modeLabel =
-                        if (log.executionMode == TileExecutionMode.SHIZUKU) {
-                            stringResource(R.string.shizuku)
-                        } else {
-                            stringResource(R.string.root)
-                        }
+                    val modeLabel = when (log.executionMode) {
+                        TileExecutionMode.SHIZUKU -> stringResource(R.string.shizuku)
+                        TileExecutionMode.ROOT -> stringResource(R.string.root)
+                        TileExecutionMode.TCPIP -> stringResource(R.string.tcpip_mode)
+                        else -> ""
+                    }
                     Text(
                         text = "$modeLabel • ${DateTimeUtils.getRelativeTime(log.timestamp)}",
                         style = MaterialTheme.typography.labelSmall,

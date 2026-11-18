@@ -44,7 +44,7 @@ class UpdateQsTileTool @Inject constructor(
             ),
             "execution_mode" to ToolSchemaProperty(
                 type = ToolSchemaType.INTEGER,
-                description = "Optional. New execution mode (0 for Shizuku, 1 for Root)."
+                description = "Optional. New execution mode (0 for Shizuku, 1 for Root, 2 for TCP/IP)."
             ),
             "is_toggleable" to ToolSchemaProperty(
                 type = ToolSchemaType.BOOLEAN,
@@ -83,7 +83,12 @@ class UpdateQsTileTool @Inject constructor(
 
         val rawMode = args["execution_mode"]?.jsonPrimitive?.content?.toIntOrNull()
         val executionMode = if (rawMode != null) {
-            if (rawMode == TileExecutionMode.ROOT) TileExecutionMode.ROOT else TileExecutionMode.SHIZUKU
+            when (rawMode) {
+                TileExecutionMode.ROOT -> TileExecutionMode.ROOT
+                TileExecutionMode.TCPIP -> TileExecutionMode.TCPIP
+                TileExecutionMode.SHIZUKU -> TileExecutionMode.SHIZUKU
+                else -> existingTile.executionMode
+            }
         } else {
             existingTile.executionMode
         }

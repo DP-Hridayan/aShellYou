@@ -35,7 +35,7 @@ class CreateQsTileTool @Inject constructor(
     override val name: String = "create_qs_tile"
 
     override val description: String =
-        "Create a custom Quick Settings (QS) tile for the user in an available slot (1-10). Before calling this tool: 1) ALWAYS use get_qs_tile_slots to check which slot is empty if you haven't yet, 2) If the user didn't specify an execution mode in their request, ask the user which execution mode they prefer (0 for Shizuku [default], 1 for Root), and 3) Decide whether the tile should be a toggle (on/off switch) or a simple tap action based on the command/purpose."
+        "Create a custom Quick Settings (QS) tile for the user in an available slot (1-10). Before calling this tool: 1) ALWAYS use get_qs_tile_slots to check which slot is empty if you haven't yet, 2) If the user didn't specify an execution mode in their request, ask the user which execution mode they prefer (0 for Shizuku [default], 1 for Root, 2 for TCP/IP), and 3) Decide whether the tile should be a toggle (on/off switch) or a simple tap action based on the command/purpose."
 
     override val parametersSchema: ToolSchema = ToolSchema(
         type = ToolSchemaType.OBJECT,
@@ -58,7 +58,7 @@ class CreateQsTileTool @Inject constructor(
             ),
             "execution_mode" to ToolSchemaProperty(
                 type = ToolSchemaType.INTEGER,
-                description = "0 for Shizuku (default), 1 for Root."
+                description = "0 for Shizuku (default), 1 for Root, 2 for TCP/IP."
             ),
             "slot" to ToolSchemaProperty(
                 type = ToolSchemaType.INTEGER,
@@ -103,10 +103,10 @@ class CreateQsTileTool @Inject constructor(
 
         val rawMode = args["execution_mode"]?.jsonPrimitive?.content?.toIntOrNull()
             ?: TileExecutionMode.SHIZUKU
-        val executionMode = if (rawMode == TileExecutionMode.ROOT) {
-            TileExecutionMode.ROOT
-        } else {
-            TileExecutionMode.SHIZUKU
+        val executionMode = when (rawMode) {
+            TileExecutionMode.ROOT -> TileExecutionMode.ROOT
+            TileExecutionMode.TCPIP -> TileExecutionMode.TCPIP
+            else -> TileExecutionMode.SHIZUKU
         }
 
         val requestedSlot = args["slot"]?.jsonPrimitive?.content?.toIntOrNull()
@@ -183,7 +183,11 @@ class CreateQsTileTool @Inject constructor(
             tileIcon = tileIcon
         )
 
-        val modeStr = if (executionMode == TileExecutionMode.ROOT) "Root" else "Shizuku"
+        val modeStr = when (executionMode) {
+            TileExecutionMode.ROOT -> "Root"
+            TileExecutionMode.TCPIP -> "TCP/IP"
+            else -> "Shizuku"
+        }
         val typeStr =
             if (isToggleable) "Toggleable (ON: '$command', OFF: '$inactiveCmd')" else "Tap Action ('$command')"
         return "Successfully created QS tile '$title' in Slot $tileId (Slot Index $slotIndex) using $modeStr mode ($typeStr). System prompt dialog triggered to add Tile $tileId to Quick Settings panel. Tell the user which slot number ($tileId) it was created in."
