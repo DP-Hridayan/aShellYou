@@ -1,26 +1,25 @@
-<b>Run ADB commands on your device or on other devices 🌱 </b>
+<b>aShell You</b> is an advanced shell and device management utility featuring a clean Material Design 3 interface. Execute ADB and shell commands on your local device or manage external devices via Wireless Debugging and USB OTG without requiring a PC.
 
-<b>Features ✨</b>
+<b>Key Features</b>
 
-- 🎨 Features a modern Material Design 3 user interface
-- 📲 Execute commands on your device using Shizuku , ROOT or Wireless Debugging
-- 🔌 Run commands on other devices via OTG connection or Wireless Debugging
-- 📚 Provides examples of common ADB commands
-- 🛠️ Supports continuously running commands like logcat and top
-- 🔍 Search within the command output
-- 📝 Save or share the command output as a text file
-- 📑 Bookmark frequently used commands
+- <b>Multi-Target Execution:</b> Run commands locally via Shizuku or root, and remotely over Wi-Fi (pairing code/QR) or USB OTG.
+- <b>Fastboot OTG:</b> Flash partitions, switch active slots (A/B), and execute bootloader operations over USB OTG.
+- <b>Screen Mirroring:</b> Stream and interact with connected devices in real time with low-latency embedded scrcpy.
+- <b>Real-Time Logcat:</b> Inspect system logs with tag search, regex filtering, and color-coded priority markers.
+- <b>ADB Sideload:</b> Flash recovery update zip packages directly over USB OTG with live progress verification.
+- <b>Port Forwarding:</b> Configure local and remote TCP port forwarding (adb forward/reverse) with active tunnel monitoring.
+- <b>Remote File Browser:</b> Browse, push, pull, and manage files on connected targets.
+- <b>Command Examples & Bookmarks:</b> Built-in catalog of common Android commands with custom bookmarking.
+- <b>Quick Settings Tiles:</b> Launch custom shell scripts or toggle wireless debugging from the notification shade.
+- <b>Output Utilities:</b> Continuous command streaming (top, logcat), text search, and text file export/sharing.
+- <b>Material Design 3:</b> Dynamic colors, AMOLED dark theme, and interface scaling customization.
 
-<b>Requirements ⚙️</b>
+<b>Requirements</b>
 
-- Knowledge about basic ADB/Linux commands
-
-<b>Instructions</b>
-
-- Install and open the app
-- Follow the instructions
+- Local device execution requires Shizuku or root access (or local wireless debugging).
+- Managing remote devices via OTG or Wi-Fi does not require root or Shizuku on the host device.
+- Basic familiarity with ADB and shell commands is recommended.
 
 <b>Translations</b>
-Translations are managed via Crowdin:
+Contribute translations via Crowdin:
 https://crowdin.com/project/ashellyou
-

@@ -1,0 +1,19 @@
+* For GitHub flavor builds, added AI chatbot with capabilities to execute commands (need user opt-in), manage app database and access app features like Quick Settings Tiles.
+* Added Fastboot, ADB Sideload and dedicated Logcat viewer
+* Added Port forwarding feature
+* Added ADB TCP/IP connection mode in Local Adb
+* Added Scrcpy screen mirroring feature in Wireless Debugging and USB debugging modes
+* Added capability to run certain adb commands like adb tcpip, adb pair, adb connect, adb devices, etc. through Wireless Debugging (WiFi-ADB) shell and Local ADB TCP/IP mode
+* Added TCP mode for Quick Settings Tile execution
+* Added Backup Scheduler (for Github builds only)
+* Added the ability to select and copy text directly from shell output
+* Improved bookmarks view
+* Added app UI and font scale customisation with auto-scale feature
+* Added the ability to change app typography font with the ability to import user\'s font files
+* Added option to launch Local ADB screen as default work place
+* Added a lot of icons in the QS tile icon chooser feature
+* App icon is now themed based on Material You color scheme
+* Added checks for invalid or non-existent directories when using ADB commands like cd
+* Added Privacy Policy regarding user data handling
+* Lots of UI and UX improvements
+* Fixed a whole lot of bugs
