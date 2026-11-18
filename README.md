@@ -178,8 +178,6 @@
 
 </br>
 
-## Resources & Links
-
 ## Download & Community
 
 [![Direct Download](https://img.shields.io/badge/Direct_Download-APK-2ea44f?style=for-the-badge&logo=android&logoColor=white)](https://github.com/DP-Hridayan/aShellYou/releases/download/v8.0.0/aShellYou-v8.0.0-github-release.apk)
