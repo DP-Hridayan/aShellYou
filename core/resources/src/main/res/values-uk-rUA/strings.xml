@@ -209,7 +209,7 @@
     <string name="codec" comment="Section title in the video quality sheet for the video compression format, such as H.264">Кодек</string>
     <string name="codec_fallback" comment="Message after the other device failed to encode the chosen codec. %1$s is a codec name such as H.265">Цей пристрій не може кодувати %1$s, тому H.264 використовується</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Згорнути</string>
-    <string name="collapse_panel_on_click" comment="Title for the switch option in Quick Settings tile builder that collapses the QS notification shade when clicked">Згорнути швидкі налаштування</string>
+    <string name="collapse_panel_on_click" comment="Title for the switch option in Quick Settings tile builder that collapses the QS notification shade when clicked">Згорнути Швидкі Налаштування</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Сталася помилка</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">Велика висота (діалог)</string>
     <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">Найвища висота (нижній аркуш)</string>
@@ -269,6 +269,7 @@
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Команди</string>
     <string name="community_and_support" comment="Category header for community and documentation links in feature guides">Спільнота &amp; Підтримка</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Налаштувати каталог збереження</string>
+    <string name="configuration" comment="Section group title in logs and configuration screen">Конфігурація</string>
     <string name="confirm">Підтвердити</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Увага! Цю дію неможливо скасувати.\nВи впевнені, що хочете видалити всі закладки?</string>
     <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">Ви збираєтеся прошити %1$s з %2$s. Цю операцію не можна скасувати.</string>
@@ -335,7 +336,7 @@
     <string name="database_modification" comment="Title for the database skill toggle in AI settings">Внесення змін бази даних</string>
     <string name="databases_only" comment="Option in backup content selector to include database files only">Тільки бази даних</string>
     <string name="days" comments="Days as in number of days">Днів</string>
-    <string name="debug" comment="Android log level name, shown in logcat filters">Debug</string>
+    <string name="debug" comment="Android log level name, shown in logcat filters">Налагодження</string>
     <string name="default_folder" comment="Default folder location label in file manager settings">Тека за замовчуванням</string>
     <string name="default_language" comment="Setting preference label for selecting application language">Мова за замовчуванням</string>
     <string name="delete">Видалити</string>
@@ -373,7 +374,7 @@
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Видалити всі кешовані відповіді аналізу AI</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Запитувати підтвердження перед очищенням виводу оболонки</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">Керувати API ключами для хмарних моделей</string>
-    <string name="des_collapse_panel_on_click" comment="Description explaining that clicking the tile will automatically dismiss the Quick Settings panel simultaneously with executing the command">Автоматично відхиляти панель швидких налаштувань, коли плитка натиснута</string>
+    <string name="des_collapse_panel_on_click" comment="Description explaining that clicking the tile will automatically dismiss the Quick Settings panel simultaneously with executing the command">Автоматично закривати панель швидких налаштувань після натискання цієї плитки</string>
     <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Дозволити AI агенту виконувати команди ADB shell</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">Виберіть каталог для збереження виводу оболонки</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">Список учасників, які допомогли у розробці aShell You</string>
@@ -391,6 +392,7 @@
     <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">Авторезервування на ваш обліковий запис Google Диска</string>
     <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">При включенні оновлення завантажуватиметься безпосередньо з GitHub всередині додатка. Вимкніть, щоб відвідати сторінку випусків Github для завантаження вручну.</string>
     <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">Авторезервування у вибрану теку на вашому пристрої</string>
+    <string name="des_export_configuration" comment="Description under Export configuration item in logs and configuration screen">Експорт діагностичних даних та конфігурації пристрою для звітування про помилки</string>
     <string name="des_examples" comment="Description under Command templates item in navigation menu">Колекція деяких шаблонів команд</string>
     <string name="des_feature_request" comment="Description under Feature request item in About menu">Якщо у вас є якісь ідеї чи пропозиції щодо програми, повідомте нам</string>
     <string name="des_font_family" comment="Description under Font family setting item">Змінити стиль шрифту додатка</string>
@@ -407,6 +409,7 @@
     <string name="des_local_restore" comment="Description card text for local restore option">Виберіть файл резервування зі свого пристрою</string>
     <string name="des_log_buffer_size" comment="Description under the Logcat log buffer size setting; explains that older entries are dropped once the limit is reached">Пам\'ять зберігається для зібраних журналів. Старші записи будуть відкинуті після досягнення межі.</string>
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">Вивід logcat в реальному часі з підключеного пристрою</string>
+    <string name="des_logs_and_configuration" comment="Description under Logs &amp; Configuration item in main settings menu">Перегляд журналів збоїв та експорт діагностичної конфігурації</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Динамічні кольори, Темна тема, Мова</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">Модель не вибрано</string>
     <string name="des_no_filter_profiles" comment="Body of the empty state in the logcat filter sheet, shown when no filter profiles have been created">Додати профіль, щоб вибрати, які журнали показано. Не вибрано профіль, кожен журнал показано.</string>
@@ -533,7 +536,7 @@
     <string name="error_no_api_key_for_provider" comment="Error shown when the selected AI provider has no API key saved. %1$s is the provider name">Немає API ключа, встановлених для %1$s.</string>
     <string name="error_no_connection" comment="Error shown when the request to the AI provider could not be sent or timed out">Відсутнє підключення до Інтернету або час очікування запиту вичерпано.</string>
     <string name="error_provider_server" comment="Error shown when the AI provider returns a server failure. %1$d is the HTTP status code">Помилка сервера провайдера (%1$d). Спробуйте пізніше.</string>
-    <string name="error_rate_limited" comment="Error shown when the AI provider is throttling requests and gives no retry time">Ставка обмежена провайдером. Спробуйте ще раз трохи пізніше.</string>
+    <string name="error_rate_limited" comment="Error shown when the AI provider is throttling requests and gives no retry time">Ставка обмежена провайдером. Try again shortly.</string>
     <string name="error_rate_limited_retry_in" comment="Error shown when the AI provider is throttling requests. %1$d is a number of seconds">Обмежена ставка &#8212; спробуйте ще раз через %1$ds.</string>
     <string name="error_unexpected_response" comment="Error shown when the AI provider reply could not be understood">Неочікувана відповідь від провайдера. Спробуйте ще раз.</string>
     <string name="exclude" comment="Filter toggle option to exclude selected package or item">Виключити</string>
@@ -541,6 +544,10 @@
     <string name="exit_full_screen" comment="Button that leaves the full screen view of the mirrored screen">Вийти з повноекранного режиму</string>
     <string name="expand" comment="Action button to expand a collapsed card section">Розгорнути</string>
     <string name="experimental" comment="Badge or section title marking experimental features">Експериментальний</string>
+    <string name="export">Експорт</string>
+    <string name="export_config_share_subject" comment="Subject text for sharing the exported diagnostic configuration report">aShellYou: Діагностична Конфігурація</string>
+    <string name="export_configuration" comment="Settings item and dialog title to export diagnostic details and device configuration">Експорт конфігурації</string>
+    <string name="export_configuration_preview_description" comment="Explains the content preview in the export configuration bottom sheet">Попередній перегляд конфігурації діагностики, яка буде експортована до текстового файлу:</string>
     <string name="failed">Не вдалося</string>
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">Не вдалося отримати доступ до інтерфейсу</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">Не вдалося скопіювати</string>
@@ -721,7 +728,7 @@
     <string name="least_used" comment="Sorting option for commands or bookmarks list">Рідко використовувані</string>
     <string name="leave_mirror" comment="Button in the full screen control panel that closes the screen mirror and returns to the shell">Залишити дзеркало</string>
     <string name="legal_and_policies" comment="Group header for legal settings">Юридична інформація &amp; Політики</string>
-    <string name="legal_consent_text">Я прочитав і погоджуюся з %1$s і %2$s.</string>
+    <string name="legal_consent_text">Я прочитав і погоджуюся з %1$s and %2$s.</string>
     <string name="legal_docs_updated" comment="Title for the dialog shown when legal docs are updated">Юридичні політики оновлено</string>
     <string name="level" comment="Logcat filter label for log level (Verbose, Debug, Info, Warn, Error)">Рівень</string>
     <string name="libraries_and_licenses" comment="Screen title or menu item for viewing open source libraries and their licenses">Бібліотеки та ліцензії</string>
@@ -762,6 +769,7 @@
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Джерело Logcat</string>
     <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Натисніть ▶️ щоб почати logcat</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">Журнали</string>
+    <string name="logs_and_configuration" comment="Settings menu title and screen header for viewing logs and exporting diagnostic configuration">Журнали &amp; Конфігурація</string>
     <string name="logs_saved" comment="Toast shown after exported logcat entries were written to the file the user picked">Журнали збережено</string>
     <string name="long_edge_pixels" comment="A limit on a video's longer side. %1$d is a number of pixels">%1$d px</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Оформлення</string>
@@ -771,7 +779,7 @@
     <string name="lower_quality" comment="Action that lowers the mirrored video's quality one step">Низька якість</string>
     <string name="make_your_theme_title" comment="Header title for custom theme builder screen">Створіть свою тему</string>
     <string name="manual_pair" comment="Button label to open manual Wireless Debugging IP/Port pairing dialog">Ручне сполучення</string>
-    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Іконки</string>
+    <string name="material_icons" comment="Tab label in icon chooser for downloadable Material Design icons">Material Icons</string>
     <string name="material_icons_description" comment="Informational text in icon chooser explaining the Material Icons download">Завантажте ~380 KB для перегляду 2,500+ Material іконки</string>
     <string name="max_download_size" comment="Setting label for capping maximum update download file size">Максимальне завантаження</string>
     <string name="medium">Середній</string>
@@ -794,7 +802,7 @@
     <string name="mirror_error_server_exited" comment="Screen mirror error: the helper program stopped unexpectedly on the device">Дзеркальний помічник зупинився на пристрої.</string>
     <string name="mirror_error_stream" comment="Screen mirror error: the video data from the device could not be read">Відеопотік неможливо прочитати.</string>
     <string name="mirror_error_version" comment="Screen mirror error: the helper on the device is a different version than the app expects">Дзеркальний помічник на пристрої - це інша версія.</string>
-    <string name="mirror_failed_title" comment="Title of the panel shown when screen mirroring could not start or stopped with an error">Не вдалося відобразити екран</string>
+    <string name="mirror_failed_title" comment="Title of the panel shown when screen mirroring could not start or stopped with an error">Не вдалося показати екран</string>
     <string name="mirror_full_screen_hint" comment="One-time message shown when the screen mirror first goes full screen">Повернення тепер на пристрій. Натисніть на плаваючу кнопку для керування.</string>
     <string name="mirror_step_connecting" comment="Startup step while the live video connection to the other device opens">Підключення відео</string>
     <string name="mirror_step_preparing" comment="Startup step while the mirroring helper is copied to the other device">Підготовка</string>
@@ -1518,7 +1526,7 @@
     <plurals name="port_forward_notification_attention_count" comment="Part of the notification summary. %1$d is the number of tunnels with a problem">
         <item quantity="one">%1$d потребує уваги</item>
         <item quantity="few">%1$d потребує уваги</item>
-        <item quantity="many">%1$d потребує уваги</item>
+        <item quantity="many">%1$d need attention</item>
         <item quantity="other">%1$d потребує уваги</item>
     </plurals>
     <plurals name="n_seconds" comment="A duration in seconds. %1$d is the number">
@@ -1557,7 +1565,7 @@
         <item quantity="many">%1$d тунелі до цього пристрою буде зупинено.</item>
         <item quantity="other">%1$d тунелі до цього пристрою буде зупинено.</item>
     </plurals>
-    <string name="changelog_v8_0_0">\nFor GitHub flavor builds, added AI chatbot with capabilities to execute commands (need user opt-in), manage app database and access app features like Quick Settings Tiles.\nAdded Fastboot, ADB Sideload and dedicated Logcat viewer\nAdded Port forwarding feature\nAdded ADB TCP/IP connection mode in Local Adb\nAdded Scrcpy screen mirroring feature in Wireless Debugging and USB debugging modes\nAdded capability to run certain adb commands like adb tcpip, adb pair, adb connect, adb devices, etc. through Wireless Debugging (WiFi-ADB) shell and Local ADB TCP/IP mode\nAdded TCP mode for Quick Settings Tile execution\nAdded Backup Scheduler (for Github builds only)\nAdded the ability to select and copy text directly from shell output\nImproved bookmarks view\nAdded app UI and font scale customisation with auto-scale feature\nAdded the ability to change app typography font with the ability to import user\'s font files\nAdded option to launch Local ADB screen as default work place\nAdded a lot of icons in the QS tile icon chooser feature\nApp icon is now themed based on Material You color scheme\nAdded checks for invalid or non-existent directories when using ADB commands like cd\nAdded Privacy Policy regarding user data handling\nLots of UI and UX improvements\nFixed a whole lot of bugs</string>
+    <string name="changelog_v8_0_0">\nДля збірок GitHub додано чат-бота зі штучним інтелектом з можливостями виконання команд (потрібна згода користувача), керування базою даних програм та доступу до функцій програм, таких як плитки швидких налаштувань.\nДодано Fastboot, ADB Sideload та спеціальний переглядач Logcat\nДодано функцію переадресації портів\nДодано режим підключення ADB TCP/IP до локального ADB\nДодано функцію дублювання екрана Scrcpy в режимах бездротового налагодження та налагодження USB\nДодано можливість виконання певних команд adb, таких як adb tcpip, adb pair, adb connect, adb devices тощо, через оболонку бездротового налагодження (WiFi-ADB) та режим локального ADB TCP/IP\nДодано режим TCP для виконання плитки швидких налаштувань\nДодано планувальник резервного копіювання (лише для збірок Github)\nДодано можливість вибирати та копіювати текст безпосередньо з виводу оболонки\nПокращено перегляд закладок\nДодано налаштування UI застосунка та масштабу шрифту з функцією автоматичного масштабування\nДодано можливість змінювати шрифт типографіки програми з можливістю імпорту файлів шрифтів користувача\nДодано опцію запуску локального екрана ADB як робочого місця за замовчуванням\nДодано багато значків у функцію вибору значків плиток QS\nІконка застосунка тепер оформлена відповідно до колірної схеми Material You\nДодано перевірки на наявність недійсних або неіснуючих каталогів під час використання команд ADB, таких як cd\nДодано Політику конфіденційності щодо обробки даних користувачів\nБагато покращень UI та UX\nВиправлено купу помилок</string>
     <string name="changelog_v7_4_0">\nТепер ви можете шукати під налаштування на екранах налаштувань\nДодано стилі палітри для колірних схем\nДодано опцію встановлення мови додатка безпосередньо в додатку</string>
     <string name="changelog_v7_3_0">\nПокращено інтерфейс користувача в екрані журналу змін\nДодано перекладачів у розділ Про програму.\nДодано екран ліцензій, який показує детальну інформацію про ліцензію програми та інших бібліотек, які використовує додаток</string>
     <string name="changelog_v7_2_1">\nОновлення технічного обслуговування!</string>

@@ -209,7 +209,7 @@
     <string name="codec" comment="Section title in the video quality sheet for the video compression format, such as H.264">Кодек</string>
     <string name="codec_fallback" comment="Message after the other device failed to encode the chosen codec. %1$s is a codec name such as H.265">Это устройство не может кодировать %1$s, поэтому используется H.264</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Свернуть</string>
-    <string name="collapse_panel_on_click" comment="Title for the switch option in Quick Settings tile builder that collapses the QS notification shade when clicked">Свернуть быстрые настройки</string>
+    <string name="collapse_panel_on_click" comment="Title for the switch option in Quick Settings tile builder that collapses the QS notification shade when clicked">Свернуть Быстрые Настройки</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Произошла ошибка</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">Высокая высота (диалог)</string>
     <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">Высокая высота (нижний лист)</string>
@@ -269,6 +269,7 @@
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Команды</string>
     <string name="community_and_support" comment="Category header for community and documentation links in feature guides">Сообщество &amp; Поддержка</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Настроить каталог сохранения</string>
+    <string name="configuration" comment="Section group title in logs and configuration screen">Конфигурация</string>
     <string name="confirm">Подтвердить</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Внимание! Это действие необратимо\nВы уверены, что хотите удалить все закладки?</string>
     <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">Вы собираетесь прошить %1$s с %2$s. Эта операция не может быть отменена.</string>
@@ -373,7 +374,7 @@
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Удалить все кэшированные ответы анализа AI</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Запрашивать подтверждение перед очисткой вывода оболочки</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">Управление ключами API для облачных моделей</string>
-    <string name="des_collapse_panel_on_click" comment="Description explaining that clicking the tile will automatically dismiss the Quick Settings panel simultaneously with executing the command">Автоматически закрывать панель быстрых настроек при нажатии на эту плитку</string>
+    <string name="des_collapse_panel_on_click" comment="Description explaining that clicking the tile will automatically dismiss the Quick Settings panel simultaneously with executing the command">Автоматически закрывать панель быстрых настроек по нажатию этой плитки</string>
     <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Разрешить AI агенту выполнять команды ADB shell</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">Выберите каталог для сохранения вывода оболочки</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">Список участников, которые помогли в разработке aShell You</string>
@@ -391,6 +392,7 @@
     <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">Авто резервирование в ваш аккаунт Google Диска</string>
     <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">При включении обновления будут загружаться непосредственно из GitHub внутри приложения. Отключите, чтобы посетить страницу выпусков Github для загрузки вручную.</string>
     <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">Авто резервирование в выбранную папку на вашем устройстве</string>
+    <string name="des_export_configuration" comment="Description under Export configuration item in logs and configuration screen">Экспорт диагностических данных и конфигурации устройства для отчета об ошибках</string>
     <string name="des_examples" comment="Description under Command templates item in navigation menu">Коллекция некоторых шаблонов команд</string>
     <string name="des_feature_request" comment="Description under Feature request item in About menu">Если у вас есть какие-либо идеи или предложения по программе, сообщите нам</string>
     <string name="des_font_family" comment="Description under Font family setting item">Изменить стиль шрифта приложения</string>
@@ -407,6 +409,7 @@
     <string name="des_local_restore" comment="Description card text for local restore option">Выберите файл резервирования со своего устройства</string>
     <string name="des_log_buffer_size" comment="Description under the Logcat log buffer size setting; explains that older entries are dropped once the limit is reached">Память, хранящаяся для собранных журналов. Старые записи удаляются по достижении лимита.</string>
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">Вывод logcat в реальном времени из подключенного устройства</string>
+    <string name="des_logs_and_configuration" comment="Description under Logs &amp; Configuration item in main settings menu">Просмотр журналов сбоев и экспорт диагностической конфигурации</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Динамические цвета, Темная тема, Язык</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">Модель не выбрана</string>
     <string name="des_no_filter_profiles" comment="Body of the empty state in the logcat filter sheet, shown when no filter profiles have been created">Добавьте профиль, чтобы выбрать, какие журналы отображаются. Если профиль не выбран, будут показаны все журналы.</string>
@@ -541,6 +544,10 @@
     <string name="exit_full_screen" comment="Button that leaves the full screen view of the mirrored screen">Выйти из полноэкранного режима</string>
     <string name="expand" comment="Action button to expand a collapsed card section">Развернуть</string>
     <string name="experimental" comment="Badge or section title marking experimental features">Экспериментальный</string>
+    <string name="export">Экспорт</string>
+    <string name="export_config_share_subject" comment="Subject text for sharing the exported diagnostic configuration report">aShellYou Диагностическая Конфигурация</string>
+    <string name="export_configuration" comment="Settings item and dialog title to export diagnostic details and device configuration">Экспорт конфигурации</string>
+    <string name="export_configuration_preview_description" comment="Explains the content preview in the export configuration bottom sheet">Предварительный просмотр конфигурации диагностики, которая будет экспортирована в текстовый файл:</string>
     <string name="failed">Не удалось</string>
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">Не удалось получить доступ к интерфейсу</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">Не удалось скопировать</string>
@@ -762,6 +769,7 @@
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Источник Logcat</string>
     <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Нажмите ▶️ чтобы начать logcat</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">Журналы</string>
+    <string name="logs_and_configuration" comment="Settings menu title and screen header for viewing logs and exporting diagnostic configuration">Журналы &amp; Конфигурация</string>
     <string name="logs_saved" comment="Toast shown after exported logcat entries were written to the file the user picked">Журналы сохранены</string>
     <string name="long_edge_pixels" comment="A limit on a video's longer side. %1$d is a number of pixels">%1$d px</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Оформление</string>
@@ -1557,7 +1565,7 @@
         <item quantity="many">%1$d туннелей к этому устройству остановятся.</item>
         <item quantity="other">%1$d туннелей к этому устройству остановятся.</item>
     </plurals>
-    <string name="changelog_v8_0_0">\nFor GitHub flavor builds, added AI chatbot with capabilities to execute commands (need user opt-in), manage app database and access app features like Quick Settings Tiles.\nAdded Fastboot, ADB Sideload and dedicated Logcat viewer\nAdded Port forwarding feature\nAdded ADB TCP/IP connection mode in Local Adb\nAdded Scrcpy screen mirroring feature in Wireless Debugging and USB debugging modes\nAdded capability to run certain adb commands like adb tcpip, adb pair, adb connect, adb devices, etc. through Wireless Debugging (WiFi-ADB) shell and Local ADB TCP/IP mode\nAdded TCP mode for Quick Settings Tile execution\nAdded Backup Scheduler (for Github builds only)\nAdded the ability to select and copy text directly from shell output\nImproved bookmarks view\nAdded app UI and font scale customisation with auto-scale feature\nAdded the ability to change app typography font with the ability to import user\'s font files\nAdded option to launch Local ADB screen as default work place\nAdded a lot of icons in the QS tile icon chooser feature\nApp icon is now themed based on Material You color scheme\nAdded checks for invalid or non-existent directories when using ADB commands like cd\nAdded Privacy Policy regarding user data handling\nLots of UI and UX improvements\nFixed a whole lot of bugs</string>
+    <string name="changelog_v8_0_0">\nДля сборок GitHub добавлен чат-бот с искусственным интеллектом с возможностями выполнения команд (требуется согласие пользователя), управление базой данных приложений и доступ к функциям приложений, таких как плитки быстрых настроек.\nДобавлено Fastboot, ADB Sideload и специальный браузер Logcat\nAdded Port forwarding feature\nДобавлен режим подключения ADB TCP/IP в локальный ADB\nДобавлена ​​функция дублирования экрана Scrcpy в режимах беспроводной настройки и настройки USB\nДобавлена ​​возможность выполнения определенных команд adb, таких как adb tcpip, adb pair, adb connect, adb devices и т. п., через беспроводную настройку (WiFi-ADB) и режим локального ADB TCP/IP\nДобавлен режим TCP для выполнения плитки быстрых настроек\nДобавлен планировщик резервного копирования (только для сборок Github)\nДобавлена ​​возможность выбирать и копировать текст непосредственно с вывода оболочки\nУлучшен просмотр закладок\nДобавлены настройки UI приложения и масштаба шрифта с функцией автоматического зумирования\nДобавлена ​​возможность изменять шрифт типографии программы с возможностью импорта файлов шрифтов пользователя\nДобавлена ​​опция запуска локального экрана ADB в качестве рабочего места по умолчанию\nДобавлены многие значки в функцию выбора значков плиток QS\nИконка приложения теперь оформлена в соответствии с цветовой схемой Material You\nДобавлены проверки на наличие недействительных или несуществующих каталогов при использовании команд ADB, таких как cd\nДобавлено Политика конфиденциальности по обработке данных пользователей\nМного улучшений UI и UX\nИсправлено множество ошибок</string>
     <string name="changelog_v7_4_0">\nТеперь вы можете искать под настройки на экранах настроек\nДобавлены стили палитры для цветовых схем\nДобавлена ​​опция установки языка приложения прямо в приложении</string>
     <string name="changelog_v7_3_0">\nУлучшен пользовательский интерфейс в журнале изменений\nДобавлены переводчики в раздел О программе.\nДобавлен экран лицензий, показывающий подробную информацию о лицензии приложения и других библиотек, использующих приложение</string>
     <string name="changelog_v7_2_1">\nОбновление технического обслуживания!</string>

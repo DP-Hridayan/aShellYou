@@ -269,6 +269,7 @@
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Commandes</string>
     <string name="community_and_support" comment="Category header for community and documentation links in feature guides">Support de la communauté &amp;</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Configurer le répertoire de sauvegarde</string>
+    <string name="configuration" comment="Section group title in logs and configuration screen">Configuration</string>
     <string name="confirm">Confirmer</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Attention ! Cette action est irréversible\nÊtes-vous sûr de vouloir supprimer tous les favoris ?</string>
     <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">Vous êtes sur le point de flasher %1$s avec %2$s. Cette opération ne peut pas être annulée.</string>
@@ -381,7 +382,7 @@
     <string name="des_dark_theme" comment="Description under Dark theme item in Look and feel settings">Choisir quand l\'application utilise son thème sombre</string>
     <string name="des_database_modification" comment="Description explaining that this skill allows the AI to modify the app database">Autoriser l\'agent IA à ajouter, modifier ou supprimer des éléments de base de données</string>
     <string name="des_default_language" comment="Description under Default language item in settings menu">Choisissez la langue par défaut de l\'application</string>
-    <string name="des_delete_profile" comment="%1$s = the filter profile name. Body of the confirmation dialog shown before deleting a logcat filter profile">%1$s will be removed. This can\'t be undone.</string>
+    <string name="des_delete_profile" comment="%1$s = the filter profile name. Body of the confirmation dialog shown before deleting a logcat filter profile">%1$s sera supprimé. Cette action est irréversible.</string>
     <string name="des_device_diagnostics" comment="Description explaining that this skill allows the AI to check device status">Permettre à l\'agent IA de vérifier nativement l\'état de la batterie, de la mémoire, du stockage, du matériel et du réseau</string>
     <string name="des_disable_softkey" comment="Description under Disable soft keyboard setting">Utile lorsque vous souhaitez utiliser un clavier externe</string>
     <string name="des_drive_backup" comment="Description card text for Google Drive backup option">Téléversez une sauvegarde chiffrée sur votre Google Drive.\nCette action écrasera toutes les sauvegardes cloud existantes.</string>
@@ -391,6 +392,7 @@
     <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">Sauvegarder automatiquement sur votre compte Google Drive</string>
     <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">Lorsque cette option est activée, les mises à jour seront téléchargées directement depuis Github dans l\'application. Désactivez pour visiter la page des versions de Github pour le téléchargement manuel à la place.</string>
     <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">Sauvegarder automatiquement dans le dossier sélectionné sur votre appareil</string>
+    <string name="des_export_configuration" comment="Description under Export configuration item in logs and configuration screen">Exporter les détails du diagnostic et la configuration de l\'appareil pour le rapport de bogue</string>
     <string name="des_examples" comment="Description under Command templates item in navigation menu">Collection de quelques modèles de commandes</string>
     <string name="des_feature_request" comment="Description under Feature request item in About menu">Si vous avez des idées ou des suggestions pour l\'application, faites-le nous savoir</string>
     <string name="des_font_family" comment="Description under Font family setting item">Modifier le style de police de l\'application</string>
@@ -407,6 +409,7 @@
     <string name="des_local_restore" comment="Description card text for local restore option">Sélectionnez un fichier de sauvegarde sur votre appareil</string>
     <string name="des_log_buffer_size" comment="Description under the Logcat log buffer size setting; explains that older entries are dropped once the limit is reached">Mémoire conservée pour les journaux collectés. Les anciennes entrées sont supprimées une fois la limite atteinte.</string>
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">Sortie logcat en temps réel à partir d\'un appareil connecté</string>
+    <string name="des_logs_and_configuration" comment="Description under Logs &amp; Configuration item in main settings menu">Voir les journaux de plantage et la configuration du diagnostic d\'exportation</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Couleurs dynamiques, Thème sombre, Langue</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">Aucun modèle sélectionné</string>
     <string name="des_no_filter_profiles" comment="Body of the empty state in the logcat filter sheet, shown when no filter profiles have been created">Ajouter un profil pour choisir quels logs sont affichés. Sans profil sélectionné, chaque journal est affiché.</string>
@@ -541,13 +544,17 @@
     <string name="exit_full_screen" comment="Button that leaves the full screen view of the mirrored screen">Quitter le mode plein écran</string>
     <string name="expand" comment="Action button to expand a collapsed card section">Développer</string>
     <string name="experimental" comment="Badge or section title marking experimental features">Expérimental</string>
+    <string name="export">Exportation</string>
+    <string name="export_config_share_subject" comment="Subject text for sharing the exported diagnostic configuration report">Configuration du diagnostic aShellYou</string>
+    <string name="export_configuration" comment="Settings item and dialog title to export diagnostic details and device configuration">Configuration de l\'exportation</string>
+    <string name="export_configuration_preview_description" comment="Explains the content preview in the export configuration bottom sheet">Aperçu de la configuration de diagnostic qui sera exportée vers un fichier texte :</string>
     <string name="failed">Échec</string>
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">Impossible de réclamer l\'interface</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">Échec de la copie</string>
     <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">Impossible de télécharger le fichier</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">Impossible d\'ouvrir la connexion USB. Le débogage USB est-il activé ?</string>
     <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">Impossible de télécharger le fichier</string>
-    <string name="faqs" comment="Title for FAQs and troubleshooting feature guide">FAQs &amp; Troubleshooting</string>
+    <string name="faqs" comment="Title for FAQs and troubleshooting feature guide">FAQ &amp; dépannage</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">Bientôt disponible</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">Console de commande</string>
@@ -633,7 +640,7 @@
     <string name="forks" comment="GitHub repository metadata count label for project forks">Forks</string>
     <string name="found_connect_service" comment="Status message when mDNS ADB connection service is discovered">Service de connexion trouvé</string>
     <string name="frame_rate" comment="Section title in the video quality sheet for frames per second">Fréquence d\'images</string>
-    <string name="frames_per_second" comment="%1$d is a number of video frames per second">%1$d fps</string>
+    <string name="frames_per_second" comment="%1$d is a number of video frames per second">%1$d ips</string>
     <string name="frequency" comment="Setting label for automated backup interval frequency">Fréquence</string>
     <string name="full_license_text" comment="Screen/dialog button to view complete open-source license text">Texte complet de la licence</string>
     <string name="full_screen">Plein écran</string>
@@ -762,6 +769,7 @@
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Source Logcat</string>
     <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Appuyez sur ▶ pour démarrer logcat</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">Journaux</string>
+    <string name="logs_and_configuration" comment="Settings menu title and screen header for viewing logs and exporting diagnostic configuration">Logs &amp; Configuration</string>
     <string name="logs_saved" comment="Toast shown after exported logcat entries were written to the file the user picked">Journaux enregistrés</string>
     <string name="long_edge_pixels" comment="A limit on a video's longer side. %1$d is a number of pixels">%1$d px</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Look &amp; Feel</string>
@@ -868,7 +876,7 @@
     <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">Non connecté</string>
     <string name="nothing_to_clear" comment="Toast notification when user taps clear output but screen is already empty">Rien à effacer</string>
     <string name="nothing_to_search" comment="Toast message when search query string is empty">Rien à rechercher</string>
-    <string name="notification_group_connection" comment="Notification channel group name for connection related notifications">Connection &amp; Pairing</string>
+    <string name="notification_group_connection" comment="Notification channel group name for connection related notifications">Connexion &amp; jumelage</string>
     <string name="notification_group_developer" comment="Notification channel group name for developer tools like logcat">Outils de développement</string>
     <string name="notification_group_qs" comment="Notification channel group name for quick settings tile executions">Paramètres Rapides</string>
     <string name="notification_group_tasks" comment="Notification channel group name for background tasks like backup and sideload">Tâches d\'arrière-plan</string>
@@ -948,7 +956,7 @@
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">Choisir une couleur</string>
     <string name="pin_all">Épingler la sélection</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">Port</string>
-    <string name="port_forward_alert_stopped" comment="Notification title when a port forwarding tunnel stopped by itself. %1$s is the tunnel name">%1$s stopped</string>
+    <string name="port_forward_alert_stopped" comment="Notification title when a port forwarding tunnel stopped by itself. %1$s is the tunnel name">%1$s arrêté</string>
     <string name="port_forward_allow_lan_sharing" comment="Setting title: let tunnels listen on the Wi-Fi network instead of only on this phone">Autoriser le partage sur Wi-Fi</string>
     <string name="port_forward_auto_start" comment="Setting title: start the tunnels marked to start when the app opens">Démarrage automatique des tunnels</string>
     <string name="port_forward_card_counters" comment="Tunnel card counters. %1$d is the number of open connections, %2$s the amount of data received, such as 2.4 MB">%1$d ouvert · Ω %2$s</string>
@@ -1023,7 +1031,7 @@
     <string name="port_forward_quick_forward_title" comment="Title of the shortcut that forwards a port of a connected device. %1$s is the device name">Transférer un port depuis %1$s</string>
     <string name="port_forward_quick_name" comment="Default name of a tunnel made with the quick shortcut. %1$d is the device port">Port %1$d</string>
     <string name="port_forward_resume_on_reconnect" comment="Setting title: keep tunnels waiting and resume them when their device reconnects">Reprendre lorsque l\'appareil se reconnecte</string>
-    <string name="port_forward_resumes_when_reconnected" comment="Notification text while waiting for a device. %1$s is the tunnel name">%1$s resumes when it reconnects</string>
+    <string name="port_forward_resumes_when_reconnected" comment="Notification text while waiting for a device. %1$s is the tunnel name">%1$s reprendra lors de la reconnexion</string>
     <string name="port_forward_same_as_target" comment="Chip that keeps the local port equal to the computer's port">Même que la cible</string>
     <string name="port_forward_save_and_restart" comment="Button that saves changes to a running tunnel and restarts it">Enregistrer et redémarrer</string>
     <string name="port_forward_save_failed" comment="Toast when a tunnel could not be saved">Impossible d\'enregistrer le tunnel</string>
@@ -1107,9 +1115,9 @@
     <string name="quality_limit_target_screen" comment="Why the mirrored video's quality is what it is">Correspond à l\'écran de l\'appareil</string>
     <string name="quality_limit_viewer_decoder" comment="Why the mirrored video's quality is what it is">Limité par le décodeur vidéo de ce téléphone</string>
     <string name="quality_limit_viewer_screen" comment="Why the mirrored video's quality is what it is">Limité par l\'écran de ce téléphone</string>
-    <string name="quality_preset_description" comment="Explains a video quality level. %1$d is a size in pixels, %2$d is frames per second">Up to %1$d px at %2$d fps</string>
+    <string name="quality_preset_description" comment="Explains a video quality level. %1$d is a size in pixels, %2$d is frames per second">Jusqu\'à %1$d px à %2$d ips</string>
     <string name="quality_sharp_description" comment="Explains the Sharp video quality level. %1$d is frames per second">La taille totale de l\'appareil à %1$d i/s</string>
-    <string name="quality_summary" comment="What the mirrored video will stream at. %1$s is a size such as 1080 × 2400, %2$s a frame rate such as 60 fps, %3$s a data rate such as 8 Mbps, %4$s a codec such as H.264">%1$s · up to %2$s · %3$s · %4$s</string>
+    <string name="quality_summary" comment="What the mirrored video will stream at. %1$s is a size such as 1080 × 2400, %2$s a frame rate such as 60 fps, %3$s a data rate such as 8 Mbps, %4$s a codec such as H.264">%1$s · jusqu\'à %2$s · %3$s · %4$s</string>
     <string name="quick_settings" comment="Button that pulls down the quick settings panel on the mirrored device">Réglages rapides</string>
     <string name="quick_settings_tiles" comment="Title for the quick settings skill toggle in AI settings">Tuiles de paramètres rapides</string>
     <string name="quick_tools" comment="Section header for fast access utility tools">Outils rapides</string>
@@ -1488,8 +1496,8 @@
         <item quantity="other">%1$d minutes</item>
     </plurals>
     <plurals name="port_forward_tunnels_running" comment="Notification title. %1$d is the number of running port forwarding tunnels">
-        <item quantity="one">%1$d tunnel running</item>
-        <item quantity="other">%1$d tunnels running</item>
+        <item quantity="one">%1$d tunnel actif</item>
+        <item quantity="other">%1$d tunnels actifs</item>
     </plurals>
     <plurals name="port_forward_notification_waiting_count" comment="Part of the notification summary. %1$d is the number of tunnels waiting for a network">
         <item quantity="one">%1$d en attente</item>
@@ -1500,30 +1508,30 @@
         <item quantity="other">%1$d a besoin d\'attention</item>
     </plurals>
     <plurals name="n_seconds" comment="A duration in seconds. %1$d is the number">
-        <item quantity="one">%1$d second</item>
-        <item quantity="other">%1$d seconds</item>
+        <item quantity="one">%1$d seconde</item>
+        <item quantity="other">%1$d secondes</item>
     </plurals>
     <plurals name="port_forward_interrupted" comment="Banner when Android stopped tunnels while they were running. %1$d is the number of tunnels">
-        <item quantity="one">%1$d tunnel stopped unexpectedly</item>
-        <item quantity="other">%1$d tunnels stopped unexpectedly</item>
+        <item quantity="one">%1$d tunnel s\'est arrêté de manière inopinée</item>
+        <item quantity="other">%1$d tunnels se sont arrêtés de manière inopinée</item>
     </plurals>
     <plurals name="port_forward_stopped_all" comment="Snackbar after stopping all tunnels. %1$d is the number of tunnels">
         <item quantity="one">Tunnel %1$d arrêté</item>
-        <item quantity="other">%1$d tunnels stopped</item>
+        <item quantity="other">%1$d tunnels arrêtés</item>
     </plurals>
     <plurals name="port_forward_disable_sharing_message" comment="Dialog text before turning off sharing. %1$d is the number of shared tunnels that will restart">
-        <item quantity="one">%1$d shared tunnel will restart on this phone only.</item>
-        <item quantity="other">%1$d shared tunnels will restart on this phone only.</item>
+        <item quantity="one">%1$d tunnel partagé va redémarrer sur cet appareil uniquement.</item>
+        <item quantity="other">%1$d tunnels partagés vont redémarrer sur cet appareil uniquement.</item>
     </plurals>
     <plurals name="port_forward_running_count" comment="Badge on the home card. %1$d is the number of running tunnels">
-        <item quantity="one">%1$d running</item>
-        <item quantity="other">%1$d running</item>
+        <item quantity="one">%1$d actif</item>
+        <item quantity="other">%1$d actifs</item>
     </plurals>
     <plurals name="disconnect_stops_tunnels" comment="Dialog text: port forwarding tunnels to this device stop when it disconnects. %1$d is the number of tunnels">
-        <item quantity="one">%1$d tunnel to this device will stop.</item>
-        <item quantity="other">%1$d tunnels to this device will stop.</item>
+        <item quantity="one">%1$d tunnel vers cet appareil va s\'arrêter.</item>
+        <item quantity="other">%1$d tunnels vers cet appareil vont s\'arrêter.</item>
     </plurals>
-    <string name="changelog_v8_0_0">\nFor GitHub flavor builds, added AI chatbot with capabilities to execute commands (need user opt-in), manage app database and access app features like Quick Settings Tiles.\nAdded Fastboot, ADB Sideload and dedicated Logcat viewer\nAdded Port forwarding feature\nAdded ADB TCP/IP connection mode in Local Adb\nAdded Scrcpy screen mirroring feature in Wireless Debugging and USB debugging modes\nAdded capability to run certain adb commands like adb tcpip, adb pair, adb connect, adb devices, etc. through Wireless Debugging (WiFi-ADB) shell and Local ADB TCP/IP mode\nAdded TCP mode for Quick Settings Tile execution\nAdded Backup Scheduler (for Github builds only)\nAdded the ability to select and copy text directly from shell output\nImproved bookmarks view\nAdded app UI and font scale customisation with auto-scale feature\nAdded the ability to change app typography font with the ability to import user\'s font files\nAdded option to launch Local ADB screen as default work place\nAdded a lot of icons in the QS tile icon chooser feature\nApp icon is now themed based on Material You color scheme\nAdded checks for invalid or non-existent directories when using ADB commands like cd\nAdded Privacy Policy regarding user data handling\nLots of UI and UX improvements\nFixed a whole lot of bugs</string>
+    <string name="changelog_v8_0_0">\nPour les versions basées sur GitHub, ajout d\'un chatbot IA capable d\'exécuter des commandes (nécessite l\'autorisation de l\'utilisateur), de gérer la base de données de l\'application et d\'accéder aux fonctionnalités telles que les tuiles de paramètres rapides.\nAjout de Fastboot, d\'ADB Sideload et d\'une visionneuse Logcat dédiée\nAjout de la fonctionnalité de redirection de port\nAjout du mode de connexion ADB TCP/IP dans l\'ADB local\nAjout de la mise en miroir d\'écran Scrcpy dans les modes Débogage sans fil et Débogage USB\nAjout de la possibilité d\'exécuter certaines commandes adb telles que adb tcpip, adb pair, adb connect, adb devices, etc. via le shell de débogage sans fil (WiFi-ADB) et le mode ADB TCP/IP local\nAjout du mode TCP pour l\'exécution des tuiles de paramètres rapides\nAjout d\'un planificateur de sauvegarde (pour les versions GitHub uniquement)\nAjout de la possibilité de sélectionner et de copier du texte directement à partir de la sortie du shell\nAmélioration de la vue des favoris\nAjout de la personnalisation de l\'interface et de l\'échelle de police de l\'application avec la fonction de mise à l\'échelle automatique\nAjout de la possibilité de changer la typographie de l\'application avec la prise en charge de l\'importation de fichiers de police personnalisés\nAjout d\'une option pour lancer l\'écran ADB local comme espace de travail par défaut\nAjout de nombreuses icônes pour la fonctionnalité de sélection d\'icônes de tuiles QS\nL\'icône de l\'application adopte désormais les couleurs du thème Material You\nAjout de vérifications pour les répertoires invalides ou inexistants lors de l\'utilisation de commandes ADB telles que cd\nAjout d\'une politique de confidentialité concernant le traitement des données utilisateur\nDe nombreuses améliorations de l\'UI et de l\'UX\nCorrection d\'un grand nombre de bugs</string>
     <string name="changelog_v7_4_0">\nVous pouvez désormais rechercher des sous-paramètres dans les écrans de paramètres\nAjout de styles de palette pour les schémas de couleurs\nAjout d\'une option pour définir la langue de l\'application directement dans l\'application</string>
     <string name="changelog_v7_3_0">\nAmélioration de l\'interface de l\'écran des notes de version\nAjout des contributeurs à la traduction dans la section À propos\nAjout de l\'écran des licences affichant des informations détaillées sur l\'application et les autres bibliothèques utilisées</string>
     <string name="changelog_v7_2_1">\nMise à jour de la maintenance!</string>

@@ -269,6 +269,7 @@
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">الأوامر</string>
     <string name="community_and_support" comment="Category header for community and documentation links in feature guides">المجتمع &amp; دعم</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">تكوين دليل الحفظ</string>
+    <string name="configuration" comment="Section group title in logs and configuration screen">الإعدادات</string>
     <string name="confirm">تأكيد</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">تحذير! لا يمكن التراجع عن هذا الإجراء
 هل أنت متأكد من رغبتك في حذف جميع الإشارات المرجعية؟</string>
@@ -394,6 +395,7 @@
     <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">النسخ الاحتياطي التلقائي إلى حساب Google Drive الخاص بك</string>
     <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">عند التمكين، سيتم تنزيل التحديثات مباشرة من GitHub داخل التطبيق. عند الإيقاف، ستتم إعادة التوجيه إلى صفحة الإصدارات على GitHub للتنزيل اليدوي.</string>
     <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">النسخ الاحتياطي التلقائي إلى المجلد المحدد على جهازك</string>
+    <string name="des_export_configuration" comment="Description under Export configuration item in logs and configuration screen">تصدير تفاصيل التشخيص وتكوين الجهاز للإبلاغ عن الأخطاء</string>
     <string name="des_examples" comment="Description under Command templates item in navigation menu">مجموعة من بعض قوالب الأوامر</string>
     <string name="des_feature_request" comment="Description under Feature request item in About menu">إذا كان لديك أفكار أو اقتراحات، أخبرنا بها</string>
     <string name="des_font_family" comment="Description under Font family setting item">تغيير نمط خط التطبيق</string>
@@ -410,6 +412,7 @@
     <string name="des_local_restore" comment="Description card text for local restore option">اختر ملف نسخة احتياطية من جهازك</string>
     <string name="des_log_buffer_size" comment="Description under the Logcat log buffer size setting; explains that older entries are dropped once the limit is reached">تم الاحتفاظ بالذاكرة للسجلات التي تم جمعها. يتم التخلص من الإدخالات الأقدم بمجرد الوصول إلى الحد الأقصى.</string>
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">إخراج logcat في الوقت الفعلي من جهاز متصل</string>
+    <string name="des_logs_and_configuration" comment="Description under Logs &amp; Configuration item in main settings menu">عرض سجلات الأعطال وتكوين تشخيص التصدير</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">الألوان الديناميكية، السمة الداكنة، اللغة</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">لم يتم تحديد نموذج</string>
     <string name="des_no_filter_profiles" comment="Body of the empty state in the logcat filter sheet, shown when no filter profiles have been created">إضافة ملف شخصي لاختيار السجلات التي يتم عرضها. مع عدم تحديد ملف شخصي، يتم عرض كل سجل.</string>
@@ -551,6 +554,10 @@ It does not collect or share personal data, but users should be aware of the imp
     <string name="exit_full_screen" comment="Button that leaves the full screen view of the mirrored screen">الخروج من ملء الشاشة</string>
     <string name="expand" comment="Action button to expand a collapsed card section">توسيع</string>
     <string name="experimental" comment="Badge or section title marking experimental features">تجريبي</string>
+    <string name="export">تصدير</string>
+    <string name="export_config_share_subject" comment="Subject text for sharing the exported diagnostic configuration report">تكوين تشخيص aShellu</string>
+    <string name="export_configuration" comment="Settings item and dialog title to export diagnostic details and device configuration">تصدير التكوين</string>
+    <string name="export_configuration_preview_description" comment="Explains the content preview in the export configuration bottom sheet">معاينة التكوين التشخيصي الذي سيتم تصديره إلى ملف نصي:</string>
     <string name="failed">فشل</string>
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">فشل في المطالبة بالواجهة</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">فشل النسخ</string>
@@ -773,6 +780,7 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">مصدر Logcat</string>
     <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">انقر فوق ▶ لبدء logcat</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">السجلات</string>
+    <string name="logs_and_configuration" comment="Settings menu title and screen header for viewing logs and exporting diagnostic configuration">سجلات &amp; تكوين</string>
     <string name="logs_saved" comment="Toast shown after exported logcat entries were written to the file the user picked">تم حفظ السجلات</string>
     <string name="long_edge_pixels" comment="A limit on a video's longer side. %1$d is a number of pixels">%1$d px</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Look &amp; Feel</string>
@@ -1609,7 +1617,7 @@ aShell You يحتاج إلى إذن Shizuku لتنفيذ أوامر الاختص
         <item quantity="many">ستتوقف أنفاق %1$d على هذا الجهاز.</item>
         <item quantity="other">ستتوقف أنفاق %1$d على هذا الجهاز.</item>
     </plurals>
-    <string name="changelog_v8_0_0">\nFor GitHub flavor builds, added AI chatbot with capabilities to execute commands (need user opt-in), manage app database and access app features like Quick Settings Tiles.\nAdded Fastboot, ADB Sideload and dedicated Logcat viewer\nAdded Port forwarding feature\nAdded ADB TCP/IP connection mode in Local Adb\nAdded Scrcpy screen mirroring feature in Wireless Debugging and USB debugging modes\nAdded capability to run certain adb commands like adb tcpip, adb pair, adb connect, adb devices, etc. through Wireless Debugging (WiFi-ADB) shell and Local ADB TCP/IP mode\nAdded TCP mode for Quick Settings Tile execution\nAdded Backup Scheduler (for Github builds only)\nAdded the ability to select and copy text directly from shell output\nImproved bookmarks view\nAdded app UI and font scale customisation with auto-scale feature\nAdded the ability to change app typography font with the ability to import user\'s font files\nAdded option to launch Local ADB screen as default work place\nAdded a lot of icons in the QS tile icon chooser feature\nApp icon is now themed based on Material You color scheme\nAdded checks for invalid or non-existent directories when using ADB commands like cd\nAdded Privacy Policy regarding user data handling\nLots of UI and UX improvements\nFixed a whole lot of bugs</string>
+    <string name="changelog_v8_0_0">\nبالنسبة لنسخ ميزات GitHub، تمت إضافة روبوت دردشة ذكي مع إمكانية تنفيذ الأوامر (يتطلب موافقة المستخدم)، وإدارة قاعدة بيانات التطبيق والوصول إلى ميزات التطبيق مثل بلاطات الإعدادات السريعة.\nتمت إضافة Fastboot، وADB Sideload، وعارض Logcat مخصص\nتمت إضافة ميزة إعادة توجيه المنافذ\nتمت إضافة وضع اتصال ADB TCP/IP في وضع ADB المحلي\nتمت إضافة ميزة انعكاس الشاشة Scrcpy في وضعي التصحيح اللاسلكي وتصحيح الأخطاء عبر USB\nتمت إضافة القدرة على تشغيل أوامر adb معينة مثل adb tcpip وadb pair وadb connect وadb devices وغيرها من خلال غلاف التصحيح اللاسلكي (WiFi-ADB) ووضع ADB المحلي عبر TCP/IP\nتمت إضافة وضع TCP لتنفيذ بلاطات الإعدادات السريعة\nتمت إضافة مجدول النسخ الاحتياطي (لنسخ GitHub فقط)\nتمت إضافة القدرة على تحديد النصوص ونسخها مباشرة من مخرج الغلاف\nتم تحسين عرض العلامات المرجعية\nتمت إضافة تخصيص واجهة المستخدم وحجم الخط مع ميزة التقييس التلقائي\nتمت إضافة القدرة على تغيير خط واجهة التطبيق مع القدرة على استيراد ملفات خطوط المستخدم\nتمت إضافة خيار تشغيل شاشة ADB المحلية كبيئة عمل افتراضية\nتمت إضافة الكثير من الأيقونات في ميزة اختيار أيقونة بلاطات الإعدادات السريعة\nأصبح رمز التطبيق يتكيف مع نظام ألوان Material You\nتمت إضافة عمليات التحقق من المجلدات غير الصالحة أو غير الموجودة عند استخدام أوامر ADB مثل cd\nتمت إضافة سياسة الخصوصية المتعلقة بمعالجة بيانات المستخدم\nالكثير من تحسينات واجهة المستخدم وتجربة المستخدم\nتم إصلاح عدد كبير جداً من الأخطاء</string>
     <string name="changelog_v7_4_0">يمكنك الآن البحث في الإعدادات الفرعية داخل شاشات الإعدادات
 تمت إضافة أنماط لوحة الألوان لمخططات الألوان
 تمت إضافة خيار لتعيين لغة التطبيق مباشرة داخل التطبيق</string>
