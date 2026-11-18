@@ -41,7 +41,7 @@
   <img src="https://img.shields.io/badge/Dagger%20Hilt-%236200EE.svg?style=for-the-badge&logo=dagger&logoColor=white"/>
   <img src="https://img.shields.io/badge/Room-3F51B5?style=for-the-badge&logo=sqlite&logoColor=white"/>
   <img alt="Min SDK" src="https://img.shields.io/badge/MinSDK-28-yellow?style=for-the-badge" />
-  <img alt="Target SDK" src="https://img.shields.io/badge/TargetSDK-36-blue?style=for-the-badge" />
+  <img alt="Target SDK" src="https://img.shields.io/badge/TargetSDK-37-blue?style=for-the-badge" />
   <a href="https://crowdin.com/project/ashellyou">
     <img alt="Crowdin" src="https://img.shields.io/badge/Translation-Crowdin-222222?style=for-the-badge&logo=crowdin&logoColor=white"/>
 </a>
