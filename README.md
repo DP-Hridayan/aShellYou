@@ -6,7 +6,7 @@
 
 </br>
 
-<p align="center"> 
+<p align="center">
 <a href="https://github.com/DP-Hridayan/aShellYou/stargazers">
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Stars" />
   </a>
@@ -33,7 +33,7 @@
   </a>
 </p>
 
-<p align="center"> 
+<p align="center">
     <img alt="Platform" src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
    <img alt="Language" src="https://img.shields.io/badge/Kotlin-%23B125E3.svg?style=for-the-badge&logo=kotlin&logoColor=white"/>
   <img alt="UI" src="https://img.shields.io/badge/Jetpack%20Compose-%23007ACC.svg?style=for-the-badge&logo=jetpackcompose&logoColor=white"/>
@@ -50,88 +50,120 @@
 </br>
 
 <h2 align="center">Screenshots</h2>
-  <div align="center">
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/01.jpeg" width="25%" style="margin:10px" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/02.jpeg" width="25%" style="margin:10px" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/03.jpeg" width="25%" style="margin:10px" />
-  <br/>
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/04.jpeg" width="25%" style="margin:10px" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/05.jpeg" width="25%" style="margin:10px" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/06.jpeg" width="25%" style="margin:10px" />
-  <br/>
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/07.jpeg" width="25%" style="margin:10px" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/08.jpeg" width="25%" style="margin:10px" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/09.jpeg" width="25%" style="margin:10px" />
-  <br/>
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/10.jpeg" width="25%" style="margin:10px" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/11.jpeg" width="25%" style="margin:10px" />
-  <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/12.jpeg" width="25%" style="margin:10px" />
-  <br/>
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="33%">
+        <b>Home Dashboard</b><br/><br/>
+        <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/01.jpeg" width="100%" alt="Home Dashboard" />
+      </td>
+      <td align="center" width="33%">
+        <b>Local ADB Shell</b><br/><br/>
+        <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/02.jpeg" width="100%" alt="Local ADB Shell" />
+      </td>
+      <td align="center" width="33%">
+        <b>Wireless Debugging</b><br/><br/>
+        <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/03.jpeg" width="100%" alt="Wireless Debugging" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="33%">
+        <b>Screen Mirroring</b><br/><br/>
+        <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/04.jpeg" width="100%" alt="Screen Mirroring" />
+      </td>
+      <td align="center" width="33%">
+        <b>Fastboot OTG</b><br/><br/>
+        <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/05.jpeg" width="100%" alt="Fastboot OTG" />
+      </td>
+      <td align="center" width="33%">
+        <b>Real-Time Logcat</b><br/><br/>
+        <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/06.jpeg" width="100%" alt="Real-Time Logcat" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="33%">
+        <b>Remote File Browser</b><br/><br/>
+        <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/07.jpeg" width="100%" alt="Remote File Browser" />
+      </td>
+      <td align="center" width="33%">
+        <b>Port Forwarding</b><br/><br/>
+        <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/08.jpeg" width="100%" alt="Port Forwarding" />
+      </td>
+      <td align="center" width="33%">
+        <b>Command Templates</b><br/><br/>
+        <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/09.jpeg" width="100%" alt="Command Templates" />
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="33%">
+        <b>Quick Settings Tiles</b><br/><br/>
+        <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/10.jpeg" width="100%" alt="Quick Settings Tiles" />
+      </td>
+      <td align="center" width="33%">
+        <b>AI Shell Assistant</b><br/><br/>
+        <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/11.jpeg" width="100%" alt="AI Shell Assistant" />
+      </td>
+      <td align="center" width="33%">
+        <b>Settings & Theming</b><br/><br/>
+        <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/12.jpeg" width="100%" alt="Settings and Theming" />
+      </td>
+    </tr>
+  </table>
 </div>
 
 </br>
 
 ## Features
 
-🎨 **Modern Material Design 3 UI**
-> Experience a clean, smooth, and responsive user interface built with Material You design. Explore different color palettes in theme settings!
+**Multi-Target Command Execution**
+> Execute commands locally using Shizuku (non-root) or root access, wirelessly over Wi-Fi via pairing code or QR code, or through USB OTG cable to control other Android devices without a PC.
 </br>
 
-📲 **Execute Commands with Ease**
-> Run ADB shell commands directly on your device using Shizuku, root access, or Wireless Debugging — all without needing a PC.
+**Fastboot OTG Manager**
+> Connect to target devices in bootloader or fastbootd mode over USB OTG to flash partitions (`boot`, `recovery`, `system`, etc.), switch active slots (`a`/`b`), and execute reboot operations directly from your phone.
 </br>
 
-🔌 **Control Other Devices**
-> Send ADB commands to other Android devices using OTG cable or Wireless Debugging — perfect for developers and tinkerers.
+**Low-Latency Screen Mirroring**
+> Stream and interact with connected Android devices in real time using embedded scrcpy protocols with full touch injection, volume controls, and power navigation pills.
 </br>
 
-📚 **Common ADB Command Examples**
-> Built-in examples help you understand and run useful commands instantly without memorizing syntax.
+**Real-Time Logcat Viewer**
+> Stream and inspect device log buffers with regex tag search, severity level filters (`Warn+`), color-coded priority markers, and detailed log entry bottom sheets.
 </br>
 
-📁 **ADB based File Explorer for connected devices**
-> ADB push/pull based file manager will help you perform file operations such as delete, copy, move, etc. on the connected device.
+**ADB Sideload**
+> Flash and install recovery update packages (`.zip`) over USB OTG with live progress verification and transfer rate metrics.
 </br>
 
-🛠️ **Support for Continuous Commands**
-> Seamlessly run long or continuous shell commands like `logcat`, `top`, or `watch` and view live updates without interruptions.
+**TCP/IP Port Forwarding**
+> Configure local and remote port forwarding tunnels (`adb forward` / `adb reverse`) with live connection monitoring and throughput statistics.
 </br>
 
-🔍 **Search in Command Output**
-> Quickly find what you're looking for in the output of your command using the integrated search functionality.
+**Remote File Browser**
+> Browse, push, pull, move, and delete files on connected ADB targets with path breadcrumb navigation, permission inspection, and conflict resolution.
 </br>
 
-📝 **Save Output to File**
-> Save the output of any command to a `.txt` file for future reference or sharing — handy for logs and debugging.
+**Preloaded Command Examples Catalog**
+> Access an organized collection of common Android shell commands with category tags, custom bookmarking, and one-tap execution.
 </br>
 
-📤 **Share Output Instantly**
-> One-tap sharing lets you send your output to other apps like Notes, Gmail, or Telegram.
+**Quick Settings Tiles**
+> Create customizable system notification tiles to run custom shell scripts or toggle wireless debugging directly from the Android Quick Settings shade.
 </br>
 
-📑 **Bookmark Commands**
-> Save frequently used commands to bookmarks so you can run them again with a single tap.
+**AI Shell Assistant**
+> Generate and explain shell commands using integrated AI models with strict explicit confirmation prompts (`Deny`, `Allow`, `Always Allow`) before execution.
 </br>
 
-🔃 **Backup and restore app settings and database locally**
-> aShell You lets you have the option to backup app settings and database for restore later.
+**Continuous Commands & Output Utilities**
+> Stream continuous shell operations like `top` or `watch`, perform in-output text and regex searches, export terminal logs to text files, and share output to external apps.
 </br>
 
-🌑 **AMOLED-Friendly Dark Theme**
-> Includes a sleek dark mode designed to save battery and look great on AMOLED screens.
+**Material Design 3 & Personalization**
+> Clean Material Design 3 Expressive interface supporting dynamic color schemes, customizable theme palettes, and battery-friendly AMOLED dark mode.
 </br>
 
-🎉 **Packed with Extras**
-> Tons of small but useful features to enhance your productivity and make ADB power-user workflows smoother.
-
-</br>
-
-## Requirements
-
-> * A working **[Shizuku](https://shizuku.rikka.app/)** environment or **root access**
-> * Shizuku/Root access is **not required** when executing ADB commands on **other devices** using **OTG** or **Wireless Debugging**
-
-<br/>
 
 >[!CAUTION]
 >
