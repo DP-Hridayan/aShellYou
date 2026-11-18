@@ -220,39 +220,6 @@
 
 </br>
 
-## Task list
-
-<table align="start" style="border-collapse: collapse; margin-top: 20px;">
-  <tr>
-    <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Task</th>
-    <th style="padding: 8px; border: 1px solid #ddd; text-align: left;">Status</th>
-  </tr>
-  <tr>
-    <td style="padding: 8px; border: 1px solid #ddd;">Wi-Fi ADB Feature</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅ Done</td>
-  </tr>
-  <tr>
-    <td style="padding: 8px; border: 1px solid #ddd;">Migrate to Kotlin</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: green;">✅ Done</td>
-  </tr>
-  <tr>
-    <td style="padding: 8px; border: 1px solid #ddd;">Proper localization</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">✅ Done</td>
-  </tr>
-  <tr>
-    <td style="padding: 8px; border: 1px solid #ddd;">Fix scripts execution</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⬜ To Do</td>
-  </tr>
-  <tr>
-    <td style="padding: 8px; border: 1px solid #ddd;">Add Fastboot</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⏺️ In progress</td>
-  </tr>
-    <tr>
-    <td style="padding: 8px; border: 1px solid #ddd;">Add Interactive shell</td>
-    <td style="padding: 8px; border: 1px solid #ddd; color: gray;">⬜ To Do</td>
-  </tr>
-</table>
-
 <br/>
 
 ## Star History
