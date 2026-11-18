@@ -8,8 +8,6 @@ import `in`.hridayan.ashell.core.common.domain.model.LogcatWorkingMode
 import `in`.hridayan.ashell.core.common.domain.model.PortForwardDefaults
 import `in`.hridayan.ashell.core.common.domain.model.SortType
 import `in`.hridayan.ashell.core.common.domain.provider.SeedColorProvider
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys.Companion.entries
-import `in`.hridayan.ashell.core.common.settings.SettingsKeys.Companion.valueOf
 import `in`.hridayan.settingsgraph.model.SettingsKey
 import kotlin.reflect.KClass
 
@@ -51,9 +49,11 @@ sealed class SettingsKeys<out T>(
     data object CrashHistory : SettingsKeys<Nothing?>("CRASH_HISTORY", null)
     data object CustomUiScale : SettingsKeys<Nothing?>("CUSTOM_UI_SCALE", null)
     data object DarkTheme : SettingsKeys<Nothing?>("DARK_THEME", null)
+    data object ExportConfiguration : SettingsKeys<Nothing?>("EXPORT_CONFIGURATION", null)
     data object FeatureRequest : SettingsKeys<Nothing?>("FEATURE_REQUEST", null)
     data object Language : SettingsKeys<Nothing?>("LANGUAGE", null)
     data object Licenses : SettingsKeys<Nothing?>("LICENSES", null)
+    data object LogsAndConfiguration : SettingsKeys<Nothing?>("LOGS_AND_CONFIGURATION", null)
     data object LookAndFeel : SettingsKeys<Nothing?>("LOOK_AND_FEEL", null)
     data object PortForwarding : SettingsKeys<Nothing?>("PORT_FORWARDING", null)
     data object PortForwardClearRecentHosts :

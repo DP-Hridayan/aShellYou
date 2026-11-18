@@ -48,6 +48,12 @@ internal fun SearchScreenScope.rootGraph(aiEnabled: Boolean) {
         icon(R.drawable.ic_settings_backup_restore)
     }
 
+    entry(key = SettingsKeys.LogsAndConfiguration) {
+        title(R.string.logs_and_configuration)
+        description(R.string.des_logs_and_configuration)
+        icon(R.drawable.ic_troubleshoot)
+    }
+
     entry(key = SettingsKeys.About) {
         title(R.string.about)
         description(R.string.des_about)

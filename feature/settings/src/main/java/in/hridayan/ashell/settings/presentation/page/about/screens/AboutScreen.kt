@@ -266,13 +266,6 @@ fun AboutScreen(modifier: Modifier = Modifier) {
                         icon(R.drawable.ic_add_comment)
                         onClick { openUrl(UrlConst.URL_GITHUB_ISSUE_FEATURE_REQUEST, context) }
                     }
-
-                    clickableItem(SettingsKeys.CrashHistory) {
-                        title(R.string.crash_history)
-                        description(R.string.des_crash_history)
-                        icon(R.drawable.ic_bug)
-                        onClick { navController.navigate(NavRoutes.CrashHistoryScreen) }
-                    }
                 }
 
                 item(key = "spacer_bottom") {

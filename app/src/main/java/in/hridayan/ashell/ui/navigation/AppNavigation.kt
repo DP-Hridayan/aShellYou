@@ -66,6 +66,7 @@ import `in`.hridayan.ashell.settings.presentation.page.contributors.screens.Cont
 import `in`.hridayan.ashell.settings.presentation.page.contributors.screens.TranslatorsScreen
 import `in`.hridayan.ashell.settings.presentation.page.languages.screens.LanguagesScreen
 import `in`.hridayan.ashell.settings.presentation.page.licenses.screens.LicensesScreen
+import `in`.hridayan.ashell.settings.presentation.page.logsandconfiguration.screens.LogsAndConfigurationScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.DarkThemeScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.EditColorSchemeScreen
 import `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens.GenerateColorSchemeScreen
@@ -164,6 +165,10 @@ fun AppNavigation(
 
             composable<NavRoutes.BehaviorScreen> {
                 BehaviorScreen()
+            }
+
+            composable<NavRoutes.LogsAndConfigurationScreen> {
+                LogsAndConfigurationScreen()
             }
 
             composable<NavRoutes.AboutScreen> {

@@ -19,6 +19,7 @@ import `in`.hridayan.ashell.settings.presentation.page.search.graph.entries.aiMo
 import `in`.hridayan.ashell.settings.presentation.page.search.graph.entries.autoUpdateGraph
 import `in`.hridayan.ashell.settings.presentation.page.search.graph.entries.backupAndRestoreGraph
 import `in`.hridayan.ashell.settings.presentation.page.search.graph.entries.behaviorGraph
+import `in`.hridayan.ashell.settings.presentation.page.search.graph.entries.logsAndConfigurationGraph
 import `in`.hridayan.ashell.settings.presentation.page.search.graph.entries.lookAndFeelGraph
 import `in`.hridayan.ashell.settings.presentation.page.search.graph.entries.portForwardGraph
 import `in`.hridayan.ashell.settings.presentation.page.search.graph.entries.privacyAndSecurityGraph
@@ -103,6 +104,8 @@ fun rememberSettingsSearchGraph(navController: NavController): SearchGraph {
                 )
 
                 backupAndRestoreGraph(navController = navController)
+
+                logsAndConfigurationGraph(navController = navController)
 
                 aboutGraph(navController = navController)
             }

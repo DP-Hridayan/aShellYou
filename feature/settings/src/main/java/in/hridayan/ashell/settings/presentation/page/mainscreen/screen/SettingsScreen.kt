@@ -246,6 +246,14 @@ fun SettingsScreen() {
             }
 
             group {
+                clickableItem(SettingsKeys.LogsAndConfiguration) {
+                    title(R.string.logs_and_configuration)
+                    description(R.string.des_logs_and_configuration)
+                    icon(R.drawable.ic_troubleshoot)
+                    iconColors { secondaryIconColors }
+                    onClick { navController.navigate(NavRoutes.LogsAndConfigurationScreen) }
+                }
+
                 clickableItem(SettingsKeys.About) {
                     title(R.string.about)
                     description(R.string.des_about)

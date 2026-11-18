@@ -68,6 +68,9 @@ sealed class NavRoutes {
     object LocalAdbScreen : NavRoutes()
 
     @Serializable
+    object LogsAndConfigurationScreen : NavRoutes()
+
+    @Serializable
     object LookAndFeelScreen : NavRoutes()
 
     @Serializable

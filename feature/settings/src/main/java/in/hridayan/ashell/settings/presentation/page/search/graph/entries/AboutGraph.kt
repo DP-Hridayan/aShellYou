@@ -43,12 +43,6 @@ internal fun SearchScreenScope.aboutGraph(navController: NavController) {
             icon(R.drawable.ic_add_comment)
         }
 
-        entry(key = SettingsKeys.CrashHistory) {
-            title(R.string.crash_history)
-            description(R.string.des_crash_history)
-            icon(R.drawable.ic_bug)
-        }
-
         entry(key = SettingsKeys.Licenses) {
             title(R.string.libraries_and_licenses)
             description(R.string.des_libraries_and_licenses)

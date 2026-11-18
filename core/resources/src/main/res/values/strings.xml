@@ -273,6 +273,7 @@
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Commands</string>
     <string name="community_and_support" comment="Category header for community and documentation links in feature guides">Community &amp; Support</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Configure save directory</string>
+    <string name="configuration" comment="Section group title in logs and configuration screen">Configuration</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Warning ! This action is irreversible\nAre you sure you want to delete all bookmarks?</string>
     <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">You are about to flash %1$s with %2$s. This operation cannot be undone.</string>
@@ -396,6 +397,7 @@
     <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">Automatically backup to your Google Drive account</string>
     <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">When turned on, updates will be downloaded directly from GitHub inside the app. Turn off to visit the Github releases page for manual download instead.</string>
     <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">Automatically backup to the selected folder on your device</string>
+    <string name="des_export_configuration" comment="Description under Export configuration item in logs and configuration screen">Export diagnostic details and device configuration for bug reporting</string>
     <string name="des_examples" comment="Description under Command templates item in navigation menu">Collection of some command templates</string>
     <string name="des_feature_request" comment="Description under Feature request item in About menu">If you have any ideas or suggestions for the app, let us know</string>
     <string name="des_font_family" comment="Description under Font family setting item">Change the font style of the application</string>
@@ -412,6 +414,7 @@
     <string name="des_local_restore" comment="Description card text for local restore option">Pick a backup file from your device</string>
     <string name="des_log_buffer_size" comment="Description under the Logcat log buffer size setting; explains that older entries are dropped once the limit is reached">Memory kept for collected logs. Older entries are discarded once the limit is reached.</string>
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">Real-time logcat output from a connected device</string>
+    <string name="des_logs_and_configuration" comment="Description under Logs &amp; Configuration item in main settings menu">View crash logs and export diagnostic configuration</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Dynamic colors, Dark theme, Language</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">No model selected</string>
     <string name="des_no_filter_profiles" comment="Body of the empty state in the logcat filter sheet, shown when no filter profiles have been created">Add a profile to choose which logs are shown. With no profile selected, every log is shown.</string>
@@ -546,6 +549,10 @@
     <string name="exit_full_screen" comment="Button that leaves the full screen view of the mirrored screen">Exit full screen</string>
     <string name="expand" comment="Action button to expand a collapsed card section">Expand</string>
     <string name="experimental" comment="Badge or section title marking experimental features">Experimental</string>
+    <string name="export">Export</string>
+    <string name="export_config_share_subject" comment="Subject text for sharing the exported diagnostic configuration report">aShellYou Diagnostic Configuration</string>
+    <string name="export_configuration" comment="Settings item and dialog title to export diagnostic details and device configuration">Export configuration</string>
+    <string name="export_configuration_preview_description" comment="Explains the content preview in the export configuration bottom sheet">Preview of the diagnostic configuration that will be exported to a text file:</string>
     <string name="failed">Failed</string>
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">Failed to claim interface</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">Failed to copy</string>
@@ -813,6 +820,7 @@
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat Source</string>
     <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Tap ▶ to start logcat</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">Logs</string>
+    <string name="logs_and_configuration" comment="Settings menu title and screen header for viewing logs and exporting diagnostic configuration">Logs &amp; Configuration</string>
     <string name="logs_saved" comment="Toast shown after exported logcat entries were written to the file the user picked">Logs saved</string>
     <string name="long_edge_pixels" comment="A limit on a video's longer side. %1$d is a number of pixels">%1$d px</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Look &amp; Feel</string>
