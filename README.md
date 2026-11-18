@@ -180,27 +180,15 @@
 
 ## Resources & Links
 
-<p align="start">
-  <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest/">
-    <img src="assets/github.png" width="130" alt="GitHub" />
-  </a>
-  &nbsp;&nbsp;
-  <a href="https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell">
-    <img src="assets/izzy.png" width="130" alt="Izzy-Droid" />
-  </a>
-  <a href="https://f-droid.org/en/packages/in.hridayan.ashell">
-    <img src="assets/fdroid.png" width="130" alt="F-Droid" />
-  </a>
-  <br/><br/>
-  <a href="https://t.me/aShellYou">
-    <img src="assets/telegram.png" width="180" alt="Join Telegram" />
-  </a>
-  <br/><br/>
-  <a href="https://www.buymeacoffee.com/Hridayan">
-    <img src="https://github.com/DP-Hridayan/aShellYou/assets/157479796/d0ad79e4-a19e-4686-9f30-dc1cb1e85168" width="200" alt="Buy Me a Coffee" />
-  </a></p>
+## Download & Community
 
-  </br>
+[![Direct Download](https://img.shields.io/badge/Direct_Download-APK-2ea44f?style=for-the-badge&logo=android&logoColor=white)](https://github.com/DP-Hridayan/aShellYou/releases/latest)
+[![GitHub Releases](https://img.shields.io/badge/GitHub-Releases-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/DP-Hridayan/aShellYou/releases/latest/)
+[![F-Droid](https://img.shields.io/badge/F--Droid-1976D2?style=for-the-badge&logo=f-droid&logoColor=white)](https://f-droid.org/en/packages/in.hridayan.ashell)
+[![IzzyOnDroid](https://img.shields.io/badge/IzzyOnDroid-4CAF50?style=for-the-badge&logo=android&logoColor=white)](https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell)
+
+[![Telegram](https://img.shields.io/badge/Join_Community-Telegram-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/aShellYou)
+[![Buy Me A Coffee](https://img.shields.io/badge/Support_Development-Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/Hridayan)
 
 ## Translations
 
