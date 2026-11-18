@@ -45,6 +45,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextRange
@@ -240,8 +241,14 @@ fun SettingsSearchScreen(
                                 onClick = withHaptic(HapticFeedbackType.VirtualKey) {
                                     viewModel.clearRecentSearches()
                                 },
+                                shapes = ButtonDefaults.shapes(),
                                 contentPadding = ButtonDefaults.TextButtonContentPadding,
                             ) {
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_delete_sweep),
+                                    contentDescription = null
+                                )
+                                Spacer(modifier = Modifier.padding(8.dp))
                                 Text(stringResource(R.string.clear))
                             }
                         }
