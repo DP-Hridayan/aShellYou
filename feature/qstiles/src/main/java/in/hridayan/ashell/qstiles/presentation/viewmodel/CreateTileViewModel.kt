@@ -87,6 +87,7 @@ class CreateTileViewModel @Inject constructor(
                         inactiveCommand = config.activeState.inactiveCommand,
                         activeSubtitle = config.activeState.activeTileSubtitle,
                         inactiveSubtitle = config.activeState.inactiveTileSubtitle,
+                        collapsePanelOnClick = config.collapsePanelOnClick,
                     )
                 }
                 updateSuggestions()
@@ -213,6 +214,9 @@ class CreateTileViewModel @Inject constructor(
     fun onInactiveSubtitleChange(subtitle: TextFieldValue) =
         _state.update { it.copy(inactiveSubtitle = subtitle) }
 
+    fun onCollapsePanelOnClickChange(enabled: Boolean) =
+        _state.update { it.copy(collapsePanelOnClick = enabled) }
+
     private fun updateSuggestions() {
         val s = _state.value
         val textToAnalyze = "${s.nameField.text} ${s.activeCommand.text}"
@@ -261,6 +265,7 @@ class CreateTileViewModel @Inject constructor(
                 isCustom = true,
                 slotIndex = s.tileId - 1,
                 timeoutMs = null,
+                collapsePanelOnClick = s.collapsePanelOnClick,
                 activeState = s.toActiveState(),
             )
 

@@ -40,4 +40,6 @@ data class CreateNewTileScreenUiState(
     val activeSubtitle: TextFieldValue = TextFieldValue("On"),
     /** Subtitle shown when the tile is OFF. Shown only when [isToggleable] = true. */
     val inactiveSubtitle: TextFieldValue = TextFieldValue("Off"),
+    /** Whether the Quick Settings panel automatically collapses when this tile is clicked. */
+    val collapsePanelOnClick: Boolean = false,
 )

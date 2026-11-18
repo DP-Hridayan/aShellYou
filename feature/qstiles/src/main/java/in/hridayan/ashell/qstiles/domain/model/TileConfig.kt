@@ -29,4 +29,6 @@ data class TileConfig(
     val slotIndex: Int? = null,
     /** Optional per-tile command timeout in milliseconds. Null = use global default. */
     val timeoutMs: Long? = null,
+    /** Whether the Quick Settings panel automatically collapses when this tile is clicked. */
+    val collapsePanelOnClick: Boolean = false,
 )

@@ -263,6 +263,28 @@ fun CreateTileScreen(
                         shape = CustomCardShape(
                             topStart = 4.dp,
                             topEnd = 4.dp,
+                            bottomStart = 4.dp,
+                            bottomEnd = 4.dp
+                        )
+                    )
+                }
+
+                item {
+                    BehaviorSwitchRow(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 20.dp, end = 20.dp, top = 2.dp)
+                            .animateItem(),
+                        title = stringResource(R.string.collapse_panel_on_click),
+                        description = stringResource(R.string.des_collapse_panel_on_click),
+                        checked = uiState.collapsePanelOnClick,
+                        onCheckedChange = {
+                            createTileViewModel.onCollapsePanelOnClickChange(it)
+                            weakHaptic()
+                        },
+                        shape = CustomCardShape(
+                            topStart = 4.dp,
+                            topEnd = 4.dp,
                             bottomStart = 24.dp,
                             bottomEnd = 24.dp
                         )

@@ -11,10 +11,12 @@ import `in`.hridayan.ashell.qstiles.data.executor.ShizukuExecutor
 import `in`.hridayan.ashell.qstiles.data.provider.TileNotificationHelper
 import `in`.hridayan.ashell.qstiles.data.repository.TileLogRepositoryImpl
 import `in`.hridayan.ashell.qstiles.data.repository.TileRepositoryImpl
+import `in`.hridayan.ashell.qstiles.data.usecase.CollapseQsPanelUseCaseImpl
 import `in`.hridayan.ashell.qstiles.domain.executor.CommandExecutor
 import `in`.hridayan.ashell.qstiles.domain.executor.TileExecutionManager
 import `in`.hridayan.ashell.qstiles.domain.repository.TileLogRepository
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
+import `in`.hridayan.ashell.qstiles.domain.usecase.CollapseQsPanelUseCase
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -45,6 +47,16 @@ object TileModule {
     fun provideTileNotificationHelper(
         @ApplicationContext context: Context
     ): TileNotificationHelper = TileNotificationHelper(context)
+
+    @Provides
+    @Singleton
+    fun provideCollapseQsPanelUseCase(
+        @Named("shizuku") shizukuExecutor: CommandExecutor,
+        @Named("root") rootExecutor: CommandExecutor,
+    ): CollapseQsPanelUseCase = CollapseQsPanelUseCaseImpl(
+        shizukuExecutor = shizukuExecutor,
+        rootExecutor = rootExecutor
+    )
 
     @Provides
     @Singleton

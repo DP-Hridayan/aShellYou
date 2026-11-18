@@ -14,6 +14,7 @@ import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
 import `in`.hridayan.ashell.qstiles.domain.model.TileConfig
 import `in`.hridayan.ashell.qstiles.domain.repository.MaterialIconRepository
 import `in`.hridayan.ashell.qstiles.domain.repository.TileRepository
+import `in`.hridayan.ashell.qstiles.domain.usecase.CollapseQsPanelUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -52,6 +53,9 @@ abstract class BaseTileService : TileService() {
     @Inject
     lateinit var materialIconRepository: MaterialIconRepository
 
+    @Inject
+    lateinit var collapseQsPanelUseCase: CollapseQsPanelUseCase
+
     /** Fixed index (0–9) that each concrete tile service owns. */
     abstract val slotIndex: Int
 
@@ -84,6 +88,12 @@ abstract class BaseTileService : TileService() {
         super.onClick()
         serviceScope.launch(Dispatchers.IO) {
             val config = repository.getTileBySlot(slotIndex).firstValue() ?: return@launch
+
+            if (config.collapsePanelOnClick) {
+                launch {
+                    collapseQsPanelUseCase(config.executionMode)
+                }
+            }
 
             val success = executionManager.execute(config)
 

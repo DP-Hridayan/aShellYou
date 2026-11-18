@@ -73,6 +73,7 @@ class TileDatastore @Inject constructor(
                     "timeout"
                 )
             ].let { if (it == null || it == -1L) null else it },
+            collapsePanelOnClick = prefs[keyBool(id, "collapse_panel")] ?: false,
             activeState = buildActiveState(id, prefs),
         )
     }
@@ -101,6 +102,7 @@ class TileDatastore @Inject constructor(
             prefs[keyBool(config.id, "custom")] = config.isCustom
             prefs[keyInt(config.id, "slot")] = config.slotIndex ?: -1
             prefs[keyLong(config.id, "timeout")] = config.timeoutMs ?: -1L
+            prefs[keyBool(config.id, "collapse_panel")] = config.collapsePanelOnClick
 
             // TileActiveState fields
             with(config.activeState) {
@@ -124,6 +126,7 @@ class TileDatastore @Inject constructor(
             prefs.remove(keyBool(tileId, "custom"))
             prefs.remove(keyInt(tileId, "slot"))
             prefs.remove(keyLong(tileId, "timeout"))
+            prefs.remove(keyBool(tileId, "collapse_panel"))
             // TileActiveState
             prefs.remove(keyBool(tileId, "as_toggleable"))
             prefs.remove(keyBool(tileId, "as_active"))
@@ -155,6 +158,7 @@ class TileDatastore @Inject constructor(
                 prefs.remove(keyBool(id, "custom"))
                 prefs.remove(keyInt(id, "slot"))
                 prefs.remove(keyLong(id, "timeout"))
+                prefs.remove(keyBool(id, "collapse_panel"))
                 prefs.remove(keyBool(id, "as_toggleable"))
                 prefs.remove(keyBool(id, "as_active"))
                 prefs.remove(keyStr(id, "as_on_subtitle"))

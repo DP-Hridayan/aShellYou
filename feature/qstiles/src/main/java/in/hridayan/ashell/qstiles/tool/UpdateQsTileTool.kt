@@ -61,6 +61,10 @@ class UpdateQsTileTool @Inject constructor(
             "inactive_subtitle" to ToolSchemaProperty(
                 type = ToolSchemaType.STRING,
                 description = "Optional. Subtitle text when tile is inactive/off."
+            ),
+            "collapse_panel_on_click" to ToolSchemaProperty(
+                type = ToolSchemaType.BOOLEAN,
+                description = "Optional. Whether the Quick Settings panel automatically collapses/dismisses when this tile is clicked."
             )
         ),
         required = listOf("slot")
@@ -88,11 +92,13 @@ class UpdateQsTileTool @Inject constructor(
         val inactiveCmd = args["inactive_command"]?.jsonPrimitive?.content ?: existingTile.activeState.inactiveCommand.text
         val activeSubtitle = args["active_subtitle"]?.jsonPrimitive?.content ?: existingTile.activeState.activeTileSubtitle.text
         val inactiveSubtitle = args["inactive_subtitle"]?.jsonPrimitive?.content ?: existingTile.activeState.inactiveTileSubtitle.text
+        val collapsePanel = args["collapse_panel_on_click"]?.jsonPrimitive?.content?.toBooleanStrictOrNull() ?: existingTile.collapsePanelOnClick
 
         val updatedTile = existingTile.copy(
             name = title,
             executionMode = executionMode,
             iconId = iconName,
+            collapsePanelOnClick = collapsePanel,
             activeState = existingTile.activeState.copy(
                 isToggleable = isToggleable,
                 activeCommand = TextFieldValue(command),
