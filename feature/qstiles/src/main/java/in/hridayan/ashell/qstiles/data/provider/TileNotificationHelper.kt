@@ -48,7 +48,11 @@ class TileNotificationHelper @Inject constructor(
         val openIntent =
             context.packageManager.getLaunchIntentForPackage(context.packageName)?.apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-            } ?: Intent()
+            } ?: Intent(Intent.ACTION_MAIN).apply {
+                setPackage(context.packageName)
+                addCategory(Intent.CATEGORY_LAUNCHER)
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            }
 
         val pendingIntent = PendingIntent.getActivity(
             context,
