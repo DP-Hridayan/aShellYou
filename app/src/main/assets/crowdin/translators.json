@@ -111,7 +111,7 @@
     "id": "17661502",
     "username": "Guzleon",
     "name": "Carlos (Guzleon)",
-    "translated": 4284,
+    "translated": 4428,
     "approved": 0,
     "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17661502/medium/d827d6dc8ba3d7d16c40e276e8d1b9a8.png",
     "languages": [
@@ -335,6 +335,21 @@
       }
     ],
     "avatar": "crowdin/contributors_pfp/contributor_17224270.webp"
+  },
+  {
+    "id": "17998641",
+    "username": "halilibrahirn",
+    "name": "Halil Selçuk (halilibrahirn)",
+    "translated": 112,
+    "approved": 0,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17998641/medium/5f9af62cf2158cbe1f6b369f480be164.gif",
+    "languages": [
+      {
+        "id": "tr",
+        "name": "Turkish"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_17998641.webp"
   },
   {
     "id": "16623243",
