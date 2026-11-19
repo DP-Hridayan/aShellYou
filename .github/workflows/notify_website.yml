@@ -7,6 +7,8 @@ on:
       - "Build and Publish Github Pre-release"
     types: [completed]
 
+permissions: {}
+
 jobs:
   notify:
     if: github.event.workflow_run.conclusion == 'success'
