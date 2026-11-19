@@ -31,20 +31,29 @@
   <a href="https://github.com/DP-Hridayan/aShellYou/blob/main/LICENSE">
     <img alt="License" src="https://img.shields.io/github/license/DP-Hridayan/aShellYou?style=for-the-badge&logo=open-source-initiative&label=License" />
   </a>
+  <a href="https://crowdin.com/project/ashellyou">
+    <img alt="Crowdin" src="https://img.shields.io/badge/Translation-Crowdin-222222?style=for-the-badge&logo=crowdin&logoColor=white" />
+  </a>
 </p>
 
 <p align="center">
-    <img alt="Platform" src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
-   <img alt="Language" src="https://img.shields.io/badge/Kotlin-%23B125E3.svg?style=for-the-badge&logo=kotlin&logoColor=white"/>
-  <img alt="UI" src="https://img.shields.io/badge/Jetpack%20Compose-%23007ACC.svg?style=for-the-badge&logo=jetpackcompose&logoColor=white"/>
-      <img src="https://img.shields.io/badge/Material%20Design-757575?style=for-the-badge&logo=material-design&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Dagger%20Hilt-%236200EE.svg?style=for-the-badge&logo=dagger&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Room-3F51B5?style=for-the-badge&logo=sqlite&logoColor=white"/>
+  <img alt="Platform" src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
+  <img alt="Language" src="https://img.shields.io/badge/Kotlin-%23B125E3.svg?style=for-the-badge&logo=kotlin&logoColor=white" />
+  <img alt="UI" src="https://img.shields.io/badge/Jetpack%20Compose-%23007ACC.svg?style=for-the-badge&logo=jetpackcompose&logoColor=white" />
+  <img alt="Design" src="https://img.shields.io/badge/Material%20Design%203-6750A4?style=for-the-badge&logo=material-design&logoColor=white" />
+  <img alt="DI" src="https://img.shields.io/badge/Dagger%20Hilt-%236200EE.svg?style=for-the-badge" />
+  <img alt="Database" src="https://img.shields.io/badge/Room-3F51B5?style=for-the-badge&logo=sqlite&logoColor=white" />
+  <img alt="Network" src="https://img.shields.io/badge/Ktor-0099FF?style=for-the-badge&logo=ktor&logoColor=white" />
+</p>
+
+<p align="center">
+  <img alt="AI" src="https://img.shields.io/badge/Google%20Gemini-8E75C2?style=for-the-badge&logo=googlegemini&logoColor=white" />
+  <img alt="Shizuku" src="https://img.shields.io/badge/Shizuku-Supported-2F80ED?style=for-the-badge" />
+  <img alt="Root" src="https://img.shields.io/badge/Root-libsu-black?style=for-the-badge&logo=linux&logoColor=white" />
+  <img alt="Scrcpy" src="https://img.shields.io/badge/Mirroring-Scrcpy-FF6F00?style=for-the-badge" />
+  <img alt="Fastboot" src="https://img.shields.io/badge/Fastboot-OTG-E95420?style=for-the-badge&logo=android&logoColor=white" />
   <img alt="Min SDK" src="https://img.shields.io/badge/MinSDK-28-yellow?style=for-the-badge" />
   <img alt="Target SDK" src="https://img.shields.io/badge/TargetSDK-37-blue?style=for-the-badge" />
-  <a href="https://crowdin.com/project/ashellyou">
-    <img alt="Crowdin" src="https://img.shields.io/badge/Translation-Crowdin-222222?style=for-the-badge&logo=crowdin&logoColor=white"/>
-</a>
 </p>
 
 </br>
