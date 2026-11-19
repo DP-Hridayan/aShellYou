@@ -25,6 +25,20 @@ rootProject.name = "aShell You"
 
 includeBuild("build-logic")
 
+val scrcpyManifest = file("third_party/scrcpy/server/src/main/AndroidManifest.xml")
+if (!scrcpyManifest.exists() && file(".git").exists()) {
+    logger.lifecycle("Submodule 'third_party/scrcpy' missing. Initializing git submodules...")
+    try {
+        ProcessBuilder("git", "submodule", "update", "--init", "--recursive")
+            .directory(rootDir)
+            .inheritIO()
+            .start()
+            .waitFor()
+    } catch (e: Exception) {
+        logger.warn("Could not auto-initialize git submodules: ${e.message}")
+    }
+}
+
 include(":adblib")
 include(":app")
 include(":fastbootlib")

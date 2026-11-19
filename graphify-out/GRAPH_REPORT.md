@@ -1,7 +1,7 @@
 # Graph Report - aShellYou  (2026-11-19)
 
 ## Corpus Check
-- 1764 files · ~987,029 words
+- 1764 files · ~987,085 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `94603e48`
+- Built from commit: `a44b2236`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -526,14 +526,14 @@
 ## Surprising Connections (you probably didn't know these)
 - `SettingsScreen()` --calls--> `getAllSettingsIcons()`  [INFERRED]
   feature/settings/src/main/java/in/hridayan/ashell/settings/presentation/page/mainscreen/screen/SettingsScreen.kt → core/ui/src/main/java/in/hridayan/ashell/core/presentation/provider/SettingsIconsProvider.kt
-- `CloudModelsScreen()` --calls--> `ActiveProviderDialog()`  [INFERRED]
-  feature/ai/src/main/java/in/hridayan/ashell/ai/presentation/screens/CloudModelsScreen.kt → core/ui/src/main/java/in/hridayan/ashell/core/presentation/components/dialog/ActiveProviderDialog.kt
-- `PortForwardSettingsScreen()` --calls--> `AppScaffold()`  [INFERRED]
-  feature/portforward/src/main/java/in/hridayan/ashell/portforward/presentation/screens/PortForwardSettingsScreen.kt → core/ui/src/main/java/in/hridayan/ashell/core/presentation/components/scaffold/AppScaffold.kt
-- `AboutScreen()` --calls--> `AnimatedAdbIcon()`  [INFERRED]
-  feature/settings/src/main/java/in/hridayan/ashell/settings/presentation/page/about/screens/AboutScreen.kt → core/ui/src/main/java/in/hridayan/ashell/core/presentation/components/animatedcomposables/AnimatedAdbIcon.kt
-- `AboutScreen()` --calls--> `SineWaveShape`  [INFERRED]
-  feature/settings/src/main/java/in/hridayan/ashell/settings/presentation/page/about/screens/AboutScreen.kt → core/ui/src/main/java/in/hridayan/ashell/core/presentation/components/shape/Wavy.kt
+- `ChangelogBottomSheet()` --calls--> `Text`  [INFERRED]
+  app/src/main/java/in/hridayan/ashell/ui/components/bottomsheet/ChangelogBottomSheet.kt → feature/ai/src/main/java/in/hridayan/ashell/ai/presentation/model/AiChatUiState.kt
+- `LegalDocsUpdateDialog()` --calls--> `Text`  [INFERRED]
+  app/src/main/java/in/hridayan/ashell/ui/components/dialog/LegalDocsUpdateDialog.kt → feature/ai/src/main/java/in/hridayan/ashell/ai/presentation/model/AiChatUiState.kt
+- `AppLockedScreen()` --calls--> `Text`  [INFERRED]
+  app/src/main/java/in/hridayan/ashell/ui/screens/AppLockedScreen.kt → feature/ai/src/main/java/in/hridayan/ashell/ai/presentation/model/AiChatUiState.kt
+- `AiAnalysisBottomSheet()` --calls--> `Text`  [INFERRED]
+  core/ui/src/main/java/in/hridayan/ashell/core/presentation/components/ai/AiAnalysisBottomSheet.kt → feature/ai/src/main/java/in/hridayan/ashell/ai/presentation/model/AiChatUiState.kt
 
 ## Import Cycles
 - None detected.
@@ -1178,7 +1178,7 @@ Nodes (12): android.content.Context, android.net.nsd.NsdManager, android.net.nsd
 
 ### Community 165 - "README.md"
 Cohesion: 0.15
-Nodes (9): Translators, Contributors, Features, License, Privacy Policy, Resources & Links, Star History, Terms of Service (+1 more)
+Nodes (9): Translators, Contributors, Download & Community, Features, License, Privacy Policy, Star History, Terms of Service (+1 more)
 
 ### Community 166 - "java.io.ByteArrayOutputStream"
 Cohesion: 0.38
@@ -2073,7 +2073,7 @@ Cohesion: 0.25
 Nodes (5): ResponseStatus, DATA, FAIL, INFO, OKAY
 
 ## Knowledge Gaps
-- **1028 isolated node(s):** `CacheDays`, `CacheClearConfirmation`, `ActiveProvider`, `ModeOption`, `Invalid` (+1023 more)
+- **1028 isolated node(s):** `Features`, `Download & Community`, `Translations`, `Star History`, `License` (+1023 more)
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 2693 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **112 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -2081,16 +2081,16 @@ Nodes (5): ResponseStatus, DATA, FAIL, INFO, OKAY
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `SettingsKeys` connect `SettingsKeys` to `AutoResizeableText`, `AnalysisResult`, `FakeSettingsRepository`, `AiTool`, `FakeSettingsRepository`, `.remember`, `Text`, `AppScaffold`, `AppNavigation.kt`, `SettingsDataStore`, `ExternalDeviceTransport`, `FontFamily`, `AutoUpdateViewModel`, `ShellViewModel`, `showToast`, `SettingsRepository`, `GoogleAuthRepository`, `UserGeneratedColorSchemeEntity`, `NavRoutes`, `AppSeedColors`, `LogcatScreen.kt`, `BackupProvider`, `CustomFontEntity`, `TunnelEditorContent.kt`, `SettingsSearchViewModel`, `LlmProvider`, `ControlMessage`, `LogcatViewModel`, `FakeShizukuGateway`, `RecordingSettings`, `AiConnectionStateProvider`, `TunnelEditorViewModel`, `AppLifecycleObserver.kt`, `ShellSideDrawer`, `LogcatService`, `LogLevel`, `TunnelTarget`, `BackupType`, `GenerateColorSchemeScreen.kt`, `SettingsState`, `BackupAndRestoreViewModel`, `CommandExamplesViewModelTest.kt`, `MirrorState`, `ActiveProviderViewModel`, `MirrorContent.kt`, `CommandExamplesScreen.kt`, `TunnelEngine.kt`, `PortForwardSettingsViewModel`, `ScrollBottomHapticConnection`, `Color.kt`, `SettingsViewModel`, `TunnelState`, `CustomCard`, `CommandExamplesViewModel`, `AiSkill`, `BackupAndRestoreRepositoryImpl`?**
-  _High betweenness centrality (0.133) - this node is a cross-community bridge._
+  _High betweenness centrality (0.140) - this node is a cross-community bridge._
+- **Why does `VideoSize` connect `VideoSize` to `VideoRenderer`, `DevicePosition`, `PlatformDecoder`, `QualityResolverTest`, `ControlMessage`, `OtherDeviceSession`, `StreamStats`, `QualitySelection`, `AdbDuplexStream`, `VideoStreamParser`, `MirrorOptions`, `MirrorState`, `.detect`, `MirrorStartupPanel.kt`?**
+  _High betweenness centrality (0.064) - this node is a cross-community bridge._
 - **Why does `withHaptic()` connect `withHaptic` to `AutoResizeableText`, `LicensesScreen.kt`, `AdbSideloadScreen.kt`, `.remember`, `Text`, `BottomCornerRoundedCard`, `AppScaffold`, `SideloadOperation`, `FilterMode`, `AppNavigation.kt`, `FilterProfileForm`, `showToast`, `TcpIpEnableCard`, `LogcatScreen.kt`, `TunnelEditorContent.kt`, `HomeScreen.kt`, `CustomSearchBar`, `IconWithTextButton`, `RebootOptionsDialog.kt`, `LogLevel`, `.item`, `GenerateColorSchemeScreen.kt`, `DangerLevel`, `TunnelSpec`, `PrivacyPolicyScreen.kt`, `AutoScrollingLogList.kt`, `CreateTileScreen.kt`, `MirrorContent.kt`, `CommandExamplesScreen.kt`, `ColorPickerBottomSheet.kt`, `QualitySelection`, `TunnelState`, `CustomCard`, `TunnelError`, `FastbootRebootOptionsDialog.kt`?**
-  _High betweenness centrality (0.059) - this node is a cross-community bridge._
-- **Why does `TunnelTarget` connect `TunnelTarget` to `runtime`, `PortForwardModule.kt`, `TunnelSpec`, `TunnelState`, `TunnelEditorViewModel`, `TunnelRunnerTest`, `TunnelError`, `PipeEndpoint`, `TunnelEngine.kt`?**
-  _High betweenness centrality (0.045) - this node is a cross-community bridge._
+  _High betweenness centrality (0.061) - this node is a cross-community bridge._
 - **Are the 7 inferred relationships involving `withHaptic()` (e.g. with `AppHandlesChip()` and `AutoUpdateScreen()`) actually correct?**
   _`withHaptic()` has 7 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 330 inferred relationships involving `Text` (e.g. with `ChangelogBottomSheet()` and `LegalDocsUpdateDialog()`) actually correct?**
   _`Text` has 330 INFERRED edges - model-reasoned connections that need verification._
 - **Are the 6 inferred relationships involving `AutoResizeableText()` (e.g. with `Text` and `DialogTitle()`) actually correct?**
   _`AutoResizeableText()` has 6 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `CacheDays`, `CacheClearConfirmation`, `ActiveProvider` to the rest of the system?**
+- **What connects `Features`, `Download & Community`, `Translations` to the rest of the system?**
   _1028 weakly-connected nodes found - possible documentation gaps or missing edges._
