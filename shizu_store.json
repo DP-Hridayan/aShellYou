@@ -9,7 +9,7 @@
   "min_sdk": 28,
   "target_sdk": 37,
   "license": "GPL-3.0",
-  "requires_shizuku": true,
+  "requires_shizuku": false,
   "open_source": true,
   "store_issue_number": 1,
   "changelog": "Added Fastboot, ADB Sideload and dedicated Logcat viewer\nAdded Port forwarding and ADB TCP/IP connection mode\nAdded Scrcpy screen mirroring in Wireless Debugging and USB debugging modes\nAdded ability to select and copy text directly from shell output\nAdded app UI and font scale customization with font import\nEnhanced Quick Settings tiles and bookmarks\nUI and UX improvements and bug fixes",
@@ -28,7 +28,7 @@
   ],
   "icon_url": "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/icon.png",
   "banner_url": "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/featureGraphic.png",
-  "app_website": "https://github.com/DP-Hridayan/aShellYou",
+  "app_website": "http://ashellyou.github.io/",
   "repo_url": "https://github.com/DP-Hridayan/aShellYou",
   "download_url": "https://github.com/DP-Hridayan/aShellYou/releases/latest",
   "screenshots": [
