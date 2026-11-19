@@ -54,7 +54,7 @@
     <string name="agent_skills" comment="Category header in AI settings for agent skills toggles">Asistan yetenekleri</string>
     <string name="ai_agent_shortcut">Yapay Zeka Asistanı</string>
     <string name="ai_agent_shortcut_long_label">ADB Yapay Zeka Asistanı</string>
-    <string name="ai_shell_assistant" comment="Title for AI shell assistant feature guide">AI Shell Assistant</string>
+    <string name="ai_shell_assistant" comment="Title for AI shell assistant feature guide">AI Shell Asistanı</string>
     <string name="ai_cache_days" comment="Setting label for configuring number of days AI model analysis results are cached">Önbellek süresi</string>
     <string name="ai_cache_enabled" comment="Toggle setting title to enable/disable caching of AI model responses">Önbelleği etkinleştir</string>
     <string name="ai_chat_allow" comment="Button in AI chat approval dialog to allow AI to execute a single proposed command">İzin ver</string>
@@ -209,7 +209,7 @@
     <string name="codec" comment="Section title in the video quality sheet for the video compression format, such as H.264">Kodek</string>
     <string name="codec_fallback" comment="Message after the other device failed to encode the chosen codec. %1$s is a codec name such as H.265">Bu cihaz %1$s formatını kodlayamadığı için H.264\'e dönüldü</string>
     <string name="collapse" comment="Action button label to collapse an expanded card or section">Daralt</string>
-    <string name="collapse_panel_on_click" comment="Title for the switch option in Quick Settings tile builder that collapses the QS notification shade when clicked">Collapse Quick Settings</string>
+    <string name="collapse_panel_on_click" comment="Title for the switch option in Quick Settings tile builder that collapses the QS notification shade when clicked">Hızlı Ayarları Kapat</string>
     <string name="color_preview_error_occurred" comment="Sample text in theme preview representing error state">Bir sorun oluştu</string>
     <string name="color_preview_high_elevation" comment="Sample label in theme editor showing high elevation surface color (Dialogs)">Yüksek Katman (İletişim Kutusu)</string>
     <string name="color_preview_highest_elevation" comment="Sample label in theme editor showing highest elevation surface color (Bottom Sheet)">En Yüksek Katman (Alt Sayfa)</string>
@@ -257,7 +257,7 @@
     <string name="color_role_tertiary_container" comment="Material 3 color role name for container surface of tertiary elements">Üçüncül Kapsayıcı</string>
     <string name="comma_separated_values" comment="Helper text under a logcat filter field that accepts several values, such as tags or process IDs">Birden fazla değeri virgülle ayırın</string>
     <string name="command" comment="Label/header for an ADB command snippet">Komut</string>
-    <string name="command_already_exists" comment="Error message displayed under command input field when the entered command already exists in the database">Command already exists</string>
+    <string name="command_already_exists" comment="Error message displayed under command input field when the entered command already exists in the database">Komut zaten mevcut</string>
     <string name="command_analysis" comment="Screen title or card header for AI explanation of a shell command">Komut analizi</string>
     <string name="command_console" comment="Screen title for Fastboot interactive command console">Komut Konsolu</string>
     <string name="command_execution" comment="Title for the command execution skill toggle in AI settings">Komut Çalıştırma</string>
@@ -267,13 +267,13 @@
     <string name="command_not_found" comment="Terminal error text when executed command executable is not present in PATH">Komut bulunamadı!</string>
     <string name="command_title" comment="Dialog/screen header for ADB command entry form">ADB Komutu Girin</string>
     <string name="commands" comment="Screen title and tab label for saved ADB command templates">Komutlar</string>
-    <string name="community_and_support" comment="Category header for community and documentation links in feature guides">Community &amp; Support</string>
+    <string name="community_and_support" comment="Category header for community and documentation links in feature guides">Topluluk &amp; Destek</string>
     <string name="configure_save_directory" comment="Setting button label to choose folder for saving terminal output files">Kayıt dizinini belirle</string>
-    <string name="configuration" comment="Section group title in logs and configuration screen">Configuration</string>
+    <string name="configuration" comment="Section group title in logs and configuration screen">Yapılandırma</string>
     <string name="confirm">Onayla</string>
     <string name="confirm_bookmark_delete_message" comment="Warning message prompt in confirmation dialog before deleting all saved bookmarks">Dikkat! Bu işlem geri alınamaz.\nTüm yer işaretlerini silmek istediğinizden emin misiniz?</string>
     <string name="confirm_custom_partition_flash_message" comment="Confirmation dialog message warning the user before flashing a custom partition. %1$s is the partition name, %2$s is the file name">%1$s bölümünü %2$s ile flaşlamak üzeresiniz. Bu işlem geri alınamaz.</string>
-    <string name="connection_and_shell" comment="Category header for connection and shell guides">Connection &amp; Shell</string>
+    <string name="connection_and_shell" comment="Category header for connection and shell guides">Bağlantı &amp; Shell</string>
     <string name="confirm_custom_partition_flash_title" comment="Confirmation dialog title before flashing a custom partition">Özel Bölüm Flaşlamasını Onayla</string>
     <string name="confirm_delete" comment="Dialog title for confirming deletion of items">Silme onaylansın mı?</string>
     <string name="confirm_delete_custom_font" comment="Confirmation dialog message before removing an imported custom font. %1$s = font display name">\"%1$s\" yazı tipini kaldırmak istediğinizden emin misiniz? Şu anda kullanımdaysa varsayılan Sistem yazı tipine dönülecektir.</string>
@@ -374,7 +374,7 @@
     <string name="des_clear_analysis_cache" comment="Description under Clear analysis cache button in AI settings">Önbellekte saklanan tüm yapay zeka analizlerini temizler</string>
     <string name="des_clear_output_confirmation" comment="Description under Clear output confirmation toggle setting">Terminal çıktısını silmeden önce onay penceresi gösterir</string>
     <string name="des_cloud_models" comment="Description under Cloud models setting item">Bulut tabanlı modeller için API anahtarlarınızı yönetin</string>
-    <string name="des_collapse_panel_on_click" comment="Description explaining that clicking the tile will automatically dismiss the Quick Settings panel simultaneously with executing the command">Automatically dismiss the Quick Settings panel when this tile is clicked</string>
+    <string name="des_collapse_panel_on_click" comment="Description explaining that clicking the tile will automatically dismiss the Quick Settings panel simultaneously with executing the command">Bu kutucuğa tıklandığında Hızlı Ayarlar panelini otomatik olarak kapat</string>
     <string name="des_command_execution" comment="Description explaining that this skill allows the AI to execute shell commands">Yapay zeka asistanının ADB kabuk komutları çalıştırmasına izin verin</string>
     <string name="des_configure_save_directory" comment="Description under Configure save directory setting button">Terminal çıktılarının kaydedileceği klasörü seçin</string>
     <string name="des_contributors" comment="Description under Contributors item in About section">aShell You\'nun gelişimine emek veren açık kaynak gönüllüleri</string>
@@ -392,7 +392,7 @@
     <string name="des_enable_cloud_auto_backup" comment="Description under Auto backup to Google Drive toggle setting">Yedekleri Google Drive hesabınıza düzenli olarak gönderir</string>
     <string name="des_enable_direct_download" comment="Description under Enable direct apk download setting">Açıkken güncellemeler GitHub üzerinden doğrudan uygulama içinde iner. Kapalıyken tarayıcı üzerinden GitHub sayfasına yönlendirilirsiniz.</string>
     <string name="des_enable_local_auto_backup" comment="Description under Auto backup to local storage toggle setting">Yedekleri cihazınızdaki seçili klasöre otomatik kaydeder</string>
-    <string name="des_export_configuration" comment="Description under Export configuration item in logs and configuration screen">Export diagnostic details and device configuration for bug reporting</string>
+    <string name="des_export_configuration" comment="Description under Export configuration item in logs and configuration screen">Hata bildirimi için tanılama ayrıntılarını ve cihaz yapılandırmasını dışa aktar</string>
     <string name="des_examples" comment="Description under Command templates item in navigation menu">Sık kullanılan hazır komut şablonları</string>
     <string name="des_feature_request" comment="Description under Feature request item in About menu">Uygulama için bir fikriniz veya öneriniz mi var? Bize iletin!</string>
     <string name="des_font_family" comment="Description under Font family setting item">Uygulamanın genel yazı tipini değiştirin</string>
@@ -409,7 +409,7 @@
     <string name="des_local_restore" comment="Description card text for local restore option">Telefonunuzdaki mevcut bir yedek dosyasını içeri aktarın</string>
     <string name="des_log_buffer_size" comment="Description under the Logcat log buffer size setting; explains that older entries are dropped once the limit is reached">Günlükler için bellekte tutulacak alan. Dolduğunda en eski kayıtlar temizlenir.</string>
     <string name="des_logcat" comment="Description under Logcat item in navigation menu">Bağlı cihazdan eşzamanlı logcat sistem akışı</string>
-    <string name="des_logs_and_configuration" comment="Description under Logs &amp; Configuration item in main settings menu">View crash logs and export diagnostic configuration</string>
+    <string name="des_logs_and_configuration" comment="Description under Logs &amp; Configuration item in main settings menu">Hata günlüklerini görüntüle ve tanılama yapılandırmasını dışa aktar</string>
     <string name="des_look_and_feel" comment="Subtitle description for Look &amp; Feel item in settings menu">Dinamik renkler, koyu tema, dil tercihleri</string>
     <string name="des_models" comment="Status text under AI models setting when no model is active">Model seçilmedi</string>
     <string name="des_no_filter_profiles" comment="Body of the empty state in the logcat filter sheet, shown when no filter profiles have been created">Hangi kayıtların gösterileceğini seçmek için bir filtre profili ekleyin. Seçim yapılmazsa tüm günlükler akar.</string>
@@ -421,12 +421,12 @@
     <string name="des_port_forward_auto_start" comment="Setting description for auto-starting port forwarding tunnels">\"Uygulama açıldığında başlat\" olarak işaretlenen tünelleri otomatik olarak başlat</string>
     <string name="des_port_forward_clear_recent_hosts" comment="Setting description for clearing recent hosts">Tünel düzenleyicide önerilen ana makineleri kaldır</string>
     <string name="des_port_forward_clear_recent_hosts_confirm" comment="Confirmation message before clearing recently used hosts">Daha önce kullandığınız ana makineler artık önerilmeyecek. Kayıtlı tüneller korunur.</string>
-    <string name="des_port_forward_notification_settings" comment="Setting description that opens the system settings of the tunnel status notification">Choose how the tunnel status notification looks</string>
-    <string name="des_port_forward_resume_on_reconnect" comment="Setting description for resuming device tunnels after a disconnect">Otherwise tunnels stop as soon as their device disconnects</string>
-    <string name="des_port_forward_settings" comment="Settings row description for the port forwarding settings page">Defaults, background behaviour and alerts</string>
-    <string name="des_port_forward_stop_on_task_removed" comment="Setting description for stopping tunnels when the app is removed from recents">Otherwise tunnels keep running in the background</string>
-    <string name="des_port_forward_unexpected_stop_alerts" comment="Setting description for unexpected stop alerts">Only while the app is in the background</string>
-    <string name="des_port_forwarding" comment="Home screen card description for port forwarding when no tunnel is running">Open sites and services from your network on this phone</string>
+    <string name="des_port_forward_notification_settings" comment="Setting description that opens the system settings of the tunnel status notification">Tünel durum bildiriminin nasıl görüneceğini seçin</string>
+    <string name="des_port_forward_resume_on_reconnect" comment="Setting description for resuming device tunnels after a disconnect">Aksi takdirde, cihazlarının bağlantısı kesilir kesilmez tüneller sonlanır</string>
+    <string name="des_port_forward_settings" comment="Settings row description for the port forwarding settings page">Varsayılan ayarlar, arka plan davranışları ve uyarılar</string>
+    <string name="des_port_forward_stop_on_task_removed" comment="Setting description for stopping tunnels when the app is removed from recents">Aksi takdirde tüneller arka planda çalışmaya devam eder</string>
+    <string name="des_port_forward_unexpected_stop_alerts" comment="Setting description for unexpected stop alerts">Yalnızca uygulama arka planda çalışırken</string>
+    <string name="des_port_forwarding" comment="Home screen card description for port forwarding when no tunnel is running">Bu telefonda ağınızdaki siteleri ve hizmetleri açın</string>
     <string name="des_privacy_and_security" comment="Description for privacy and security settings">Kimlik doğrulama ve sistem izinleri</string>
     <string name="des_privacy_policy" comment="Subtitle description under Privacy Policy menu item">aShell You verilerinizi nasıl işler?</string>
     <string name="des_qs_tiles" comment="Subtitle description under Quick Settings tiles setting item">Tek dokunuşla ADB komutu çalıştıran Hızlı Ayar kutucukları oluşturun</string>
@@ -485,7 +485,7 @@
     <string name="disclaimer_5_description" comment="Text for disclaimer point 5: privacy and permissions notice">Uygulamanın çalışabilmesi için belirli sistem izinleri gerekebilir.\nKişisel verileriniz asla toplanmaz veya paylaşılmaz; yine de ADB yetkilerinin kapsamını bilerek hareket etmeniz önerilir.</string>
     <string name="disclaimer_5_title" comment="Title for disclaimer point 5: security and privacy">İzinler ve Güvenlik</string>
     <string name="disconnect" comment="Action button to terminate active ADB connection">Bağlantıyı kes</string>
-    <string name="disconnect_device_title" comment="Dialog title before disconnecting a Wireless Debugging device. %1$s is the device name">Disconnect %1$s?</string>
+    <string name="disconnect_device_title" comment="Dialog title before disconnecting a Wireless Debugging device. %1$s is the device name">%1$s Bağlantısı kesilsin mi?</string>
     <string name="disconnected" comment="Status badge showing ADB is currently disconnected">Bağlantı kesildi!</string>
     <string name="discussions" comment="About screen button linking to GitHub Discussions">Tartışmalar</string>
     <string name="dismiss">Kapat</string>
@@ -494,7 +494,7 @@
     <string name="download">İndir</string>
     <string name="download_failed" comment="Toast message when in-app updater APK download fails">İndirme başarısız oldu</string>
     <string name="download_material_icons" comment="Button label to download the Material Icons font pack for QS tile icon chooser">Material Simgelerini İndir</string>
-    <string name="download_size" comment="Label showing file size of the update package to download">Download size</string>
+    <string name="download_size" comment="Label showing file size of the update package to download">İndirme boyutu</string>
     <string name="downloading" comment="Progress status text while downloading update package">İndiriliyor…</string>
     <string name="downloading_backup" comment="Progress status text while downloading backup from Google Drive">Yedek Google Drive\'dan indiriliyor…</string>
     <string name="downloading_icon_pack" comment="Progress status text while downloading Material Icons font for QS tile icon chooser">Simge paketi indiriliyor…</string>
@@ -544,10 +544,10 @@
     <string name="exit_full_screen" comment="Button that leaves the full screen view of the mirrored screen">Tam ekrandan çık</string>
     <string name="expand" comment="Action button to expand a collapsed card section">Genişlet</string>
     <string name="experimental" comment="Badge or section title marking experimental features">Deneysel</string>
-    <string name="export">Export</string>
-    <string name="export_config_share_subject" comment="Subject text for sharing the exported diagnostic configuration report">aShellYou Diagnostic Configuration</string>
-    <string name="export_configuration" comment="Settings item and dialog title to export diagnostic details and device configuration">Export configuration</string>
-    <string name="export_configuration_preview_description" comment="Explains the content preview in the export configuration bottom sheet">Preview of the diagnostic configuration that will be exported to a text file:</string>
+    <string name="export">Dışa aktar</string>
+    <string name="export_config_share_subject" comment="Subject text for sharing the exported diagnostic configuration report">aShellYou Teşhis Yapılandırması</string>
+    <string name="export_configuration" comment="Settings item and dialog title to export diagnostic details and device configuration">Yapılandırmayı dışa aktar</string>
+    <string name="export_configuration_preview_description" comment="Explains the content preview in the export configuration bottom sheet">Bir metin dosyasına aktarılacak tanılama yapılandırmasının önizlemesi:</string>
     <string name="failed">Başarısız</string>
     <string name="failed_to_claim_interface" comment="Technical error message when USB OTG interface claim fails">Arayüz kontrolü alınamadı</string>
     <string name="failed_to_copy" comment="Toast notification when copying text or file fails">Kopyalanamadı</string>
