@@ -5,6 +5,9 @@ on:
     types: [opened, synchronize, reopened]
     branches: [ "master" ]
 
+permissions:
+  contents: read
+
 jobs:
   test:
     name: Run Unit Tests
