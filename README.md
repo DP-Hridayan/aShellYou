@@ -181,9 +181,10 @@
 ## Download & Community
 
 [![Direct Download](https://img.shields.io/badge/Direct_Download-APK-2ea44f?style=for-the-badge&logo=android&logoColor=white)](https://github.com/DP-Hridayan/aShellYou/releases/download/v8.0.0/aShellYou-v8.0.0-github-release.apk)
-[![GitHub Releases](https://img.shields.io/badge/GitHub-Releases-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/DP-Hridayan/aShellYou/releases/latest/)
-[![F-Droid](https://img.shields.io/badge/F--Droid-1976D2?style=for-the-badge&logo=f-droid&logoColor=white)](https://f-droid.org/en/packages/in.hridayan.ashell)
+
 [![IzzyOnDroid](https://img.shields.io/badge/IzzyOnDroid-4CAF50?style=for-the-badge&logo=android&logoColor=white)](https://apt.izzysoft.de/fdroid/index/apk/in.hridayan.ashell)
+[![F-Droid](https://img.shields.io/badge/F--Droid-1976D2?style=for-the-badge&logo=f-droid&logoColor=white)](https://f-droid.org/en/packages/in.hridayan.ashell)
+[![GitHub Releases](https://img.shields.io/badge/GitHub-Releases-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/DP-Hridayan/aShellYou/releases/latest/)
 
 [![Telegram](https://img.shields.io/badge/Join_Community-Telegram-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/aShellYou)
 [![Buy Me A Coffee](https://img.shields.io/badge/Support_Development-Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/Hridayan)
