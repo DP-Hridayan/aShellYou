@@ -554,7 +554,7 @@
     <string name="failed_to_download_file" comment="Error shown when downloading a file from the connected device fails and the device gave no reason">Dosya indirilemedi</string>
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">USB bağlantısı açılamadı. USB hata ayıklama açık mı?</string>
     <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">Dosya yüklenemedi</string>
-    <string name="faqs" comment="Title for FAQs and troubleshooting feature guide">FAQs &amp; Troubleshooting</string>
+    <string name="faqs" comment="Title for FAQs and troubleshooting feature guide">SSS &amp; Sorun Giderme</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot &amp; Kurtarma</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">Çok Yakında</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">Komut Konsolu</string>
@@ -599,8 +599,8 @@
     <string name="fb_upload_failed" comment="%1$s = error message">Yükleme başarısız: %1$s</string>
     <string name="fb_uploaded_successfully" comment="Toast notification confirming file upload to device">Dosya başarıyla yüklendi</string>
     <string name="fb_uploading" comment="%1$s = file name">%1$s yükleniyor</string>
-    <string name="feature_guides" comment="Title of the bottom sheet displaying guides and documentation for app features">Feature Guides</string>
-    <string name="feature_guides_summary" comment="Subtitle in guides bottom sheet explaining its contents">Walkthroughs, setup instructions, and documentation for aShell You features</string>
+    <string name="feature_guides" comment="Title of the bottom sheet displaying guides and documentation for app features">Özellik Kılavuzları</string>
+    <string name="feature_guides_summary" comment="Subtitle in guides bottom sheet explaining its contents">aShell You özellikleri için kılavuzlar, kurulum talimatları ve belgeler</string>
     <string name="feature_request" comment="Item title in About section linking to GitHub feature request page">Özellik isteği</string>
     <string name="feedback">Geri bildirim</string>
     <string name="fetching_backup_time" comment="Progress status text while retrieving cloud backup timestamp">Yedekleme zamanı kontrol ediliyor…</string>
@@ -666,24 +666,24 @@
     <string name="groq_api_key_step_2" comment="Step 2 of the Groq API key setup guide: creating an account">Giriş yapın veya ücretsiz bir Groq hesabı oluşturun</string>
     <string name="groq_api_key_step_3" comment="Step 3 of the Groq API key setup guide: creating the key">API Keys sayfasını açıp \"Create API Key\" butonuna tıklayın</string>
     <string name="groq_api_key_step_4" comment="Step 4 of the Groq API key setup guide: copying the key">API anahtarınızı kopyalayıp buraya yapıştırın</string>
-    <string name="guide_ai_assistant_desc" comment="Guide description for AI Shell Assistant guide">Configure AI providers to generate shell commands and troubleshoot issues</string>
-    <string name="guide_command_examples_desc" comment="Guide description for Command Examples guide">Browse, execute, and customize preloaded shell command templates</string>
-    <string name="guide_faqs_desc" comment="Guide description for FAQs and troubleshooting guide">Find answers to frequently asked questions and common connection issues</string>
-    <string name="guide_fastboot_desc" comment="Guide description for Fastboot OTG guide">Manage bootloader mode, flash partition images, and reboot to recovery</string>
-    <string name="guide_file_browser_desc" comment="Guide description for File Browser guide">Browse, download, upload, and manage files on the connected device</string>
-    <string name="guide_local_adb_desc" comment="Guide description for local ADB and Shizuku guide">Run elevated shell commands on your own device using Shizuku or root access</string>
-    <string name="guide_logcat_desc" comment="Guide description for Logcat viewer guide">Inspect live device logcat streams with regex search and package filtering</string>
-    <string name="guide_otg_adb_desc" comment="Guide description for OTG ADB walkthrough">Connect another Android device via USB OTG cable for direct hardware shell access</string>
-    <string name="guide_port_forward_desc" comment="Guide description for port forwarding guide">Forward TCP/IP ports and configure reverse socket tunnels between devices</string>
-    <string name="guide_qs_tiles_desc" comment="Guide description for Quick Settings tiles guide">Execute predefined shell commands directly with one tap from the notification shade</string>
-    <string name="guide_screen_mirror_desc" comment="Guide description for Scrcpy screen mirroring guide">Stream and mirror the target device screen with low latency over OTG</string>
-    <string name="guide_sideload_desc" comment="Guide description for ADB sideload guide">Flash update ZIP packages and custom recoveries in recovery mode</string>
-    <string name="guide_telegram_desc" comment="Guide description for Telegram community support">Join the Telegram group for discussions, announcements, and direct support</string>
-    <string name="guide_wiki_desc" comment="Guide description for official GitHub wiki">Browse the complete official documentation, FAQ, and tutorials</string>
-    <string name="guide_wireless_debugging_desc" comment="Guide description for wireless debugging walkthrough">Pair and execute shell commands over local Wi-Fi without a PC</string>
+    <string name="guide_ai_assistant_desc" comment="Guide description for AI Shell Assistant guide">Kabuk komutları oluşturmak ve sorunları gidermek için yapay zeka sağlayıcılarını yapılandırın</string>
+    <string name="guide_command_examples_desc" comment="Guide description for Command Examples guide">Önceden yüklenmiş kabuk komutu şablonlarına göz atın, bunları çalıştırın ve özelleştirin</string>
+    <string name="guide_faqs_desc" comment="Guide description for FAQs and troubleshooting guide">Sık sorulan soruların yanıtlarını ve yaygın bağlantı sorunlarını bulun</string>
+    <string name="guide_fastboot_desc" comment="Guide description for Fastboot OTG guide">Bootloader modunu yönetin, bölüm kalıplarını flash\'layın ve recovery moduna yeniden başlatın</string>
+    <string name="guide_file_browser_desc" comment="Guide description for File Browser guide">Bağlı cihazdaki dosyalara göz atın, bunları indirin, yükleyin ve yönetin</string>
+    <string name="guide_local_adb_desc" comment="Guide description for local ADB and Shizuku guide">Shizuku veya root erişimi kullanarak kendi cihazınızda ayrıcalıklı kabuk komutları çalıştırın</string>
+    <string name="guide_logcat_desc" comment="Guide description for Logcat viewer guide">Regex araması ve paket filtreleme ile canlı cihaz logcat akışlarını inceleyin</string>
+    <string name="guide_otg_adb_desc" comment="Guide description for OTG ADB walkthrough">Doğrudan donanım kabuk erişimi için USB OTG kablosuyla başka bir Android cihazı bağlayın</string>
+    <string name="guide_port_forward_desc" comment="Guide description for port forwarding guide">TCP/IP bağlantı noktalarını yönlendirin ve cihazlar arasında ters soket tünelleri yapılandırın</string>
+    <string name="guide_qs_tiles_desc" comment="Guide description for Quick Settings tiles guide">Bildirim panelinden tek dokunuşla önceden tanımlanmış kabuk komutlarını doğrudan çalıştırın</string>
+    <string name="guide_screen_mirror_desc" comment="Guide description for Scrcpy screen mirroring guide">OTG üzerinden düşük gecikmeyle hedef cihaz ekranını akışa alın ve yansıtın</string>
+    <string name="guide_sideload_desc" comment="Guide description for ADB sideload guide">Recovery modunda güncelleme ZIP paketlerini ve özel recovery yazılımlarını flash\'layın</string>
+    <string name="guide_telegram_desc" comment="Guide description for Telegram community support">Tartışmalar, duyurular ve doğrudan destek için Telegram grubuna katılın</string>
+    <string name="guide_wiki_desc" comment="Guide description for official GitHub wiki">Eksiksiz resmi belgelere, SSS\'ye ve eğitsellere göz atın</string>
+    <string name="guide_wireless_debugging_desc" comment="Guide description for wireless debugging walkthrough">Bilgisayar olmadan yerel Wi-Fi üzerinden kabuk komutları eşleştirin ve çalıştırın</string>
     <string name="haptics_and_vibration" comment="Settings preference title for touch feedback haptics">Titreşim &amp; Dokunsal Geri Bildirim</string>
     <string name="have_a_nice_day" comment="Friendly closing remark in About screen or release notes">İyi günler dileriz!</string>
-    <string name="help" comment="Accessibility description and label for help button">Help</string>
+    <string name="help" comment="Accessibility description and label for help button">Yardım</string>
     <string name="heuristic">Sezgisel</string>
     <string name="hex_editor" comment="Theme editor tool section for editing raw hex color strings">Hex Düzenleyici</string>
     <string name="hide_device_tools" comment="Accessibility action that collapses the device tools side toolbar">Cihaz araçlarını gizle</string>
@@ -692,7 +692,7 @@
     <string name="hint" comment="Card header or field label for helpful hints">İpucu</string>
     <string name="history" comment="Screen title and tab label for executed terminal command history">Geçmiş</string>
     <string name="home">Ana Sayfa</string>
-    <string name="host" comment="Field label for a computer's name or IP address">Host</string>
+    <string name="host" comment="Field label for a computer's name or IP address">Sunucu</string>
     <string name="how_to_sideload" comment="Header for tutorial steps explaining how to boot device into recovery sideload mode">Sideload moduna nasıl girilir?</string>
     <string name="icon_selected" comment="Confirmation toast in Quick Settings tile builder when an icon is picked">Simge seçildi</string>
     <string name="image_too_large" comment="%1$s = the largest size in megabytes the device accepts. Error shown when the chosen image is bigger than the bootloader can buffer">İmaj, bu cihazın kabul edebileceği maksimum %1$s MB sınırından daha büyük</string>
@@ -751,7 +751,7 @@
     <string name="locked" comment="Status badge showing bootloader lock state is locked">Kilitli</string>
     <string name="log_buffer_size" comment="Title of the setting choosing how much memory the logcat buffer may use">Günlük arabellek boyutu</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Günlükler temizlendi</string>
-    <string name="logcat_copy_too_large" comment="Toast shown when the selected logcat entries are too large for the clipboard; suggests saving them to a file instead">Too many logs to copy. Save them to a file instead.</string>
+    <string name="logcat_copy_too_large" comment="Toast shown when the selected logcat entries are too large for the clipboard; suggests saving them to a file instead">Kopyalanacak çok fazla günlük var. Bunun yerine bir dosyaya kaydedin.</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">Paket</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">Günlük seviyeleri</string>
     <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">Mesajlarda ara…</string>
@@ -769,8 +769,8 @@
     <string name="logcat_source" comment="Setting label for choosing logcat execution engine (Shizuku or Root)">Logcat Kaynağı</string>
     <string name="logcat_tap_play" comment="Instructional prompt in logcat viewer screen directing user to tap play button">Başlatmak için ▶ butonuna dokunun</string>
     <string name="logs" comment="Screen header or tab title for application and execution log views">Günlükler</string>
-    <string name="logs_and_configuration" comment="Settings menu title and screen header for viewing logs and exporting diagnostic configuration">Logs &amp; Configuration</string>
-    <string name="logs_saved" comment="Toast shown after exported logcat entries were written to the file the user picked">Logs saved</string>
+    <string name="logs_and_configuration" comment="Settings menu title and screen header for viewing logs and exporting diagnostic configuration">Günlükler &amp; Yapılandırma</string>
+    <string name="logs_saved" comment="Toast shown after exported logcat entries were written to the file the user picked">Günlükler kaydedildi</string>
     <string name="long_edge_pixels" comment="A limit on a video's longer side. %1$d is a number of pixels">%1$d px</string>
     <string name="look_and_feel" comment="Settings section header for theming, dark mode, and UI customization options">Görünüm &amp; Tasarım</string>
     <string name="low" comment="Selection option for low haptic strength or elevation level">Düşük</string>
@@ -828,14 +828,14 @@
     <string name="n_days" comment="%d = number of days for cache duration setting">%d gün</string>
     <string name="name">Ad</string>
     <string name="native_resolution" comment="Resolution option that streams the other device's screen at its own size">Özgün (Orijinal)</string>
-    <string name="needs_attention" comment="Status label: something has a problem the user should look at">Needs attention</string>
-    <string name="network" comment="Settings group title for network related options">Network</string>
+    <string name="needs_attention" comment="Status label: something has a problem the user should look at">İnceleme gerekiyor</string>
+    <string name="network" comment="Settings group title for network related options">Ağ</string>
     <string name="network_error" comment="Toast error message when network connection fails during wireless pairing or cloud backup">Ağ hatası</string>
     <string name="new_commands_available_msg" comment="Banner prompt shown when updated command templates are available to load into database">Yeni komut örnekleri eklendi!\nYenilikleri yüklemek için aşağıdaki butona dokunun.</string>
     <string name="new_folder" comment="Action button label in file browser to create a new directory">Yeni klasör</string>
     <string name="new_name" comment="Text field label for entering new item or file name">Yeni ad</string>
     <string name="new_profile" comment="Title of the screen that creates a new logcat filter profile">Yeni profil</string>
-    <string name="new_tunnel" comment="Button and screen title for creating a port forwarding tunnel">New tunnel</string>
+    <string name="new_tunnel" comment="Button and screen title for creating a port forwarding tunnel">Yeni tünel</string>
     <string name="newest" comment="Sorting option for items by creation date (newest first)">En yeni</string>
     <string name="no_adb_device_error" comment="Error toast when no ADB target device is found over USB OTG">ADB uyumlu cihaz bulunamadı. Hedef cihazda USB hata ayıklamayı açın.</string>
     <string name="no_adb_interface_found" comment="Error message when USB OTG ADB interface is missing">ADB arayüzü bulunamadı</string>
@@ -871,7 +871,7 @@
     <string name="no_variables_loaded" comment="Placeholder text in fastboot variable explorer tab before querying getvar">Yüklenmiş değişken yok</string>
     <string name="no_wifi_connection" comment="Error banner when Wi-Fi is disabled during Wireless Debugging setup">Wi-Fi bağlantısı yok</string>
     <string name="none">Yok</string>
-    <string name="not_allowed" comment="Status of a permission that is not granted">Not allowed</string>
+    <string name="not_allowed" comment="Status of a permission that is not granted">İzin verilmiyor</string>
     <string name="not_connected" comment="Home card status line when no device is attached for this connection type">Bağlı değil</string>
     <string name="not_signed_in" comment="Status text in cloud backup settings when Google account is signed out">Oturum açılmadı</string>
     <string name="nothing_to_clear" comment="Toast notification when user taps clear output but screen is already empty">Temizlenecek bir şey yok</string>
@@ -883,7 +883,7 @@
     <string name="notification_settings" comment="Button label to open system notification settings screen">Bildirim ayarları</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">Eşleme kodunu bildirim üzerinden giremiyorsanız Bildirim Bölmesi stilini Android olarak değiştirmeniz gerekebilir. Bildirim Ayarları ~ Bildirim Stili yolunu izleyerek bu ayarı yapabilirsiniz.</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">Bildirim stilleri</string>
-    <string name="official_wiki" comment="Title for official GitHub wiki link in feature guides bottom sheet">Official Wiki</string>
+    <string name="official_wiki" comment="Title for official GitHub wiki link in feature guides bottom sheet">Resmi Wiki</string>
     <string name="off">Kapalı</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">Kapalı</string>
     <string name="ok">Tamam</string>
@@ -898,9 +898,9 @@
     <string name="on_tertiary">Üçüncül Üzeri</string>
     <string name="open">Aç</string>
     <string name="open_app_language_settings" comment="Button label on Android 13+ to jump to system per-app language setting screen">Uygulama dil ayarlarını aç</string>
-    <string name="open_in_browser" comment="Action that opens a web address in the browser">Open in browser</string>
+    <string name="open_in_browser" comment="Action that opens a web address in the browser">Tarayıcıda aç</string>
     <string name="open_issues" comment="GitHub repository open issues count">Açık sorunlar (Issues)</string>
-    <string name="open_settings" comment="Button that opens this app's page in Android settings">Open settings</string>
+    <string name="open_settings" comment="Button that opens this app's page in Android settings">Ayarları aç</string>
     <string name="open_url" comment="Action button to launch web browser to external URL link">Bağlantıyı Aç</string>
     <string name="openrouter_api_key_step_1" comment="Step 1 of the OpenRouter API key setup guide. %1$s = URL">%1$s adresinden OpenRouter\'ı açın</string>
     <string name="openrouter_api_key_step_2" comment="Step 2 of the OpenRouter API key setup guide: creating an account">Giriş yapın veya ücretsiz bir OpenRouter hesabı açın</string>
@@ -956,132 +956,132 @@
     <string name="pick_color" comment="Button label in theme editor to open color picker palette dialog">Renk seç</string>
     <string name="pin_all">Seçilenleri tuttur</string>
     <string name="port" comment="Field label for network port number in wireless ADB manual pairing setup">Bağlantı noktası (Port)</string>
-    <string name="port_forward_alert_stopped" comment="Notification title when a port forwarding tunnel stopped by itself. %1$s is the tunnel name">%1$s stopped</string>
-    <string name="port_forward_allow_lan_sharing" comment="Setting title: let tunnels listen on the Wi-Fi network instead of only on this phone">Allow sharing on Wi-Fi</string>
-    <string name="port_forward_auto_start" comment="Setting title: start the tunnels marked to start when the app opens">Auto-start tunnels</string>
-    <string name="port_forward_card_counters" comment="Tunnel card counters. %1$d is the number of open connections, %2$s the amount of data received, such as 2.4 MB">%1$d open · ↓ %2$s</string>
-    <string name="port_forward_clear_recent_hosts" comment="Setting title and dialog title for deleting the list of recently used hosts">Clear recent hosts</string>
-    <string name="port_forward_connect_timeout" comment="Setting title: how long to wait when connecting to a computer">Connection timeout</string>
-    <string name="port_forward_could_not_start" comment="Title of the card explaining why the tunnel could not start">Couldn\'t start the tunnel</string>
+    <string name="port_forward_alert_stopped" comment="Notification title when a port forwarding tunnel stopped by itself. %1$s is the tunnel name">%1$s durduruldu</string>
+    <string name="port_forward_allow_lan_sharing" comment="Setting title: let tunnels listen on the Wi-Fi network instead of only on this phone">Wi-Fi üzerinden paylaşıma izin ver</string>
+    <string name="port_forward_auto_start" comment="Setting title: start the tunnels marked to start when the app opens">Tünelleri otomatik başlat</string>
+    <string name="port_forward_card_counters" comment="Tunnel card counters. %1$d is the number of open connections, %2$s the amount of data received, such as 2.4 MB">%1$d açık · ↓ %2$s</string>
+    <string name="port_forward_clear_recent_hosts" comment="Setting title and dialog title for deleting the list of recently used hosts">Son sunucuları temizle</string>
+    <string name="port_forward_connect_timeout" comment="Setting title: how long to wait when connecting to a computer">Bağlantı zaman aşımı</string>
+    <string name="port_forward_could_not_start" comment="Title of the card explaining why the tunnel could not start">Tünel başlatılamadı</string>
     <string name="port_forward_countdown" comment="Time left before a waiting tunnel stops, as minutes and seconds. %1$d minutes, %2$02d seconds">%1$d:%2$02d</string>
-    <string name="port_forward_deleted" comment="Snackbar after deleting a tunnel. %1$s is the tunnel name">Deleted \"%1$s\"</string>
-    <string name="port_forward_detail_connections" comment="Tunnel details. %1$d open connections, %2$d connections in total, %3$d failed connections">Open now %1$d · Total %2$d · Failed %3$d</string>
-    <string name="port_forward_detail_traffic" comment="Tunnel details. %1$s data received, %2$s data sent, such as 2.4 MB">Received %1$s · Sent %2$s</string>
+    <string name="port_forward_deleted" comment="Snackbar after deleting a tunnel. %1$s is the tunnel name">\"%1$s\" silindi</string>
+    <string name="port_forward_detail_connections" comment="Tunnel details. %1$d open connections, %2$d connections in total, %3$d failed connections">Şu an açık %1$d · Toplam %2$d · Başarısız %3$d</string>
+    <string name="port_forward_detail_traffic" comment="Tunnel details. %1$s data received, %2$s data sent, such as 2.4 MB">Alınan %1$s · Gönderilen %2$s</string>
     <string name="port_forward_device_chip" comment="Label of a connected device. %1$s is the device name, %2$s how it is connected, such as USB or Wi-Fi">%1$s · %2$s</string>
-    <string name="port_forward_device_not_connected_now" comment="Shown under the device name in the tunnel editor when the device is not connected">Not connected right now</string>
-    <string name="port_forward_device_port" comment="Field label for a TCP port on the connected device">Device port</string>
-    <string name="port_forward_disable_sharing_title" comment="Dialog title before turning off sharing tunnels on Wi-Fi">Turn off sharing?</string>
-    <string name="port_forward_edit_tunnel" comment="Screen title for editing a port forwarding tunnel">Edit tunnel</string>
-    <string name="port_forward_empty_title" comment="Shown when no tunnels exist yet; explains what port forwarding does">Use ports from your network as if they were on this phone</string>
-    <string name="port_forward_enable_sharing_message" comment="Security warning before allowing tunnels to be shared on Wi-Fi">Anyone on the same network can reach a shared tunnel\'s port. Only share tunnels you trust, on networks you trust.</string>
-    <string name="port_forward_enable_sharing_title" comment="Dialog title before allowing tunnels to be shared on Wi-Fi">Share tunnels on Wi-Fi?</string>
+    <string name="port_forward_device_not_connected_now" comment="Shown under the device name in the tunnel editor when the device is not connected">Şu anda bağlı değil</string>
+    <string name="port_forward_device_port" comment="Field label for a TCP port on the connected device">Cihaz bağlantı noktası</string>
+    <string name="port_forward_disable_sharing_title" comment="Dialog title before turning off sharing tunnels on Wi-Fi">Paylaşım kapatılsın mı?</string>
+    <string name="port_forward_edit_tunnel" comment="Screen title for editing a port forwarding tunnel">Tüneli düzenle</string>
+    <string name="port_forward_empty_title" comment="Shown when no tunnels exist yet; explains what port forwarding does">Ağınızdaki bağlantı noktalarını bu telefondaymış gibi kullanın</string>
+    <string name="port_forward_enable_sharing_message" comment="Security warning before allowing tunnels to be shared on Wi-Fi">Aynı ağdaki herkes paylaşılan bir tünelin bağlantı noktasına erişebilir. Yalnızca güvendiğiniz ağlarda ve güvendiğiniz tünelleri paylaşın.</string>
+    <string name="port_forward_enable_sharing_title" comment="Dialog title before allowing tunnels to be shared on Wi-Fi">Tüneller Wi-Fi üzerinden paylaşılsın mı?</string>
     <string name="port_forward_endpoints" comment="Where a tunnel relays. %1$s is the address on this phone, %2$s the address it forwards to">%1$s → %2$s</string>
-    <string name="port_forward_error_background_start" comment="Port forwarding error: Android did not allow the tunnel to start while the app was in the background">Couldn\'t start in the background</string>
-    <string name="port_forward_error_device_did_not_return" comment="Port forwarding error: the device did not reconnect before the wait ran out. %1$s is the device name">%1$s didn\'t reconnect in time</string>
-    <string name="port_forward_error_device_not_connected" comment="Port forwarding error: the device the tunnel reaches is not connected. %1$s is the device name">%1$s is not connected</string>
-    <string name="port_forward_error_device_timeout" comment="Port forwarding error: the connected device did not answer in time. %1$s is the device name">%1$s didn\'t answer in time</string>
-    <string name="port_forward_error_host_unresolved" comment="Port forwarding error: the host name could not be found. %1$s is the host name the user typed">Can\'t find %1$s. Try its IP address</string>
-    <string name="port_forward_error_local_network_blocked" comment="Port forwarding error: Android's local network permission is not granted, so the app cannot reach devices on the Wi-Fi network">Android is blocking access to your network</string>
-    <string name="port_forward_error_no_network" comment="Port forwarding error: the phone is not connected to any network">No network connection</string>
-    <string name="port_forward_error_nothing_listening" comment="Port forwarding error: no app on the connected device listens on that socket. %1$s is the port or socket name">Nothing is listening on %1$s on the device</string>
-    <string name="port_forward_error_port_in_use" comment="Port forwarding error: the chosen port on this phone is already taken by another app. %1$d is the port number">Port %1$d is used by another app</string>
-    <string name="port_forward_error_port_privileged" comment="Port forwarding error: apps cannot listen on ports below 1024">Use port 1024 or higher</string>
-    <string name="port_forward_error_target_refused" comment="Port forwarding error: the computer refused the connection. vite --host is a command shown verbatim as an example and must not be translated">Refused. Is the server listening on the network? For example, vite —host</string>
-    <string name="port_forward_error_target_timeout" comment="Port forwarding error: the computer did not answer in time">No reply. Check the computer\'s firewall and that both are on the same Wi-Fi</string>
-    <string name="port_forward_error_too_many_connections" comment="Port forwarding warning: the tunnel reached its connection limit and refuses new connections">Too many connections. New ones are refused</string>
-    <string name="port_forward_error_unexpected" comment="Port forwarding error with technical details. %1$s is the system's error message">Something went wrong: %1$s</string>
-    <string name="port_forward_error_unexpected_unknown" comment="Port forwarding error when there are no technical details">Something went wrong</string>
-    <string name="port_forward_event_connection_closed" comment="Activity log entry when a connection ended. %1$s data received, %2$s data sent">Connection closed · ↓ %1$s ↑ %2$s</string>
-    <string name="port_forward_event_connection_failed" comment="Activity log entry when a connection failed. %1$s is the reason">Connection failed: %1$s</string>
-    <string name="port_forward_event_connection_opened" comment="Activity log entry when a client connected">Connection opened</string>
-    <string name="port_forward_event_connection_refused" comment="Activity log entry when a client was turned away. %1$s is the reason">Connection refused: %1$s</string>
-    <string name="port_forward_event_device_reconnected" comment="Activity log entry when the tunnel's device connected again">Device reconnected</string>
-    <string name="port_forward_event_network_restored" comment="Activity log entry when the phone is back on a network">Network is back</string>
-    <string name="port_forward_event_started" comment="Activity log entry when a tunnel started">Started</string>
-    <string name="port_forward_field_invalid" comment="Error under a field with a value that is not valid">Not valid</string>
-    <string name="port_forward_field_required" comment="Error under an empty required field">Required</string>
-    <string name="port_forward_fix_fields" comment="Snackbar shown when Save, Start or Test is tapped while a field of the tunnel editor has an error">Check the highlighted fields</string>
-    <string name="port_forward_group_background" comment="Settings group title for what tunnels do while the app is not on screen">Background</string>
-    <string name="port_forward_group_device_disconnects" comment="Settings group title for what tunnels do when their device disconnects">Device disconnects</string>
-    <string name="port_forward_kind_device" comment="Choice that creates a tunnel to a port on a connected device">Reach a port on a connected device</string>
-    <string name="port_forward_kind_network" comment="Choice that creates a tunnel to a computer or server on the network">Open something from your network</string>
-    <string name="port_forward_kind_network_description" comment="Examples under the choice that creates a network tunnel">A computer\'s dev server, a NAS or a website</string>
-    <string name="port_forward_local_network_access" comment="Setting title showing whether Android's local network permission is granted">Local network access</string>
-    <string name="port_forward_local_network_denied" comment="Card text after the local network permission was denied for good">Access was denied. Allow it in settings to reach devices on your network.</string>
-    <string name="port_forward_local_network_description" comment="Card text explaining Android's local network permission">Android asks before apps reach your computer or NAS.</string>
-    <string name="port_forward_local_network_title" comment="Card title asking for Android's local network permission">Allow access to devices on your network</string>
-    <string name="port_forward_local_port" comment="Field label for the port the tunnel uses on this phone">Local port</string>
-    <string name="port_forward_max_connections" comment="Setting title: how many connections one tunnel relays at the same time">Max connections per tunnel</string>
-    <string name="port_forward_more_options" comment="Button that opens the full tunnel editor instead of the quick shortcut">More options</string>
-    <string name="port_forward_name_optional" comment="Field label for an optional tunnel name">Name (optional)</string>
+    <string name="port_forward_error_background_start" comment="Port forwarding error: Android did not allow the tunnel to start while the app was in the background">Arka planda başlatılamadı</string>
+    <string name="port_forward_error_device_did_not_return" comment="Port forwarding error: the device did not reconnect before the wait ran out. %1$s is the device name">%1$s zamanında yeniden bağlanamadı</string>
+    <string name="port_forward_error_device_not_connected" comment="Port forwarding error: the device the tunnel reaches is not connected. %1$s is the device name">%1$s bağlı değil</string>
+    <string name="port_forward_error_device_timeout" comment="Port forwarding error: the connected device did not answer in time. %1$s is the device name">%1$s zamanında yanıt vermedi</string>
+    <string name="port_forward_error_host_unresolved" comment="Port forwarding error: the host name could not be found. %1$s is the host name the user typed">%1$s bulunamadı. IP adresini deneyin</string>
+    <string name="port_forward_error_local_network_blocked" comment="Port forwarding error: Android's local network permission is not granted, so the app cannot reach devices on the Wi-Fi network">Android ağınıza erişimi engelliyor</string>
+    <string name="port_forward_error_no_network" comment="Port forwarding error: the phone is not connected to any network">Ağ bağlantısı yok</string>
+    <string name="port_forward_error_nothing_listening" comment="Port forwarding error: no app on the connected device listens on that socket. %1$s is the port or socket name">Cihaz üzerinde %1$s adresini dinleyen hiçbir şey yok</string>
+    <string name="port_forward_error_port_in_use" comment="Port forwarding error: the chosen port on this phone is already taken by another app. %1$d is the port number">%1$d numaralı bağlantı noktası başka bir uygulama tarafından kullanılıyor</string>
+    <string name="port_forward_error_port_privileged" comment="Port forwarding error: apps cannot listen on ports below 1024">1024 veya daha yüksek bir bağlantı noktası kullanın</string>
+    <string name="port_forward_error_target_refused" comment="Port forwarding error: the computer refused the connection. vite --host is a command shown verbatim as an example and must not be translated">Reddedildi. Sunucu ağda dinleme yapıyor mu? Örneğin: vite —host</string>
+    <string name="port_forward_error_target_timeout" comment="Port forwarding error: the computer did not answer in time">Yanıt yok. Bilgisayarın güvenlik duvarını ve her iki cihazın da aynı Wi-Fi ağında olduğunu kontrol edin</string>
+    <string name="port_forward_error_too_many_connections" comment="Port forwarding warning: the tunnel reached its connection limit and refuses new connections">Çok fazla bağlantı var. Yeni bağlantılar reddediliyor</string>
+    <string name="port_forward_error_unexpected" comment="Port forwarding error with technical details. %1$s is the system's error message">Bir şeyler yanlış gitti: %1$s</string>
+    <string name="port_forward_error_unexpected_unknown" comment="Port forwarding error when there are no technical details">Bir şeyler yanlış gitti</string>
+    <string name="port_forward_event_connection_closed" comment="Activity log entry when a connection ended. %1$s data received, %2$s data sent">Bağlantı kapatıldı · ↓ %1$s ↑ %2$s</string>
+    <string name="port_forward_event_connection_failed" comment="Activity log entry when a connection failed. %1$s is the reason">Bağlantı kurulamadı: %1$s</string>
+    <string name="port_forward_event_connection_opened" comment="Activity log entry when a client connected">Bağlantı açıldı</string>
+    <string name="port_forward_event_connection_refused" comment="Activity log entry when a client was turned away. %1$s is the reason">Bağlantı reddedildi: %1$s</string>
+    <string name="port_forward_event_device_reconnected" comment="Activity log entry when the tunnel's device connected again">Cihaz yeniden bağlandı</string>
+    <string name="port_forward_event_network_restored" comment="Activity log entry when the phone is back on a network">Ağ geri döndü</string>
+    <string name="port_forward_event_started" comment="Activity log entry when a tunnel started">Başlatıldı</string>
+    <string name="port_forward_field_invalid" comment="Error under a field with a value that is not valid">Geçersiz</string>
+    <string name="port_forward_field_required" comment="Error under an empty required field">Gerekli</string>
+    <string name="port_forward_fix_fields" comment="Snackbar shown when Save, Start or Test is tapped while a field of the tunnel editor has an error">Vurgulanan alanları kontrol edin</string>
+    <string name="port_forward_group_background" comment="Settings group title for what tunnels do while the app is not on screen">Arka Plan</string>
+    <string name="port_forward_group_device_disconnects" comment="Settings group title for what tunnels do when their device disconnects">Cihaz bağlantısı kesildiğinde</string>
+    <string name="port_forward_kind_device" comment="Choice that creates a tunnel to a port on a connected device">Bağlı bir cihazdaki bağlantı noktasına eriş</string>
+    <string name="port_forward_kind_network" comment="Choice that creates a tunnel to a computer or server on the network">Ağınızdan bir şey açın</string>
+    <string name="port_forward_kind_network_description" comment="Examples under the choice that creates a network tunnel">Bir bilgisayarın geliştirici sunucusu, NAS veya web sitesi</string>
+    <string name="port_forward_local_network_access" comment="Setting title showing whether Android's local network permission is granted">Yerel ağ erişimi</string>
+    <string name="port_forward_local_network_denied" comment="Card text after the local network permission was denied for good">Erişim reddedildi. Ağınızdaki cihazlara ulaşmak için ayarlardan izin verin.</string>
+    <string name="port_forward_local_network_description" comment="Card text explaining Android's local network permission">Android, uygulamalar bilgisayarınıza veya NAS sunucunuza erişmeden önce sorar.</string>
+    <string name="port_forward_local_network_title" comment="Card title asking for Android's local network permission">Ağınızdaki cihazlara erişim izin verin</string>
+    <string name="port_forward_local_port" comment="Field label for the port the tunnel uses on this phone">Yerel bağlantı noktası</string>
+    <string name="port_forward_max_connections" comment="Setting title: how many connections one tunnel relays at the same time">Tünel başına maksimum bağlantı</string>
+    <string name="port_forward_more_options" comment="Button that opens the full tunnel editor instead of the quick shortcut">Daha fazla seçenek</string>
+    <string name="port_forward_name_optional" comment="Field label for an optional tunnel name">Ad (isteğe bağlı)</string>
     <string name="port_forward_names_and_more" comment="Home card text listing running tunnels. %1$s is a list of tunnel names, %2$d how many more are running">%1$s +%2$d</string>
     <string name="port_forward_notification_line" comment="One line per tunnel in the expanded notification. %1$s is the tunnel name, %2$s its status">%1$s · %2$s</string>
-    <string name="port_forward_notification_more" comment="Last line of the expanded notification when some tunnels are not listed. %1$d is how many are not listed">+%1$d more</string>
+    <string name="port_forward_notification_more" comment="Last line of the expanded notification when some tunnels are not listed. %1$d is how many are not listed">+%1$d tane daha</string>
     <string name="port_forward_notification_single" comment="Notification text for one running tunnel. %1$s is the address on this phone, %2$s the address it forwards to, %3$s its status such as Active">%1$s → %2$s · %3$s</string>
-    <string name="port_forward_notification_tap_to_manage" comment="Notification text when several tunnels run without problems">Tap to manage tunnels</string>
-    <string name="port_forward_notifications_off" comment="Banner when notifications are turned off for the app">Notifications are off. You won\'t see tunnel status outside the app.</string>
-    <string name="port_forward_opens_at" comment="Preview of the address to open on this phone. %1$s is the address">Opens at %1$s</string>
-    <string name="port_forward_parsed_address" comment="What the pasted address was split into. %1$s host, %2$s port, %3$s path">Host %1$s · port %2$s · path %3$s</string>
-    <string name="port_forward_paste_address" comment="Field label for pasting a web address or typing host:port">Paste a URL or address</string>
-    <string name="port_forward_port_free" comment="Shown under the local port field when the port is free">Free</string>
-    <string name="port_forward_port_taken" comment="Short status at the end of the local port field when another app already uses that port">In use</string>
+    <string name="port_forward_notification_tap_to_manage" comment="Notification text when several tunnels run without problems">Tünelleri yönetmek için dokunun</string>
+    <string name="port_forward_notifications_off" comment="Banner when notifications are turned off for the app">Bildirimler kapalı. Uygulama dışında tünel durumunu görmezsiniz.</string>
+    <string name="port_forward_opens_at" comment="Preview of the address to open on this phone. %1$s is the address">%1$s adresinde açılır</string>
+    <string name="port_forward_parsed_address" comment="What the pasted address was split into. %1$s host, %2$s port, %3$s path">Sunucu %1$s · bağlantı noktası %2$s · yol %3$s</string>
+    <string name="port_forward_paste_address" comment="Field label for pasting a web address or typing host:port">Bir URL veya adres yapıştırın</string>
+    <string name="port_forward_port_free" comment="Shown under the local port field when the port is free">Boş</string>
+    <string name="port_forward_port_taken" comment="Short status at the end of the local port field when another app already uses that port">Kullanımda</string>
     <string name="port_forward_preset_chrome_devtools" comment="Preset for the Chrome remote debugging socket. Product name, do not translate">Chrome DevTools</string>
     <string name="port_forward_preset_frida" comment="Preset for the Frida instrumentation server. Product name, do not translate">Frida</string>
-    <string name="port_forward_process_id" comment="Field label for the id of an app process on the device">Process ID</string>
-    <string name="port_forward_quick_forward_title" comment="Title of the shortcut that forwards a port of a connected device. %1$s is the device name">Forward a port from %1$s</string>
-    <string name="port_forward_quick_name" comment="Default name of a tunnel made with the quick shortcut. %1$d is the device port">Port %1$d</string>
-    <string name="port_forward_resume_on_reconnect" comment="Setting title: keep tunnels waiting and resume them when their device reconnects">Resume when the device reconnects</string>
-    <string name="port_forward_resumes_when_reconnected" comment="Notification text while waiting for a device. %1$s is the tunnel name">%1$s resumes when it reconnects</string>
-    <string name="port_forward_same_as_target" comment="Chip that keeps the local port equal to the computer's port">Same as target</string>
-    <string name="port_forward_save_and_restart" comment="Button that saves changes to a running tunnel and restarts it">Save and restart</string>
-    <string name="port_forward_save_failed" comment="Toast when a tunnel could not be saved">Couldn\'t save the tunnel</string>
-    <string name="port_forward_saved" comment="Section title for tunnels that are saved but not running">Saved</string>
-    <string name="port_forward_section_check" comment="Editor section title for testing the connection">Check</string>
-    <string name="port_forward_section_device" comment="Editor section title: the device and socket the tunnel reaches">On the device</string>
-    <string name="port_forward_section_local" comment="Editor section title: how the tunnel is reached on this phone">On this phone</string>
-    <string name="port_forward_section_options" comment="Editor section title for optional settings">Options</string>
-    <string name="port_forward_section_target" comment="Editor section title: where the server to reach is">Where is it?</string>
-    <string name="port_forward_share_on_network" comment="Switch that lets other devices on Wi-Fi use this tunnel">Share on Wi-Fi network</string>
-    <string name="port_forward_share_on_network_description" comment="Warning under the switch that shares a tunnel on Wi-Fi">Anyone on this network can use it</string>
-    <string name="port_forward_socket_name" comment="Field label for the name of an abstract socket on the device">Socket name</string>
-    <string name="port_forward_socket_path" comment="Field label for the path of a socket file on the device">Socket path</string>
-    <string name="port_forward_start_on_app_open" comment="Switch that starts the tunnel whenever the app opens">Start when the app opens</string>
-    <string name="port_forward_start_on_device_connect" comment="Switch that starts the tunnel whenever its device connects">Start when this device connects</string>
-    <string name="port_forward_starting" comment="Notification title shown while the first port forwarding tunnel is starting">Starting tunnel…</string>
-    <string name="port_forward_status_ready" comment="Status of a running port forwarding tunnel with no connections at the moment">Ready</string>
-    <string name="port_forward_status_starting" comment="Status of a port forwarding tunnel that is starting">Starting</string>
-    <string name="port_forward_status_waiting_for_device" comment="Short status of a tunnel waiting for its device to reconnect">Waiting for device</string>
-    <string name="port_forward_status_waiting_for_network" comment="Status of a port forwarding tunnel that waits for the phone to reconnect to a network">Waiting for network</string>
-    <string name="port_forward_stop_on_task_removed" comment="Setting title: stop tunnels when the app is swiped away from recent apps">Stop tunnels when the app is closed from recents</string>
-    <string name="port_forward_target_type" comment="Field label for the kind of socket a device tunnel reaches">Target type</string>
-    <string name="port_forward_test_connection" comment="Title of the card that tests whether the target answers">Test connection</string>
-    <string name="port_forward_test_hint" comment="Shown in the test card before testing">Check that the target answers before you start</string>
-    <string name="port_forward_test_http" comment="Test result for a website. %1$d reply time in milliseconds, %2$d the HTTP status code">Reachable · %1$d ms · HTTP %2$d</string>
-    <string name="port_forward_test_http_server" comment="Test result for a website. %1$d reply time in milliseconds, %2$d the HTTP status code, %3$s the server software name">Reachable · %1$d ms · HTTP %2$d · %3$s</string>
-    <string name="port_forward_test_reachable" comment="Test result for a reachable server that is not a website. %1$d is the reply time in milliseconds">Reachable · %1$d ms</string>
-    <string name="port_forward_testing" comment="Shown while testing whether a server can be reached">Testing…</string>
+    <string name="port_forward_process_id" comment="Field label for the id of an app process on the device">İşlem Kimliği</string>
+    <string name="port_forward_quick_forward_title" comment="Title of the shortcut that forwards a port of a connected device. %1$s is the device name">%1$s üzerinden bir bağlantı noktası yönlendir</string>
+    <string name="port_forward_quick_name" comment="Default name of a tunnel made with the quick shortcut. %1$d is the device port">Bağlantı Noktası %1$d</string>
+    <string name="port_forward_resume_on_reconnect" comment="Setting title: keep tunnels waiting and resume them when their device reconnects">Cihaz yeniden bağlandığında devam et</string>
+    <string name="port_forward_resumes_when_reconnected" comment="Notification text while waiting for a device. %1$s is the tunnel name">Yeniden bağlandığında %1$s devam edecek</string>
+    <string name="port_forward_same_as_target" comment="Chip that keeps the local port equal to the computer's port">Hedefle aynı</string>
+    <string name="port_forward_save_and_restart" comment="Button that saves changes to a running tunnel and restarts it">Kaydet ve yeniden başlat</string>
+    <string name="port_forward_save_failed" comment="Toast when a tunnel could not be saved">Tünel kaydedilemedi</string>
+    <string name="port_forward_saved" comment="Section title for tunnels that are saved but not running">Kaydedilenler</string>
+    <string name="port_forward_section_check" comment="Editor section title for testing the connection">Kontrol et</string>
+    <string name="port_forward_section_device" comment="Editor section title: the device and socket the tunnel reaches">Cihazda</string>
+    <string name="port_forward_section_local" comment="Editor section title: how the tunnel is reached on this phone">Bu telefonda</string>
+    <string name="port_forward_section_options" comment="Editor section title for optional settings">Seçenekler</string>
+    <string name="port_forward_section_target" comment="Editor section title: where the server to reach is">Nerede?</string>
+    <string name="port_forward_share_on_network" comment="Switch that lets other devices on Wi-Fi use this tunnel">Wi-Fi ağında paylaş</string>
+    <string name="port_forward_share_on_network_description" comment="Warning under the switch that shares a tunnel on Wi-Fi">Bu ağdaki herkes kullanabilir</string>
+    <string name="port_forward_socket_name" comment="Field label for the name of an abstract socket on the device">Soket adı</string>
+    <string name="port_forward_socket_path" comment="Field label for the path of a socket file on the device">Soket yolu</string>
+    <string name="port_forward_start_on_app_open" comment="Switch that starts the tunnel whenever the app opens">Uygulama açıldığında başlat</string>
+    <string name="port_forward_start_on_device_connect" comment="Switch that starts the tunnel whenever its device connects">Bu cihaz bağlandığında başlat</string>
+    <string name="port_forward_starting" comment="Notification title shown while the first port forwarding tunnel is starting">Tünel başlatılıyor…</string>
+    <string name="port_forward_status_ready" comment="Status of a running port forwarding tunnel with no connections at the moment">Hazır</string>
+    <string name="port_forward_status_starting" comment="Status of a port forwarding tunnel that is starting">Başlatılıyor</string>
+    <string name="port_forward_status_waiting_for_device" comment="Short status of a tunnel waiting for its device to reconnect">Cihaz bekleniyor</string>
+    <string name="port_forward_status_waiting_for_network" comment="Status of a port forwarding tunnel that waits for the phone to reconnect to a network">Ağ bekleniyor</string>
+    <string name="port_forward_stop_on_task_removed" comment="Setting title: stop tunnels when the app is swiped away from recent apps">Son kullanılanlardan kapatıldığında tünelleri durdur</string>
+    <string name="port_forward_target_type" comment="Field label for the kind of socket a device tunnel reaches">Hedef türü</string>
+    <string name="port_forward_test_connection" comment="Title of the card that tests whether the target answers">Bağlantıyı test et</string>
+    <string name="port_forward_test_hint" comment="Shown in the test card before testing">Başlamadan önce hedefin yanıt verip vermediğini kontrol edin</string>
+    <string name="port_forward_test_http" comment="Test result for a website. %1$d reply time in milliseconds, %2$d the HTTP status code">Erişilebilir · %1$d ms · HTTP %2$d</string>
+    <string name="port_forward_test_http_server" comment="Test result for a website. %1$d reply time in milliseconds, %2$d the HTTP status code, %3$s the server software name">Erişilebilir · %1$d ms · HTTP %2$d · %3$s</string>
+    <string name="port_forward_test_reachable" comment="Test result for a reachable server that is not a website. %1$d is the reply time in milliseconds">Erişilebilir · %1$d ms</string>
+    <string name="port_forward_testing" comment="Shown while testing whether a server can be reached">Test ediliyor…</string>
     <string name="port_forward_transport_usb" comment="How a device is connected: by USB cable">USB</string>
     <string name="port_forward_transport_wifi" comment="How a device is connected: by Wireless Debugging over Wi-Fi">Wi-Fi</string>
-    <string name="port_forward_tunnel_running" comment="Snackbar after a tunnel started. %1$s is the tunnel name">%1$s is running</string>
-    <string name="port_forward_type_abstract" comment="Kind of device socket: a Linux abstract Unix socket, such as the one Chrome DevTools uses">Abstract socket</string>
-    <string name="port_forward_type_abstract_short" comment="Short button label for the abstract Unix socket kind. Keep very short">Abstract</string>
-    <string name="port_forward_type_filesystem" comment="Kind of device socket: a Unix socket file on the device">Filesystem socket</string>
-    <string name="port_forward_type_filesystem_short" comment="Short button label for the Unix socket file kind. Keep very short">File</string>
-    <string name="port_forward_type_jdwp" comment="Kind of device socket: the Java debugger of an app process. JDWP is a protocol name and must not be translated">Java debugger (JDWP)</string>
+    <string name="port_forward_tunnel_running" comment="Snackbar after a tunnel started. %1$s is the tunnel name">%1$s çalışıyor</string>
+    <string name="port_forward_type_abstract" comment="Kind of device socket: a Linux abstract Unix socket, such as the one Chrome DevTools uses">Soyut soket</string>
+    <string name="port_forward_type_abstract_short" comment="Short button label for the abstract Unix socket kind. Keep very short">Soyut</string>
+    <string name="port_forward_type_filesystem" comment="Kind of device socket: a Unix socket file on the device">Dosya sistemi soketi</string>
+    <string name="port_forward_type_filesystem_short" comment="Short button label for the Unix socket file kind. Keep very short">Dosya</string>
+    <string name="port_forward_type_jdwp" comment="Kind of device socket: the Java debugger of an app process. JDWP is a protocol name and must not be translated">Java hata ayıklayıcısı (JDWP)</string>
     <string name="port_forward_type_jdwp_short" comment="Short button label for the Java debugger socket kind. JDWP is a protocol name, do not translate">JDWP</string>
-    <string name="port_forward_type_tcp" comment="Kind of device socket: a TCP port">TCP port</string>
+    <string name="port_forward_type_tcp" comment="Kind of device socket: a TCP port">TCP bağlantı noktası</string>
     <string name="port_forward_type_tcp_short" comment="Short button label for the TCP port socket kind. Keep very short">TCP</string>
-    <string name="port_forward_unexpected_stop_alerts" comment="Setting title: notify when a tunnel stops without the user stopping it">Alert when a tunnel stops unexpectedly</string>
-    <string name="port_forward_use_device" comment="Button that moves a tunnel to the device now connected. %1$s is the device name">Use %1$s</string>
-    <string name="port_forward_use_port" comment="Button that moves a tunnel to a free port. %1$d is the port number">Use %1$d</string>
-    <string name="port_forward_used_by_tunnel" comment="Error under the local port field. %1$s is the name of the tunnel that already uses the port">Used by \"%1$s\"</string>
-    <string name="port_forward_wait_forever" comment="Option for how long to wait for a device: no limit">Never</string>
-    <string name="port_forward_wait_timeout" comment="Setting title: how long a tunnel waits for its device before it stops">Stop waiting after</string>
-    <string name="port_forward_waiting_for_device" comment="Status of a tunnel waiting for its device to reconnect. %1$s is the device name">Waiting for %1$s</string>
-    <string name="port_forwarding" comment="Feature name and screen title for relaying network ports to this phone, like adb forward">Port forwarding</string>
-    <string name="port_forwarding_alerts" comment="Name of the notification channel used when a port forwarding tunnel stops by itself">Port forwarding alerts</string>
-    <string name="port_forwarding_alerts_channel_description" comment="Description of the notification channel for tunnels that stopped without the user stopping them">Tells you when a tunnel stops on its own</string>
-    <string name="port_forwarding_channel_description" comment="Description of the notification channel that shows which port forwarding tunnels are running">Shows which tunnels are running and lets you stop them</string>
+    <string name="port_forward_unexpected_stop_alerts" comment="Setting title: notify when a tunnel stops without the user stopping it">Bir tünel beklenmedik şekilde durduğunda uyar</string>
+    <string name="port_forward_use_device" comment="Button that moves a tunnel to the device now connected. %1$s is the device name">%1$s kullan</string>
+    <string name="port_forward_use_port" comment="Button that moves a tunnel to a free port. %1$d is the port number">%1$d kullan</string>
+    <string name="port_forward_used_by_tunnel" comment="Error under the local port field. %1$s is the name of the tunnel that already uses the port">\"%1$s\" tarafından kullanılıyor</string>
+    <string name="port_forward_wait_forever" comment="Option for how long to wait for a device: no limit">Asla</string>
+    <string name="port_forward_wait_timeout" comment="Setting title: how long a tunnel waits for its device before it stops">Şu süreden sonra beklemeyi durdur</string>
+    <string name="port_forward_waiting_for_device" comment="Status of a tunnel waiting for its device to reconnect. %1$s is the device name">%1$s bekleniyor</string>
+    <string name="port_forwarding" comment="Feature name and screen title for relaying network ports to this phone, like adb forward">Bağlantı noktası yönlendirme</string>
+    <string name="port_forwarding_alerts" comment="Name of the notification channel used when a port forwarding tunnel stops by itself">Bağlantı noktası yönlendirme uyarıları</string>
+    <string name="port_forwarding_alerts_channel_description" comment="Description of the notification channel for tunnels that stopped without the user stopping them">Bir tünel kendi kendine durduğunda sizi bilgilendirir</string>
+    <string name="port_forwarding_channel_description" comment="Description of the notification channel that shows which port forwarding tunnels are running">Hangi bağlantı noktası yönlendirme tünellerinin çalıştığını gösterir ve bunları durdurmanıza olanak tanır</string>
     <string name="possible_reasons" comment="Dialog section header listing potential causes of ADB connection failure">Olası sebepler</string>
     <string name="power" comment="Button that presses the power key on the mirrored device">Güç</string>
     <string name="pre_release_github" comment="Option in update channel settings to receive GitHub pre-release builds">Ön Sürüm (GitHub)</string>
@@ -1161,7 +1161,7 @@
     <string name="reset_settings_failed" comment="Toast notification when settings reset operation fails">Ayarlar sıfırlanamadı</string>
     <string name="reset_settings_successful" comment="Toast notification confirming settings have been reset to defaults">Ayarlar varsayılana sıfırlandı</string>
     <string name="resolution" comment="Section title in the video quality sheet for the video's size">Çözünürlük</string>
-    <string name="restart" comment="Button that starts stopped items again">Restart</string>
+    <string name="restart" comment="Button that starts stopped items again">Yeniden başlat</string>
     <string name="restart_app" comment="Button that closes and relaunches the app">Uygulamayı yeniden başlat</string>
     <string name="restart_required" comment="Dialog title when the app must be restarted for a change to take effect">Yeniden başlatma gerekiyor</string>
     <string name="restore">Geri yükle</string>
@@ -1188,7 +1188,7 @@
     <string name="save_changes" comment="Action button to persist edited settings or tile parameters">Değişiklikleri Kaydet</string>
     <string name="save_key" comment="Button label to save entered API key string in settings">Anahtarı kaydet</string>
     <string name="save_theme" comment="Button label to save and apply the imported or generated color scheme">Temayı kaydet</string>
-    <string name="save_to_file" comment="Menu item that saves the logs as a text file at a location the user picks">Save to file</string>
+    <string name="save_to_file" comment="Menu item that saves the logs as a text file at a location the user picks">Dosyaya kaydet</string>
     <string name="save_whole_output" comment="Setting toggle title to export full terminal session output to file">Tüm çıktıyı kaydet</string>
     <string name="saved_devices" comment="Screen title and list header for paired ADB devices history">Kayıtlı cihazlar</string>
     <string name="saver" comment="Video quality level that uses the least data and battery">Tasarruf</string>
@@ -1197,7 +1197,7 @@
     <string name="schedule" comment="Header title or setting label for automated backup schedule picker">Zamanlama</string>
     <string name="screen" comment="Device dock button that opens a live view of the connected device's screen which can also be controlled">Ekran</string>
     <string name="screen_density_multiplier" comment="Settings preference title for adjusting UI screen density multiplier">Ekran yoğunluğu çarpanı</string>
-    <string name="screen_mirror" comment="Title of the screen showing and controlling the connected device's screen live, and the drawer button that opens it">Screen Mirror</string>
+    <string name="screen_mirror" comment="Title of the screen showing and controlling the connected device's screen live, and the drawer button that opens it">Ekran Yansıtma</string>
     <string name="screenshot" comment="Button that takes a screenshot on the mirrored device">Ekran görüntüsü</string>
     <string name="scroll_bottom_vibration" comment="Settings preference title for vibrating when scrolling reaches the bottom">Kaydırma sonu titreşimi</string>
     <string name="scroll_to_bottom" comment="Accessibility label for the button that jumps to the newest log entry and resumes auto-scroll">En aşağı kaydır</string>
@@ -1224,7 +1224,7 @@
     <string name="select_backup_folder_message" comment="Dialog message prompting user to grant folder access for local automated backups">Lütfen yedeklerin kaydedileceği bir klasör seçin. Uygulamanın bu klasöre okuma ve yazma iznine ihtiyacı vardır.</string>
     <string name="select_backup_folder_title" comment="Dialog title when no backup directory has been configured">Yedekleme Klasörü Yok</string>
     <string name="select_folder" comment="Action button to open system directory picker for backup storage">Klasör seç</string>
-    <string name="select_logs" comment="Menu item on the logcat screen that starts choosing log entries to copy, share or save">Select logs</string>
+    <string name="select_logs" comment="Menu item on the logcat screen that starts choosing log entries to copy, share or save">Günlükleri seç</string>
     <string name="select_partition" comment="Dropdown hint or dialog header for picking target fastboot partition">Bölüm seçin</string>
     <string name="select_theme_to_edit_hex" comment="Instructional prompt under hex editor section in theme builder">Hex renk kodlarını doğrudan düzenlemek için yukarıdan bir tema seçin.</string>
     <string name="select_time" comment="Button label to open time picker dialog for automated backup schedule">Saat seç</string>
@@ -1308,12 +1308,12 @@
     <string name="stack_trace" comment="Header title for crash log exception stack trace section">Hata dökümü (Stack trace)</string>
     <string name="stargazers" comment="GitHub repository star count label in About screen">Yıldızlayanlar</string>
     <string name="start">Başlat</string>
-    <string name="startup" comment="Settings group title for what happens when the app opens">Startup</string>
+    <string name="startup" comment="Settings group title for what happens when the app opens">Başlangıç</string>
     <string name="status_with_detail" comment="Home card status line. %1$s is a connection state such as Connected, %2$s is the device name, e.g. Connected (Pixel 7)">%1$s (%2$s)</string>
     <string name="status_with_device_and_mode" comment="Wireless debugging home card status line. %1$s is a connection state such as Connected, %2$s is the device name, %3$s is This Device or Other device, e.g. Connected (Pixel 7, Other device)">%1$s (%2$s, %3$s)</string>
     <string name="stop">Durdur</string>
-    <string name="stop_all" comment="Action that stops every running item, such as all port forwarding tunnels">Stop all</string>
-    <string name="stopped" comment="State of something that is not running">Stopped</string>
+    <string name="stop_all" comment="Action that stops every running item, such as all port forwarding tunnels">Tümünü durdur</string>
+    <string name="stopped" comment="State of something that is not running">Durduruldu</string>
     <string name="storage_used_by_ai_models" comment="%.1f = storage size in megabytes">Yapay zeka modelleri %.1f MB yer kaplıyor</string>
     <string name="stream_statistics" comment="Overlay over the mirrored video. %1$s is a size, %2$s a frame rate, %3$d a count of dropped frames, %4$s a data rate, %5$s a codec">%1$s · %2$s · %3$d kare düştü · %4$s · %5$s</string>
     <string name="style_filled">Dolu</string>
@@ -1354,7 +1354,7 @@
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">Terminal yazı tipi</string>
     <string name="terms_of_service" comment="Title for the Terms of Service legal document">Kullanım Şartları</string>
     <string name="tertiary">Üçüncül</string>
-    <string name="test" comment="Button that checks whether a server can be reached">Test</string>
+    <string name="test" comment="Button that checks whether a server can be reached">Test et</string>
     <string name="theme_import_failed" comment="Toast shown when a color scheme file fails to be read or deserialized">Renk şeması içe aktarılamadı</string>
     <string name="theme_mode" comment="Settings option for choosing between system, light and dark appearance">Tema modu</string>
     <string name="theme_name" comment="Label for the text field where user can edit the name of an imported theme">Tema adı</string>
@@ -1386,7 +1386,7 @@
     <string name="troubleshoot">Sorun Giderme</string>
     <string name="troubleshoot_reconnect">Kablosuz hata ayıklamayı kapatıp açarak bağlantıyı tazeleyin</string>
     <string name="try_different_search">Farklı bir arama terimi deneyin</string>
-    <string name="turn_off" comment="Button that turns an option off">Turn off</string>
+    <string name="turn_off" comment="Button that turns an option off">Kapat</string>
     <string name="turn_off_mobile_data">Wi-Fi ağında İNTERNET YOKSA Mobil Veriyi kapatın</string>
     <string name="tweak_your_experience">Deneyiminizi özelleştirin</string>
     <string name="type">Tür</string>
@@ -1480,58 +1480,58 @@
         <item quantity="other">%1$d yeni kayıt</item>
     </plurals>
     <plurals name="logs_copied" comment="Toast shown after copying logcat entries to the clipboard; %1$d = number of entries copied">
-        <item quantity="one">Copied %1$d log</item>
-        <item quantity="other">Copied %1$d logs</item>
+        <item quantity="one">%1$d günlük kopyalandı</item>
+        <item quantity="other">%1$d günlük kopyalandı</item>
     </plurals>
     <plurals name="profiles_selected" comment="Header of the logcat filter profile list while choosing profiles to edit or delete; %1$d = number chosen">
         <item quantity="one">%1$d seçildi</item>
         <item quantity="other">%1$d seçildi</item>
     </plurals>
     <plurals name="selected_count" comment="Title of a top bar while choosing list items; %1$d = number of items selected">
-        <item quantity="one">%1$d selected</item>
-        <item quantity="other">%1$d selected</item>
+        <item quantity="one">%1$d öğe seçildi</item>
+        <item quantity="other">%1$d öğe seçildi</item>
     </plurals>
     <plurals name="timeout_minutes" comment="Option for minute timeouts">
         <item quantity="one">%1$d dakika</item>
         <item quantity="other">%1$d dakika</item>
     </plurals>
     <plurals name="port_forward_tunnels_running" comment="Notification title. %1$d is the number of running port forwarding tunnels">
-        <item quantity="one">%1$d tunnel running</item>
-        <item quantity="other">%1$d tunnels running</item>
+        <item quantity="one">%1$d tünel çalışıyor</item>
+        <item quantity="other">%1$d tünel çalışıyor</item>
     </plurals>
     <plurals name="port_forward_notification_waiting_count" comment="Part of the notification summary. %1$d is the number of tunnels waiting for a network">
-        <item quantity="one">%1$d waiting</item>
-        <item quantity="other">%1$d waiting</item>
+        <item quantity="one">%1$d tünel bekleniyor</item>
+        <item quantity="other">%1$d tünel bekleniyor</item>
     </plurals>
     <plurals name="port_forward_notification_attention_count" comment="Part of the notification summary. %1$d is the number of tunnels with a problem">
-        <item quantity="one">%1$d needs attention</item>
-        <item quantity="other">%1$d need attention</item>
+        <item quantity="one">%1$d tünelin ilgilenilmesi gerekiyor</item>
+        <item quantity="other">%1$d tünelin ilgilenilmesi gerekiyor</item>
     </plurals>
     <plurals name="n_seconds" comment="A duration in seconds. %1$d is the number">
-        <item quantity="one">%1$d second</item>
-        <item quantity="other">%1$d seconds</item>
+        <item quantity="one">%1$d saniye</item>
+        <item quantity="other">%1$d saniye</item>
     </plurals>
     <plurals name="port_forward_interrupted" comment="Banner when Android stopped tunnels while they were running. %1$d is the number of tunnels">
-        <item quantity="one">%1$d tunnel stopped unexpectedly</item>
-        <item quantity="other">%1$d tunnels stopped unexpectedly</item>
+        <item quantity="one">%1$d tünel beklenmedik şekilde durdu</item>
+        <item quantity="other">%1$d tünel beklenmedik şekilde durdu</item>
     </plurals>
     <plurals name="port_forward_stopped_all" comment="Snackbar after stopping all tunnels. %1$d is the number of tunnels">
-        <item quantity="one">%1$d tunnel stopped</item>
-        <item quantity="other">%1$d tunnels stopped</item>
+        <item quantity="one">%1$d tünel durduruldu</item>
+        <item quantity="other">%1$d tünel durduruldu</item>
     </plurals>
     <plurals name="port_forward_disable_sharing_message" comment="Dialog text before turning off sharing. %1$d is the number of shared tunnels that will restart">
-        <item quantity="one">%1$d shared tunnel will restart on this phone only.</item>
-        <item quantity="other">%1$d shared tunnels will restart on this phone only.</item>
+        <item quantity="one">%1$d paylaşılan tünel yalnızca bu telefonda yeniden başlatılacak.</item>
+        <item quantity="other">%1$d paylaşılan tünel yalnızca bu telefonda yeniden başlatılacak.</item>
     </plurals>
     <plurals name="port_forward_running_count" comment="Badge on the home card. %1$d is the number of running tunnels">
-        <item quantity="one">%1$d running</item>
-        <item quantity="other">%1$d running</item>
+        <item quantity="one">%1$d çalışıyor</item>
+        <item quantity="other">%1$d çalışıyor</item>
     </plurals>
     <plurals name="disconnect_stops_tunnels" comment="Dialog text: port forwarding tunnels to this device stop when it disconnects. %1$d is the number of tunnels">
-        <item quantity="one">%1$d tunnel to this device will stop.</item>
-        <item quantity="other">%1$d tunnels to this device will stop.</item>
+        <item quantity="one">Bu cihaza giden %1$d tünel duracak.</item>
+        <item quantity="other">Bu cihaza giden %1$d tünel duracak.</item>
     </plurals>
-    <string name="changelog_v8_0_0">\nFor GitHub flavor builds, added AI chatbot with capabilities to execute commands (need user opt-in), manage app database and access app features like Quick Settings Tiles.\nAdded Fastboot, ADB Sideload and dedicated Logcat viewer\nAdded Port forwarding feature\nAdded ADB TCP/IP connection mode in Local Adb\nAdded Scrcpy screen mirroring feature in Wireless Debugging and USB debugging modes\nAdded capability to run certain adb commands like adb tcpip, adb pair, adb connect, adb devices, etc. through Wireless Debugging (WiFi-ADB) shell and Local ADB TCP/IP mode\nAdded TCP mode for Quick Settings Tile execution\nAdded Backup Scheduler (for Github builds only)\nAdded the ability to select and copy text directly from shell output\nImproved bookmarks view\nAdded app UI and font scale customisation with auto-scale feature\nAdded the ability to change app typography font with the ability to import user\'s font files\nAdded option to launch Local ADB screen as default work place\nAdded a lot of icons in the QS tile icon chooser feature\nApp icon is now themed based on Material You color scheme\nAdded checks for invalid or non-existent directories when using ADB commands like cd\nAdded Privacy Policy regarding user data handling\nLots of UI and UX improvements\nFixed a whole lot of bugs</string>
+    <string name="changelog_v8_0_0">\nGitHub sürümü derlemeleri için, komut çalıştırma yeteneklerine (kullanıcı onayı gerektirir) sahip yapay zeka sohbet botu eklendi, uygulama veritabanı yönetimi ve Hızlı Ayarlar Kutucukları gibi uygulama özelliklerine erişim sağlandı.\nFastboot, ADB Sideload ve özel Logcat görüntüleyicisi eklendi.\nBağlantı noktası yönlendirme özelliği eklendi.\nYerel ADB\'ye ADB TCP/IP bağlantı modu eklendi.\nKablosuz Hata Ayıklama ve USB hata ayıklama modlarına Scrcpy ekran yansıtma özelliği eklendi.\nKablosuz Hata Ayıklama (WiFi-ADB) kabuğu ve Yerel ADB TCP/IP modu aracılığıyla adb tcpip, adb pair, adb connect, adb devices vb. belirli adb komutlarını çalıştırma yeteneği eklendi.\nHızlı Ayarlar Kutucuğu yürütmesi için TCP modu eklendi.\nYedekleme Zamanlayıcısı eklendi (Yalnızca Github derlemeleri için).\nDoğrudan kabuk çıktısından metin seçme ve kopyalama yeteneği eklendi.\nYer imleri görünümü iyileştirildi.\nOtomatik ölçeklendirme özelliğine sahip uygulama arayüzü ve yazı tipi ölçeği özelleştirmesi eklendi.\nKullanıcının kendi yazı tipi dosyalarını içe aktarma yeteneği ile uygulama tipografisi yazı tipini değiştirme yeteneği eklendi.\nVarsayılan çalışma alanı olarak Yerel ADB ekranını başlatma seçeneği eklendi.\nHızlı Ayarlar kutucuğu simge seçici özelliğine çok sayıda simge eklendi.\nUygulama simgesi artık Material You renk şemasına göre temalandırıldı.\ncd gibi ADB komutları kullanılırken geçersiz veya var olmayan dizinler için kontroller eklendi.\nKullanıcı verilerinin işlenmesiyle ilgili Gizlilik Politikası eklendi.\nÇok sayıda arayüz ve kullanıcı deneyimi iyileştirmesi yapıldı.\nBirçok hata düzeltildi</string>
     <string name="changelog_v7_4_0">\nAyarlar ekranlarında artık alt ayarları arayabilirsiniz\nRenk şemaları için Palet Stilleri eklendi\nUygulama dilini doğrudan içeriden değiştirme seçeneği eklendi</string>
     <string name="changelog_v7_3_0">\nDeğişiklik günlüğü ekranının arayüzü yenilendi\nHakkında bölümüne çeviriye katkıda bulunanlar eklendi\nUygulama ve kullanılan kütüphanelerin lisans ayrıntılarını gösteren Lisanslar ekranı eklendi</string>
     <string name="changelog_v7_2_1">\nBakım ve kararlılık güncellemesi!</string>
