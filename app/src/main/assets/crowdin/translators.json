@@ -322,6 +322,21 @@
     "avatar": "crowdin/contributors_pfp/contributor_16611103.webp"
   },
   {
+    "id": "17998641",
+    "username": "halilibrahirn",
+    "name": "Halil Selçuk (halilibrahirn)",
+    "translated": 125,
+    "approved": 0,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17998641/medium/5f9af62cf2158cbe1f6b369f480be164.gif",
+    "languages": [
+      {
+        "id": "tr",
+        "name": "Turkish"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_17998641.webp"
+  },
+  {
     "id": "17224270",
     "username": "hypnotichemionus4",
     "name": "hypnotichemionus4",
@@ -335,21 +350,6 @@
       }
     ],
     "avatar": "crowdin/contributors_pfp/contributor_17224270.webp"
-  },
-  {
-    "id": "17998641",
-    "username": "halilibrahirn",
-    "name": "Halil Selçuk (halilibrahirn)",
-    "translated": 112,
-    "approved": 0,
-    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/17998641/medium/5f9af62cf2158cbe1f6b369f480be164.gif",
-    "languages": [
-      {
-        "id": "tr",
-        "name": "Turkish"
-      }
-    ],
-    "avatar": "crowdin/contributors_pfp/contributor_17998641.webp"
   },
   {
     "id": "16623243",

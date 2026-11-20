@@ -167,20 +167,20 @@ Thanks to these translators and proofreaders, this project exists:
     </tr>
     <tr>
       <td align="center" valign="top">
-        <a href="https://crowdin.com/profile/hypnotichemionus4"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17224270/medium/0fc754148233c16e7383ffdc13fd6c97_default.png" />
-          <br />
-          <sub><b>hypnotichemionus4</b></sub></a>
-        <br />
-        <sub><b>113 words</b></sub>
-      </td>
-      <td align="center" valign="top">
         <a href="https://crowdin.com/profile/halilibrahirn"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17998641/medium/5f9af62cf2158cbe1f6b369f480be164.gif" />
           <br />
           <sub><b>Halil Selçuk</b></sub>
           <br />
           <sub><b>(halilibrahirn)</b></sub></a>
         <br />
-        <sub><b>112 words</b></sub>
+        <sub><b>125 words</b></sub>
+      </td>
+      <td align="center" valign="top">
+        <a href="https://crowdin.com/profile/hypnotichemionus4"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/17224270/medium/0fc754148233c16e7383ffdc13fd6c97_default.png" />
+          <br />
+          <sub><b>hypnotichemionus4</b></sub></a>
+        <br />
+        <sub><b>113 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/R9TRH"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16623243/medium/87137f31b65ee3f2e1a137eafcf9729d.jpeg" />
