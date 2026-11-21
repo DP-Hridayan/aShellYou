@@ -7,17 +7,17 @@
 <br/>
 
 <p align="center">
-  <img alt="GitHub stars" src="https://img.shields.io/github/stars/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Stars" />
-  <img alt="Global Rank" src="https://img.shields.io/badge/Global%20Rank-TOP%200.5%25-6750A4?style=for-the-badge&logo=github" />
-  <img alt="Kotlin Rank" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgitranks.com%2Fapi%2Fbadge%2Fv3%2Frepo%2FDP-Hridayan%2FaShellYou&query=%24.rank.l&style=for-the-badge&logo=kotlin&logoColor=white&label=Kotlin%20Rank&prefix=%23&color=B125E3" />
-  <img alt="GitHub forks" src="https://img.shields.io/github/forks/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Forks" />
-  <img alt="GitHub issues" src="https://img.shields.io/github/issues/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Issues" />
-  <img alt="GitHub release" src="https://img.shields.io/github/v/release/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Release" />
-  <img alt="Reproducible" src="https://shields.rbtlog.dev/simple/in.hridayan.ashell?style=for-the-badge" />
-  <img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/DP-Hridayan/aShellYou/total?style=for-the-badge&logo=download&label=Downloads" />
-  <img alt="Contributors" src="https://img.shields.io/github/contributors/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Contributors" />
-  <img alt="License" src="https://img.shields.io/github/license/DP-Hridayan/aShellYou?style=for-the-badge&logo=open-source-initiative&label=License" />
-  <img alt="Crowdin" src="https://img.shields.io/badge/Translation-Crowdin-222222?style=for-the-badge&logo=crowdin&logoColor=white" />
+  <a href="https://github.com/DP-Hridayan/aShellYou/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Stars" /></a>
+  <a href="https://gitranks.com/repo/DP-Hridayan/aShellYou"><img alt="Global Rank" src="https://img.shields.io/badge/Global%20Rank-TOP%200.5%25-6750A4?style=for-the-badge&logo=github" /></a>
+  <a href="https://gitranks.com/repo/DP-Hridayan/aShellYou"><img alt="Kotlin Rank" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgitranks.com%2Fapi%2Fbadge%2Fv3%2Frepo%2FDP-Hridayan%2FaShellYou&query=%24.rank.l&style=for-the-badge&logo=kotlin&logoColor=white&label=Kotlin%20Rank&prefix=%23&color=B125E3" /></a>
+  <a href="https://github.com/DP-Hridayan/aShellYou/forks"><img alt="GitHub forks" src="https://img.shields.io/github/forks/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Forks" /></a>
+  <a href="https://github.com/DP-Hridayan/aShellYou/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Issues" /></a>
+  <a href="https://github.com/DP-Hridayan/aShellYou/releases/latest"><img alt="GitHub release" src="https://img.shields.io/github/v/release/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Release" /></a>
+  <a href="https://shields.rbtlog.dev/in.hridayan.ashell"><img alt="Reproducible" src="https://shields.rbtlog.dev/simple/in.hridayan.ashell?style=for-the-badge" /></a>
+  <a href="https://github.com/DP-Hridayan/aShellYou/releases"><img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/DP-Hridayan/aShellYou/total?style=for-the-badge&logo=download&label=Downloads" /></a>
+  <a href="https://github.com/DP-Hridayan/aShellYou/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Contributors" /></a>
+  <a href="https://github.com/DP-Hridayan/aShellYou/blob/master/LICENSE.md"><img alt="License" src="https://img.shields.io/github/license/DP-Hridayan/aShellYou?style=for-the-badge&logo=open-source-initiative&label=License" /></a>
+  <a href="https://crowdin.com/project/ashellyou"><img alt="Crowdin" src="https://img.shields.io/badge/Translation-Crowdin-222222?style=for-the-badge&logo=crowdin&logoColor=white" /></a>
 </p>
 
 <p align="center">
@@ -40,7 +40,7 @@
   <img alt="Target SDK" src="https://img.shields.io/badge/TargetSDK-37-blue?style=for-the-badge" />
 </p>
 
-</br>
+<br/>
 
 <h2 align="center">Screenshots</h2>
 
