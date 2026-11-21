@@ -111,8 +111,11 @@ public class AdbConnectionFlowTest {
 		Thread.sleep(200);
 		assertEquals(Arrays.asList(maxPayload), channel.writePayloadSizes());
 
-		channel.deliver(AdbProtocol.generateReady(REMOTE_A, localIdOf(1)));
-		channel.deliver(AdbProtocol.generateReady(REMOTE_A, localIdOf(1)));
+		for (int chunk = 2; chunk <= 3; chunk++) {
+			CountDownLatch nextChunk = channel.awaitCommand(AdbProtocol.CMD_WRTE);
+			channel.deliver(AdbProtocol.generateReady(REMOTE_A, localIdOf(1)));
+			assertTrue(nextChunk.await(STEP_TIMEOUT_MS, TimeUnit.MILLISECONDS));
+		}
 		writing.get(STEP_TIMEOUT_MS, TimeUnit.MILLISECONDS);
 
 		assertEquals(Arrays.asList(maxPayload, maxPayload, 10), channel.writePayloadSizes());
