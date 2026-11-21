@@ -7,8 +7,11 @@
 </br>
 
 <p align="center">
-<a href="https://github.com/DP-Hridayan/aShellYou/stargazers">
+  <a href="https://github.com/DP-Hridayan/aShellYou/stargazers">
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Stars" />
+  </a>
+  <a href="https://gitranks.com/repo/DP-Hridayan/aShellYou">
+    <img alt="Repo rank" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgitranks.com%2Fapi%2Fbadge%2Fv3%2Frepo%2FDP-Hridayan%2FaShellYou&query=%24.rank.s&style=for-the-badge&logo=github&label=Rank&prefix=%23&color=6750A4" />
   </a>
   <a href="https://github.com/DP-Hridayan/aShellYou/forks">
     <img alt="GitHub forks" src="https://img.shields.io/github/forks/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Forks" />
