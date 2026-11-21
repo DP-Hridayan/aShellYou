@@ -11,7 +11,7 @@
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/DP-Hridayan/aShellYou?style=for-the-badge&logo=github&label=Stars" />
   </a>
   <a href="https://gitranks.com/repo/DP-Hridayan/aShellYou">
-    <img alt="Global Rank" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgitranks.com%2Fapi%2Fbadge%2Fv3%2Frepo%2FDP-Hridayan%2FaShellYou&query=%24.rank.s&style=for-the-badge&logo=github&label=Global%20Rank&prefix=%23&suffix=%20(Top%200.5%25)&color=6750A4" />
+    <img alt="Global Rank" src="https://img.shields.io/badge/Global%20Rank-TOP%200.5%25-6750A4?style=for-the-badge&logo=github" />
   </a>
   <a href="https://gitranks.com/repo/DP-Hridayan/aShellYou">
     <img alt="Kotlin Rank" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgitranks.com%2Fapi%2Fbadge%2Fv3%2Frepo%2FDP-Hridayan%2FaShellYou&query=%24.rank.l&style=for-the-badge&logo=kotlin&logoColor=white&label=Kotlin%20Rank&prefix=%23&color=B125E3" />
