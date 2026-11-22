@@ -205,28 +205,33 @@ fun HomeScreen(
             }
 
             item {
-                FlexBox(
+                Column(
                     modifier = Modifier.fillMaxWidth(),
-                    config = {
-                        direction(FlexDirection.Row)
-                        wrap(FlexWrap.Wrap)
-                        gap(10.dp)
-                        alignItems(FlexAlignItems.Stretch)
-                    }
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    LocalAdbCard(
-                        modifier = Modifier.flex { grow(1f) },
-                        enabledLocalAdbMode = localAdbWorkingMode,
-                        onClick = withHaptic {
-                            onLocalAdbClick()
+                    FlexBox(
+                        modifier = Modifier.fillMaxWidth(),
+                        config = {
+                            direction(FlexDirection.Row)
+                            wrap(FlexWrap.Wrap)
+                            gap(10.dp)
+                            alignItems(FlexAlignItems.Stretch)
                         }
-                    )
+                    ) {
+                        LocalAdbCard(
+                            modifier = Modifier.flex { grow(1f) },
+                            enabledLocalAdbMode = localAdbWorkingMode,
+                            onClick = withHaptic {
+                                onLocalAdbClick()
+                            }
+                        )
 
-                    OtgAdbCard(
-                        modifier = Modifier.flex { grow(1f) },
-                        status = otgStatus,
-                        onClick = withHaptic { onClickOtgAdbCard() }
-                    )
+                        OtgAdbCard(
+                            modifier = Modifier.flex { grow(1f) },
+                            status = otgStatus,
+                            onClick = withHaptic { onClickOtgAdbCard() }
+                        )
+                    }
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                         WirelessDebuggingCard(
