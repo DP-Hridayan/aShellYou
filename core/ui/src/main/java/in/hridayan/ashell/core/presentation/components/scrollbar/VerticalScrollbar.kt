@@ -22,6 +22,8 @@ private class ScrollbarMetrics {
     var lastFirstIndex = -1
     var spacingPx = 0f
     var viewportWidth = -1
+    var totalHeight = 0f
+    var totalItemCount = -1
     var initialized = false
 
     fun record(index: Int, height: Int) {
@@ -45,6 +47,8 @@ private class ScrollbarMetrics {
         lastFirstIndex = -1
         spacingPx = 0f
         viewportWidth = -1
+        totalHeight = 0f
+        totalItemCount = -1
         initialized = false
     }
 
@@ -103,6 +107,7 @@ fun VerticalScrollbar(
             val last = visibleItems.last()
             val firstIndex = first.index
             val atTop = firstIndex == 0 && listState.firstVisibleItemScrollOffset == 0
+            val atBottom = !listState.canScrollForward
 
             if (!metrics.initialized) {
                 metrics.cumulativeBefore = firstIndex * stepHeight
@@ -127,13 +132,28 @@ fun VerticalScrollbar(
 
             val scrollOffset = metrics.cumulativeBefore + listState.firstVisibleItemScrollOffset
             val unseenAfter = itemCount - 1 - last.index
-            val contentHeight = scrollOffset + last.offset + last.size + stepHeight * unseenAfter
+            val anchored = scrollOffset + last.offset + last.size + stepHeight * unseenAfter
+            if (metrics.totalItemCount != itemCount) {
+                val grew = metrics.totalItemCount < 0 || itemCount > metrics.totalItemCount
+                metrics.totalHeight = if (grew) {
+                    maxOf(metrics.totalHeight, anchored)
+                } else {
+                    anchored
+                }
+                metrics.totalItemCount = itemCount
+            } else if (atBottom) {
+                metrics.totalHeight = anchored
+            } else if (!listState.isScrollInProgress) {
+                metrics.totalHeight = maxOf(metrics.totalHeight, anchored)
+            }
+            val contentHeight = metrics.totalHeight
             if (contentHeight <= trackHeight) return@drawBehind
+            if (atTop && !listState.canScrollForward) return@drawBehind
 
             val maxScroll = (contentHeight - trackHeight).coerceAtLeast(1f)
             val progress = when {
                 atTop || !listState.canScrollBackward -> 0f
-                !listState.canScrollForward -> 1f
+                atBottom -> 1f
                 else -> (scrollOffset / maxScroll).coerceIn(0f, 1f)
             }
 
