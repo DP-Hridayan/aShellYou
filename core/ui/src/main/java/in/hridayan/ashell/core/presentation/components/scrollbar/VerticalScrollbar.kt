@@ -21,13 +21,15 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 
+private const val THUMB_TRACK_FRACTION = 0.25f
+
 @Composable
 fun VerticalScrollbar(
     modifier: Modifier = Modifier,
     listState: LazyListState,
     thumbSize: Int = 16
 ) {
-    val shouldShowScrollbar by remember {
+    val shouldShowScrollbar by remember(listState) {
         derivedStateOf {
             val layoutInfo = listState.layoutInfo
             val totalItems = layoutInfo.totalItemsCount
@@ -41,46 +43,23 @@ fun VerticalScrollbar(
     val density = LocalDensity.current
     var trackHeightPx by remember { mutableFloatStateOf(0f) }
 
-    val metrics by remember(listState, thumbSize, density) {
-        derivedStateOf {
-            val layoutInfo = listState.layoutInfo
-            val visibleItems = layoutInfo.visibleItemsInfo
-            val viewportHeight =
-                (layoutInfo.viewportEndOffset - layoutInfo.viewportStartOffset).toFloat()
-            val averageItemHeight = if (visibleItems.isNotEmpty()) {
-                visibleItems.sumOf { it.size }.toFloat() / visibleItems.size
-            } else {
-                0f
-            }
-            val estimatedContentHeight = averageItemHeight * layoutInfo.totalItemsCount
-            val visibleFraction = if (estimatedContentHeight > 0f) {
-                (viewportHeight / estimatedContentHeight).coerceIn(0f, 1f)
-            } else {
-                0f
-            }
-            val minThumbPx = with(density) { thumbSize.dp.toPx() }
-            val thumbHeightPx = if (trackHeightPx > 0f) {
-                (visibleFraction * trackHeightPx).coerceIn(
-                    minThumbPx.coerceAtMost(trackHeightPx),
-                    trackHeightPx
-                )
-            } else {
-                0f
-            }
-            val maxScroll = (estimatedContentHeight - viewportHeight).coerceAtLeast(1f)
-            val firstVisibleItem = visibleItems.firstOrNull()
-            val scrollOffset = if (firstVisibleItem != null) {
-                (firstVisibleItem.index * averageItemHeight) - firstVisibleItem.offset
-            } else {
-                0f
-            }
-            val progress = (scrollOffset / maxScroll).coerceIn(0f, 1f)
-            thumbHeightPx to progress
-        }
+    val thumbHeightPx = if (trackHeightPx > 0f) {
+        (trackHeightPx * THUMB_TRACK_FRACTION)
+            .coerceAtLeast(with(density) { thumbSize.dp.toPx() })
+            .coerceAtMost(trackHeightPx)
+    } else {
+        0f
     }
 
-    val thumbHeightPx = metrics.first
-    val progress = metrics.second
+    val progress by remember(listState) {
+        derivedStateOf {
+            val layoutInfo = listState.layoutInfo
+            val totalItems = layoutInfo.totalItemsCount
+            val visibleItems = layoutInfo.visibleItemsInfo.size
+            val totalScrollableItems = (totalItems - visibleItems).coerceAtLeast(1)
+            (listState.firstVisibleItemIndex / totalScrollableItems.toFloat()).coerceIn(0f, 1f)
+        }
+    }
 
     Box(
         modifier = modifier
