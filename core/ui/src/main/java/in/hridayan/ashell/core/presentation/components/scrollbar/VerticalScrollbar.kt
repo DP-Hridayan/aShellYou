@@ -48,23 +48,36 @@ fun VerticalScrollbar(
         modifier = modifier.drawBehind {
             val layoutInfo = listState.layoutInfo
             val itemCount = layoutInfo.totalItemsCount
-            val visibleCount = layoutInfo.visibleItemsInfo.size
-            if (itemCount <= 0 || visibleCount <= 0 || itemCount <= visibleCount) return@drawBehind
+            val visibleItems = layoutInfo.visibleItemsInfo
+            if (itemCount <= 0 || visibleItems.isEmpty()) return@drawBehind
 
             val trackHeight = size.height
             if (trackHeight <= 0f) return@drawBehind
 
-            val contentHeight = estimatedItemHeight * itemCount
-            val visibleFraction = if (contentHeight > 0f) {
-                (trackHeight / contentHeight).coerceIn(0f, 1f)
+            val firstVisible = visibleItems.first()
+            val lastVisible = visibleItems.last()
+            val isScrollable = firstVisible.index > 0 ||
+                listState.firstVisibleItemScrollOffset > 0 ||
+                lastVisible.index < itemCount - 1 ||
+                lastVisible.offset + lastVisible.size > layoutInfo.viewportEndOffset
+            if (!isScrollable) return@drawBehind
+
+            val itemHeight = if (estimatedItemHeight > 0f) {
+                estimatedItemHeight
             } else {
-                0f
+                visibleItems.sumOf { it.size }.toFloat() / visibleItems.size
             }
+            if (itemHeight <= 0f) return@drawBehind
+
+            val contentHeight = itemHeight * itemCount
+            val visibleFraction = (trackHeight / contentHeight).coerceIn(0f, 1f)
             val thumbHeight = (visibleFraction * trackHeight)
                 .coerceIn(minThumbPx.coerceAtMost(trackHeight), trackHeight)
-            val totalScrollableItems = (itemCount - visibleCount).coerceAtLeast(1)
-            val progress = (listState.firstVisibleItemIndex / totalScrollableItems.toFloat())
-                .coerceIn(0f, 1f)
+
+            val maxScroll = (contentHeight - trackHeight).coerceAtLeast(1f)
+            val scrollOffset =
+                listState.firstVisibleItemIndex * itemHeight + listState.firstVisibleItemScrollOffset
+            val progress = (scrollOffset / maxScroll).coerceIn(0f, 1f)
             val thumbOffsetY = progress * (trackHeight - thumbHeight).coerceAtLeast(0f)
 
             val radius = size.width / 2f
