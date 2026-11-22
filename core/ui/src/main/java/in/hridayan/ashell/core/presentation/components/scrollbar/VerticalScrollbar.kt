@@ -1,27 +1,23 @@
 package `in`.hridayan.ashell.core.presentation.components.scrollbar
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-
-private const val THUMB_TRACK_FRACTION = 0.25f
+import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Composable
 fun VerticalScrollbar(
@@ -29,53 +25,60 @@ fun VerticalScrollbar(
     listState: LazyListState,
     thumbSize: Int = 16
 ) {
-    val shouldShowScrollbar by remember(listState) {
-        derivedStateOf {
-            val layoutInfo = listState.layoutInfo
-            val totalItems = layoutInfo.totalItemsCount
-            val visibleItems = layoutInfo.visibleItemsInfo.size
-            totalItems > 0 && visibleItems > 0 && totalItems > visibleItems
-        }
-    }
+    var estimatedItemHeight by remember(listState) { mutableFloatStateOf(0f) }
 
-    if (!shouldShowScrollbar) return
+    LaunchedEffect(listState) {
+        snapshotFlow { listState.layoutInfo.totalItemsCount }
+            .distinctUntilChanged()
+            .collect {
+                val visibleItems = listState.layoutInfo.visibleItemsInfo
+                if (visibleItems.isNotEmpty()) {
+                    estimatedItemHeight =
+                        visibleItems.sumOf { it.size }.toFloat() / visibleItems.size
+                }
+            }
+    }
 
     val density = LocalDensity.current
-    var trackHeightPx by remember { mutableFloatStateOf(0f) }
-
-    val thumbHeightPx = if (trackHeightPx > 0f) {
-        (trackHeightPx * THUMB_TRACK_FRACTION)
-            .coerceAtLeast(with(density) { thumbSize.dp.toPx() })
-            .coerceAtMost(trackHeightPx)
-    } else {
-        0f
-    }
-
-    val progress by remember(listState) {
-        derivedStateOf {
-            val layoutInfo = listState.layoutInfo
-            val totalItems = layoutInfo.totalItemsCount
-            val visibleItems = layoutInfo.visibleItemsInfo.size
-            val totalScrollableItems = (totalItems - visibleItems).coerceAtLeast(1)
-            (listState.firstVisibleItemIndex / totalScrollableItems.toFloat()).coerceIn(0f, 1f)
-        }
-    }
+    val minThumbPx = with(density) { thumbSize.dp.toPx() }
+    val trackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
+    val thumbColor = MaterialTheme.colorScheme.primary
 
     Box(
-        modifier = modifier
-            .onSizeChanged { trackHeightPx = it.height.toFloat() }
-            .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f), CircleShape)
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(with(density) { thumbHeightPx.toDp() })
-                .align(Alignment.TopStart)
-                .offset {
-                    val travel = (trackHeightPx - thumbHeightPx).coerceAtLeast(0f)
-                    IntOffset(0, (progress * travel).toInt())
-                }
-                .background(MaterialTheme.colorScheme.primary, CircleShape)
-        )
-    }
+        modifier = modifier.drawBehind {
+            val layoutInfo = listState.layoutInfo
+            val itemCount = layoutInfo.totalItemsCount
+            val visibleCount = layoutInfo.visibleItemsInfo.size
+            if (itemCount <= 0 || visibleCount <= 0 || itemCount <= visibleCount) return@drawBehind
+
+            val trackHeight = size.height
+            if (trackHeight <= 0f) return@drawBehind
+
+            val contentHeight = estimatedItemHeight * itemCount
+            val visibleFraction = if (contentHeight > 0f) {
+                (trackHeight / contentHeight).coerceIn(0f, 1f)
+            } else {
+                0f
+            }
+            val thumbHeight = (visibleFraction * trackHeight)
+                .coerceIn(minThumbPx.coerceAtMost(trackHeight), trackHeight)
+            val totalScrollableItems = (itemCount - visibleCount).coerceAtLeast(1)
+            val progress = (listState.firstVisibleItemIndex / totalScrollableItems.toFloat())
+                .coerceIn(0f, 1f)
+            val thumbOffsetY = progress * (trackHeight - thumbHeight).coerceAtLeast(0f)
+
+            val radius = size.width / 2f
+            drawRoundRect(
+                color = trackColor,
+                size = Size(size.width, trackHeight),
+                cornerRadius = CornerRadius(radius, radius)
+            )
+            drawRoundRect(
+                color = thumbColor,
+                topLeft = Offset(0f, thumbOffsetY),
+                size = Size(size.width, thumbHeight),
+                cornerRadius = CornerRadius(radius, radius)
+            )
+        }
+    )
 }
