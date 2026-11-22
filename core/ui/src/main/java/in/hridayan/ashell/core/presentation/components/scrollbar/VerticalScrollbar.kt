@@ -1,6 +1,7 @@
 package `in`.hridayan.ashell.core.presentation.components.scrollbar
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.lazy.LazyListItemInfo
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -17,10 +18,10 @@ private class ScrollbarMetrics {
     val heights = HashMap<Int, Int>()
     var measuredSum = 0L
     var measuredCount = 0
-    var appliedAverage = 0f
-    var appliedItemCount = -1
     var cumulativeBefore = 0f
-    var lastFirstIndex = 0
+    var lastFirstIndex = -1
+    var spacingPx = 0f
+    var viewportWidth = -1
     var initialized = false
 
     fun record(index: Int, height: Int) {
@@ -40,10 +41,10 @@ private class ScrollbarMetrics {
         heights.clear()
         measuredSum = 0L
         measuredCount = 0
-        appliedAverage = 0f
-        appliedItemCount = -1
         cumulativeBefore = 0f
-        lastFirstIndex = 0
+        lastFirstIndex = -1
+        spacingPx = 0f
+        viewportWidth = -1
         initialized = false
     }
 
@@ -72,50 +73,49 @@ fun VerticalScrollbar(
                 metrics.reset()
                 return@drawBehind
             }
-            if ((metrics.initialized && metrics.lastFirstIndex >= itemCount) ||
-                metrics.measuredCount > itemCount ||
-                (metrics.appliedItemCount >= 0 && itemCount < metrics.appliedItemCount)
+
+            val viewportWidth = layoutInfo.viewportSize.width
+            if (metrics.measuredCount > itemCount ||
+                (metrics.viewportWidth >= 0 && metrics.viewportWidth != viewportWidth)
             ) {
                 metrics.reset()
             }
+            metrics.viewportWidth = viewportWidth
 
             visibleItems.forEach { metrics.record(it.index, it.size) }
 
             val trackHeight = size.height
             if (trackHeight <= 0f) return@drawBehind
 
-            val first = visibleItems.first()
-            val last = visibleItems.last()
-            val atTop = first.index == 0 && listState.firstVisibleItemScrollOffset == 0
-            val atBottom = last.index == itemCount - 1 &&
-                last.offset + last.size <= layoutInfo.viewportEndOffset + 1
-            if (atTop && atBottom) return@drawBehind
-
-            if (metrics.appliedAverage <= 0f || metrics.appliedItemCount != itemCount) {
-                metrics.appliedAverage = if (metrics.measuredCount > 0) {
-                    metrics.measuredSum.toFloat() / metrics.measuredCount
-                } else {
-                    0f
-                }
-                metrics.appliedItemCount = itemCount
+            val average = if (metrics.measuredCount > 0) {
+                metrics.measuredSum.toFloat() / metrics.measuredCount
+            } else {
+                0f
             }
-            val average = metrics.appliedAverage
             if (average <= 0f) return@drawBehind
 
+            val measuredSpacing = visibleSpacing(visibleItems)
+            if (measuredSpacing > 0f) metrics.spacingPx = measuredSpacing
+            val spacing = metrics.spacingPx
+            val stepHeight = average + spacing
+
+            val first = visibleItems.first()
+            val last = visibleItems.last()
             val firstIndex = first.index
+            val atTop = firstIndex == 0 && listState.firstVisibleItemScrollOffset == 0
+
             if (!metrics.initialized) {
-                metrics.cumulativeBefore = firstIndex * average
+                metrics.cumulativeBefore = firstIndex * stepHeight
                 metrics.lastFirstIndex = firstIndex
                 metrics.initialized = true
-            } else if (firstIndex != metrics.lastFirstIndex) {
-                if (firstIndex > metrics.lastFirstIndex) {
-                    for (index in metrics.lastFirstIndex until firstIndex) {
-                        metrics.cumulativeBefore += metrics.heightAt(index, average)
-                    }
-                } else {
-                    for (index in firstIndex until metrics.lastFirstIndex) {
-                        metrics.cumulativeBefore -= metrics.heightAt(index, average)
-                    }
+            } else if (firstIndex > metrics.lastFirstIndex) {
+                for (index in metrics.lastFirstIndex until firstIndex) {
+                    metrics.cumulativeBefore += metrics.heightAt(index, average) + spacing
+                }
+                metrics.lastFirstIndex = firstIndex
+            } else if (firstIndex < metrics.lastFirstIndex) {
+                for (index in firstIndex until metrics.lastFirstIndex) {
+                    metrics.cumulativeBefore -= metrics.heightAt(index, average) + spacing
                 }
                 metrics.lastFirstIndex = firstIndex
             }
@@ -125,18 +125,19 @@ fun VerticalScrollbar(
             }
             if (metrics.cumulativeBefore < 0f) metrics.cumulativeBefore = 0f
 
-            val totalHeight = average * itemCount
-            if (totalHeight <= trackHeight) return@drawBehind
-
             val scrollOffset = metrics.cumulativeBefore + listState.firstVisibleItemScrollOffset
-            val maxScroll = (totalHeight - trackHeight).coerceAtLeast(1f)
+            val unseenAfter = itemCount - 1 - last.index
+            val contentHeight = scrollOffset + last.offset + last.size + stepHeight * unseenAfter
+            if (contentHeight <= trackHeight) return@drawBehind
+
+            val maxScroll = (contentHeight - trackHeight).coerceAtLeast(1f)
             val progress = when {
-                atBottom -> 1f
-                atTop -> 0f
+                atTop || !listState.canScrollBackward -> 0f
+                !listState.canScrollForward -> 1f
                 else -> (scrollOffset / maxScroll).coerceIn(0f, 1f)
             }
 
-            val visibleFraction = (trackHeight / totalHeight).coerceIn(0f, 1f)
+            val visibleFraction = (trackHeight / contentHeight).coerceIn(0f, 1f)
             val thumbHeight = (visibleFraction * trackHeight)
                 .coerceIn(minThumbPx.coerceAtMost(trackHeight), trackHeight)
             val thumbOffsetY = progress * (trackHeight - thumbHeight).coerceAtLeast(0f)
@@ -155,4 +156,14 @@ fun VerticalScrollbar(
             )
         }
     )
+}
+
+private fun visibleSpacing(items: List<LazyListItemInfo>): Float {
+    if (items.size < 2) return 0f
+    var smallest = Float.MAX_VALUE
+    for (i in 0 until items.size - 1) {
+        val gap = (items[i + 1].offset - items[i].offset - items[i].size).toFloat()
+        if (gap >= 0f && gap < smallest) smallest = gap
+    }
+    return if (smallest == Float.MAX_VALUE) 0f else smallest
 }
