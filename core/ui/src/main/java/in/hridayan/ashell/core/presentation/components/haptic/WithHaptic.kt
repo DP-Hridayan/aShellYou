@@ -1,8 +1,8 @@
 package `in`.hridayan.ashell.core.presentation.components.haptic
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.runtime.retain.retain
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalInspectionMode
@@ -22,7 +22,7 @@ fun withHaptic(
     val isHapticEnabled = LocalSettings.current[SettingsKeys.HapticsAndVibration]
     val latestBlock = rememberUpdatedState(block)
 
-    return retain(type, haptic, isHapticEnabled) {
+    return remember(type, haptic, isHapticEnabled) {
         {
             if (isHapticEnabled) haptic.performHapticFeedback(type)
             latestBlock.value()

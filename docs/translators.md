@@ -128,7 +128,7 @@ Thanks to these translators and proofreaders, this project exists:
           <br />
           <sub><b>(ru-tei)</b></sub></a>
         <br />
-        <sub><b>570 words</b></sub>
+        <sub><b>581 words</b></sub>
       </td>
       <td align="center" valign="top">
         <a href="https://crowdin.com/profile/alex211952i"><img alt="logo" style="width: 32px" src="https://crowdin-static.cf-downloads.crowdin.com/avatar/16749463/medium/631c1c9c703bd7059f0a1663ad087ba3.jpg" />
