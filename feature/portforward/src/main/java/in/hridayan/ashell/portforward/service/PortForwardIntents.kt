@@ -23,7 +23,12 @@ internal object PortForwardIntents {
         val launch = context.packageManager.getLaunchIntentForPackage(context.packageName)?.apply {
             action = AppDeeplinkHolder.ACTION_OPEN_PORTS
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        } ?: Intent()
+        } ?: Intent(Intent.ACTION_MAIN).apply {
+            setPackage(context.packageName)
+            addCategory(Intent.CATEGORY_LAUNCHER)
+            action = AppDeeplinkHolder.ACTION_OPEN_PORTS
+            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
         return PendingIntent.getActivity(context, OPEN_PORTS_REQUEST, launch, FLAGS)
     }
 
