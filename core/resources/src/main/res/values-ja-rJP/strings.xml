@@ -41,7 +41,7 @@
     <string name="adb_unsupported_command" comment="Error shown when an adb subcommand cannot work over this connection. The placeholder is the subcommand name, such as push">adb %1$s はこの接続ではサポートされていません</string>
     <string name="adb_usage" comment="Error shown when a known adb command was typed incorrectly. The placeholder is the correct form of the command">使用法: %1$s</string>
     <string name="adb_version_line" comment="Output line for the adb version command. The placeholder is the app version name">aShellYou %1$s</string>
-    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">ADB via OTG</string>
+    <string name="adb_via_otg" comment="Compact label for ADB connection via USB OTG cable">OTG経由のADB</string>
     <string name="adb_via_wireless_debugging" comment="Feature title for wireless ADB connection on Android 11+ devices">ワイヤレスデバッグ経由のADB</string>
     <string name="adb_via_wireless_debugging_summary" comment="Summary description for wireless ADB feature in connection setup screen">ワイヤレスデバッグを使用してWi-Fi経由でデバイス(Android 11 以降)を接続し、ADBコマンドをリモートで実行します。</string>
     <string name="add">追加</string>
@@ -712,7 +712,7 @@
     <string name="irreversible_action_warning" comment="Warning dialog subtitle warning user that deletion cannot be undone">この操作は元に戻せません！</string>
     <string name="item_deleted" comment="Confirmation toast after item is deleted">アイテムは正常に削除されました</string>
     <string name="keep_both" comment="Resolution option in file conflict dialog to keep both original and new file">両方を保持</string>
-    <string name="keep_shizuku_helper_running" comment="Setting toggle title to keep the background Shizuku helper process alive after the app closes">しずくヘルパーを稼働させ続ける</string>
+    <string name="keep_shizuku_helper_running" comment="Setting toggle title to keep the background Shizuku helper process alive after the app closes">Shizukuヘルパーを稼働させ続ける</string>
     <string name="keep_transferring" comment="Button that dismisses the cancel confirmation and lets the transfer continue">続行</string>
     <string name="key_verified_success_msg" comment="Confirmation text when entered AI API key is validated successfully">再接続に成功しました</string>
     <string name="label" comment="Field label for custom command label/tag name">ラベル</string>
@@ -1259,7 +1259,7 @@
     <string name="shell_connection_lost" comment="Error shown in the shell output when the connection to the device drops while a command is running">デバイスへの接続が失われました</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">最後のコマンドの出力は \'%s\' にエクスポートされます</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">シェル出力は \'%s\' にエクスポートされます</string>
-    <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">しずくは設置されていません</string>
+    <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">Shizukuがインストールされていません</string>
     <string name="shizuku_process_start_failed" comment="Inline shell error shown when the Shizuku helper service could not start the command. %1$s is the technical reason">Shizukuがコマンドを開始できませんでした: %1$s</string>
     <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizukuサービスが利用できません。ShizukuまたはShizuku+が実行されており、権限が許可されていることを確認してください。</string>
     <string name="shizuku_unavailable" comment="Dialog title when Shizuku binder service connection fails">Shizukuは使用できません</string>
