@@ -16,6 +16,7 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.io.InterruptedIOException
+import java.util.concurrent.TimeUnit
 
 private val SHIZUKU_ENVIRONMENT = arrayOf(
     "PATH=/product/bin:/apex/com.android.runtime/bin:/apex/com.android.art/bin:" +
@@ -28,6 +29,9 @@ class ShellCommandExecutor(
 ) {
     private companion object {
         const val TAG = "ShellCommandExecutor"
+
+        @Volatile
+        var rootPrefix: Array<String>? = null
     }
 
     private var currentProcess: Process? = null
@@ -68,8 +72,36 @@ class ShellCommandExecutor(
     private fun startBasic(command: String): Process =
         Runtime.getRuntime().exec(arrayOf("sh", "-c", command))
 
-    private fun startRoot(command: String): Process =
-        Runtime.getRuntime().exec(arrayOf("su", "-c", command))
+    private suspend fun startRoot(command: String): Process {
+        val prefix = rootPrefix ?: resolveRootPrefix()
+        return Runtime.getRuntime().exec(prefix + command)
+    }
+
+    private fun resolveRootPrefix(): Array<String> {
+        rootPrefix?.let { return it }
+        val mountMaster = arrayOf("su", "--mount-master", "-c")
+        val shortMountMaster = arrayOf("su", "-M", "-c")
+        val plain = arrayOf("su", "-c")
+        val resolved = when {
+            probeRootPrefix(mountMaster) -> mountMaster
+            probeRootPrefix(shortMountMaster) -> shortMountMaster
+            else -> plain
+        }
+        rootPrefix = resolved
+        return resolved
+    }
+
+    private fun probeRootPrefix(prefix: Array<String>): Boolean {
+        return try {
+            val process = Runtime.getRuntime().exec(prefix + "true")
+            val finished = process.waitFor(10, TimeUnit.SECONDS)
+            if (!finished) process.destroy()
+            finished && process.exitValue() == 0
+        } catch (e: Exception) {
+            Log.e(TAG, "Root prefix probe failed", e)
+            false
+        }
+    }
 
     /**
      * Shizuku used to receive the directory as the helper's working directory, and skipped it
