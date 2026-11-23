@@ -31,7 +31,8 @@ class ShellCommandExecutor(
         const val TAG = "ShellCommandExecutor"
 
         @Volatile
-        var rootPrefix: Array<String>? = null
+        private var rootPrefix: Array<String>? = null
+        private val rootPrefixLock = Any()
     }
 
     private var currentProcess: Process? = null
@@ -79,27 +80,48 @@ class ShellCommandExecutor(
 
     private fun resolveRootPrefix(): Array<String> {
         rootPrefix?.let { return it }
-        val mountMaster = arrayOf("su", "--mount-master", "-c")
-        val shortMountMaster = arrayOf("su", "-M", "-c")
-        val plain = arrayOf("su", "-c")
-        val resolved = when {
-            probeRootPrefix(mountMaster) -> mountMaster
-            probeRootPrefix(shortMountMaster) -> shortMountMaster
-            else -> plain
+        synchronized(rootPrefixLock) {
+            rootPrefix?.let { return it }
+            val mountMaster = arrayOf("su", "--mount-master", "-c")
+            val shortMountMaster = arrayOf("su", "-M", "-c")
+            val plain = arrayOf("su", "-c")
+
+            val resolved = when {
+                probeRootPrefix(mountMaster) -> mountMaster
+                probeRootPrefix(shortMountMaster) -> shortMountMaster
+                else -> null
+            }
+
+            if (resolved != null) {
+                rootPrefix = resolved
+                return resolved
+            }
+
+            return plain
         }
-        rootPrefix = resolved
-        return resolved
     }
 
     private fun probeRootPrefix(prefix: Array<String>): Boolean {
+        var process: Process? = null
         return try {
-            val process = Runtime.getRuntime().exec(prefix + "true")
+            process = Runtime.getRuntime().exec(prefix + "true")
             val finished = process.waitFor(10, TimeUnit.SECONDS)
-            if (!finished) process.destroy()
-            finished && process.exitValue() == 0
+            if (!finished) {
+                process.destroyForcibly()
+                return false
+            }
+            process.exitValue() == 0
         } catch (e: Exception) {
             Log.e(TAG, "Root prefix probe failed", e)
             false
+        } finally {
+            try {
+                process?.inputStream?.close()
+                process?.errorStream?.close()
+                process?.outputStream?.close()
+            } catch (_: Exception) {
+            }
+            process?.destroy()
         }
     }
 
