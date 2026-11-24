@@ -33,14 +33,12 @@ fun Modifier.rotatingClip(
     borderWidth: Dp = DEFAULT_BORDER_WIDTH,
     borderColor: Color = Color.Unspecified,
 ): Modifier {
-    val rotatingShape = RotatingShape(
-        baseShape = shape,
-        rotationDegrees = rotationDegrees,
-    )
-
     val layerModifier = Modifier.graphicsLayer {
         clip = true
-        this.shape = rotatingShape
+        this.shape = RotatingShape(
+            baseShape = shape,
+            rotationDegrees = rotationDegrees(),
+        )
     }
 
     if (borderWidth <= DEFAULT_BORDER_WIDTH || !borderColor.isSpecified) {
@@ -49,7 +47,10 @@ fun Modifier.rotatingClip(
 
     val borderModifier = Modifier.drawWithContent {
         drawContent()
-        val outline = rotatingShape.createOutline(size, layoutDirection, this)
+        val outline = RotatingShape(
+            baseShape = shape,
+            rotationDegrees = rotationDegrees(),
+        ).createOutline(size, layoutDirection, this)
         if (outline is Outline.Generic) {
             drawPath(
                 path = outline.path,
@@ -103,7 +104,6 @@ fun Modifier.rotatingClip(
  * Clips the composable using a [polygon] rotated by a static [degrees] angle
  * without rotating the composable content itself.
  */
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun Modifier.rotatingClip(
     polygon: RoundedPolygon,

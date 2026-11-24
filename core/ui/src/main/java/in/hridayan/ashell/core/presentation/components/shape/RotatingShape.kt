@@ -19,8 +19,13 @@ private const val HASH_PRIME = 31
 @Immutable
 class RotatingShape(
     private val baseShape: Shape,
-    private val rotationDegrees: () -> Float,
+    val rotationDegrees: Float,
 ) : Shape {
+    constructor(
+        baseShape: Shape,
+        rotationDegrees: () -> Float,
+    ) : this(baseShape, rotationDegrees())
+
     private var workPath: Path? = null
     private val matrix = Matrix()
 
@@ -40,7 +45,7 @@ class RotatingShape(
 
         matrix.reset()
         matrix.translate(size.center.x, size.center.y)
-        matrix.rotateZ(rotationDegrees())
+        matrix.rotateZ(rotationDegrees)
         matrix.translate(-size.center.x, -size.center.y)
         path.transform(matrix)
 
@@ -50,10 +55,12 @@ class RotatingShape(
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is RotatingShape) return false
-        return baseShape == other.baseShape
+        return baseShape == other.baseShape && rotationDegrees == other.rotationDegrees
     }
 
     override fun hashCode(): Int {
-        return HASH_PRIME * baseShape.hashCode()
+        var result = baseShape.hashCode()
+        result = HASH_PRIME * result + rotationDegrees.hashCode()
+        return result
     }
 }
