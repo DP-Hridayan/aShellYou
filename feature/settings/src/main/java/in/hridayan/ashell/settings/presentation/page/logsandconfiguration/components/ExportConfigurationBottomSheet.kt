@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -34,9 +35,9 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.presentation.components.buttongroup.OverflowButtonGroup
+import `in`.hridayan.ashell.core.presentation.components.haptic.scrollBottomHaptic
 import `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic
 import `in`.hridayan.ashell.core.presentation.model.ButtonConfigDefaults
 import `in`.hridayan.ashell.core.presentation.model.ButtonGroupItem
@@ -90,14 +91,16 @@ fun ExportConfigurationBottomSheet(
             ) {
                 Text(
                     text = stringResource(R.string.export_configuration),
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.headlineSmall
                 )
 
                 if (configPreview.isNotBlank()) {
                     IconButton(
                         onClick = withHaptic {
-                            ClipboardUtils.copyToClipboard(text = configPreview, context = context) {
+                            ClipboardUtils.copyToClipboard(
+                                text = configPreview,
+                                context = context
+                            ) {
                                 ToastUtils.makeToast(
                                     context,
                                     res.getString(R.string.copied_to_clipboard)
@@ -129,6 +132,7 @@ fun ExportConfigurationBottomSheet(
                 modifier = Modifier
                     .fillMaxWidth()
                     .heightIn(max = PREVIEW_MAX_HEIGHT)
+                    .scrollBottomHaptic()
                     .clip(RoundedCornerShape(PREVIEW_CORNER_RADIUS))
                     .background(MaterialTheme.colorScheme.surfaceContainerLowest)
                     .padding(PREVIEW_INNER_PADDING),
@@ -142,15 +146,17 @@ fun ExportConfigurationBottomSheet(
                     )
                 } else {
                     val scrollState = rememberScrollState()
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .verticalScroll(scrollState),
-                        text = configPreview,
-                        fontFamily = FontFamily.Monospace,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
+                    SelectionContainer {
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .verticalScroll(scrollState),
+                            text = configPreview,
+                            fontFamily = FontFamily.Monospace,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurface,
+                        )
+                    }
                 }
             }
 
