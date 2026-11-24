@@ -28,8 +28,8 @@ android {
         applicationId = "in.hridayan.ashell"
         minSdk = 28
         targetSdk = 37
-        versionCode = 63
-        versionName = "v8.0.0"
+        versionCode = 64
+        versionName = "v8.1.0-alpha01"
 
         buildConfigField("String", "DIST_FLAVOR_GITHUB", "\"$flavorGitHub\"")
         buildConfigField("String", "DIST_FLAVOR_FDROID", "\"$flavorFDroid\"")
