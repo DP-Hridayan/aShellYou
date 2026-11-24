@@ -247,6 +247,21 @@
     "avatar": "crowdin/contributors_pfp/contributor_15723517.webp"
   },
   {
+    "id": "18006087",
+    "username": "acyzwy",
+    "name": "acyzwy",
+    "translated": 629,
+    "approved": 0,
+    "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/18006087/medium/ac4915df9dc428edc0c5296e55d66651.png",
+    "languages": [
+      {
+        "id": "zh-CN",
+        "name": "Chinese Simplified"
+      }
+    ],
+    "avatar": "crowdin/contributors_pfp/contributor_18006087.webp"
+  },
+  {
     "id": "17196264",
     "username": "ru-tei",
     "name": "るーてい (ru-tei)",

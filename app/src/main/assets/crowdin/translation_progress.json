@@ -133,5 +133,23 @@
     "locale": "zh-CN",
     "translationProgress": 100,
     "approvalProgress": 0
+  },
+  {
+    "languageId": "zh-HK",
+    "languageName": "Chinese Traditional, Hong Kong",
+    "androidCode": "zh-rHK",
+    "editorCode": "zhhk",
+    "locale": "zh-HK",
+    "translationProgress": 0,
+    "approvalProgress": 0
+  },
+  {
+    "languageId": "zh-TW",
+    "languageName": "Chinese Traditional",
+    "androidCode": "zh-rTW",
+    "editorCode": "zhtw",
+    "locale": "zh-TW",
+    "translationProgress": 0,
+    "approvalProgress": 0
   }
 ]
