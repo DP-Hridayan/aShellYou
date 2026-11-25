@@ -1,8 +1,8 @@
 # Terms of Service for aShell You
 
 **Effective Date:** September 12, 2026<br>
-**Last Updated:** November 17, 2026<br>
-**Contact:** [hridayanofficial@gmail.com](mailto:hridayanofficial@gmail.com)
+**Last Updated:** November 25, 2026<br>
+**Contact:** [support@ashellyou.com](mailto:support@ashellyou.com)
 
 Welcome to **aShell You** (the "App"). These Terms of Service ("Terms") govern your use of the aShell You Android application developed by DP Hridayan ("we," "us," or "our").
 
@@ -157,4 +157,5 @@ We reserve the right to revise or update these Terms of Service at any time. Whe
 ## 10. Contact
 
 If you have any questions, concerns, or inquiries regarding these Terms of Service, please contact us at:
-**Email:** [hridayanofficial@gmail.com](mailto:hridayanofficial@gmail.com)
+**Email:** [support@ashellyou.com](mailto:support@ashellyou.com)<br>
+**Website:** [https://ashellyou.com](https://ashellyou.com)

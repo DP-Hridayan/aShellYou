@@ -4,6 +4,12 @@
 
 > **aShell You** is a fully-featured Android shell utility app with **Material Design 3 UI**, letting you run **ADB**, **root** and **shell** commands on your device or others via OTG/wireless, packed in a beautiful and smart interface
 
+<p align="center">
+  <a href="https://ashellyou.com"><b>Official Website (ashellyou.com)</b></a> ·
+  <a href="https://github.com/DP-Hridayan/aShellYou/wiki"><b>Wiki</b></a> ·
+  <a href="mailto:support@ashellyou.com"><b>Support</b></a>
+</p>
+
 <br/>
 
 <p align="center">
@@ -177,7 +183,9 @@
 [![F-Droid](https://img.shields.io/badge/F--Droid-1976D2?style=for-the-badge&logo=f-droid&logoColor=white)](https://f-droid.org/en/packages/in.hridayan.ashell)
 [![GitHub Releases](https://img.shields.io/badge/GitHub-Releases-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/DP-Hridayan/aShellYou/releases/latest/)
 
+[![Website](https://img.shields.io/badge/Website-ashellyou.com-0A7E66?style=for-the-badge&logo=googlechrome&logoColor=white)](https://ashellyou.com)
 [![Telegram](https://img.shields.io/badge/Join_Community-Telegram-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/aShellYou)
+[![Support Email](https://img.shields.io/badge/Support-support%40ashellyou.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:support@ashellyou.com)
 [![Buy Me A Coffee](https://img.shields.io/badge/Support_Development-Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/Hridayan)
 
 ## Translations

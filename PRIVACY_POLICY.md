@@ -1,8 +1,8 @@
 # Privacy Policy for aShell You
 
 **Effective Date:** September 2, 2026</br>
-**Last Updated:** November 17, 2026</br>
-**Contact:** [hridayanofficial@gmail.com](mailto:hridayanofficial@gmail.com)
+**Last Updated:** November 25, 2026</br>
+**Contact:** [support@ashellyou.com](mailto:support@ashellyou.com)
 
 DP Hridayan ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy
 explains our practices regarding the information that the **aShell You** Android application (the "
@@ -505,7 +505,8 @@ App after changes are posted constitutes your acceptance of the updated policy.
 If you have any questions, concerns, or requests regarding this Privacy Policy, please contact:
 
 **Developer:** DP Hridayan</br>
-**Email:** [hridayanofficial@gmail.com](mailto:hridayanofficial@gmail.com)</br>
+**Email:** [support@ashellyou.com](mailto:support@ashellyou.com)</br>
+**Website:** [https://ashellyou.com](https://ashellyou.com)</br>
 **Project Repository:** [https://github.com/DP-Hridayan/aShellYou](https://github.com/DP-Hridayan/aShellYou)
 
 ---

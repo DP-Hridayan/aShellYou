@@ -28,7 +28,7 @@
   ],
   "icon_url": "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/icon.png",
   "banner_url": "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/featureGraphic.png",
-  "app_website": "http://ashellyou.github.io/",
+  "app_website": "https://ashellyou.com/",
   "repo_url": "https://github.com/DP-Hridayan/aShellYou",
   "download_url": "https://github.com/DP-Hridayan/aShellYou/releases/latest",
   "screenshots": [
@@ -51,8 +51,8 @@
     "name": "DP-Hridayan",
     "banner_url": "https://raw.githubusercontent.com/DP-Hridayan/aShellYou/refs/heads/master/fastlane/metadata/android/en-US/images/featureGraphic.png",
     "account_url": "https://github.com/DP-Hridayan",
-    "email": "hridayanofficial@gmail.com",
-    "website": "https://github.com/DP-Hridayan/aShellYou",
+    "email": "hridayan@ashellyou.com",
+    "website": "https://ashellyou.com/",
     "portfolio": "",
     "donate_url": "buymeacoffee.com/hridayan",
     "socials": {

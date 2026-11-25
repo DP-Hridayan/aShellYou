@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import `in`.hridayan.ashell.core.common.constants.DEV_EMAIL
+import `in`.hridayan.ashell.core.common.constants.SUPPORT_EMAIL
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
 import `in`.hridayan.ashell.core.common.settings.SettingsKeys
 import `in`.hridayan.ashell.core.presentation.components.card.CustomCard
@@ -328,7 +328,7 @@ fun CrashReportScreen(
 
 private fun Context.sendCrashReport(log: String) {
     val subject = "Crash Report"
-    val to = DEV_EMAIL
+    val to = SUPPORT_EMAIL
 
     try {
         val uriText = "mailto:$to?subject=${Uri.encode(subject)}&body=$log"

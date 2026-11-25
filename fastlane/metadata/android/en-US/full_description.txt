@@ -20,6 +20,9 @@
 - Managing remote devices via OTG or Wi-Fi does not require root or Shizuku on the host device.
 - Basic familiarity with ADB and shell commands is recommended.
 
+<b>Website</b>
+https://ashellyou.com
+
 <b>Translations</b>
 Contribute translations via Crowdin:
 https://crowdin.com/project/ashellyou

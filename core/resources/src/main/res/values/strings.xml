@@ -935,6 +935,7 @@
     <string name="notification_settings" comment="Button label to open system notification settings screen">Notification settings</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">If you cannot enter the Pairing Code from the notification, then you might need to change the Notification Shade to Android. Go to Notification Settings ~ Notification Style to change the Notification Style.  Otherwise you might not be able to enter the pairing code from the notification.</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">Notification styles</string>
+    <string name="official_website" comment="Description under Website button in About screen">Official website</string>
     <string name="official_wiki" comment="Title for official GitHub wiki link in feature guides bottom sheet">Official Wiki</string>
     <string name="off">Off</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">Off</string>
@@ -1499,6 +1500,7 @@
     <string name="waiting_for_recovery" comment="Progress status shown after the sideload stream was opened while waiting for the target device recovery to request data">Waiting for recovery…</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">Want to contribute too?</string>
     <string name="warning" comment="Android log level name, shown in logcat filters">Warning</string>
+    <string name="website" comment="Button in About screen linking to official website">Website</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">Weekly</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">What would you like to do while %1$s?</string>
     <string name="whats_new" comment="Header title for app release notes and changelog dialog">What\'s new!</string>

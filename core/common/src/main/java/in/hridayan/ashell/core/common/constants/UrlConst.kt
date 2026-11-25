@@ -15,13 +15,14 @@ object UrlConst {
         "https://github.com/DP-Hridayan/aShellYou/forks"
     const val URL_GITHUB_REPO_ISSUES =
         "https://github.com/DP-Hridayan/aShellYou/issues"
+    const val URL_WEBSITE = "https://ashellyou.com"
     const val URL_DEV_TELEGRAM = "https://t.me/hridayan"
     const val URL_TELEGRAM_CHANNEL = "https://t.me/ashellyou"
     const val URL_DEV_GITHUB = "https://github.com/DP-Hridayan"
-    const val URL_DEV_EMAIL = "mailto:hridayanofficial@gmail.com"
+    const val URL_DEV_EMAIL = "mailto:hridayan@ashellyou.com"
     const val URL_DEV_BM_COFFEE = "https://www.buymeacoffee.com/hridayan"
-    const val URL_EMAIL_BUG = "mailto:hridayanofficial@gmail.com?subject=Bug%20Report"
-    const val URL_EMAIL_FEATURE = "mailto:hridayanofficial@gmail.com?subject=Feature%20Suggestion"
+    const val URL_EMAIL_BUG = "mailto:support@ashellyou.com?subject=Bug%20Report"
+    const val URL_EMAIL_FEATURE = "mailto:support@ashellyou.com?subject=Feature%20Suggestion"
     const val URL_WIRELESS_DEBUGGING_INSTRUCTIONS =
         "https://github.com/DP-Hridayan/aShellYou/wiki/Wireless-Debugging-Setup"
     const val URL_OTG_INSTRUCTIONS =

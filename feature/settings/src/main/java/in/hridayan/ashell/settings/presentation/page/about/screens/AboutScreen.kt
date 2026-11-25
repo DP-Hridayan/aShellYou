@@ -180,6 +180,15 @@ fun AboutScreen(modifier: Modifier = Modifier) {
                                 contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
                                 onClick = { openUrl(UrlConst.URL_CROWDIN_PROJECT, context) }
                             )
+
+                            AppHandlesChip(
+                                iconResId = R.drawable.ic_language,
+                                title = stringResource(R.string.website),
+                                description = stringResource(R.string.official_website),
+                                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                                onClick = { openUrl(UrlConst.URL_WEBSITE, context) }
+                            )
                         }
                     }
                 }
