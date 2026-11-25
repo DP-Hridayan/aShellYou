@@ -582,7 +582,7 @@ class OtgRepositoryImpl(private val context: Context) : OtgRepository {
                         ShellProtocolV2.SERVICE_PREFIX + ShellProtocolV2.killCommand(pid)
                     )
                     stream.use {
-                        while (it.readUntilClosed() != null) Unit
+                        while (it.readUntilClosed() != null) {}
                     }
                 }
             }

@@ -41,7 +41,7 @@ class VideoStreamParser(expectsHandshake: Boolean) {
     fun feed(chunk: ByteArray): List<VideoStreamEvent> {
         input.append(chunk)
         val events = mutableListOf<VideoStreamEvent>()
-        while (step(events)) Unit
+        while (step(events)) {}
         return events
     }
 

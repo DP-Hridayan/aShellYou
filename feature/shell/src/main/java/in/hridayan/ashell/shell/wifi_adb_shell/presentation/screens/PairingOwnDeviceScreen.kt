@@ -160,7 +160,7 @@ fun PairingOwnDeviceScreen(
     }
 
     LaunchedEffect(enableTcpIpAfterPairing, isOwnDeviceConnected, ownDevice) {
-        if (enableTcpIpAfterPairing && isOwnDeviceConnected && ownDevice != null) {
+        if (enableTcpIpAfterPairing && isOwnDeviceConnected) {
             viewModel.enableTcpIpOnOwnDevice(ownDevice)
         }
     }

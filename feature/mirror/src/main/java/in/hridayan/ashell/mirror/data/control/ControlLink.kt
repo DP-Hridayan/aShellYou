@@ -36,7 +36,7 @@ class ControlLink(private val ioDispatcher: CoroutineDispatcher) {
 
     /** Runs until cancelled or until the socket closes. */
     suspend fun pump(control: AdbDuplexStream) {
-        while (outgoing.tryReceive().isSuccess) Unit
+        while (outgoing.tryReceive().isSuccess) {}
         isAccepting = true
         try {
             coroutineScope {

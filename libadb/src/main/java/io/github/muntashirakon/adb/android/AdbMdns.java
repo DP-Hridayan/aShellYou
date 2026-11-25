@@ -99,16 +99,19 @@ public class AdbMdns {
         mRegistered = false;
     }
 
+    @SuppressWarnings("deprecation")
     private void onServiceFound(NsdServiceInfo serviceInfo) {
         mNsdManager.resolveService(serviceInfo, new ResolveListener(this));
     }
 
+    @SuppressWarnings("deprecation")
     private void onServiceLost(NsdServiceInfo serviceInfo) {
         if (mServiceName != null && mServiceName.equals(serviceInfo.getServiceName())) {
             mAdbDaemonDiscoveredListener.onPortChanged(serviceInfo.getHost(), -1, mServiceName);
         }
     }
 
+    @SuppressWarnings("deprecation")
     private void onServiceResolved(NsdServiceInfo serviceInfo) {
         if (!mRunning) return;
         try {

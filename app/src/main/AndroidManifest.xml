@@ -39,6 +39,7 @@
         android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="PackageVisibilityPolicy,QueryAllPackagesPermission" />
 
+    <!-- Required to strip implicit READ_PHONE_STATE injected by spake2-android (targetSdkVersion < 4) -->
     <uses-permission
         android:name="android.permission.READ_PHONE_STATE"
         tools:node="remove" />
