@@ -5,7 +5,7 @@
 > **aShell You** is a fully-featured Android shell utility app with **Material Design 3 UI**, letting you run **ADB**, **root** and **shell** commands on your device or others via OTG/wireless, packed in a beautiful and smart interface
 
 <p align="center">
-  <a href="https://ashellyou.com"><b>Official Website (ashellyou.com)</b></a> ·
+  <a href="https://ashellyou.com"><b>Official Website</b></a> ·
   <a href="https://github.com/DP-Hridayan/aShellYou/wiki"><b>Wiki</b></a> ·
   <a href="mailto:support@ashellyou.com"><b>Support</b></a>
 </p>
