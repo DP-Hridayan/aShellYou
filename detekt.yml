@@ -127,3 +127,14 @@ empty-blocks:
     ignoreOverridden: true
   EmptyClassBlock:
     active: true
+
+formatting:
+  active: true
+  PackageName:
+    active: false
+  MaximumLineLength:
+    active: false
+  NoWildcardImports:
+    active: false
+  FinalNewline:
+    active: false

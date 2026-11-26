@@ -17,6 +17,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.InputTransformation
+import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldColors
@@ -32,7 +35,6 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.core.common.settings.LocalSettings
@@ -159,15 +161,15 @@ fun EditorCaption(text: String?, isError: Boolean = false) {
  */
 @Composable
 fun EditorTextField(
-    value: String,
-    onValueChange: (String) -> Unit,
+    state: TextFieldState,
     label: String,
     position: GroupPosition,
     modifier: Modifier = Modifier,
     isError: Boolean = false,
     trailingIcon: (@Composable () -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    monospace: Boolean = false
+    monospace: Boolean = false,
+    inputTransformation: InputTransformation? = null
 ) {
     val colors = editorFieldColors()
     val interactionSource = remember { MutableInteractionSource() }
@@ -181,40 +183,44 @@ fun EditorTextField(
         color = textColor,
         fontFamily = if (monospace) FontFamily.Monospace else null
     )
-    // The material TextField overload for a String value takes no content padding, so the field is
-    // built from its parts to give the label and value more room.
     BasicTextField(
+        state = state,
         modifier = modifier
             .fillMaxWidth()
             .defaultMinSize(minHeight = TextFieldDefaults.MinHeight),
-        value = value,
-        onValueChange = onValueChange,
-        singleLine = true,
+        inputTransformation = inputTransformation,
+        lineLimits = TextFieldLineLimits.SingleLine,
         textStyle = textStyle,
         cursorBrush = SolidColor(if (isError) colors.errorCursorColor else colors.cursorColor),
         keyboardOptions = keyboardOptions,
-        interactionSource = interactionSource
-    ) { innerTextField ->
-        TextFieldDefaults.DecorationBox(
-            value = value,
-            innerTextField = innerTextField,
+        interactionSource = interactionSource,
+        decorator = TextFieldDefaults.decorator(
+            state = state,
             enabled = true,
-            singleLine = true,
-            visualTransformation = VisualTransformation.None,
+            lineLimits = TextFieldLineLimits.SingleLine,
+            outputTransformation = null,
             interactionSource = interactionSource,
             isError = isError,
             label = { Text(label) },
             trailingIcon = trailingIcon,
-            shape = position.field,
             colors = colors,
             contentPadding = TextFieldDefaults.contentPaddingWithLabel(
                 start = EditorSpacing.FieldHorizontal,
                 end = EditorSpacing.FieldHorizontal,
                 top = EditorSpacing.FieldVertical,
                 bottom = EditorSpacing.FieldVertical
-            )
+            ),
+            container = {
+                TextFieldDefaults.Container(
+                    enabled = true,
+                    isError = isError,
+                    interactionSource = interactionSource,
+                    colors = colors,
+                    shape = position.field
+                )
+            }
         )
-    }
+    )
 }
 
 @Composable

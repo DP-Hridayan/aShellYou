@@ -31,6 +31,16 @@ subprojects {
         allRules = false
         config.setFrom(files("$rootDir/detekt.yml"))
         baseline = file("$projectDir/detekt-baseline.xml")
+        source.setFrom(
+            files(
+                "src/main/java",
+                "src/main/kotlin",
+                "src/github/java",
+                "src/github/kotlin",
+                "src/fdroid/java",
+                "src/fdroid/kotlin",
+            )
+        )
     }
 
     dependencies {

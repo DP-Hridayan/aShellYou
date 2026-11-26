@@ -22,6 +22,7 @@ import `in`.hridayan.ashell.portforward.domain.model.browserUrl
 import `in`.hridayan.ashell.portforward.presentation.model.EditorKind
 import `in`.hridayan.ashell.portforward.presentation.model.LocalPortStatus
 import `in`.hridayan.ashell.portforward.presentation.model.TunnelEditorActions
+import `in`.hridayan.ashell.portforward.presentation.model.TunnelEditorFieldsState
 import `in`.hridayan.ashell.portforward.presentation.model.TunnelEditorUiState
 import `in`.hridayan.ashell.portforward.presentation.permission.LocalNetworkAccessState
 
@@ -35,6 +36,7 @@ private const val ROOT_PATH = "/"
 @Composable
 fun TunnelEditorContent(
     state: TunnelEditorUiState,
+    fields: TunnelEditorFieldsState,
     localNetwork: LocalNetworkAccessState,
     actions: TunnelEditorActions,
     listState: LazyListState,
@@ -56,12 +58,12 @@ fun TunnelEditorContent(
         )
     ) {
         when (val kind = state.form.kind) {
-            EditorKind.Network -> networkTarget(state, actions)
-            is EditorKind.Device -> deviceTarget(state, kind, actions)
+            EditorKind.Network -> networkTarget(state, fields, actions)
+            is EditorKind.Device -> deviceTarget(state, fields, kind, actions)
         }
         if (needsPermission) permission(localNetwork, actions)
-        localSection(state, actions)
-        optionsSection(state, actions)
+        localSection(state, fields, actions)
+        optionsSection(state, fields, actions)
         checkSection(state, onTest = actions.onTest)
     }
 }
@@ -84,10 +86,14 @@ private const val NETWORK_TARGET_ITEMS = 4
 private const val DEVICE_TARGET_ITEMS = 5
 private const val DEVICE_SOCKET_LABEL_INDEX = 3
 
-private fun LazyListScope.networkTarget(state: TunnelEditorUiState, actions: TunnelEditorActions) {
+private fun LazyListScope.networkTarget(
+    state: TunnelEditorUiState,
+    fields: TunnelEditorFieldsState,
+    actions: TunnelEditorActions
+) {
     item(key = "target_label") { EditorSectionLabel(stringResource(R.string.port_forward_section_target)) }
     item(key = "address") {
-        AddressField(value = state.form.address, onValueChange = actions.onAddressChange, onPaste = actions.onPaste)
+        AddressField(state = fields.address, onPaste = actions.onPaste)
         EditorCaption(text = parsedSummary(state))
     }
     item(key = "recent") { RecentHostChips(hosts = state.recentHosts, onSelect = actions.onRecentHost) }
@@ -95,18 +101,17 @@ private fun LazyListScope.networkTarget(state: TunnelEditorUiState, actions: Tun
         val errors = state.validation.takeIf { state.showErrors }
         Spacer(modifier = Modifier.height(EditorSpacing.BlockGap))
         HostAndPortFields(
-            host = state.form.host,
-            port = state.form.targetPort,
+            hostState = fields.host,
+            portState = fields.targetPort,
             hostError = errors?.host,
-            portError = errors?.targetPort,
-            onHostChange = actions.onHostChange,
-            onPortChange = actions.onTargetPortChange
+            portError = errors?.targetPort
         )
     }
 }
 
 private fun LazyListScope.deviceTarget(
     state: TunnelEditorUiState,
+    fields: TunnelEditorFieldsState,
     kind: EditorKind.Device,
     actions: TunnelEditorActions
 ) {
@@ -120,10 +125,9 @@ private fun LazyListScope.deviceTarget(
         Spacer(modifier = Modifier.height(EditorSpacing.BlockGap))
         EndpointValueField(
             type = state.form.endpointType,
-            value = state.form.endpointValue,
+            state = fields.endpointValue,
             error = error,
-            position = GroupPosition.Single,
-            onValueChange = actions.onEndpointValueChange
+            position = GroupPosition.Single
         )
         EditorCaption(text = error?.text(), isError = true)
     }
@@ -140,28 +144,36 @@ private fun LazyListScope.permission(localNetwork: LocalNetworkAccessState, acti
     }
 }
 
-private fun LazyListScope.localSection(state: TunnelEditorUiState, actions: TunnelEditorActions) {
+private fun LazyListScope.localSection(
+    state: TunnelEditorUiState,
+    fields: TunnelEditorFieldsState,
+    actions: TunnelEditorActions
+) {
     item(key = "local_label") { EditorSectionLabel(stringResource(R.string.port_forward_section_local)) }
     item(key = "local") {
         val error = state.validation.localPort?.takeIf { state.showErrors || state.form.localPort.isNotEmpty() }
-        LocalGroup(state = state, isError = error != null, actions = actions)
+        LocalGroup(state = state, fields = fields, isError = error != null, actions = actions)
         LocalCaption(state = state, error = error?.text(), suggestedPort = state.suggestedPort(), actions = actions)
     }
 }
 
 /** The local port, then the switches that apply to this tunnel, as one group. */
 @Composable
-private fun LocalGroup(state: TunnelEditorUiState, isError: Boolean, actions: TunnelEditorActions) {
+private fun LocalGroup(
+    state: TunnelEditorUiState,
+    fields: TunnelEditorFieldsState,
+    isError: Boolean,
+    actions: TunnelEditorActions
+) {
     val form = state.form
     val showSameAsTarget = !state.isDevice || form.endpointType == DeviceEndpointType.TCP
     val rows = 1 + (if (showSameAsTarget) 1 else 0) + (if (state.canShareOnNetwork) 1 else 0)
     EditorGroup {
         LocalPortField(
-            value = form.localPort,
+            state = fields.localPort,
             status = state.localPortStatus,
             isError = isError,
-            position = GroupPosition.of(0, rows),
-            onValueChange = actions.onLocalPortChange
+            position = GroupPosition.of(0, rows)
         )
         if (showSameAsTarget) {
             EditorSwitchRow(
@@ -199,7 +211,11 @@ private fun LocalCaption(
     }
 }
 
-private fun LazyListScope.optionsSection(state: TunnelEditorUiState, actions: TunnelEditorActions) {
+private fun LazyListScope.optionsSection(
+    state: TunnelEditorUiState,
+    fields: TunnelEditorFieldsState,
+    actions: TunnelEditorActions
+) {
     item(key = "options_label") { EditorSectionLabel(stringResource(R.string.port_forward_section_options)) }
     item(key = "options") {
         val autoStartTitle = if (state.isDevice) {
@@ -209,8 +225,7 @@ private fun LazyListScope.optionsSection(state: TunnelEditorUiState, actions: Tu
         }
         EditorGroup {
             EditorTextField(
-                value = state.form.name,
-                onValueChange = actions.onNameChange,
+                state = fields.name,
                 label = stringResource(R.string.port_forward_name_optional),
                 position = GroupPosition.First,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)

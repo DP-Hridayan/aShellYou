@@ -8,8 +8,11 @@ plugins {
 
 android {
     namespace = "in.hridayan.ashell.mirror"
+
     compileSdk {
-        version = release(37)
+        version = release(37) {
+            minorApiLevel = 1
+        }
     }
 
     defaultConfig {

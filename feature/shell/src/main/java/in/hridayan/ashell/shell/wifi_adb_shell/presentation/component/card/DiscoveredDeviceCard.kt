@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
@@ -16,10 +17,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -32,6 +33,8 @@ import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.CodePairingStage
 import `in`.hridayan.ashell.shell.wifi_adb_shell.domain.model.DiscoveredPairingService
 import `in`.hridayan.ashell.shell.wifi_adb_shell.presentation.component.inputfield.DigitBoxInputField
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.drop
 
 private const val PAIRING_CODE_LENGTH = 6
 private val PROGRESS_SIZE = 16.dp
@@ -60,8 +63,16 @@ fun DiscoveredDeviceCard(
     onCodeChange: () -> Unit = {},
     initialCode: String = ""
 ) {
-    var pairingCode by remember { mutableStateOf(initialCode) }
+    val pairingCodeState = rememberTextFieldState(initialText = initialCode)
+    val currentOnCodeChange by rememberUpdatedState(onCodeChange)
     val isBusy = stage != CodePairingStage.Idle
+
+    LaunchedEffect(pairingCodeState) {
+        snapshotFlow { pairingCodeState.text.toString() }
+            .distinctUntilChanged()
+            .drop(1)
+            .collect { currentOnCodeChange() }
+    }
 
     CustomCard(
         modifier = modifier,
@@ -108,11 +119,7 @@ fun DiscoveredDeviceCard(
             )
 
             DigitBoxInputField(
-                value = pairingCode,
-                onValueChange = {
-                    pairingCode = it
-                    onCodeChange()
-                },
+                state = pairingCodeState,
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -128,8 +135,8 @@ fun DiscoveredDeviceCard(
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(
-                onClick = withHaptic { onPair(pairingCode) },
-                enabled = pairingCode.length == PAIRING_CODE_LENGTH && !isBusy,
+                onClick = withHaptic { onPair(pairingCodeState.text.toString()) },
+                enabled = pairingCodeState.text.length == PAIRING_CODE_LENGTH && !isBusy,
                 modifier = Modifier.fillMaxWidth(),
                 shapes = ButtonDefaults.shapes()
             ) {

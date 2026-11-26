@@ -8,19 +8,17 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.InputTransformation
+import androidx.compose.foundation.text.input.TextFieldDecorator
+import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 
 /**
@@ -29,32 +27,30 @@ import androidx.compose.ui.unit.dp
  */
 @Composable
 fun DigitBoxInputField(
+    state: TextFieldState,
     modifier: Modifier = Modifier,
-    value: String,
-    onValueChange: (String) -> Unit,
     digitCount: Int = 6
 ) {
-    var textFieldValue by remember(value) {
-        mutableStateOf(TextFieldValue(value, TextRange(value.length)))
-    }
-
     BasicTextField(
-        value = textFieldValue,
-        onValueChange = { newValue ->
-            val filtered = newValue.text.filter { it.isDigit() }.take(digitCount)
-            textFieldValue = TextFieldValue(filtered, TextRange(filtered.length))
-            onValueChange(filtered)
+        state = state,
+        inputTransformation = InputTransformation {
+            val filtered = asCharSequence().filter { it.isDigit() }.take(digitCount)
+            if (filtered.length != length || !asCharSequence().contentEquals(filtered)) {
+                replace(0, length, filtered)
+            }
         },
+        lineLimits = TextFieldLineLimits.SingleLine,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        decorationBox = {
+        decorator = TextFieldDecorator {
+            val currentText = state.text
             Row(
                 modifier = modifier,
                 horizontalArrangement = Arrangement.SpaceAround,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 repeat(digitCount) { index ->
-                    val char = value.getOrNull(index)?.toString() ?: ""
-                    val isFocused = value.length == index
+                    val char = currentText.getOrNull(index)?.toString() ?: ""
+                    val isFocused = currentText.length == index
 
                     DigitBox(
                         digit = char,

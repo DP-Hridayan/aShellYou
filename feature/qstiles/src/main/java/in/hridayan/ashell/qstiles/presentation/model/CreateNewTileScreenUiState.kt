@@ -15,7 +15,6 @@ import `in`.hridayan.ashell.qstiles.domain.model.TileActiveState
  */
 data class CreateNewTileScreenUiState(
     val tileId: Int = 0,
-    val nameField: TextFieldValue = TextFieldValue(""),
     val executionMode: Int = TileExecutionMode.SHIZUKU,
     val selectedIconId: String = "terminal",
     val selectedIconStyle: MaterialIconStyle = MaterialIconStyle.OUTLINED,
@@ -32,14 +31,6 @@ data class CreateNewTileScreenUiState(
     val isToggleable: Boolean = false,
     /** Static / initial active state – for static tiles this is fixed; for toggleable it's the starting state. */
     val isActive: Boolean = false,
-    /** Command executed when turning the tile ON (or on every click for static tiles). */
-    val activeCommand: TextFieldValue = TextFieldValue(""),
-    /** Command executed when turning the tile OFF. Shown only when [isToggleable] = true. */
-    val inactiveCommand: TextFieldValue = TextFieldValue(""),
-    /** Subtitle shown when the tile is ON. */
-    val activeSubtitle: TextFieldValue = TextFieldValue("On"),
-    /** Subtitle shown when the tile is OFF. Shown only when [isToggleable] = true. */
-    val inactiveSubtitle: TextFieldValue = TextFieldValue("Off"),
     /** Whether the Quick Settings panel automatically collapses when this tile is clicked. */
     val collapsePanelOnClick: Boolean = false,
 )

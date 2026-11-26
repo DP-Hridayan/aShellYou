@@ -1,6 +1,8 @@
 package `in`.hridayan.ashell.portforward.presentation.model
 
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import `in`.hridayan.ashell.core.common.domain.model.ExternalDeviceTransport
 import `in`.hridayan.ashell.portforward.domain.model.DeviceEndpointType
 import `in`.hridayan.ashell.portforward.domain.model.RecentHost
@@ -97,6 +99,16 @@ data class TunnelEditorUiState(
         const val PREVIEW_ID = "preview"
     }
 }
+
+@Stable
+data class TunnelEditorFieldsState(
+    val address: TextFieldState = TextFieldState(),
+    val host: TextFieldState = TextFieldState(),
+    val targetPort: TextFieldState = TextFieldState(),
+    val localPort: TextFieldState = TextFieldState(),
+    val endpointValue: TextFieldState = TextFieldState(),
+    val name: TextFieldState = TextFieldState()
+)
 
 sealed interface TunnelEditorEvent {
     data class Saved(val spec: TunnelSpec, val started: Boolean) : TunnelEditorEvent

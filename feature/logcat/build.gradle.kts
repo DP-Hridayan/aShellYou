@@ -10,10 +10,12 @@ plugins {
 
 android {
     namespace = "in.hridayan.ashell.logcat"
-    compileSdk {
-        version = release(37)
-    }
 
+    compileSdk {
+        version = release(37) {
+            minorApiLevel = 1
+        }
+    }
     defaultConfig {
         minSdk = 28
 

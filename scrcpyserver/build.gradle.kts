@@ -4,23 +4,23 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
-// Builds the scrcpy server from the pinned upstream sources so F-Droid gets a from-source binary.
-// The output is never installed: :feature:mirror pushes it to the other device, where app_process
-// runs it. The server rejects any client whose version string differs from its versionName.
 private val scrcpyVersion = libs.versions.scrcpyServer.get()
 private val upstreamServer = rootProject.layout.projectDirectory.dir("third_party/scrcpy/server/src/main")
 private val serverJarName = "scrcpy-server-v$scrcpyVersion.jar"
 
 android {
     namespace = "com.genymobile.scrcpy"
+
     compileSdk {
-        version = release(36)
+        version = release(37) {
+            minorApiLevel = 1
+        }
     }
 
     defaultConfig {
         applicationId = "com.genymobile.scrcpy"
         minSdk = 21
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 40100
         versionName = scrcpyVersion
     }
@@ -36,6 +36,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+            @Suppress("UnstableApiUsage")
             vcsInfo.include = false
         }
     }
@@ -57,6 +58,7 @@ configurations.configureEach {
     exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")
 }
 
+@Suppress("UnstableApiUsage")
 val scrcpyServerJar = configurations.consumable("scrcpyServerJar") {
     attributes {
         attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage::class.java, "scrcpy-server-jar"))

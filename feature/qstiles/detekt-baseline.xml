@@ -1,367 +1,63 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-    <ManuallySuppressedIssues></ManuallySuppressedIssues>
-    <CurrentIssues>
-        <ID>ArgumentListWrapping:CreateTileScreen.kt$( top = 20.dp, start = 25.dp, bottom = 10.dp
-            )
-        </ID>
-        <ID>CyclomaticComplexMethod:CreateQsTileTool.kt$CreateQsTileTool$override suspend fun
-            execute(args: KJsonObject?): String
-        </ID>
-        <ID>CyclomaticComplexMethod:ShizukuExecutor.kt$ShizukuExecutor$@Suppress("DEPRECATION")
-            override suspend fun execute(command: String): CommandResult
-        </ID>
-        <ID>CyclomaticComplexMethod:TileBackupProvider.kt$TileBackupProvider$override suspend fun
-            restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)
-        </ID>
-        <ID>CyclomaticComplexMethod:TileDatastore.kt$TileDatastore$private fun buildTileConfig( id:
-            Int, prefs: Preferences, ): TileConfig?
-        </ID>
-        <ID>CyclomaticComplexMethod:UpdateQsTileTool.kt$UpdateQsTileTool$override suspend fun
-            execute(args: KJsonObject?): String
-        </ID>
-        <ID>Filename:TIleLog.kt$in.hridayan.ashell.qstiles.domain.model.TIleLog.kt</ID>
-        <ID>
-            Filename:TileDashBoardViewModel.kt$in.hridayan.ashell.qstiles.presentation.viewmodel.TileDashBoardViewModel.kt
-        </ID>
-        <ID>Filename:TileLogState.kt$in.hridayan.ashell.qstiles.presentation.model.TileLogState.kt
-        </ID>
-        <ID>FinalNewline:ExampleUnitTest.kt$in.hridayan.ashell.qstiles.ExampleUnitTest.kt</ID>
-        <ID>ImportOrdering:CreateQsTileTool.kt$import
-            `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode import
-            `in`.hridayan.ashell.core.common.domain.model.ai.AiTool import
-            `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema import
-            `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty import
-            `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager import
-            `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider import
-            `in`.hridayan.ashell.qstiles.domain.model.TileActiveState import
-            `in`.hridayan.ashell.qstiles.domain.model.TileConfig import
-            `in`.hridayan.ashell.qstiles.domain.repository.TileRepository import
-            androidx.compose.ui.text.input.TextFieldValue import kotlinx.coroutines.flow.first
-            import kotlinx.serialization.json.JsonObject as KJsonObject import
-            kotlinx.serialization.json.jsonPrimitive import javax.inject.Inject import
-            javax.inject.Singleton
-        </ID>
-        <ID>ImportOrdering:CreateTileScreen.kt$import androidx.compose.animation.AnimatedVisibility
-            import androidx.compose.animation.animateContentSize import
-            androidx.compose.animation.expandVertically import androidx.compose.animation.fadeIn
-            import androidx.compose.animation.fadeOut import
-            androidx.compose.animation.shrinkVertically import
-            androidx.compose.foundation.background import androidx.compose.foundation.basicMarquee
-            import androidx.compose.foundation.clickable import
-            androidx.compose.foundation.interaction.MutableInteractionSource import
-            androidx.compose.foundation.layout.Arrangement import
-            androidx.compose.foundation.layout.Box import androidx.compose.foundation.layout.Column
-            import androidx.compose.foundation.layout.FlowRow import
-            androidx.compose.foundation.layout.Row import androidx.compose.foundation.layout.Spacer
-            import androidx.compose.foundation.layout.fillMaxHeight import
-            androidx.compose.foundation.layout.fillMaxSize import
-            androidx.compose.foundation.layout.fillMaxWidth import
-            androidx.compose.foundation.layout.height import
-            androidx.compose.foundation.layout.heightIn import
-            androidx.compose.foundation.layout.padding import
-            androidx.compose.foundation.layout.size import androidx.compose.foundation.layout.width
-            import androidx.compose.foundation.layout.widthIn import
-            androidx.compose.foundation.lazy.LazyColumn import
-            androidx.compose.foundation.lazy.rememberLazyListState import
-            androidx.compose.foundation.shape.CircleShape import
-            androidx.compose.foundation.shape.RoundedCornerShape import
-            androidx.compose.foundation.text.BasicTextField import
-            androidx.compose.foundation.text.KeyboardOptions import
-            androidx.compose.material3.Button import androidx.compose.material3.ButtonDefaults
-            import androidx.compose.material3.ButtonGroupDefaults import
-            androidx.compose.material3.Card import androidx.compose.material3.CardDefaults import
-            androidx.compose.material3.ExperimentalMaterial3Api import
-            androidx.compose.material3.ExperimentalMaterial3ExpressiveApi import
-            androidx.compose.material3.FloatingToolbarDefaults import
-            androidx.compose.material3.HorizontalFloatingToolbar import
-            androidx.compose.material3.Icon import androidx.compose.material3.LocalTextStyle import
-            androidx.compose.material3.MaterialTheme import androidx.compose.material3.Text import
-            androidx.compose.material3.ToggleButton import androidx.compose.runtime.Composable
-            import androidx.compose.runtime.collectAsState import androidx.compose.runtime.getValue
-            import androidx.compose.runtime.mutableStateOf import androidx.compose.runtime.remember
-            import androidx.compose.runtime.saveable.rememberSaveable import
-            androidx.compose.runtime.setValue import androidx.compose.ui.Alignment import
-            androidx.compose.ui.Modifier import androidx.compose.ui.draw.clip import
-            androidx.compose.ui.graphics.SolidColor import
-            androidx.compose.ui.graphics.painter.Painter import
-            androidx.compose.ui.hapticfeedback.HapticFeedbackType import
-            androidx.compose.ui.input.nestedscroll.nestedScroll import
-            androidx.compose.ui.platform.LocalContext import
-            androidx.compose.ui.platform.LocalResources import
-            androidx.compose.ui.res.painterResource import androidx.compose.ui.res.stringResource
-            import androidx.compose.ui.text.font.FontFamily import
-            androidx.compose.ui.text.input.ImeAction import
-            androidx.compose.ui.text.input.KeyboardType import
-            androidx.compose.ui.text.input.TextFieldValue import
-            androidx.compose.ui.text.style.TextAlign import androidx.compose.ui.unit.Dp import
-            androidx.compose.ui.unit.dp import androidx.compose.ui.unit.sp import
-            androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel import
-            `in`.hridayan.ashell.core.common.LocalDarkMode import
-            `in`.hridayan.ashell.core.common.LocalWeakHaptic import
-            `in`.hridayan.ashell.core.navigation.LocalNavController import
-            `in`.hridayan.ashell.core.navigation.navigateBack import
-            `in`.hridayan.ashell.core.presentation.components.card.CustomCard import
-            `in`.hridayan.ashell.core.presentation.components.haptic.withHaptic import
-            `in`.hridayan.ashell.core.presentation.components.modifier.dashedBorder import
-            `in`.hridayan.ashell.core.presentation.components.scaffold.AppScaffold import
-            `in`.hridayan.ashell.core.presentation.components.switch.AppSwitch import
-            `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText import
-            `in`.hridayan.ashell.core.presentation.theme.CustomCardShape import
-            `in`.hridayan.ashell.core.resources.R import
-            `in`.hridayan.ashell.core.presentation.provider.ButtonGroupOptionsProvider import
-            `in`.hridayan.ashell.core.utils.showToast import
-            `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider import
-            `in`.hridayan.ashell.qstiles.presentation.components.dialog.DeleteTileConfirmationDialog
-            import `in`.hridayan.ashell.qstiles.presentation.components.dialog.IconChooserDialog
-            import `in`.hridayan.ashell.qstiles.presentation.viewmodel.CreateTileViewModel
-        </ID>
-        <ID>ImportOrdering:ExampleUnitTest.kt$import org.junit.Test import org.junit.Assert.*</ID>
-        <ID>ImportOrdering:GetQsTileSlotsTool.kt$import
-            `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode import
-            `in`.hridayan.ashell.core.common.domain.model.ai.AiTool import
-            `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema import
-            `in`.hridayan.ashell.qstiles.domain.repository.TileRepository import
-            kotlinx.coroutines.flow.first import kotlinx.serialization.json.JsonObject as
-            KJsonObject import javax.inject.Inject import javax.inject.Singleton
-        </ID>
-        <ID>ImportOrdering:QsTileToolModule.kt$import dagger.Binds import dagger.Module import
-            dagger.hilt.InstallIn import dagger.hilt.components.SingletonComponent import
-            dagger.multibindings.IntoSet import `in`.hridayan.ashell.qstiles.tool.CreateQsTileTool
-            import `in`.hridayan.ashell.qstiles.tool.GetQsTileSlotsTool import
-            `in`.hridayan.ashell.qstiles.tool.UpdateQsTileTool import
-            `in`.hridayan.ashell.core.common.domain.model.ai.AiTool
-        </ID>
-        <ID>ImportOrdering:TileIconProvider.kt$import `in`.hridayan.ashell.core.resources.R import
-            `in`.hridayan.ashell.qstiles.data.model.TileIcon
-        </ID>
-        <ID>ImportOrdering:UpdateQsTileTool.kt$import
-            `in`.hridayan.ashell.core.common.domain.model.TileExecutionMode import
-            `in`.hridayan.ashell.core.common.domain.model.ai.AiTool import
-            `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchema import
-            `in`.hridayan.ashell.core.common.domain.model.ai.ToolSchemaProperty import
-            `in`.hridayan.ashell.qstiles.data.provider.TileComponentManager import
-            `in`.hridayan.ashell.qstiles.data.provider.TileIconProvider import
-            `in`.hridayan.ashell.qstiles.domain.repository.TileRepository import
-            androidx.compose.ui.text.input.TextFieldValue import
-            kotlinx.serialization.json.JsonObject as KJsonObject import
-            kotlinx.serialization.json.jsonPrimitive import javax.inject.Inject import
-            javax.inject.Singleton
-        </ID>
-        <ID>Indentation:BaseTileService.kt$BaseTileService$</ID>
-        <ID>Indentation:CreateTileScreen.kt$</ID>
-        <ID>Indentation:CreateTileViewModel.kt$CreateTileViewModel$</ID>
-        <ID>Indentation:TileDashBoardScreen.kt$</ID>
-        <ID>Indentation:TileDatastore.kt$TileDatastore$</ID>
-        <ID>LongMethod:CreateQsTileTool.kt$CreateQsTileTool$override suspend fun execute(args:
-            KJsonObject?): String
-        </ID>
-        <ID>LongMethod:GetQsTileSlotsTool.kt$GetQsTileSlotsTool$override suspend fun execute(args:
-            KJsonObject?): String
-        </ID>
-        <ID>LongMethod:RootExecutor.kt$RootExecutor$override suspend fun execute(command: String):
-            CommandResult
-        </ID>
-        <ID>LongMethod:ShizukuExecutor.kt$ShizukuExecutor$@Suppress("DEPRECATION") override suspend
-            fun execute(command: String): CommandResult
-        </ID>
-        <ID>LongMethod:TileBackupProvider.kt$TileBackupProvider$override suspend fun
-            restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)
-        </ID>
-        <ID>LongMethod:TileExecutionManager.kt$TileExecutionManager$suspend fun execute(tile:
-            TileConfig): Boolean
-        </ID>
-        <ID>LongMethod:TileNotificationHelper.kt$TileNotificationHelper$fun notifyFailure( tileName:
-            String, errorType: TileErrorType, errorMessage: String, notificationId: Int )
-        </ID>
-        <ID>LongMethod:UpdateQsTileTool.kt$UpdateQsTileTool$override suspend fun execute(args:
-            KJsonObject?): String
-        </ID>
-        <ID>MagicNumber:CreateTileViewModel.kt$CreateTileViewModel$250</ID>
-        <ID>MatchingDeclarationName:TIleLog.kt$TileLog</ID>
-        <ID>MatchingDeclarationName:TileDashBoardScreen.kt$TileScreenTabs</ID>
-        <ID>MatchingDeclarationName:TileDashBoardViewModel.kt$TileDashboardViewModel : ViewModel
-        </ID>
-        <ID>MatchingDeclarationName:TileLogState.kt$TileLogsState</ID>
-        <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$description = "Icon identifier for
-            the tile. Valid options: ${TileIconProvider.icons.joinToString { it.id }}"
-        </ID>
-        <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$description = "If is_toggleable is
-            true, the shell command to run when the tile is ALREADY OFF (i.e. to turn the feature
-            ON). Default empty string."
-        </ID>
-        <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$description = "Optional target slot
-            ID (1 to 10). If omitted or occupied, the first available empty slot is used."
-        </ID>
-        <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$description = "The exact shell
-            command to run when the tile is ALREADY ON (i.e. to turn the feature OFF). For simple
-            tap tiles, this is the action command."
-        </ID>
-        <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$description = "Whether the tile
-            represents an on/off toggle (true) or a one-shot tap action (false). Default false."
-        </ID>
-        <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$override val description: String =
-            "Create a custom Quick Settings (QS) tile for the user in an available slot (1-10).
-            Before calling this tool: 1) ALWAYS use get_qs_tile_slots to check which slot is empty
-            if you haven't yet, 2) If the user didn't specify an execution mode in their request,
-            ask the user which execution mode they prefer (0 for Shizuku [default], 1 for Root), and
-            3) Decide whether the tile should be a toggle (on/off switch) or a simple tap action
-            based on the command/purpose."
-        </ID>
-        <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$return "Failed to create QS tile: All
-            10 Quick Settings tile slots (1 to 10) are currently occupied. Please delete an existing
-            tile before creating a new one."
-        </ID>
-        <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$return "Successfully created QS tile
-            '$title' in Slot $tileId (Slot Index $slotIndex) using $modeStr mode ($typeStr). System
-            prompt dialog triggered to add Tile $tileId to Quick Settings panel. Tell the user which
-            slot number ($tileId) it was created in."
-        </ID>
-        <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$val typeStr = if (isToggleable)
-            "Toggleable (ON: '$command', OFF: '$inactiveCmd')" else "Tap Action ('$command')"
-        </ID>
-        <ID>MaxLineLength:CreateTileScreen.kt$MaterialTheme.colorScheme.run { if (isIconSelected)
-            primary else surfaceVariant }
-        </ID>
-        <ID>MaxLineLength:CreateTileScreen.kt$executionMethodOptions.lastIndex -&gt;
-            ButtonGroupDefaults.connectedTrailingButtonShapes()
-        </ID>
-        <ID>MaxLineLength:GetQsTileSlotsTool.kt$GetQsTileSlotsTool$"Toggle (Cmd to turn OFF:
-            '${tile.activeState.activeCommand.text}', Cmd to turn ON:
-            '${tile.activeState.inactiveCommand.text}')"
-        </ID>
-        <ID>MaxLineLength:GetQsTileSlotsTool.kt$GetQsTileSlotsTool$override val description: String
-            = "Query the current status of all 10 Quick Settings (QS) tile slots (1 to 10), showing
-            which slots are available (empty) and which slots are occupied by existing custom tiles.
-            ALWAYS call this before creating a new tile to see if there is an empty slot and know
-            which slot number to use."
-        </ID>
-        <ID>MaxLineLength:TileDashBoardScreen.kt$containerColor = if (isActive)
-            MaterialTheme.colorScheme.primaryContainer else
-            MaterialTheme.colorScheme.surfaceContainer
-        </ID>
-        <ID>MaxLineLength:TileDashBoardScreen.kt$contentColor = if (isActive)
-            MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface
-        </ID>
-        <ID>MaxLineLength:TileDashBoardScreen.kt$tint = if (isActive)
-            MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.primary
-        </ID>
-        <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$description = "Optional. New icon
-            identifier. Valid options: ${TileIconProvider.icons.joinToString { it.id }}"
-        </ID>
-        <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$description = "Optional. New shell
-            command to run when the tile is ALREADY ON (to turn it OFF) or for tap actions."
-        </ID>
-        <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$override val description: String =
-            "Update an existing custom Quick Settings (QS) tile. You only need to provide the
-            slot/id of the tile to update, and optionally any properties you want to change. If a
-            property is omitted, its current value is preserved."
-        </ID>
-        <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$val activeSubtitle =
-            args["active_subtitle"]?.jsonPrimitive?.content ?:
-            existingTile.activeState.activeTileSubtitle.text
-        </ID>
-        <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$val inactiveCmd =
-            args["inactive_command"]?.jsonPrimitive?.content ?:
-            existingTile.activeState.inactiveCommand.text
-        </ID>
-        <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$val inactiveSubtitle =
-            args["inactive_subtitle"]?.jsonPrimitive?.content ?:
-            existingTile.activeState.inactiveTileSubtitle.text
-        </ID>
-        <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$val isToggleable =
-            args["is_toggleable"]?.jsonPrimitive?.content?.toBooleanStrictOrNull() ?:
-            existingTile.activeState.isToggleable
-        </ID>
-        <ID>MaximumLineLength:CreateQsTileTool.kt$CreateQsTileTool$</ID>
-        <ID>MaximumLineLength:CreateTileScreen.kt$</ID>
-        <ID>MaximumLineLength:GetQsTileSlotsTool.kt$GetQsTileSlotsTool$</ID>
-        <ID>MaximumLineLength:TileDashBoardScreen.kt$</ID>
-        <ID>MaximumLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$</ID>
-        <ID>MultiLineIfElse:CreateTileScreen.kt$"${activeSubtitle.text} /
-            ${inactiveSubtitle.text}"
-        </ID>
-        <ID>MultiLineIfElse:CreateTileScreen.kt$MaterialTheme.colorScheme.onPrimary</ID>
-        <ID>MultiLineIfElse:CreateTileScreen.kt$MaterialTheme.colorScheme.onSurface</ID>
-        <ID>MultiLineIfElse:CreateTileScreen.kt$MaterialTheme.colorScheme.outline</ID>
-        <ID>MultiLineIfElse:CreateTileScreen.kt$MaterialTheme.colorScheme.primary</ID>
-        <ID>MultiLineIfElse:CreateTileScreen.kt$createTileViewModel.onActiveSubtitleChange(it)</ID>
-        <ID>MultiLineIfElse:CreateTileScreen.kt$createTileViewModel.onInactiveSubtitleChange(it)
-        </ID>
-        <ID>MultiLineIfElse:CreateTileScreen.kt$onPrimaryContainer.copy(alpha = 0.7f)</ID>
-        <ID>MultiLineIfElse:CreateTileScreen.kt$onSurface.copy(alpha = 0.5f)</ID>
-        <ID>MultiLineIfElse:CreateTileScreen.kt$painterResource(R.drawable.ic_add)</ID>
-        <ID>MultiLineIfElse:CreateTileScreen.kt$painterResource(selectedIcon.resId)</ID>
-        <ID>MultiLineIfElse:CreateTileScreen.kt$stringResource(R.string.adb_command)</ID>
-        <ID>MultiLineIfElse:CreateTileScreen.kt$stringResource(R.string.adb_command_on_state)</ID>
-        <ID>MultiLineIfElse:CreateTileScreen.kt$stringResource(R.string.create_new_tile)</ID>
-        <ID>MultiLineIfElse:CreateTileScreen.kt$stringResource(R.string.edit_tile)</ID>
-        <ID>MultiLineIfElse:CreateTileScreen.kt$stringResource(R.string.subtitle)</ID>
-        <ID>MultiLineIfElse:CreateTileScreen.kt$stringResource(R.string.subtitle_on_state)</ID>
-        <ID>
-            MultiLineIfElse:CreateTileViewModel.kt$CreateTileViewModel$context.getString(R.string.duplicate_tile_name_error_msg)
-        </ID>
-        <ID>MultiLineIfElse:CreateTileViewModel.kt$CreateTileViewModel$null</ID>
-        <ID>
-            MultiLineIfElse:TileDashBoardScreen.kt$MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha
-            = 0.75f)
-        </ID>
-        <ID>MultiLineIfElse:TileDashBoardScreen.kt$MaterialTheme.colorScheme.onSurface.copy(alpha =
-            0.7f)
-        </ID>
-        <ID>MultiLineIfElse:TileDashBoardScreen.kt$UrlUtils.openUrl( url =
-            UrlConst.URL_SHIZUKU_SITE, context = context )
-        </ID>
-        <ID>MultiLineIfElse:TileDashBoardScreen.kt$context.launchApp(SHIZUKU_PACKAGE_NAME)</ID>
-        <ID>MultiLineIfElse:TileDashBoardScreen.kt$false</ID>
-        <ID>MultiLineIfElse:TileDashBoardScreen.kt$painterResource( R.drawable.ic_adb )</ID>
-        <ID>MultiLineIfElse:TileDashBoardScreen.kt$painterResource(tileIcon.resId)</ID>
-        <ID>MultiLineIfElse:TileDashBoardScreen.kt$stringResource(R.string.failed)</ID>
-        <ID>MultiLineIfElse:TileDashBoardScreen.kt$stringResource(R.string.qs_tiles)</ID>
-        <ID>MultiLineIfElse:TileDashBoardScreen.kt$stringResource(R.string.root)</ID>
-        <ID>MultiLineIfElse:TileDashBoardScreen.kt$stringResource(R.string.shizuku)</ID>
-        <ID>MultiLineIfElse:TileDashBoardScreen.kt$stringResource(R.string.success)</ID>
-        <ID>MultiLineIfElse:TileDashBoardScreen.kt$stringResource(R.string.tile_logs)</ID>
-        <ID>MultiLineIfElse:TileDashBoardScreen.kt$surfaceContainerLow</ID>
-        <ID>MultiLineIfElse:TileDashBoardScreen.kt$surfaceContainerLow.blend( errorContainer, 0.3f
-            )
-        </ID>
-        <ID>NestedBlockDepth:TileBackupProvider.kt$TileBackupProvider$override suspend fun
-            restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)
-        </ID>
-        <ID>NoConsecutiveBlankLines:CreateTileScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:IconChooserDialog.kt$</ID>
-        <ID>NoConsecutiveBlankLines:RootExecutor.kt$</ID>
-        <ID>NoConsecutiveBlankLines:TileComponentManager.kt$</ID>
-        <ID>NoConsecutiveBlankLines:TileIconProvider.kt$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:CreateTileScreen.kt$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:CreateTileUseCase.kt$CreateTileUseCase$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:DeleteTileConfirmationDialog.kt$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:IconChooserDialog.kt$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:TileDashBoardScreen.kt$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:TileIconScorer.kt$TileIconScorer$</ID>
-        <ID>NoSemicolons:BaseTileService.kt$BaseTileService$;</ID>
-        <ID>NoTrailingSpaces:QsTileToolModule.kt$QsTileToolModule$</ID>
-        <ID>NoTrailingSpaces:UpdateQsTileTool.kt$UpdateQsTileTool$</ID>
-        <ID>NoWildcardImports:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
-        <ID>PrintStackTrace:TileBackupProvider.kt$TileBackupProvider$e</ID>
-        <ID>SwallowedException:TileComponentManager.kt$TileComponentManager$e: Exception</ID>
-        <ID>TooManyFunctions:CreateTileViewModel.kt$CreateTileViewModel : ViewModel</ID>
-        <ID>TooManyFunctions:TileDatastore.kt$TileDatastore</ID>
-        <ID>UnusedParameter:CreateTileScreen.kt$tileId: Int</ID>
-        <ID>UnusedPrivateProperty:BaseTileService.kt$BaseTileService$val intendedConfig = if
-            (config.activeState.isToggleable) { config.copy(activeState =
-            config.activeState.copy(isActive = !config.activeState.isActive)) } else { config }
-        </ID>
-        <ID>UnusedPrivateProperty:CreateTileScreen.kt$val floatingToolbarContainerColor =
-            FloatingToolbarDefaults.vibrantFloatingToolbarColors().toolbarContainerColor
-        </ID>
-        <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
-        <ID>Wrapping:BaseTileService.kt$BaseTileService$;</ID>
-        <ID>Wrapping:BaseTileService.kt$BaseTileService$collect { v -&gt; result = v; cancel() }
-        </ID>
-        <ID>Wrapping:CreateTileScreen.kt$(</ID>
-        <ID>Wrapping:TileDashBoardScreen.kt$(</ID>
-        <ID>Wrapping:TileDatastore.kt$TileDatastore$[</ID>
-    </CurrentIssues>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>CyclomaticComplexMethod:CreateQsTileTool.kt$CreateQsTileTool$override suspend fun execute(args: KJsonObject?): String</ID>
+    <ID>CyclomaticComplexMethod:ShizukuExecutor.kt$ShizukuExecutor$override suspend fun execute(command: String): CommandResult</ID>
+    <ID>CyclomaticComplexMethod:TcpIpExecutor.kt$TcpIpExecutor$override suspend fun execute(command: String): CommandResult</ID>
+    <ID>CyclomaticComplexMethod:TileBackupProvider.kt$TileBackupProvider$override suspend fun restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)</ID>
+    <ID>CyclomaticComplexMethod:TileDatastore.kt$TileDatastore$private fun buildTileConfig( id: Int, prefs: Preferences, ): TileConfig?</ID>
+    <ID>CyclomaticComplexMethod:UpdateQsTileTool.kt$UpdateQsTileTool$override suspend fun execute(args: KJsonObject?): String</ID>
+    <ID>Filename:TIleLog.kt$in.hridayan.ashell.qstiles.domain.model.TIleLog.kt</ID>
+    <ID>Filename:TileDashBoardViewModel.kt$in.hridayan.ashell.qstiles.presentation.viewmodel.TileDashBoardViewModel.kt</ID>
+    <ID>Filename:TileLogState.kt$in.hridayan.ashell.qstiles.presentation.model.TileLogState.kt</ID>
+    <ID>LargeClass:CreateTileViewModel.kt$CreateTileViewModel : ViewModel</ID>
+    <ID>LongMethod:CreateQsTileTool.kt$CreateQsTileTool$override suspend fun execute(args: KJsonObject?): String</ID>
+    <ID>LongMethod:GetQsTileSlotsTool.kt$GetQsTileSlotsTool$override suspend fun execute(args: KJsonObject?): String</ID>
+    <ID>LongMethod:RootExecutor.kt$RootExecutor$override suspend fun execute(command: String): CommandResult</ID>
+    <ID>LongMethod:ShizukuExecutor.kt$ShizukuExecutor$override suspend fun execute(command: String): CommandResult</ID>
+    <ID>LongMethod:TcpIpExecutor.kt$TcpIpExecutor$override suspend fun execute(command: String): CommandResult</ID>
+    <ID>LongMethod:TileBackupProvider.kt$TileBackupProvider$override suspend fun restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)</ID>
+    <ID>LongMethod:TileExecutionManager.kt$TileExecutionManager$suspend fun execute(tile: TileConfig): Boolean</ID>
+    <ID>LongMethod:TileNotificationHelper.kt$TileNotificationHelper$fun notifyFailure( tileName: String, errorType: TileErrorType, errorMessage: String, notificationId: Int )</ID>
+    <ID>LongMethod:UpdateQsTileTool.kt$UpdateQsTileTool$override suspend fun execute(args: KJsonObject?): String</ID>
+    <ID>LongParameterList:IconChooserBottomSheet.kt$( onDismiss: () -&gt; Unit, icons: List&lt;MaterialIconEntry&gt;, fontLoadState: FontLoadState, searchQuery: TextFieldValue, selectedIconId: String, onQueryChange: (TextFieldValue) -&gt; Unit, onIconSelected: (MaterialIconEntry) -&gt; Unit, onIconStyleSelected: (MaterialIconStyle) -&gt; Unit, )</ID>
+    <ID>LongParameterList:TileDashBoardScreen.kt$( listState: LazyListState, innerPadding: PaddingValues, topBarScrollBehavior: TopAppBarScrollBehavior, uiState: TileDashBoardScreenUiState, loadedFonts: Map&lt;MaterialIconStyle, FontLoadState.Ready&gt;, hasNotificationAccess: Boolean, onClickNotificationButton: () -&gt; Unit, )</ID>
+    <ID>MatchingDeclarationName:TIleLog.kt$TileLog</ID>
+    <ID>MatchingDeclarationName:TileDashBoardScreen.kt$TileScreenTabs</ID>
+    <ID>MatchingDeclarationName:TileDashBoardViewModel.kt$TileDashboardViewModel : ViewModel</ID>
+    <ID>MatchingDeclarationName:TileLogState.kt$TileLogsState</ID>
+    <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$"Create a custom Quick Settings (QS) tile for the user in an available slot (1-10). Before calling this tool: 1) ALWAYS use get_qs_tile_slots to check which slot is empty if you haven't yet, 2) If the user didn't specify an execution mode in their request, ask the user which execution mode they prefer (0 for Shizuku [default], 1 for Root, 2 for TCP/IP), and 3) Decide whether the tile should be a toggle (on/off switch) or a simple tap action based on the command/purpose."</ID>
+    <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$description = "If is_toggleable is true, the shell command to run when the tile is ALREADY OFF (i.e. to turn the feature ON). Default empty string."</ID>
+    <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$description = "Optional target slot ID (1 to 10). If omitted or occupied, the first available empty slot is used."</ID>
+    <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$description = "The exact shell command to run when the tile is ALREADY ON (i.e. to turn the feature OFF). For simple tap tiles, this is the action command."</ID>
+    <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$description = "Whether the Quick Settings panel automatically collapses/dismisses when this tile is clicked. Default false."</ID>
+    <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$description = "Whether the tile represents an on/off toggle (true) or a one-shot tap action (false). Default false."</ID>
+    <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$return "Failed to create QS tile: All 10 Quick Settings tile slots (1 to 10) are currently occupied. Please delete an existing tile before creating a new one."</ID>
+    <ID>MaxLineLength:CreateQsTileTool.kt$CreateQsTileTool$return "Successfully created QS tile '$title' in Slot $tileId (Slot Index $slotIndex) using $modeStr mode ($typeStr). System prompt dialog triggered to add Tile $tileId to Quick Settings panel. Tell the user which slot number ($tileId) it was created in."</ID>
+    <ID>MaxLineLength:CreateTileScreen.kt$MaterialTheme.colorScheme.run { if (isIconSelected) primary else surfaceVariant }</ID>
+    <ID>MaxLineLength:CreateTileScreen.kt$executionMethodOptions.lastIndex -&gt; ButtonGroupDefaults.connectedTrailingButtonShapes()</ID>
+    <ID>MaxLineLength:GetQsTileSlotsTool.kt$GetQsTileSlotsTool$"Toggle (Cmd to turn OFF: '${tile.activeState.activeCommand.text}', Cmd to turn ON: '${tile.activeState.inactiveCommand.text}')"</ID>
+    <ID>MaxLineLength:GetQsTileSlotsTool.kt$GetQsTileSlotsTool$override val description: String = "Query the current status of all 10 Quick Settings (QS) tile slots (1 to 10), showing which slots are available (empty) and which slots are occupied by existing custom tiles. ALWAYS call this before creating a new tile to see if there is an empty slot and know which slot number to use."</ID>
+    <ID>MaxLineLength:TileDashBoardScreen.kt$containerColor = if (isActive) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainer</ID>
+    <ID>MaxLineLength:TileDashBoardScreen.kt$contentColor = if (isActive) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onSurface</ID>
+    <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$description = "Optional. New icon name from Material Icons Outlined (e.g., home, wifi, terminal, settings, bluetooth, dark_mode, lock, search, code, bug_report)"</ID>
+    <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$description = "Optional. New shell command to run when the tile is ALREADY ON (to turn it OFF) or for tap actions."</ID>
+    <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$description = "Optional. Whether the Quick Settings panel automatically collapses/dismisses when this tile is clicked."</ID>
+    <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$override val description: String = "Update an existing custom Quick Settings (QS) tile. You only need to provide the slot/id of the tile to update, and optionally any properties you want to change. If a property is omitted, its current value is preserved."</ID>
+    <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$val activeSubtitle = args["active_subtitle"]?.jsonPrimitive?.content ?: existingTile.activeState.activeTileSubtitle.text</ID>
+    <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$val collapsePanel = args["collapse_panel_on_click"]?.jsonPrimitive?.content?.toBooleanStrictOrNull() ?: existingTile.collapsePanelOnClick</ID>
+    <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$val inactiveCmd = args["inactive_command"]?.jsonPrimitive?.content ?: existingTile.activeState.inactiveCommand.text</ID>
+    <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$val inactiveSubtitle = args["inactive_subtitle"]?.jsonPrimitive?.content ?: existingTile.activeState.inactiveTileSubtitle.text</ID>
+    <ID>MaxLineLength:UpdateQsTileTool.kt$UpdateQsTileTool$val isToggleable = args["is_toggleable"]?.jsonPrimitive?.content?.toBooleanStrictOrNull() ?: existingTile.activeState.isToggleable</ID>
+    <ID>NestedBlockDepth:CreateTileViewModel.kt$CreateTileViewModel$private fun updateSuggestions()</ID>
+    <ID>NestedBlockDepth:TileBackupProvider.kt$TileBackupProvider$override suspend fun restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)</ID>
+    <ID>NoConsecutiveBlankLines:QsTileToolModule.kt$ </ID>
+    <ID>NoTrailingSpaces:FontLoadState.kt$FontLoadState$ </ID>
+    <ID>PrintStackTrace:TileBackupProvider.kt$TileBackupProvider$e</ID>
+    <ID>SwallowedException:CreateQsTileTool.kt$CreateQsTileTool$e: Exception</ID>
+    <ID>SwallowedException:TileComponentManager.kt$TileComponentManager$e: Exception</ID>
+    <ID>TooManyFunctions:CreateTileViewModel.kt$CreateTileViewModel : ViewModel</ID>
+    <ID>TooManyFunctions:TileDatastore.kt$TileDatastore</ID>
+  </CurrentIssues>
 </SmellBaseline>

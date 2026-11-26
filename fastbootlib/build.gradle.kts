@@ -4,18 +4,23 @@ plugins {
 
 android {
     namespace = "in.hridayan.fastboot"
-    compileSdk = 37
+
+    compileSdk {
+        version = release(37) {
+            minorApiLevel = 1
+        }
+    }
 
     defaultConfig {
         minSdk = 28
     }
 
     testOptions {
-        targetSdk = 36
+        targetSdk = 37
     }
 
     lint {
-        targetSdk = 36
+        targetSdk = 37
     }
 
     buildTypes {

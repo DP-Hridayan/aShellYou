@@ -11,7 +11,9 @@ android {
     namespace = "in.hridayan.ashell.core.common"
 
     compileSdk {
-        version = release(37)
+        version = release(37) {
+            minorApiLevel = 1
+        }
     }
 
     defaultConfig {
@@ -38,17 +40,17 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.core.ktx)
     implementation(libs.material)
-    
+
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
-    
+
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
-    
+
     api(libs.datastore.preferences)
     api(libs.serialization.json)
     implementation(libs.androidx.security.crypto)
-    
+
     implementation(libs.shizuku.api)
     implementation(libs.shizuku.provider)
     implementation(libs.libsu.core)
@@ -59,7 +61,7 @@ dependencies {
     implementation(libs.androidx.documentfile)
 
     implementation(libs.compose.settings.graph)
-    
+
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.junit)

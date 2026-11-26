@@ -7,10 +7,12 @@ plugins {
 
 android {
     namespace = "in.hridayan.ashell.guides"
-    compileSdk {
-        version = release(37)
-    }
 
+    compileSdk {
+        version = release(37) {
+            minorApiLevel = 1
+        }
+    }
     defaultConfig {
         minSdk = 28
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

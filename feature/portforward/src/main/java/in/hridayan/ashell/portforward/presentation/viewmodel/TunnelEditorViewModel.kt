@@ -1,5 +1,8 @@
 package `in`.hridayan.ashell.portforward.presentation.viewmodel
 
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
+import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -33,6 +36,7 @@ import `in`.hridayan.ashell.portforward.presentation.model.EditorKind
 import `in`.hridayan.ashell.portforward.presentation.model.LocalPortStatus
 import `in`.hridayan.ashell.portforward.presentation.model.TestState
 import `in`.hridayan.ashell.portforward.presentation.model.TunnelEditorEvent
+import `in`.hridayan.ashell.portforward.presentation.model.TunnelEditorFieldsState
 import `in`.hridayan.ashell.portforward.presentation.model.TunnelEditorForm
 import `in`.hridayan.ashell.portforward.presentation.model.TunnelEditorUiState
 import `in`.hridayan.ashell.portforward.presentation.model.targetOrNull
@@ -46,6 +50,8 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.UUID
@@ -108,11 +114,14 @@ class TunnelEditorViewModel internal constructor(
     private val _state = MutableStateFlow(initialState())
     val state: StateFlow<TunnelEditorUiState> = _state.asStateFlow()
 
+    val fields = TunnelEditorFieldsState()
+
     private val _events = MutableSharedFlow<TunnelEditorEvent>()
     val events: SharedFlow<TunnelEditorEvent> = _events.asSharedFlow()
 
     init {
         transport?.let(::observeDevice)
+        observeTextFields()
         observeOtherTunnels()
         observeRecentHosts()
         observeLanSharing()
@@ -120,28 +129,81 @@ class TunnelEditorViewModel internal constructor(
         tunnelId?.let(::load)
     }
 
+    private fun observeTextFields() {
+        observeField(fields.address, ::syncAddressInput)
+        observeField(fields.host, ::syncHostInput)
+        observeField(fields.targetPort, ::syncTargetPortInput)
+        observeField(fields.localPort, ::syncLocalPortInput)
+        observeField(fields.endpointValue, ::syncEndpointValueInput)
+        observeField(fields.name, ::syncNameInput)
+    }
+
+    private fun observeField(fieldState: TextFieldState, onChanged: (String) -> Unit) {
+        viewModelScope.launch {
+            snapshotFlow { fieldState.text.toString() }
+                .drop(1)
+                .distinctUntilChanged()
+                .collect(onChanged)
+        }
+    }
+
     fun onAddressChange(text: String) {
+        fields.address.setTextIfDifferent(text)
+        syncAddressInput(text)
+    }
+
+    private fun syncAddressInput(text: String) {
+        if (_state.value.form.address == text) return
         val parsed = parseHostInput(text)
+        if (parsed != null) applyParsedToFields(parsed)
         updateForm { form -> form.copy(address = text).let { base -> parsed?.let { base.withParsed(it) } ?: base } }
         if (parsed != null) scheduleChecks()
     }
 
+    private fun applyParsedToFields(parsed: ParsedHostInput) {
+        fields.host.setTextIfDifferent(parsed.host)
+        parsed.port?.toString()?.let { portText ->
+            fields.targetPort.setTextIfDifferent(portText)
+            if (_state.value.form.sameAsTarget) fields.localPort.setTextIfDifferent(portText)
+        }
+    }
+
     fun onHostChange(text: String) {
+        fields.host.setTextIfDifferent(text)
+        syncHostInput(text)
+    }
+
+    private fun syncHostInput(text: String) {
+        if (_state.value.form.host == text) return
         updateForm { it.copy(host = text) }
         scheduleHostCheck()
     }
 
     fun onTargetPortChange(text: String) {
+        fields.targetPort.setTextIfDifferent(text)
+        syncTargetPortInput(text)
+    }
+
+    private fun syncTargetPortInput(text: String) {
+        if (_state.value.form.targetPort == text) return
+        if (_state.value.form.sameAsTarget) fields.localPort.setTextIfDifferent(text)
         updateForm { it.copy(targetPort = text, localPort = if (it.sameAsTarget) text else it.localPort) }
         schedulePortCheck()
     }
 
     fun onLocalPortChange(text: String) {
+        fields.localPort.setTextIfDifferent(text)
+        syncLocalPortInput(text)
+    }
+
+    private fun syncLocalPortInput(text: String) {
+        if (_state.value.form.localPort == text) return
         updateForm { it.copy(localPort = text, sameAsTarget = text == it.targetPort) }
         schedulePortCheck()
     }
 
     fun onSameAsTargetChange(enabled: Boolean) {
+        if (enabled) fields.localPort.setTextIfDifferent(_state.value.form.targetPort)
         updateForm { it.copy(sameAsTarget = enabled, localPort = if (enabled) it.targetPort else it.localPort) }
         schedulePortCheck()
     }
@@ -151,6 +213,16 @@ class TunnelEditorViewModel internal constructor(
     }
 
     fun onEndpointValueChange(text: String) {
+        fields.endpointValue.setTextIfDifferent(text)
+        syncEndpointValueInput(text)
+    }
+
+    private fun syncEndpointValueInput(text: String) {
+        if (_state.value.form.endpointValue == text) return
+        val form = _state.value.form
+        if (form.sameAsTarget && form.endpointType == DeviceEndpointType.TCP) {
+            fields.localPort.setTextIfDifferent(text)
+        }
         updateForm {
             val follows = it.sameAsTarget && it.endpointType == DeviceEndpointType.TCP
             it.copy(endpointValue = text, localPort = if (follows) text else it.localPort)
@@ -160,6 +232,9 @@ class TunnelEditorViewModel internal constructor(
 
     /** Fills the form from [preset], naming the tunnel [name] unless the user already named it. */
     fun onPresetSelected(preset: DevicePreset, name: String) {
+        fields.endpointValue.setTextIfDifferent(preset.endpoint.value)
+        fields.localPort.setTextIfDifferent(preset.localPort.toString())
+        if (_state.value.form.name.isBlank()) fields.name.setTextIfDifferent(name)
         updateForm {
             it.copy(
                 endpointType = preset.endpoint.type,
@@ -173,13 +248,25 @@ class TunnelEditorViewModel internal constructor(
         schedulePortCheck()
     }
 
-    fun onNameChange(text: String) = updateForm { it.copy(name = text) }
+    fun onNameChange(text: String) {
+        fields.name.setTextIfDifferent(text)
+        syncNameInput(text)
+    }
+
+    private fun syncNameInput(text: String) {
+        if (_state.value.form.name == text) return
+        updateForm { it.copy(name = text) }
+    }
 
     fun onAutoStartChange(enabled: Boolean) = updateForm { it.copy(autoStart = enabled) }
 
     fun onShareOnNetworkChange(enabled: Boolean) = updateForm { it.copy(shareOnNetwork = enabled) }
 
     fun onRecentHostSelected(host: RecentHost) {
+        fields.address.setTextIfDifferent("")
+        fields.host.setTextIfDifferent(host.host)
+        fields.targetPort.setTextIfDifferent(host.lastPort.toString())
+        if (_state.value.form.sameAsTarget) fields.localPort.setTextIfDifferent(host.lastPort.toString())
         updateForm {
             it.copy(
                 address = "",
@@ -356,9 +443,26 @@ class TunnelEditorViewModel internal constructor(
         viewModelScope.launch {
             val spec = repository.tunnel(id).getOrNull() ?: return@launch
             originalLocalPort = spec.localPort
-            updateForm { spec.toForm() }
+            val loadedForm = spec.toForm()
+            applyFormToFields(loadedForm)
+            updateForm { loadedForm }
             (spec.target as? TunnelTarget.Device)?.let { observeDevice(it.transport) }
             scheduleChecks()
+        }
+    }
+
+    private fun applyFormToFields(form: TunnelEditorForm) {
+        fields.address.setTextIfDifferent(form.address)
+        fields.host.setTextIfDifferent(form.host)
+        fields.targetPort.setTextIfDifferent(form.targetPort)
+        fields.localPort.setTextIfDifferent(form.localPort)
+        fields.endpointValue.setTextIfDifferent(form.endpointValue)
+        fields.name.setTextIfDifferent(form.name)
+    }
+
+    private fun TextFieldState.setTextIfDifferent(newText: String) {
+        if (text.toString() != newText) {
+            setTextAndPlaceCursorAtEnd(newText)
         }
     }
 
