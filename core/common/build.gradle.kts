@@ -1,34 +1,15 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.hilt)
-    alias(libs.plugins.ksp)
+    alias(libs.plugins.ashell.android.library)
+    alias(libs.plugins.ashell.android.compose)
+    alias(libs.plugins.ashell.android.hilt)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.dependencyAnalysis)
 }
 
 android {
     namespace = "in.hridayan.ashell.core.common"
 
-    compileSdk {
-        version = release(37) {
-            minorApiLevel = 1
-        }
-    }
-
     defaultConfig {
-        minSdk = 28
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    buildFeatures {
-        compose = true
     }
 }
 
@@ -40,9 +21,6 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.core.ktx)
     implementation(libs.material)
-
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
 
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
@@ -56,10 +34,7 @@ dependencies {
     implementation(libs.libsu.core)
     implementation(libs.jmdns)
 
-    implementation(platform(libs.compose.bom))
-    implementation(libs.compose.ui)
     implementation(libs.androidx.documentfile)
-
     implementation(libs.compose.settings.graph)
 
     testImplementation(libs.junit)

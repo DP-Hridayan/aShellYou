@@ -1,20 +1,9 @@
 ﻿plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.dependencyAnalysis)
+    alias(libs.plugins.ashell.android.library)
 }
 
 android {
     namespace = "in.hridayan.ashell.core.resources"
-
-    compileSdk {
-        version = release(37) {
-            minorApiLevel = 1
-        }
-    }
-
-    defaultConfig {
-        minSdk = 28
-    }
 }
 
 dependencies {
@@ -37,7 +26,6 @@ val syncLegalDocs = tasks.register<Copy>("syncLegalDocs") {
     rename("PRIVACY_POLICY.md", "privacy_policy.md")
     rename("TERMS_OF_SERVICE.md", "terms_of_service.md")
 }
-
 
 tasks.configureEach {
     if (name == "preBuild") {

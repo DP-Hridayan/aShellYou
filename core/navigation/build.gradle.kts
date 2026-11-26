@@ -1,29 +1,10 @@
 plugins {
+    alias(libs.plugins.ashell.android.library)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.dependencyAnalysis)
 }
 
 android {
     namespace = "in.hridayan.ashell.core.navigation"
-
-    compileSdk {
-        version = release(37) {
-            minorApiLevel = 1
-        }
-    }
-
-    defaultConfig {
-        minSdk = 28
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
 }
 
 dependencies {
