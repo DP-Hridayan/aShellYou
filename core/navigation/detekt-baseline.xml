@@ -1,16 +1,12 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-    <ManuallySuppressedIssues></ManuallySuppressedIssues>
-    <CurrentIssues>
-        <ID>FinalNewline:ExampleUnitTest.kt$in.hridayan.ashell.core.navigation.ExampleUnitTest.kt
-        </ID>
-        <ID>ImportOrdering:ExampleUnitTest.kt$import org.junit.Test import org.junit.Assert.*</ID>
-        <ID>MagicNumber:NavTransitions.kt$200</ID>
-        <ID>MagicNumber:NavTransitions.kt$250</ID>
-        <ID>MagicNumber:NavTransitions.kt$350</ID>
-        <ID>MagicNumber:NavTransitions.kt$50</ID>
-        <ID>NoConsecutiveBlankLines:NavRoutes.kt$NavRoutes$</ID>
-        <ID>NoWildcardImports:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
-        <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
-    </CurrentIssues>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>MagicNumber:NavTransitions.kt$200</ID>
+    <ID>MagicNumber:NavTransitions.kt$250</ID>
+    <ID>MagicNumber:NavTransitions.kt$350</ID>
+    <ID>MagicNumber:NavTransitions.kt$50</ID>
+    <ID>MagicNumber:NavTransitions.kt$75</ID>
+    <ID>NoConsecutiveBlankLines:NavRoutes.kt$ </ID>
+  </CurrentIssues>
 </SmellBaseline>

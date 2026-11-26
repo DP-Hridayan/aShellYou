@@ -110,6 +110,7 @@ fun TunnelEditorScreen(
         content = { innerPadding, topBarScrollBehavior ->
             TunnelEditorContent(
                 state = state,
+                fields = viewModel.fields,
                 localNetwork = localNetwork,
                 actions = actions,
                 listState = listState,
@@ -128,16 +129,10 @@ private fun editorActions(
     onStart: () -> Unit,
     onCancel: () -> Unit
 ) = TunnelEditorActions(
-    onAddressChange = viewModel::onAddressChange,
     onPaste = { ClipboardUtils.readFromClipboard(context)?.let(viewModel::onAddressChange) },
-    onHostChange = viewModel::onHostChange,
-    onTargetPortChange = viewModel::onTargetPortChange,
     onEndpointTypeChange = viewModel::onEndpointTypeChange,
-    onEndpointValueChange = viewModel::onEndpointValueChange,
     onPreset = { preset -> viewModel.onPresetSelected(preset, context.getString(preset.labelRes())) },
-    onLocalPortChange = viewModel::onLocalPortChange,
     onSameAsTargetChange = viewModel::onSameAsTargetChange,
-    onNameChange = viewModel::onNameChange,
     onAutoStartChange = viewModel::onAutoStartChange,
     onShareOnNetworkChange = viewModel::onShareOnNetworkChange,
     onRecentHost = viewModel::onRecentHostSelected,

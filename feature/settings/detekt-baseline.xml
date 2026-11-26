@@ -2,34 +2,32 @@
 <SmellBaseline>
   <ManuallySuppressedIssues/>
   <CurrentIssues>
+    <ID>AnnotationOnSeparateLine:TermsOfServiceScreen.kt$@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)</ID>
     <ID>ArgumentListWrapping:BackupAndRestoreScreen.kt$("application/octet-stream")</ID>
     <ID>ArgumentListWrapping:BackupAndRestoreScreen.kt$(arrayOf("application/octet-stream"))</ID>
-    <ID>ArgumentListWrapping:BackupAndRestoreScreen.kt$(modifier = Modifier .fillMaxWidth() .height(2.dp))</ID>
-    <ID>ArgumentListWrapping:BackupAndRestoreScreen.kt$(modifier = Modifier .fillMaxWidth() .height(25.dp))</ID>
-    <ID>ArgumentListWrapping:BackupSchedulerScreen.kt$(`in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider.autoBackupTypeOptions)</ID>
-    <ID>ArgumentListWrapping:BackupSchedulerScreen.kt$(`in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider.backupFrequencyOptions)</ID>
     <ID>ArgumentListWrapping:GenerateColorSchemeScreen.kt$( w * 0.65f, baseH - dip, w * 0.35f, baseH + dip, 0f, baseH + dip )</ID>
-    <ID>ArgumentListWrapping:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$("No models configured for provider ${provider.displayName}")</ID>
-    <ID>ArgumentListWrapping:LicensesComponents.kt$( ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class, ExperimentalFlexBoxApi::class )</ID>
+    <ID>ArgumentListWrapping:PrivacySecurityScreen.kt$( onNavigateBack = { navController.navigateBack() }, listState = listState, topAppBarState = topAppBarState, topBarTitle = stringResource(R.string.privacy_and_security), content = { innerPadding, topBarScrollBehavior -&gt; SettingsColumn( modifier = Modifier .fillMaxWidth() .nestedScroll(topBarScrollBehavior.nestedScrollConnection), listState = listState, contentPadding = innerPadding, topAppBarScrollBehavior = topBarScrollBehavior, hapticsEnabled = hapticsEnabled, ) { group(R.string.authenticate) { switchItem(SettingsKeys.RequireAuthentication) { title(R.string.require_authentication) description(R.string.des_require_authentication) icon(if (requireAuth) R.drawable.ic_encrypted else R.drawable.ic_encrypted_off) onClick { onAuthenticate() } } switchItem(SettingsKeys.UseBiometrics) { title(R.string.use_biometrics) description(R.string.des_use_biometrics) icon(if (useBiometrics) R.drawable.ic_fingerprint else R.drawable.ic_fingerprint_off) visible { requireAuth } onClick { onToggleUseBiometrics() } } clickableItem(SettingsKeys.AuthenticationTimeout) { title(R.string.authentication_timeout) description(timeoutText) icon(R.drawable.ic_lock_clock) visible { requireAuth } onClick { showTimeoutDialog = true } } switchItem(SettingsKeys.RequireAuthenticationForBackups) { title(R.string.require_auth_for_backups) description(R.string.des_require_auth_for_backups) icon(R.drawable.ic_sync_lock) visible { requireAuth } } } group(R.string.permissions) { clickableItem(SettingsKeys.AppPermissions) { title(R.string.app_permissions) description(R.string.des_app_permissions) icon(R.drawable.ic_search_gear) onClick { launchAppPermissionsSettingsIntent() } } } group(R.string.legal_and_policies) { clickableItem(SettingsKeys.TermsOfService) { title(R.string.terms_of_service) description(R.string.des_terms_of_service) icon(R.drawable.ic_gavel) onClick { navController.navigate(NavRoutes.TermsOfServiceScreen) } } clickableItem(SettingsKeys.PrivacyPolicy) { title(R.string.privacy_policy) description(R.string.des_privacy_policy) icon(R.drawable.ic_policy) onClick { navController.navigate(NavRoutes.PrivacyPolicyScreen) } } clickableItem(SettingsKeys.Licenses) { title(R.string.libraries_and_licenses) description(R.string.des_licenses) icon(R.drawable.ic_license) onClick { navController.navigate(NavRoutes.LicensesScreen) } } } } })</ID>
+    <ID>ArgumentListWrapping:TermsOfServiceScreen.kt$(ExperimentalMaterial3ExpressiveApi::class)</ID>
     <ID>CyclomaticComplexMethod:AutoBackupWorker.kt$AutoBackupWorker$override suspend fun doWork(): Result</ID>
     <ID>CyclomaticComplexMethod:AutoBackupWorker.kt$AutoBackupWorker$private suspend fun performCloudBackup(backupType: BackupType)</ID>
     <ID>CyclomaticComplexMethod:AutoBackupWorker.kt$AutoBackupWorker$private suspend fun performLocalBackup( folderUri: String, deleteExisting: Boolean, backupType: BackupType, )</ID>
-    <ID>CyclomaticComplexMethod:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$suspend operator fun invoke(prompt: String, fallbackModels: List&lt;String&gt;? = null): Result&lt;ColorSchemePayload&gt;</ID>
+    <ID>CyclomaticComplexMethod:BuildDiagnosticConfigUseCase.kt$BuildDiagnosticConfigUseCase$operator fun invoke(): DiagnosticConfig</ID>
+    <ID>CyclomaticComplexMethod:DownloadRepositoryImpl.kt$DownloadRepositoryImpl$private fun downloadFile( url: String, file: File, onProgress: (DownloadState) -&gt; Unit )</ID>
     <ID>CyclomaticComplexMethod:PolicyParser.kt$fun parsePolicy(text: String): List&lt;PolicyBlock&gt;</ID>
     <ID>CyclomaticComplexMethod:PrivacyPolicyScreen.kt$private fun buildInline( text: String, normal: SpanStyle, bold: SpanStyle, italic: SpanStyle, code: SpanStyle, link: SpanStyle, )</ID>
     <ID>CyclomaticComplexMethod:ReadFontNameUseCase.kt$ReadFontNameUseCase$private fun parseFontName(file: File): String?</ID>
     <ID>CyclomaticComplexMethod:SettingsBackupProvider.kt$SettingsBackupProvider$override suspend fun restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)</ID>
     <ID>CyclomaticComplexMethod:SettingsViewModel.kt$SettingsViewModel$fun rescheduleAutoBackup( enabled: Boolean? = null, hour: Int? = null, minute: Int? = null, frequency: Int? = null, )</ID>
+    <ID>CyclomaticComplexMethod:TermsOfServiceScreen.kt$@Composable private fun PolicyBlockView(block: PolicyBlock, modifier: Modifier = Modifier)</ID>
+    <ID>CyclomaticComplexMethod:TermsOfServiceScreen.kt$private fun buildInline( text: String, normal: SpanStyle, bold: SpanStyle, italic: SpanStyle, code: SpanStyle, link: SpanStyle, )</ID>
     <ID>CyclomaticComplexMethod:UpdateBottomSheet.kt$private fun parseChangelog(body: String?): String</ID>
     <ID>Filename:ContributorRepository.kt$in.hridayan.ashell.settings.domain.repository.ContributorRepository.kt</ID>
     <ID>Filename:ContributorRepositoryImpl.kt$in.hridayan.ashell.settings.data.repository.ContributorRepositoryImpl.kt</ID>
-    <ID>FinalNewline:PolicyBlock.kt$in.hridayan.ashell.settings.presentation.page.privacypolicy.model.PolicyBlock.kt</ID>
-    <ID>FinalNewline:PolicyParser.kt$in.hridayan.ashell.settings.presentation.page.privacypolicy.util.PolicyParser.kt</ID>
-    <ID>FinalNewline:PrivacyPolicyScreen.kt$in.hridayan.ashell.settings.presentation.page.privacypolicy.screens.PrivacyPolicyScreen.kt</ID>
-    <ID>FinalNewline:PrivacyPolicyViewModel.kt$in.hridayan.ashell.settings.presentation.page.privacypolicy.viewmodel.PrivacyPolicyViewModel.kt</ID>
     <ID>FunctionNaming:DeleteColorSchemeDialog.kt$@Composable fun DeleteColorSchemeDialog( themeName: String, onConfirm: () -&gt; Unit, onDismiss: () -&gt; Unit )</ID>
+    <ID>FunctionNaming:TermsOfServiceScreen.kt$@Composable fun TermsOfServiceScreen( modifier: Modifier = Modifier, viewModel: TermsOfServiceViewModel = hiltViewModel(), )</ID>
+    <ID>FunctionNaming:TermsOfServiceScreen.kt$@Composable private fun InlineText(text: String, style: TextStyle, modifier: Modifier = Modifier)</ID>
+    <ID>FunctionNaming:TermsOfServiceScreen.kt$@Composable private fun PolicyBlockView(block: PolicyBlock, modifier: Modifier = Modifier)</ID>
     <ID>ImplicitDefaultLocale:ColorPickerBottomSheet.kt$String.format("#%02X%02X%02X", r, g, b)</ID>
-    <ID>Indentation:AboutScreen.kt$ </ID>
     <ID>Indentation:BackupSchedulerScreen.kt$ </ID>
     <ID>Indentation:LatestVersionDialog.kt$ </ID>
     <ID>Indentation:LicensesViewModel.kt$LicensesViewModel$ </ID>
@@ -39,39 +37,46 @@
     <ID>InstanceOfCheckForException:AutoBackupWorker.kt$AutoBackupWorker$e is java.net.UnknownHostException</ID>
     <ID>LargeClass:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel : ViewModel</ID>
     <ID>LargeClass:ColorRoleRegistry.kt$ColorRoleRegistry</ID>
+    <ID>LongMethod:AboutGraph.kt$internal fun SearchScreenScope.aboutGraph(navController: NavController)</ID>
+    <ID>LongMethod:AiModelsGraph.kt$internal fun SearchScreenScope.aiModelsGraph( navController: NavController, aiEnabled: Boolean, aiCacheEnabled: Boolean )</ID>
     <ID>LongMethod:AutoBackupWorker.kt$AutoBackupWorker$override suspend fun doWork(): Result</ID>
     <ID>LongMethod:AutoBackupWorker.kt$AutoBackupWorker$private suspend fun performCloudBackup(backupType: BackupType)</ID>
     <ID>LongMethod:AutoBackupWorker.kt$AutoBackupWorker$private suspend fun performLocalBackup( folderUri: String, deleteExisting: Boolean, backupType: BackupType, )</ID>
+    <ID>LongMethod:BackupAndRestoreGraph.kt$internal fun SearchScreenScope.backupAndRestoreGraph(navController: NavController)</ID>
     <ID>LongMethod:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$fun backupToGoogleDrive(type: BackupType)</ID>
     <ID>LongMethod:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$fun signInWithGoogle(context: Context)</ID>
     <ID>LongMethod:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$private fun syncCloudBackupDetailsOnSignIn()</ID>
+    <ID>LongMethod:BackupSchedulerGraph.kt$internal fun SearchScreenScope.backupSchedulerGraph(navController: NavController)</ID>
+    <ID>LongMethod:BehaviorGraph.kt$internal fun SearchScreenScope.behaviorGraph( navController: NavController, bufferLimitText: String = "", )</ID>
+    <ID>LongMethod:BuildDiagnosticConfigUseCase.kt$BuildDiagnosticConfigUseCase$operator fun invoke(): DiagnosticConfig</ID>
+    <ID>LongMethod:ContributorRepositoryImpl.kt$ContributorsRepositoryImpl$override fun getSpecialThanks(): List&lt;SpecialThanks&gt;</ID>
     <ID>LongMethod:DeleteColorSchemeDialog.kt$@Composable fun DeleteColorSchemeDialog( themeName: String, onConfirm: () -&gt; Unit, onDismiss: () -&gt; Unit )</ID>
-    <ID>LongMethod:DownloadRepositoryImpl.kt$DownloadRepositoryImpl$private suspend fun monitorDownload( dm: DownloadManager, file: File, onProgress: (DownloadState) -&gt; Unit, isActive: Boolean )</ID>
+    <ID>LongMethod:DiagnosticConfig.kt$DiagnosticConfig$fun formatReport(): String</ID>
+    <ID>LongMethod:DownloadRepositoryImpl.kt$DownloadRepositoryImpl$private fun downloadFile( url: String, file: File, onProgress: (DownloadState) -&gt; Unit )</ID>
+    <ID>LongMethod:GenerateColorSchemeScreen.kt$private fun buildSmoothWavePath( path: Path, xRatios: FloatArray, yRatios: FloatArray, width: Float, height: Float, isClosed: Boolean )</ID>
     <ID>LongMethod:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$suspend operator fun invoke(prompt: String, fallbackModels: List&lt;String&gt;? = null): Result&lt;ColorSchemePayload&gt;</ID>
     <ID>LongMethod:LanguagesViewModel.kt$LanguagesViewModel.Companion$private fun buildSupportedLocales(context: Context): List&lt;SupportedLocale&gt;</ID>
     <ID>LongMethod:LicensesRepositoryImpl.kt$LicensesRepositoryImpl$override suspend fun getLibraries(): List&lt;LibraryItem&gt;</ID>
+    <ID>LongMethod:LookAndFeelGraph.kt$internal fun SearchScreenScope.lookAndFeelGraph( navController: NavController, supportsDynamicColor: Boolean, dynamicColorEnabled: Boolean, customSchemeApplied: Boolean, hapticsEnabled: Boolean, )</ID>
     <ID>LongMethod:PolicyParser.kt$fun parsePolicy(text: String): List&lt;PolicyBlock&gt;</ID>
+    <ID>LongMethod:PortForwardGraph.kt$internal fun SearchScreenScope.portForwardGraph(navController: NavController)</ID>
+    <ID>LongMethod:PrivacyAndSecurityGraph.kt$internal fun SearchScreenScope.privacyAndSecurityGraph( navController: NavController, requireAuth: Boolean, timeoutText: String = "" )</ID>
     <ID>LongMethod:PrivacyPolicyScreen.kt$private fun buildInline( text: String, normal: SpanStyle, bold: SpanStyle, italic: SpanStyle, code: SpanStyle, link: SpanStyle, )</ID>
     <ID>LongMethod:ReadFontNameUseCase.kt$ReadFontNameUseCase$private fun parseFontName(file: File): String?</ID>
+    <ID>LongMethod:RootGraph.kt$internal fun SearchScreenScope.rootGraph(aiEnabled: Boolean)</ID>
     <ID>LongMethod:SettingsBackupProvider.kt$SettingsBackupProvider$override suspend fun restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)</ID>
-    <ID>LongMethod:PortForwardGraph.kt$internal fun SearchScreenScope.portForwardGraph(navController: NavController)</ID>
-    <ID>LongMethod:SettingsSearchGraph.kt$private fun SearchScreenScope.aboutScreen(navController: NavController)</ID>
-    <ID>LongMethod:SettingsSearchGraph.kt$private fun SearchScreenScope.aiModelsScreen(navController: NavController, aiEnabled: Boolean)</ID>
-    <ID>LongMethod:SettingsSearchGraph.kt$private fun SearchScreenScope.backupAndRestoreScreen(navController: NavController)</ID>
-    <ID>LongMethod:SettingsSearchGraph.kt$private fun SearchScreenScope.backupSchedulerScreen(navController: NavController)</ID>
-    <ID>LongMethod:SettingsSearchGraph.kt$private fun SearchScreenScope.behaviorScreen(navController: NavController)</ID>
-    <ID>LongMethod:SettingsSearchGraph.kt$private fun SearchScreenScope.lookAndFeelScreen( navController: NavController, supportsDynamicColor: Boolean, dynamicColorEnabled: Boolean, customSchemeApplied: Boolean, )</ID>
-    <ID>LongMethod:SettingsSearchGraph.kt$private fun SearchScreenScope.rootEntries(aiEnabled: Boolean)</ID>
     <ID>LongMethod:SupportMeCard.kt$fun Modifier.premiumShine( durationMillis: Int = 6500, pauseBetween: Int = 3000 ): Modifier</ID>
+    <ID>LongMethod:TermsOfServiceScreen.kt$@Composable fun TermsOfServiceScreen( modifier: Modifier = Modifier, viewModel: TermsOfServiceViewModel = hiltViewModel(), )</ID>
+    <ID>LongMethod:TermsOfServiceScreen.kt$@Composable private fun PolicyBlockView(block: PolicyBlock, modifier: Modifier = Modifier)</ID>
+    <ID>LongMethod:TermsOfServiceScreen.kt$private fun buildInline( text: String, normal: SpanStyle, bold: SpanStyle, italic: SpanStyle, code: SpanStyle, link: SpanStyle, )</ID>
     <ID>LongParameterList:FontImportDialog.kt$( isUppercase: Boolean, isBold: Boolean, isItalic: Boolean, isUnderline: Boolean, onToggleUppercase: () -&gt; Unit, onToggleBold: () -&gt; Unit, onToggleItalic: () -&gt; Unit, onToggleUnderline: () -&gt; Unit, onClear: () -&gt; Unit, modifier: Modifier = Modifier )</ID>
     <ID>LoopWithTooManyJumpStatements:ReadFontNameUseCase.kt$ReadFontNameUseCase$for</ID>
     <ID>LoopWithTooManyJumpStatements:UpdateBottomSheet.kt$for</ID>
+    <ID>MagicNumber:DownloadRepositoryImpl.kt$DownloadRepositoryImpl$15_000</ID>
+    <ID>MagicNumber:DownloadRepositoryImpl.kt$DownloadRepositoryImpl$30_000</ID>
     <ID>MagicNumber:EncryptionHelper.kt$EncryptionHelper$16</ID>
     <ID>MagicNumber:EncryptionHelper.kt$EncryptionHelper$24</ID>
     <ID>MagicNumber:EncryptionHelper.kt$EncryptionHelper$32</ID>
-    <ID>MagicNumber:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$404</ID>
-    <ID>MagicNumber:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$429</ID>
-    <ID>MagicNumber:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$500</ID>
     <ID>MagicNumber:ReadFontNameUseCase.kt$ReadFontNameUseCase$8</ID>
     <ID>MagicNumber:SupportMeCard.kt$180f</ID>
     <ID>MatchingDeclarationName:ContributorRepository.kt$ContributorsRepository</ID>
@@ -83,9 +88,8 @@
     <ID>MaxLineLength:AutoBackupWorker.kt$AutoBackupWorker$"localEnabled=$localEnabled cloudEnabled=$cloudEnabled folderUri=$folderUri backupType=$backupType deleteExisting=$deleteExisting"</ID>
     <ID>MaxLineLength:AutoBackupWorker.kt$AutoBackupWorker$?:</ID>
     <ID>MaxLineLength:AutoBackupWorker.kt$AutoBackupWorker$e is java.net.UnknownHostException -&gt; "No internet connection. Cloud backup will retry on next schedule."</ID>
+    <ID>MaxLineLength:BackupAndRestoreScreen.kt$if</ID>
     <ID>MaxLineLength:BackupAndRestoreScreen.kt$is SettingsUiEvent.RequestDocumentUriForRestore -&gt; launcherRestore.launch(arrayOf("application/octet-stream"))</ID>
-    <ID>MaxLineLength:BackupSchedulerScreen.kt$options(`in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider.autoBackupTypeOptions)</ID>
-    <ID>MaxLineLength:BackupSchedulerScreen.kt$options(`in`.hridayan.ashell.core.presentation.provider.RadioGroupOptionsProvider.backupFrequencyOptions)</ID>
     <ID>MaxLineLength:BuyMeACoffeeLogo.kt$"M472.62 590.84c-45.94 19.66-98.07 41.96-165.64 41.96-28.27-0.05-56.4-3.93-83.63-11.53l46.74 479.81c1.65 20.05 10.79 38.75 25.59 52.38 14.8 13.63 34.19 21.19 54.31 21.19 0 0 66.26 3.44 88.37 3.44 23.8 0 95.16-3.44 95.16-3.44 20.12 0 39.5-7.57 54.3-21.2 14.8-13.63 23.93-32.32 25.59-52.37l50.05-530.2c-22.37-7.64-44.94-12.72-70.39-12.72-44.02-0.02-79.48 15.14-120.45 32.68z"</ID>
     <ID>MaxLineLength:BuyMeACoffeeLogo.kt$"M791.11 297.52l-0.88-0.52-2.03-0.62c0.82 0.69 1.84 1.09 2.91 1.14zm12.79 91.37l-0.98 0.28 0.98-0.28zm-12.42-91.51c-0.12-0.02-0.24-0.05-0.36-0.09-0.01 0.08-0.01 0.16 0 0.24 0.13-0.01 0.26-0.07 0.36-0.15z"</ID>
     <ID>MaxLineLength:BuyMeACoffeeLogo.kt$"M791.11 297.53h0.13v-0.08l-0.13 0.08zm12 91.2l1.48-0.85 0.55-0.31 0.5-0.53c-0.94 0.4-1.79 0.98-2.53 1.69zm-9.44-89.21l-1.45-1.38-0.98-0.53c0.53 0.93 1.4 1.61 2.43 1.91zm-363.65 886.66c-1.16 0.5-2.17 1.28-2.94 2.27l0.91-0.58c0.62-0.57 1.49-1.24 2.03-1.69zm211.17-41.55c0-1.3-0.64-1.06-0.48 3.58 0-0.37 0.15-0.75 0.22-1.11 0.09-0.83 0.15-1.64 0.26-2.47zm-21.91 41.55c-1.15 0.5-2.16 1.28-2.94 2.27l0.91-0.58c0.62-0.57 1.5-1.24 2.03-1.69zm-337.98 9.88c-0.87-0.76-1.95-1.26-3.09-1.45 0.93 0.45 1.86 0.9 2.47 1.24l0.62 0.21zm-33.46-32.05c-0.14-1.35-0.55-2.66-1.22-3.85 0.47 1.23 0.87 2.5 1.19 3.78l0.03 0.07z"</ID>
@@ -98,11 +102,9 @@
     <ID>MaxLineLength:ChangelogScreen.kt$textColor = if (isLatestVersion) MaterialTheme.colorScheme.onTertiaryContainer else MaterialTheme.colorScheme.onSurface</ID>
     <ID>MaxLineLength:CustomFontDatabaseModule.kt$CustomFontDatabaseModule.Companion.&lt;no name provided&gt;$"INSERT INTO sqlite_sequence (name, seq) VALUES ('custom_fonts', ${AppFont.CUSTOM_FONT_ID_OFFSET - 1})"</ID>
     <ID>MaxLineLength:GenerateColorSchemeScreen.kt$color = if (prompt.length == 1096) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant</ID>
-    <ID>MaxLineLength:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$?:</ID>
-    <ID>MaxLineLength:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$if (models.isEmpty()) throw IllegalStateException("No models configured for provider ${provider.displayName}")</ID>
-    <ID>MaxLineLength:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$val providerId = settingsRepository.getString(SettingsKeys.AiCloudProvider).firstOrNull() ?: SettingsKeys.AiCloudProvider.default</ID>
     <ID>MaxLineLength:ResetSettingsDialog.kt$text = stringResource(R.string.des_reset_app_settings) + "\n" + stringResource(R.string.irreversible_action_warning)</ID>
     <ID>MaxLineLength:RestoreBackupDialog.kt$text = stringResource(R.string.restore_dialog_message) + "\n" + stringResource(R.string.irreversible_action_warning)</ID>
+    <ID>MaxLineLength:TermsOfServiceScreen.kt$﻿</ID>
     <ID>MaxLineLength:UndrawThemePicker.kt$"M0.256,352.886c0,0.66 0.53,1.19 1.19,1.19H523.736c0.66,0 1.19,-0.53 1.19,-1.19 0,-0.66 -0.53,-1.19 -1.19,-1.19H1.446c-0.66,0 -1.19,0.53 -1.19,1.19Z"</ID>
     <ID>MaxLineLength:UndrawThemePicker.kt$"M111.501,202.949c-0.013,-0.945 -0.005,-9.191 6.1,-14.403 7.012,-5.987 16.907,-3.564 20.378,-2.714 8.017,1.963 8.674,5.402 16.203,8.936 14.085,6.611 -3.563,3.227 4.818,1.107 2.901,-0.734 44.638,-3.628 55.027,-10.023 20.206,-12.436 33.973,-19.977 33.973,-19.977l9,18s-13.014,18.096 -31.33,31.501c-18.788,13.751 -28.182,20.627 -42.459,23.283 -1.229,0.229 -31.466,5.391 -55.819,-12.803 -5.555,-4.15 -15.733,-11.754 -15.891,-22.909Z"</ID>
     <ID>MaxLineLength:UndrawThemePicker.kt$"M115.422,196.836c0.206,-0.923 2.128,-8.941 9.275,-12.594 8.21,-4.196 17.273,0.457 20.451,2.089 7.343,3.77 7.184,7.268 13.688,12.452 12.167,9.699 27.814,9.486 36.458,9.369 2.992,-0.041 12.233,-0.346 23.823,-4.155 22.54,-7.408 36.939,-16.705 36.939,-16.705l5.916,20.046s-17.454,19.289 -38.381,28.079c-21.466,9.016 -82.691,9.611 -97.194,8.883 -1.249,-0.063 18.634,1.856 -0.833,-21.492 -4.44,-5.326 -12.576,-15.084 -10.142,-25.971Z"</ID>
@@ -126,18 +128,6 @@
     <ID>MaxLineLength:UndrawThemePicker.kt$"M57.368,270.408l-0.898,-8.012 0.41,-0.607c1.898,-2.809 2.865,-5.552 2.876,-8.156 0.002,-0.414 -0.017,-0.828 -0.037,-1.25 -0.077,-1.671 -0.174,-3.749 0.909,-6.171 0.607,-1.35 2.314,-4.476 4.879,-4.089 0.691,0.097 1.213,0.414 1.609,0.785 0.058,-0.093 0.118,-0.186 0.182,-0.286 0.799,-1.219 1.431,-1.741 2.041,-2.244 0.468,-0.387 0.952,-0.785 1.71,-1.729 0.333,-0.414 0.592,-0.778 0.811,-1.083 0.664,-0.925 1.53,-2.027 3.058,-2.008 1.633,0.077 2.488,1.428 3.054,2.321 1.012,1.594 1.47,2.743 1.774,3.505 0.11,0.279 0.236,0.592 0.3,0.689 0.526,0.774 4.803,0.05 6.415,-0.213 3.619,-0.604 6.751,-1.126 8.042,1.157 0.925,1.633 0.238,3.791 -2.103,6.589 -0.729,0.871 -1.505,1.532 -2.194,2.051 0.571,0.34 1.081,0.863 1.288,1.683h0c0.487,1.942 -1.182,3.888 -4.96,5.792 -0.938,0.476 -2.201,1.11 -3.971,1.416 -0.834,0.143 -1.584,0.178 -2.227,0.197 -0.014,0.371 -0.101,0.774 -0.327,1.188 -0.664,1.219 -2.045,1.799 -4.126,1.66 -2.29,-0.12 -4.176,-0.557 -5.84,-0.94 -1.453,-0.333 -2.704,-0.615 -3.687,-0.549 -1.822,0.147 -3.227,1.606 -4.875,3.497l-4.115,4.809h-0Z"</ID>
     <ID>MaxLineLength:UndrawThemePicker.kt$"M61.531,222.701l-7.523,2.901 -0.692,-0.243c-3.198,-1.123 -6.097,-1.363 -8.618,-0.714 -0.401,0.103 -0.796,0.227 -1.199,0.353 -1.597,0.499 -3.582,1.119 -6.2,0.686 -1.46,-0.245 -4.917,-1.103 -5.193,-3.682 -0.082,-0.693 0.093,-1.278 0.351,-1.756 -0.105,-0.033 -0.21,-0.067 -0.323,-0.103 -1.381,-0.464 -2.047,-0.943 -2.688,-1.405 -0.493,-0.355 -1.001,-0.721 -2.107,-1.215 -0.485,-0.217 -0.902,-0.375 -1.253,-0.509 -1.063,-0.407 -2.349,-0.966 -2.718,-2.449 -0.339,-1.599 0.75,-2.768 1.471,-3.543 1.285,-1.383 2.28,-2.118 2.941,-2.605 0.241,-0.177 0.513,-0.378 0.59,-0.465 0.615,-0.705 -1.17,-4.659 -1.833,-6.151 -1.502,-3.348 -2.801,-6.245 -0.921,-8.072 1.345,-1.309 3.607,-1.192 6.907,0.363 1.027,0.485 1.864,1.067 2.54,1.602 0.185,-0.638 0.56,-1.265 1.301,-1.673h0c1.755,-0.964 4.061,0.157 6.86,3.329 0.698,0.787 1.632,1.848 2.377,3.482 0.35,0.77 0.574,1.487 0.756,2.104 0.363,-0.081 0.774,-0.099 1.232,0.015 1.347,0.333 2.259,1.521 2.652,3.57 0.465,2.246 0.52,4.181 0.572,5.888 0.047,1.49 0.091,2.772 0.404,3.706 0.604,1.725 2.372,2.714 4.62,3.828l5.695,2.76 -0,0Z"</ID>
     <ID>MaxLineLength:UndrawThemePicker.kt$"M65.566,354.625l-1.679,-1.052 -0.406,-1.938 0.406,1.938 -1.958,0.224c-0.031,-0.182 -0.137,-0.6 -0.298,-1.254 -0.876,-3.583 -3.548,-14.485 -5.776,-31.655 -1.555,-11.986 -2.435,-24.308 -2.617,-36.631 -0.182,-12.342 0.402,-21.685 0.871,-29.194 0.354,-5.664 0.783,-11.057 1.205,-16.311 1.122,-14.036 2.18,-27.295 1.393,-41.973 -0.174,-3.277 -0.54,-10.098 -4.525,-17.356 -2.312,-4.209 -5.496,-7.947 -9.465,-11.104l2.468,-3.103c4.381,3.49 7.904,7.629 10.471,12.303 4.418,8.047 4.817,15.479 5.008,19.05 0.801,14.938 -0.269,28.324 -1.402,42.496 -0.418,5.235 -0.847,10.605 -1.199,16.245 -0.464,7.44 -1.043,16.702 -0.863,28.885 0.178,12.175 1.048,24.347 2.582,36.182 2.201,16.953 4.834,27.693 5.699,31.222 0.46,1.884 0.557,2.279 0.085,3.025v-0Z"</ID>
-    <ID>MaximumLineLength:AiGenerationAnimationBox.kt$ </ID>
-    <ID>MaximumLineLength:AutoBackupWorker.kt$AutoBackupWorker$ </ID>
-    <ID>MaximumLineLength:BackupAndRestoreScreen.kt$ </ID>
-    <ID>MaximumLineLength:BackupSchedulerScreen.kt$ </ID>
-    <ID>MaximumLineLength:BuyMeACoffeeLogo.kt$ </ID>
-    <ID>MaximumLineLength:ChangelogScreen.kt$ </ID>
-    <ID>MaximumLineLength:CustomFontDatabaseModule.kt$CustomFontDatabaseModule.Companion.&lt;no name provided&gt;$ </ID>
-    <ID>MaximumLineLength:GenerateColorSchemeScreen.kt$ </ID>
-    <ID>MaximumLineLength:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$ </ID>
-    <ID>MaximumLineLength:ResetSettingsDialog.kt$ </ID>
-    <ID>MaximumLineLength:RestoreBackupDialog.kt$ </ID>
-    <ID>MaximumLineLength:UndrawThemePicker.kt$ </ID>
     <ID>ModifierListSpacing:CustomFontDao.kt$data</ID>
     <ID>ModifierListSpacing:CustomFontDatabase.kt$data</ID>
     <ID>ModifierListSpacing:CustomFontRepositoryImpl.kt$data</ID>
@@ -146,163 +136,43 @@
     <ID>MultiLineIfElse:GenerateColorSchemeScreen.kt$themes.filter { it.name.contains(searchQuery, ignoreCase = true) }</ID>
     <ID>MultiLineIfElse:PrivacyPolicyScreen.kt$-1</ID>
     <ID>MultiLineIfElse:PrivacyPolicyScreen.kt$text.indexOf(')', bEnd + 2)</ID>
-    <ID>NestedBlockDepth:DownloadRepositoryImpl.kt$DownloadRepositoryImpl$private suspend fun monitorDownload( dm: DownloadManager, file: File, onProgress: (DownloadState) -&gt; Unit, isActive: Boolean )</ID>
-    <ID>NestedBlockDepth:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$suspend operator fun invoke(prompt: String, fallbackModels: List&lt;String&gt;? = null): Result&lt;ColorSchemePayload&gt;</ID>
+    <ID>MultiLineIfElse:TermsOfServiceScreen.kt$-1</ID>
+    <ID>MultiLineIfElse:TermsOfServiceScreen.kt$text.indexOf(')', bEnd + 2)</ID>
+    <ID>NestedBlockDepth:DownloadRepositoryImpl.kt$DownloadRepositoryImpl$private fun downloadFile( url: String, file: File, onProgress: (DownloadState) -&gt; Unit )</ID>
     <ID>NestedBlockDepth:LanguagesViewModel.kt$LanguagesViewModel.Companion$@SuppressLint("DiscouragedApi") private fun parseLocaleTagsFromConfig(context: Context): List&lt;String&gt;</ID>
     <ID>NestedBlockDepth:SettingsBackupProvider.kt$SettingsBackupProvider$override suspend fun restoreData(data: JsonElement?, legacyData: (String) -&gt; JsonElement?)</ID>
+    <ID>NewLineAtEndOfFile:AboutGraph.kt$in.hridayan.ashell.settings.presentation.page.search.graph.entries.AboutGraph.kt</ID>
+    <ID>NewLineAtEndOfFile:AiModelsGraph.kt$in.hridayan.ashell.settings.presentation.page.search.graph.entries.AiModelsGraph.kt</ID>
+    <ID>NewLineAtEndOfFile:AuthenticationTimeoutDialog.kt$in.hridayan.ashell.settings.presentation.components.dialog.AuthenticationTimeoutDialog.kt</ID>
+    <ID>NewLineAtEndOfFile:AutoUpdateGraph.kt$in.hridayan.ashell.settings.presentation.page.search.graph.entries.AutoUpdateGraph.kt</ID>
+    <ID>NewLineAtEndOfFile:BackupAndRestoreGraph.kt$in.hridayan.ashell.settings.presentation.page.search.graph.entries.BackupAndRestoreGraph.kt</ID>
+    <ID>NewLineAtEndOfFile:BackupSchedulerGraph.kt$in.hridayan.ashell.settings.presentation.page.search.graph.entries.BackupSchedulerGraph.kt</ID>
+    <ID>NewLineAtEndOfFile:DarkThemeGraph.kt$in.hridayan.ashell.settings.presentation.page.search.graph.entries.DarkThemeGraph.kt</ID>
+    <ID>NewLineAtEndOfFile:LookAndFeelGraph.kt$in.hridayan.ashell.settings.presentation.page.search.graph.entries.LookAndFeelGraph.kt</ID>
     <ID>NewLineAtEndOfFile:PolicyBlock.kt$in.hridayan.ashell.settings.presentation.page.privacypolicy.model.PolicyBlock.kt</ID>
     <ID>NewLineAtEndOfFile:PolicyParser.kt$in.hridayan.ashell.settings.presentation.page.privacypolicy.util.PolicyParser.kt</ID>
-    <ID>NewLineAtEndOfFile:PrivacyPolicyScreen.kt$in.hridayan.ashell.settings.presentation.page.privacypolicy.screens.PrivacyPolicyScreen.kt</ID>
+    <ID>NewLineAtEndOfFile:PrivacyAndSecurityGraph.kt$in.hridayan.ashell.settings.presentation.page.search.graph.entries.PrivacyAndSecurityGraph.kt</ID>
     <ID>NewLineAtEndOfFile:PrivacyPolicyViewModel.kt$in.hridayan.ashell.settings.presentation.page.privacypolicy.viewmodel.PrivacyPolicyViewModel.kt</ID>
-    <ID>NoBlankLineBeforeRbrace:BehaviorScreen.kt$ </ID>
-    <ID>NoBlankLineBeforeRbrace:DarkThemeScreen.kt$ </ID>
-    <ID>NoBlankLineBeforeRbrace:LookAndFeelScreen.kt$ </ID>
-    <ID>NoBlankLineBeforeRbrace:SettingsScreen.kt$ </ID>
+    <ID>NewLineAtEndOfFile:SettingsGraphId.kt$in.hridayan.ashell.settings.presentation.page.search.graph.constants.SettingsGraphId.kt</ID>
+    <ID>NoConsecutiveBlankLines:AuthenticationTimeoutDialog.kt$ </ID>
     <ID>NoConsecutiveBlankLines:BackupAndRestoreScreen.kt$ </ID>
     <ID>NoConsecutiveBlankLines:BackupSchedulerScreen.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:DownloadRepositoryImpl.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:DownloadRepositoryImpl.kt$DownloadRepositoryImpl$ </ID>
     <ID>NoConsecutiveBlankLines:FontStyleBottomSheet.kt$ </ID>
     <ID>NoConsecutiveBlankLines:GenerateColorSchemeScreen.kt$ </ID>
     <ID>NoConsecutiveBlankLines:LookAndFeelScreen.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:PrivacySecurityScreen.kt$ </ID>
     <ID>NoConsecutiveBlankLines:SettingsSearchScreen.kt$ </ID>
     <ID>NoConsecutiveBlankLines:SettingsViewModel.kt$ </ID>
     <ID>NoConsecutiveBlankLines:SettingsViewModel.kt$SettingsViewModel$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:AuthenticationTimeoutDialog.kt$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:BackupAndRestoreScreen.kt$ </ID>
     <ID>NoEmptyFirstLineInMethodBlock:PrivacyPolicyScreen.kt$ </ID>
-    <ID>PackageName:AboutScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.about.screens</ID>
-    <ID>PackageName:AiGenerationAnimationBox.kt$package `in`.hridayan.ashell.settings.presentation.components.animatedcomposable</ID>
-    <ID>PackageName:ApiHttpClient.kt$package `in`.hridayan.ashell.settings.di.qualifiers</ID>
-    <ID>PackageName:AppLicenseDetailDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
-    <ID>PackageName:AutoBackupTimePickerDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
-    <ID>PackageName:AutoBackupWorker.kt$package `in`.hridayan.ashell.settings.data.worker</ID>
-    <ID>PackageName:AutoUpdateScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.autoupdate.screens</ID>
-    <ID>PackageName:AutoUpdateViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.autoupdate.viewmodel</ID>
-    <ID>PackageName:BackupAndRestoreRepository.kt$package `in`.hridayan.ashell.settings.domain.repository</ID>
-    <ID>PackageName:BackupAndRestoreRepositoryImpl.kt$package `in`.hridayan.ashell.settings.data.repository</ID>
-    <ID>PackageName:BackupAndRestoreScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.backup.screens</ID>
-    <ID>PackageName:BackupAndRestoreViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.backup.viewmodel</ID>
-    <ID>PackageName:BackupDestinationDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
-    <ID>PackageName:BackupScheduler.kt$package `in`.hridayan.ashell.settings.data.worker</ID>
-    <ID>PackageName:BackupSchedulerScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.backup.screens</ID>
-    <ID>PackageName:BehaviorScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.behavior.screens</ID>
-    <ID>PackageName:ButtonGroupOptions.kt$package `in`.hridayan.ashell.settings.presentation.model</ID>
-    <ID>PackageName:BuyMeACoffeeLogo.kt$package `in`.hridayan.ashell.settings.presentation.components.svg.vectors</ID>
-    <ID>PackageName:ChangelogItem.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
-    <ID>PackageName:ChangelogScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.changelog.screens</ID>
-    <ID>PackageName:ChangelogViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.changelog.viewmodel</ID>
-    <ID>PackageName:CheckUpdateUseCase.kt$package `in`.hridayan.ashell.settings.domain.usecase</ID>
-    <ID>PackageName:CloudOperationDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
-    <ID>PackageName:ColorPickerBottomSheet.kt$package `in`.hridayan.ashell.settings.presentation.components.bottomsheet</ID>
-    <ID>PackageName:ColorRoleRegistry.kt$package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens</ID>
-    <ID>PackageName:ColorTabs.kt$package `in`.hridayan.ashell.settings.presentation.components.tab</ID>
-    <ID>PackageName:ConfigureSaveDirectoryDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
-    <ID>PackageName:ContributorRepository.kt$package `in`.hridayan.ashell.settings.domain.repository</ID>
-    <ID>PackageName:ContributorRepositoryImpl.kt$package `in`.hridayan.ashell.settings.data.repository</ID>
-    <ID>PackageName:ContributorsModule.kt$package `in`.hridayan.ashell.settings.di</ID>
-    <ID>PackageName:ContributorsScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.contributors.screens</ID>
-    <ID>PackageName:ContributorsViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.contributors.viewmodel</ID>
-    <ID>PackageName:CrowdinContributeCard.kt$package `in`.hridayan.ashell.settings.presentation.components.card</ID>
-    <ID>PackageName:DarkThemeScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens</ID>
-    <ID>PackageName:DownloadApkUseCase.kt$package `in`.hridayan.ashell.settings.domain.usecase</ID>
-    <ID>PackageName:DownloadRepository.kt$package `in`.hridayan.ashell.settings.domain.repository</ID>
-    <ID>PackageName:DownloadRepositoryImpl.kt$package `in`.hridayan.ashell.settings.data.repository</ID>
-    <ID>PackageName:DownloadState.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
-    <ID>PackageName:DriveAuthEvent.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
-    <ID>PackageName:DriveOperationResult.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
-    <ID>PackageName:EditColorSchemeScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens</ID>
-    <ID>PackageName:EncryptionHelper.kt$package `in`.hridayan.ashell.settings.data.utils</ID>
-    <ID>PackageName:FontImportDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
-    <ID>PackageName:FontStyleBottomSheet.kt$package `in`.hridayan.ashell.settings.presentation.components.bottomsheet</ID>
-    <ID>PackageName:GenerateColorSchemeScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens</ID>
-    <ID>PackageName:GenerateColorSchemeViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel</ID>
-    <ID>PackageName:GenerateCustomThemeUseCase.kt$package `in`.hridayan.ashell.settings.domain.usecase</ID>
-    <ID>PackageName:GetAllChangelogsUseCase.kt$package `in`.hridayan.ashell.settings.domain.usecase</ID>
-    <ID>PackageName:GetLicensesUseCase.kt$package `in`.hridayan.ashell.settings.domain.usecase</ID>
-    <ID>PackageName:GitHubContributor.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
-    <ID>PackageName:GitHubContributorDto.kt$package `in`.hridayan.ashell.settings.data.dto</ID>
-    <ID>PackageName:GitHubContributorMapper.kt$package `in`.hridayan.ashell.settings.data.mapper</ID>
-    <ID>PackageName:GitHubContributorParser.kt$package `in`.hridayan.ashell.settings.data.parser</ID>
-    <ID>PackageName:GithubApi.kt$package `in`.hridayan.ashell.settings.data.remote.api</ID>
-    <ID>PackageName:GithubAssetDto.kt$package `in`.hridayan.ashell.settings.data.remote.dto</ID>
-    <ID>PackageName:GithubDataRepository.kt$package `in`.hridayan.ashell.settings.domain.repository</ID>
-    <ID>PackageName:GithubDataRepositoryImpl.kt$package `in`.hridayan.ashell.settings.data.repository</ID>
-    <ID>PackageName:GithubDataViewModel.kt$package `in`.hridayan.ashell.settings.presentation.viewmodel</ID>
-    <ID>PackageName:GithubRelease.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
-    <ID>PackageName:GithubReleaseDto.kt$package `in`.hridayan.ashell.settings.data.remote.dto</ID>
-    <ID>PackageName:GithubReleaseMapper.kt$package `in`.hridayan.ashell.settings.data.remote.mapper</ID>
-    <ID>PackageName:GithubRepoStats.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
-    <ID>PackageName:GithubRepoStatsDao.kt$package `in`.hridayan.ashell.settings.data.local.database</ID>
-    <ID>PackageName:GithubRepoStatsDatabase.kt$package `in`.hridayan.ashell.settings.data.local.database</ID>
-    <ID>PackageName:GithubRepoStatsDatabaseModule.kt$package `in`.hridayan.ashell.settings.di</ID>
-    <ID>PackageName:GithubRepoStatsDto.kt$package `in`.hridayan.ashell.settings.data.remote.dto</ID>
-    <ID>PackageName:GithubRepoStatsEntity.kt$package `in`.hridayan.ashell.settings.data.local.entity</ID>
-    <ID>PackageName:GithubRepoStatsMapper.kt$package `in`.hridayan.ashell.settings.data.remote.mapper</ID>
-    <ID>PackageName:GoogleAuthRepository.kt$package `in`.hridayan.ashell.settings.domain.repository</ID>
-    <ID>PackageName:GoogleDriveRepository.kt$package `in`.hridayan.ashell.settings.domain.repository</ID>
-    <ID>PackageName:GoogleSignInCard.kt$package `in`.hridayan.ashell.settings.presentation.page.backup.screens</ID>
-    <ID>PackageName:GoogleSignOutConfirmationDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
-    <ID>PackageName:GoogleUserState.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
-    <ID>PackageName:LanguageDto.kt$package `in`.hridayan.ashell.settings.data.dto</ID>
-    <ID>PackageName:LanguagesScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.languages.screens</ID>
-    <ID>PackageName:LanguagesViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.languages.viewmodel</ID>
-    <ID>PackageName:LastBackupData.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
-    <ID>PackageName:LatestVersionDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
-    <ID>PackageName:LibraryItem.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
-    <ID>PackageName:LicenseDetailDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
-    <ID>PackageName:LicenseDto.kt$package `in`.hridayan.ashell.settings.data.remote.dto</ID>
-    <ID>PackageName:LicensesComponents.kt$package `in`.hridayan.ashell.settings.presentation.page.licenses.components</ID>
-    <ID>PackageName:LicensesModule.kt$package `in`.hridayan.ashell.settings.di</ID>
-    <ID>PackageName:LicensesRepository.kt$package `in`.hridayan.ashell.settings.domain.repository</ID>
-    <ID>PackageName:LicensesRepositoryImpl.kt$package `in`.hridayan.ashell.settings.data.repository</ID>
-    <ID>PackageName:LicensesScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.licenses.screens</ID>
-    <ID>PackageName:LicensesUiState.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
-    <ID>PackageName:LicensesViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.licenses.viewmodel</ID>
-    <ID>PackageName:LookAndFeelScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens</ID>
-    <ID>PackageName:LookAndFeelViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.viewmodel</ID>
-    <ID>PackageName:Mapper.kt$package `in`.hridayan.ashell.settings.data.local.mapper</ID>
-    <ID>PackageName:NoGoogleAccountDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
-    <ID>PackageName:NoGoogleAccountException.kt$package `in`.hridayan.ashell.settings.domain.exception</ID>
-    <ID>PackageName:PaletteStylePickerDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
-    <ID>PackageName:PaletteWheel.kt$package `in`.hridayan.ashell.settings.presentation.components.palette</ID>
-    <ID>PackageName:PolicyBlock.kt$package `in`.hridayan.ashell.settings.presentation.page.privacypolicy.model</ID>
-    <ID>PackageName:PolicyParser.kt$package `in`.hridayan.ashell.settings.presentation.page.privacypolicy.util</ID>
-    <ID>PackageName:PrivacyPolicyScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.privacypolicy.screens</ID>
-    <ID>PackageName:PrivacyPolicyViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.privacypolicy.viewmodel</ID>
-    <ID>PackageName:ProfilePic.kt$package `in`.hridayan.ashell.settings.presentation.components.image</ID>
-    <ID>PackageName:ReadFontNameUseCase.kt$package `in`.hridayan.ashell.settings.domain.usecase</ID>
-    <ID>PackageName:ResetSettingsDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
-    <ID>PackageName:RestoreBackupDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
-    <ID>PackageName:RestoreSourceDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
-    <ID>PackageName:SelectBackupFolderDialog.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
-    <ID>PackageName:SettingsBackupModule.kt$package `in`.hridayan.ashell.settings.di</ID>
-    <ID>PackageName:SettingsBackupProvider.kt$package `in`.hridayan.ashell.settings.data.backup</ID>
-    <ID>PackageName:SettingsDataStoreProvider.kt$package `in`.hridayan.ashell.settings.data</ID>
-    <ID>PackageName:SettingsDialogKey.kt$package `in`.hridayan.ashell.settings.presentation.components.dialog</ID>
-    <ID>PackageName:SettingsModule.kt$package `in`.hridayan.ashell.settings.di</ID>
-    <ID>PackageName:SettingsNetworkModule.kt$package `in`.hridayan.ashell.settings.di</ID>
-    <ID>PackageName:SettingsRepositoryModule.kt$package `in`.hridayan.ashell.settings.di</ID>
-    <ID>PackageName:SettingsScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.mainscreen.screen</ID>
-    <ID>PackageName:SettingsSearchGraph.kt$package `in`.hridayan.ashell.settings.presentation.page.search.index</ID>
-    <ID>PackageName:SettingsSearchScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.search.screens</ID>
-    <ID>PackageName:SettingsSearchViewModel.kt$package `in`.hridayan.ashell.settings.presentation.page.search.viewmodel</ID>
-    <ID>PackageName:SettingsUiEvent.kt$package `in`.hridayan.ashell.settings.presentation.event</ID>
-    <ID>PackageName:SettingsUseCaseModule.kt$package `in`.hridayan.ashell.settings.di</ID>
-    <ID>PackageName:SettingsViewModel.kt$package `in`.hridayan.ashell.settings.presentation.viewmodel</ID>
-    <ID>PackageName:SupportMeCard.kt$package `in`.hridayan.ashell.settings.presentation.components.card</ID>
-    <ID>PackageName:SupportedLocale.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
-    <ID>PackageName:ThemePreviewBottomSheet.kt$package `in`.hridayan.ashell.settings.presentation.components.bottomsheet</ID>
-    <ID>PackageName:ToggleSettingUseCase.kt$package `in`.hridayan.ashell.settings.domain.usecase</ID>
-    <ID>PackageName:Translator.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
-    <ID>PackageName:TranslatorDto.kt$package `in`.hridayan.ashell.settings.data.dto</ID>
-    <ID>PackageName:TranslatorMapper.kt$package `in`.hridayan.ashell.settings.data.mapper</ID>
-    <ID>PackageName:TranslatorParser.kt$package `in`.hridayan.ashell.settings.data.parser</ID>
-    <ID>PackageName:TranslatorsScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.contributors.screens</ID>
-    <ID>PackageName:UiScaleScreen.kt$package `in`.hridayan.ashell.settings.presentation.page.lookandfeel.screens</ID>
-    <ID>PackageName:UndrawThemePicker.kt$package `in`.hridayan.ashell.settings.presentation.components.svg.vectors</ID>
-    <ID>PackageName:UpdateBottomSheet.kt$package `in`.hridayan.ashell.settings.presentation.components.bottomsheet</ID>
-    <ID>PackageName:UpdateResult.kt$package `in`.hridayan.ashell.settings.domain.model</ID>
-    <ID>PackageName:VersionComparisonTest.kt$package `in`.hridayan.ashell.settings.domain.usecase</ID>
-    <ID>PackageName:VersionToChangelogMap.kt$package `in`.hridayan.ashell.settings.data.source</ID>
+    <ID>NoEmptyFirstLineInMethodBlock:TermsOfServiceScreen.kt$ </ID>
+    <ID>NoTrailingSpaces:ContributorRepository.kt$ContributorsRepository$ </ID>
+    <ID>NoUnusedImports:GenerateColorSchemeScreen.kt$in.hridayan.ashell.settings.presentation.page.lookandfeel.screens.GenerateColorSchemeScreen.kt</ID>
     <ID>PrintStackTrace:SettingsBackupProvider.kt$SettingsBackupProvider$e</ID>
-    <ID>RethrowCaughtException:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$throw e</ID>
     <ID>ReturnCount:CheckUpdateUseCase.kt$CheckUpdateUseCase$private fun isNewerVersion(latest: String, current: String): Boolean</ID>
     <ID>ReturnCount:ImportCustomFontUseCase.kt$ImportCustomFontUseCase$suspend operator fun invoke( uri: Uri, displayName: String ): Result&lt;CustomFontEntity&gt;</ID>
     <ID>SwallowedException:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel$e: Exception</ID>
@@ -315,30 +185,17 @@
     <ID>ThrowsCount:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$suspend operator fun invoke(prompt: String, fallbackModels: List&lt;String&gt;? = null): Result&lt;ColorSchemePayload&gt;</ID>
     <ID>TooManyFunctions:BackupAndRestoreViewModel.kt$BackupAndRestoreViewModel : ViewModel</ID>
     <ID>TooManyFunctions:SettingsViewModel.kt$SettingsViewModel : ViewModel</ID>
-    <ID>UnusedParameter:BackupSchedulerScreen.kt$highlightKey: String? = null</ID>
     <ID>UnusedPrivateMember:AiGenerationAnimationBox.kt$@Preview(showBackground = true) @Composable private fun AiGenerationAnimationBoxPreview()</ID>
-    <ID>UnusedPrivateProperty:AboutScreen.kt$val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())</ID>
-    <ID>UnusedPrivateProperty:AutoUpdateScreen.kt$val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())</ID>
-    <ID>UnusedPrivateProperty:BackupAndRestoreScreen.kt$val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())</ID>
+    <ID>UnusedPrivateMember:GenerateColorSchemeScreen.kt$@Preview(showBackground = true) @Composable private fun ThemeCardPreview()</ID>
+    <ID>UnusedPrivateMember:GenerateColorSchemeScreen.kt$@Preview(showBackground = true) @Composable private fun ThemeCardSpecialPreview()</ID>
     <ID>UnusedPrivateProperty:BackupScheduler.kt$BackupScheduler$private const val ONE_SHOT_WORK_NAME = "auto_backup_now"</ID>
-    <ID>UnusedPrivateProperty:BackupSchedulerScreen.kt$val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())</ID>
-    <ID>UnusedPrivateProperty:BehaviorScreen.kt$val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())</ID>
-    <ID>UnusedPrivateProperty:DarkThemeScreen.kt$val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())</ID>
-    <ID>UnusedPrivateProperty:LookAndFeelScreen.kt$val context = LocalContext.current</ID>
-    <ID>UnusedPrivateProperty:LookAndFeelScreen.kt$val prefs by settingsViewModel.preferences.collectAsState(initial = emptyPreferences())</ID>
-    <ID>UnusedPrivateProperty:SettingsScreen.kt$val floatingIconsResIds = getAllSettingsIcons()</ID>
-    <ID>UnusedPrivateProperty:SettingsScreen.kt$val prefs by viewModel.preferences.collectAsState(initial = emptyPreferences())</ID>
     <ID>UseCheckOrError:AutoBackupWorker.kt$AutoBackupWorker$throw IllegalStateException("Failed to create file in backup folder. Storage may be full.")</ID>
     <ID>UseCheckOrError:AutoBackupWorker.kt$AutoBackupWorker$throw IllegalStateException("Failed to generate backup data for cloud upload.")</ID>
     <ID>UseCheckOrError:AutoBackupWorker.kt$AutoBackupWorker$throw IllegalStateException("Failed to generate backup data. The app data may be corrupted.")</ID>
     <ID>UseCheckOrError:AutoBackupWorker.kt$AutoBackupWorker$throw IllegalStateException("Failed to write to backup file. Storage may be full or permissions revoked.")</ID>
-    <ID>UseCheckOrError:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$throw IllegalStateException("${provider.displayName} API Key not set. Please set it in Settings -&gt; AI Models -&gt; Cloud Models.")</ID>
-    <ID>UseCheckOrError:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$throw IllegalStateException("${provider.displayName} client not found")</ID>
-    <ID>UseCheckOrError:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$throw IllegalStateException("No models configured for provider ${provider.displayName}")</ID>
-    <ID>UseCheckOrError:GenerateCustomThemeUseCase.kt$GenerateCustomThemeUseCase$throw lastException ?: IllegalStateException("Failed to generate theme with all fallback models.")</ID>
     <ID>UseRequire:EncryptionHelper.kt$EncryptionHelper$throw IllegalArgumentException("Invalid encrypted data")</ID>
-    <ID>Wrapping:BackupAndRestoreScreen.kt$(</ID>
-    <ID>Wrapping:GenerateColorSchemeScreen.kt$;</ID>
     <ID>Wrapping:PrivacyPolicyScreen.kt$;</ID>
+    <ID>Wrapping:PrivacySecurityScreen.kt$(</ID>
+    <ID>Wrapping:TermsOfServiceScreen.kt$;</ID>
   </CurrentIssues>
 </SmellBaseline>

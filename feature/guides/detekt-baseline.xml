@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <ManuallySuppressedIssues/>
   <CurrentIssues>
+    <ID>Indentation:GuidesScreen.kt$ </ID>
+    <ID>LongMethod:GuideCatalog.kt$GuideCatalog$fun getAllGuides(isAiEnabled: Boolean = FeatureConfig.isAiEnabled): List&lt;GuideItem&gt;</ID>
+    <ID>NoMultipleSpaces:GuideItemCard.kt$ </ID>
+    <ID>UnusedPrivateMember:GuidesScreen.kt$@Preview(showBackground = true) @Composable private fun GuidesScreenContentPreview()</ID>
   </CurrentIssues>
 </SmellBaseline>

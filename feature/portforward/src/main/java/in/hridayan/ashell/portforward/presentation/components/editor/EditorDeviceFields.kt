@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.ButtonGroupDefaults
 import androidx.compose.material3.Icon
@@ -136,23 +137,20 @@ fun EndpointTypeSelector(type: DeviceEndpointType, onTypeChange: (DeviceEndpoint
 @Composable
 fun EndpointValueField(
     type: DeviceEndpointType,
-    value: String,
+    state: TextFieldState,
     error: FieldError?,
-    position: GroupPosition,
-    onValueChange: (String) -> Unit
+    position: GroupPosition
 ) {
     if (type == DeviceEndpointType.TCP || type == DeviceEndpointType.JDWP) {
         PortField(
-            value = value,
+            state = state,
             label = stringResource(type.valueLabelRes()),
             position = position,
-            isError = error != null,
-            onValueChange = onValueChange
+            isError = error != null
         )
     } else {
         EditorTextField(
-            value = value,
-            onValueChange = onValueChange,
+            state = state,
             label = stringResource(type.valueLabelRes()),
             position = position,
             isError = error != null,

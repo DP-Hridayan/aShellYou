@@ -9,7 +9,9 @@ android {
     namespace = "in.hridayan.ashell.core.shizuku"
 
     compileSdk {
-        version = release(37)
+        version = release(37) {
+            minorApiLevel = 1
+        }
     }
 
     defaultConfig {

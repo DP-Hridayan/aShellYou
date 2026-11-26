@@ -1,75 +1,10 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-    <ManuallySuppressedIssues></ManuallySuppressedIssues>
-    <CurrentIssues>
-        <ID>ArgumentListWrapping:CrashDetailsScreen.kt$( ExperimentalMaterial3Api::class,
-            ExperimentalMaterial3ExpressiveApi::class, ExperimentalSharedTransitionApi::class )
-        </ID>
-        <ID>ArgumentListWrapping:CrashHistoryScreen.kt$( ExperimentalMaterial3Api::class,
-            ExperimentalMaterial3ExpressiveApi::class, ExperimentalSharedTransitionApi::class )
-        </ID>
-        <ID>ArgumentListWrapping:CrashHistoryScreen.kt$( modifier = modifier.sharedElement(
-            sharedContentState = rememberSharedContentState(key = sharedElementKey),
-            animatedVisibilityScope = animatedVisibilityScope ), shape = shape, colors =
-            CardDefaults.cardColors( containerColor = MaterialTheme.colorScheme.surfaceContainer,
-            contentColor = MaterialTheme.colorScheme.onSurface ), onClick = withHaptic {
-            crashViewModel.setSharedElementKey(sharedElementKey)
-            crashViewModel.setViewingCrash(crashReport)
-            navController.navigate(NavRoutes.CrashDetailsScreen) })
-        </ID>
-        <ID>ArgumentListWrapping:CrashHistoryScreen.kt$( onNavigateBack = {
-            navController.navigateBack() }, modifier = modifier, listState = listState, topBarTitle
-            = stringResource(R.string.crash_history), content = { innerPadding, topBarScrollBehavior
-            -&gt; if (crashLogs.isEmpty()) { Box( modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center ) { NoCrashLogsUi() } } else { LazyColumn( modifier
-            = Modifier .fillMaxWidth() .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
-            contentPadding = innerPadding ) { item { Spacer( modifier = Modifier .fillMaxWidth()
-            .height(10.dp) ) } itemsIndexed(crashLogs) { index, crash -&gt; val shape =
-            getRoundedShape(index, crashLogs.size) with(sharedTransitionScope) { CrashCard( modifier
-            = Modifier .fillMaxWidth() .padding(horizontal = 15.dp, vertical = 1.dp), crashReport =
-            crash, shape = shape, index = index, animatedVisibilityScope = animatedContentScope ) }
-            } item { Spacer( modifier = Modifier .fillMaxWidth() .height(25.dp) ) } } } })
-        </ID>
-        <ID>ArgumentListWrapping:CrashReportScreen.kt$( modifier = modifier, topBar = {
-            LargeFlexibleTopAppBar( title = { val collapsedFraction =
-            scrollBehavior.state.collapsedFraction val expandedFontSize = 33.sp val
-            collapsedFontSize = 20.sp val fontSize = lerp(expandedFontSize, collapsedFontSize,
-            collapsedFraction) AutoResizeableText( modifier = modifier, text =
-            stringResource(R.string.app_crashed), fontSize = fontSize, fontFamily =
-            FontFamily.SansSerif, letterSpacing = 0.05.em, ) }, scrollBehavior = scrollBehavior, )
-            }, floatingActionButton = { ExtendedFloatingActionButton( onClick = withHaptic {
-            context.sendCrashReport("$deviceInfo\n\n$appInfo\n\n$stacktrace") }, modifier =
-            Modifier.padding(bottom = 10.dp) ) { Icon( painter =
-            painterResource(R.drawable.ic_report), contentDescription = null, modifier =
-            Modifier.padding(end = 10.dp) ) AutoResizeableText(text =
-            stringResource(R.string.report)) } })
-        </ID>
-        <ID>FinalNewline:ExampleUnitTest.kt$in.hridayan.ashell.crashreporter.ExampleUnitTest.kt</ID>
-        <ID>ImportOrdering:ExampleUnitTest.kt$import org.junit.Test import org.junit.Assert.*</ID>
-        <ID>MaxLineLength:CrashDetailsScreen.kt$"Brand: $deviceBrand\nModel:
-            $deviceModel\nManufacturer: $manufacturer\nAndroid version: $androidVersion\nSOC
-            manufacturer: $socManufacturer\nCPU abi: $cpuAbi"
-        </ID>
-        <ID>MaxLineLength:CrashReportScreen.kt$"Brand: $deviceBrand\nModel:
-            $deviceModel\nManufacturer: $manufacturer\nAndroid version: $androidVersion\nSOC
-            manufacturer: $socManufacturer\nCPU abi: $cpuAbi"
-        </ID>
-        <ID>MaximumLineLength:CrashDetailsScreen.kt$</ID>
-        <ID>MaximumLineLength:CrashReportScreen.kt$</ID>
-        <ID>NoBlankLineBeforeRbrace:CrashDetailsScreen.kt$</ID>
-        <ID>NoBlankLineBeforeRbrace:CrashReportScreen.kt$</ID>
-        <ID>NoConsecutiveBlankLines:CrashHistoryScreen.kt$</ID>
-        <ID>NoEmptyFirstLineInMethodBlock:CrashHistoryScreen.kt$</ID>
-        <ID>NoWildcardImports:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
-        <ID>StringTemplate:CrashDetailsScreen.kt$${e.toString()}</ID>
-        <ID>StringTemplate:CrashDetailsScreen.kt$${log}</ID>
-        <ID>StringTemplate:CrashReportScreen.kt$${e.toString()}</ID>
-        <ID>StringTemplate:CrashReportScreen.kt$${log}</ID>
-        <ID>SwallowedException:CrashDetailsScreen.kt$e: Exception</ID>
-        <ID>SwallowedException:CrashReportScreen.kt$e: Exception</ID>
-        <ID>UnusedParameter:CrashDetailsScreen.kt$log: String</ID>
-        <ID>UnusedParameter:CrashReportScreen.kt$log: String</ID>
-        <ID>WildcardImport:ExampleUnitTest.kt$import org.junit.Assert.*</ID>
-        <ID>Wrapping:CrashDetailsScreen.kt$(</ID>
-    </CurrentIssues>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>MaxLineLength:CrashDetailsScreen.kt$"Brand: $deviceBrand\nModel: $deviceModel\nManufacturer: $manufacturer\nAndroid version: $androidVersion\nSOC manufacturer: $socManufacturer\nCPU abi: $cpuAbi"</ID>
+    <ID>MaxLineLength:CrashReportScreen.kt$"Brand: $deviceBrand\nModel: $deviceModel\nManufacturer: $manufacturer\nAndroid version: $androidVersion\nSOC manufacturer: $socManufacturer\nCPU abi: $cpuAbi"</ID>
+    <ID>Wrapping:CrashDetailsScreen.kt$(</ID>
+    <ID>Wrapping:CrashReportScreen.kt$(</ID>
+  </CurrentIssues>
 </SmellBaseline>

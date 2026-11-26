@@ -51,18 +51,7 @@
     <ID>MaxLineLength:UndrawPhoneLady.kt$"M509.75,155.42a4,4 0,0 1,-4.95 -2.73l-14.93,-51.62a4,4 0,0 1,7.68 -2.22l14.93,51.62A4,4 0,0 1,509.75 155.42Z"</ID>
     <ID>MaxLineLength:UndrawPhoneLady.kt$"M526.64,472.82l-6.61,-5.44a1.44,1.44 0,1 0,-1.82 2.22l4.28,3.52 -3.69,1.07 -3.24,0.94 -4.86,1.4a1.68,1.68 0,1 0,0.94 3.24l4.86,-1.4 3.24,-0.94 3.84,-1.11 -1.82,5.52a1.44,1.44 0,0 0,2.73 0.9l2.69,-8.13a1.89,1.89 0,0 0,-0.51 -1.77Z"</ID>
     <ID>MaxLineLength:UndrawPhoneLady.kt$"M567.58,507.72 L338.68,573.94a13.87,13.87 0,0 1,-17.16 -9.46L288.37,449.9a13.87,13.87 0,0 1,9.46 -17.16L526.73,366.51a13.87,13.87 0,0 1,17.16 9.46L577.04,490.56A13.87,13.87 0,0 1,567.58 507.72ZM298.39,434.66a11.87,11.87 0,0 0,-8.1 14.69l33.15,114.58a11.87,11.87 0,0 0,14.69 8.1l228.9,-66.22a11.87,11.87 0,0 0,8.1 -14.69L541.97,376.53a11.87,11.87 0,0 0,-14.69 -8.1Z"</ID>
-    <ID>MaximumLineLength:UndrawPhoneLady.kt$ </ID>
     <ID>NoBlankLineBeforeRbrace:OnboardingScreen.kt$ </ID>
-    <ID>PackageName:DecorativeShape.kt$package `in`.hridayan.ashell.onboarding.presentation.component.shape</ID>
-    <ID>PackageName:DisclaimerItemLayout.kt$package `in`.hridayan.ashell.onboarding.presentation.component.item</ID>
-    <ID>PackageName:ExampleUnitTest.kt$package `in`.hridayan.ashell.onboarding</ID>
-    <ID>PackageName:MainCard.kt$package `in`.hridayan.ashell.onboarding.presentation.component.shape</ID>
-    <ID>PackageName:OnboardingScreen.kt$package `in`.hridayan.ashell.onboarding.presentation.screens</ID>
-    <ID>PackageName:OnboardingViewModel.kt$package `in`.hridayan.ashell.onboarding.presentation.viewmodel</ID>
-    <ID>PackageName:OnboardingViewModelTest.kt$package `in`.hridayan.ashell.onboarding.presentation.viewmodel</ID>
-    <ID>PackageName:PageOne.kt$package `in`.hridayan.ashell.onboarding.presentation.screens</ID>
-    <ID>PackageName:PageTwo.kt$package `in`.hridayan.ashell.onboarding.presentation.screens</ID>
-    <ID>PackageName:UndrawPhoneLady.kt$package `in`.hridayan.ashell.onboarding.presentation.components.svg.vectors</ID>
     <ID>Wrapping:OnboardingScreen.kt$(</ID>
   </CurrentIssues>
 </SmellBaseline>

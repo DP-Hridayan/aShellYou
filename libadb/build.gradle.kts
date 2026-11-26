@@ -9,7 +9,12 @@ version = "3.1.0"
 
 android {
     namespace = "io.github.muntashirakon.adb"
-    compileSdk = 36
+
+    compileSdk {
+        version = release(37) {
+            minorApiLevel = 1
+        }
+    }
 
     defaultConfig {
         minSdk = 14

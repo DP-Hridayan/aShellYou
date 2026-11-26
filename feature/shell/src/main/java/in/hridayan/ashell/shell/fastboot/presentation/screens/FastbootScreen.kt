@@ -1,10 +1,7 @@
-@file:OptIn(ExperimentalFlexBoxApi::class)
-
 package `in`.hridayan.ashell.shell.fastboot.presentation.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalFlexBoxApi
 import androidx.compose.foundation.layout.FlexAlignItems
 import androidx.compose.foundation.layout.FlexBox
 import androidx.compose.foundation.layout.FlexDirection

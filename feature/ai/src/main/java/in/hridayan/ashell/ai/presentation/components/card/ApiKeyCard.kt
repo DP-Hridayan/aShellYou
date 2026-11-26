@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalFlexBoxApi::class)
+@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
 package `in`.hridayan.ashell.ai.presentation.components.card
 
@@ -6,7 +6,6 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.ExperimentalFlexBoxApi
 import androidx.compose.foundation.layout.FlexAlignItems
 import androidx.compose.foundation.layout.FlexBox
 import androidx.compose.foundation.layout.FlexDirection
@@ -20,6 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ExpandLess
 import androidx.compose.material.icons.rounded.ExpandMore
@@ -31,11 +31,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LoadingIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedSecureTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -52,7 +53,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import `in`.hridayan.ashell.ai.presentation.model.ApiKeyHelp
@@ -245,20 +245,18 @@ private fun ColumnScope.InputKeySection(
     verificationState: VerificationState,
     onSaveApiKey: (String) -> Unit,
 ) {
-    var keyInput by remember(provider.id) { mutableStateOf("") }
+    val keyInputState = key(provider.id) { rememberTextFieldState() }
     val isVerifying = verificationState is VerificationState.Loading
 
-    OutlinedTextField(
+    OutlinedSecureTextField(
+        state = keyInputState,
         modifier = Modifier.fillMaxWidth(),
-        value = keyInput,
-        onValueChange = { keyInput = it },
         label = { Text(stringResource(R.string.api_key)) },
-        visualTransformation = PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(
+            autoCorrectEnabled = false,
             keyboardType = KeyboardType.Password,
             imeAction = ImeAction.Done
         ),
-        singleLine = true,
         enabled = !isVerifying,
         isError = verificationState is VerificationState.Error,
     )
@@ -266,8 +264,8 @@ private fun ColumnScope.InputKeySection(
     Spacer(Modifier.height(8.dp))
 
     Button(
-        onClick = withHaptic { onSaveApiKey(keyInput) },
-        enabled = keyInput.isNotBlank() && !isVerifying,
+        onClick = withHaptic { onSaveApiKey(keyInputState.text.toString()) },
+        enabled = keyInputState.text.isNotBlank() && !isVerifying,
         modifier = Modifier.fillMaxWidth(),
     ) {
         if (isVerifying) {

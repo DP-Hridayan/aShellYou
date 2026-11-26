@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues>
+    <ID>MultiLineIfElse:ShizukuBinderRequester.kt$ShizukuBinderRequester.ReplyBinder$return super.onTransact( code, data, replyParcel, flags )</ID>
+    <ID>TooManyFunctions:ShizukuUserServiceConnector.kt$ShizukuUserServiceConnector</ID>
+    <ID>UseDataClass:ShizukuClientToken.kt$ShizukuClientToken</ID>
+    <ID>UseDataClass:ShizukuCommandRunnerImpl.kt$ShizukuCommandRunnerImpl$ProcessRequest</ID>
+    <ID>UseDataClass:ShizukuGatewayImpl.kt$ShizukuGatewayImpl$ActiveBinding</ID>
+  </CurrentIssues>
+</SmellBaseline>

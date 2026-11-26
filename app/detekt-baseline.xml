@@ -1,8 +1,31 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <ManuallySuppressedIssues/>
   <CurrentIssues>
-    <ID>FinalNewline:AppNavigation.kt$in.hridayan.ashell.ui.navigation.AppNavigation.kt</ID>
-    <ID>Indentation:AppNavigation.kt$</ID>
+    <ID>ArgumentListWrapping:AppLockedScreen.kt$( context = context, title = res.getString(R.string.biometric_prompt_title), description = res.getString(R.string.biometric_prompt_description), authenticators = authenticators, onSuccess = { isError = false onUnlockSuccess() }, onError = { error -&gt; when (error) { BiometricError.NoneEnrolled, BiometricError.NoHardware -&gt; { isError = false onUnlockSuccess() showToast(context, res.getString(R.string.app_lock_disabled_msg)) settings.set(SettingsKeys.RequireAuthentication, false) settings.set(SettingsKeys.UseBiometrics, false) } else -&gt; isError = true } })</ID>
+    <ID>ArgumentListWrapping:AppLockedScreen.kt$( title = title, description = description, authenticators = authenticators, onSuccess = onSuccess, onError = { onError(it) })</ID>
+    <ID>ChainWrapping:MainActivity.kt$MainActivity$||</ID>
+    <ID>CyclomaticComplexMethod:AppUiEntry.kt$@Composable fun AppUiEntry( autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel(), settingsViewModel: SettingsViewModel = hiltViewModel() )</ID>
+    <ID>CyclomaticComplexMethod:GoogleAuthRepositoryImpl.kt$GoogleAuthRepositoryImpl$override suspend fun signIn(context: Context): Result&lt;String&gt;</ID>
+    <ID>FunctionNaming:AppUiEntry.kt$@Composable fun AppUiEntry( autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel(), settingsViewModel: SettingsViewModel = hiltViewModel() )</ID>
+    <ID>FunctionNaming:LegalDocsUpdateDialog.kt$@Composable fun LegalDocsUpdateDialog( modifier: Modifier = Modifier, onDismiss: () -&gt; Unit, onReadPrivacyPolicy: () -&gt; Unit, onReadTermsOfService: () -&gt; Unit )</ID>
+    <ID>ImportOrdering:StubAiModule.kt$import dagger.Module import dagger.Provides import dagger.hilt.InstallIn import dagger.hilt.components.SingletonComponent import `in`.hridayan.ashell.core.common.domain.repository.AiAnalysisRepository import `in`.hridayan.ashell.core.common.domain.model.ai.AnalysisResult import `in`.hridayan.ashell.core.common.domain.model.ai.AiTool import `in`.hridayan.ashell.core.common.domain.model.ai.DangerLevel import `in`.hridayan.ashell.core.common.domain.model.ai.ModelTier import `in`.hridayan.ashell.core.common.domain.repository.ApiKeyRepository import `in`.hridayan.ashell.core.common.domain.provider.LlmModelCatalog import `in`.hridayan.ashell.core.common.domain.provider.LlmProvider import `in`.hridayan.ashell.core.common.domain.provider.LlmProviderClient import kotlinx.coroutines.flow.Flow import kotlinx.coroutines.flow.flowOf import javax.inject.Singleton</ID>
+    <ID>Indentation:AppNavigation.kt$ </ID>
+    <ID>LongMethod:AppUiEntry.kt$@Composable fun AppUiEntry( autoUpdateViewModel: AutoUpdateViewModel = hiltViewModel(), settingsViewModel: SettingsViewModel = hiltViewModel() )</ID>
+    <ID>LongMethod:GoogleAuthRepositoryImpl.kt$GoogleAuthRepositoryImpl$override suspend fun signIn(context: Context): Result&lt;String&gt;</ID>
+    <ID>LongMethod:GoogleDriveRepositoryImpl.kt$GoogleDriveRepositoryImpl$private suspend fun authorize(email: String): DriveOperationResult&lt;String&gt;</ID>
+    <ID>LongMethod:LegalDocsUpdateDialog.kt$@Composable fun LegalDocsUpdateDialog( modifier: Modifier = Modifier, onDismiss: () -&gt; Unit, onReadPrivacyPolicy: () -&gt; Unit, onReadTermsOfService: () -&gt; Unit )</ID>
+    <ID>MaxLineLength:AppLockedScreen.kt$if</ID>
+    <ID>MaxLineLength:AppNavigation.kt$if</ID>
+    <ID>MultiLineIfElse:AppFontViewModel.kt$AppFontViewModel$null</ID>
+    <ID>NewLineAtEndOfFile:AppLockedScreen.kt$in.hridayan.ashell.ui.screens.AppLockedScreen.kt</ID>
+    <ID>NoBlankLineBeforeRbrace:GoogleAuthRepositoryImpl.kt$GoogleAuthRepositoryImpl$ </ID>
+    <ID>NoBlankLineBeforeRbrace:GoogleDriveRepositoryImpl.kt$GoogleDriveRepositoryImpl$ </ID>
+    <ID>NoConsecutiveBlankLines:LegalDocsUpdateDialog.kt$ </ID>
+    <ID>NoEmptyFirstLineInMethodBlock:GoogleDriveRepositoryImpl.kt$GoogleDriveRepositoryImpl$ </ID>
+    <ID>NoUnusedImports:StubAiModule.kt$in.hridayan.ashell.ai.di.StubAiModule.kt</ID>
+    <ID>ReturnCount:GoogleDriveRepositoryImpl.kt$GoogleDriveRepositoryImpl$private suspend fun authorize(email: String): DriveOperationResult&lt;String&gt;</ID>
+    <ID>UnusedParameter:AiModelsScreen.kt$highlightKey: String? = null</ID>
+    <ID>Wrapping:AppLockedScreen.kt$(</ID>
   </CurrentIssues>
 </SmellBaseline>

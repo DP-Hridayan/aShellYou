@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.InputTransformation
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -41,10 +43,9 @@ private val StatusProgressStroke = 2.dp
 
 /** The field that takes a pasted URL or a typed address and fills the fields below it. */
 @Composable
-fun AddressField(value: String, onValueChange: (String) -> Unit, onPaste: () -> Unit) {
+fun AddressField(state: TextFieldState, onPaste: () -> Unit) {
     EditorTextField(
-        value = value,
-        onValueChange = onValueChange,
+        state = state,
         label = stringResource(R.string.port_forward_paste_address),
         position = GroupPosition.Single,
         trailingIcon = {
@@ -82,18 +83,15 @@ fun RecentHostChips(hosts: List<RecentHost>, onSelect: (RecentHost) -> Unit) {
 /** Host and port side by side, joined into one surface. */
 @Composable
 fun HostAndPortFields(
-    host: String,
-    port: String,
+    hostState: TextFieldState,
+    portState: TextFieldState,
     hostError: FieldError?,
-    portError: FieldError?,
-    onHostChange: (String) -> Unit,
-    onPortChange: (String) -> Unit
+    portError: FieldError?
 ) {
     Row(horizontalArrangement = Arrangement.spacedBy(EditorSpacing.GroupGap)) {
         EditorTextField(
             modifier = Modifier.weight(HOST_FIELD_WEIGHT),
-            value = host,
-            onValueChange = onHostChange,
+            state = hostState,
             label = stringResource(R.string.host),
             position = GroupPosition.Start,
             isError = hostError != null,
@@ -101,11 +99,10 @@ fun HostAndPortFields(
         )
         PortField(
             modifier = Modifier.weight(PORT_FIELD_WEIGHT),
-            value = port,
+            state = portState,
             label = stringResource(R.string.port),
             position = GroupPosition.End,
-            isError = portError != null,
-            onValueChange = onPortChange
+            isError = portError != null
         )
     }
     EditorCaption(text = (hostError ?: portError)?.text(), isError = true)
@@ -114,18 +111,16 @@ fun HostAndPortFields(
 /** The port on this phone, with whether another app holds it shown at its end. */
 @Composable
 fun LocalPortField(
-    value: String,
+    state: TextFieldState,
     status: LocalPortStatus,
     isError: Boolean,
-    position: GroupPosition,
-    onValueChange: (String) -> Unit
+    position: GroupPosition
 ) {
     PortField(
-        value = value,
+        state = state,
         label = stringResource(R.string.port_forward_local_port),
         position = position,
         isError = isError,
-        onValueChange = onValueChange,
         trailingIcon = { PortStatusIndicator(status) }
     )
 }
@@ -133,23 +128,24 @@ fun LocalPortField(
 /** A numeric field that accepts at most a five-digit port. */
 @Composable
 fun PortField(
-    value: String,
+    state: TextFieldState,
     label: String,
     position: GroupPosition,
     isError: Boolean,
-    onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     trailingIcon: (@Composable () -> Unit)? = null
 ) {
     EditorTextField(
         modifier = modifier,
-        value = value,
-        onValueChange = { text -> if (text.isPortInput()) onValueChange(text) },
+        state = state,
         label = label,
         position = position,
         isError = isError,
         trailingIcon = trailingIcon,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next)
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = ImeAction.Next),
+        inputTransformation = InputTransformation {
+            if (!asCharSequence().toString().isPortInput()) revertAllChanges()
+        }
     )
 }
 

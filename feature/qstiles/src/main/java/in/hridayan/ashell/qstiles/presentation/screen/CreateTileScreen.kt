@@ -5,6 +5,8 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
@@ -13,15 +15,24 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
@@ -34,6 +45,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.TextFieldDecorator
+import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonGroupDefaults
@@ -62,13 +76,13 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -86,6 +100,7 @@ import `in`.hridayan.ashell.core.presentation.components.switch.AppSwitch
 import `in`.hridayan.ashell.core.presentation.components.text.AutoResizeableText
 import `in`.hridayan.ashell.core.presentation.provider.ButtonGroupOptionsProvider
 import `in`.hridayan.ashell.core.presentation.theme.CustomCardShape
+import `in`.hridayan.ashell.core.presentation.utils.isKeyboardVisible
 import `in`.hridayan.ashell.core.resources.R
 import `in`.hridayan.ashell.core.utils.showToast
 import `in`.hridayan.ashell.qstiles.presentation.components.bottomsheet.IconChooserBottomSheet
@@ -112,13 +127,14 @@ fun CreateTileScreen(
     val listState = rememberLazyListState()
     val interactionSource = remember { MutableInteractionSource() }
 
-    val isValid = uiState.run {
-        nameField.text.isNotBlank() && activeCommand.text.isNotBlank() &&
-            (!isToggleable || inactiveCommand.text.isNotBlank()) && nameError == null
+    val isValid = createTileViewModel.run {
+        nameState.text.isNotBlank() && activeCommandState.text.isNotBlank() &&
+            (!uiState.isToggleable || inactiveCommandState.text.isNotBlank()) && uiState.nameError == null
     }
 
     val floatingToolbarContentColor =
         FloatingToolbarDefaults.vibrantFloatingToolbarColors().toolbarContentColor
+    val isKeyboardVisible by isKeyboardVisible()
 
     AppScaffold(
         onNavigateBack = { navController.navigateBack() },
@@ -130,7 +146,11 @@ fun CreateTileScreen(
             stringResource(R.string.create_new_tile)
         },
         fabContent = { _ ->
-            if (uiState.isUpdateMode) {
+            AnimatedVisibility(
+                visible = uiState.isUpdateMode && !isKeyboardVisible,
+                enter = fadeIn() + scaleIn(),
+                exit = fadeOut() + scaleOut()
+            ) {
                 HorizontalFloatingToolbar(
                     expanded = true,
                     floatingActionButton = {
@@ -180,12 +200,24 @@ fun CreateTileScreen(
             }
         },
         content = { innerPadding, topBarScrollBehavior ->
+            val layoutDirection = LocalLayoutDirection.current
+            val safeDrawingBottom = WindowInsets.safeDrawing
+                .exclude(WindowInsets.ime)
+                .asPaddingValues()
+                .calculateBottomPadding()
+
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .nestedScroll(topBarScrollBehavior.nestedScrollConnection),
+                    .nestedScroll(topBarScrollBehavior.nestedScrollConnection)
+                    .imePadding(),
                 state = listState,
-                contentPadding = innerPadding
+                contentPadding = PaddingValues(
+                    start = innerPadding.calculateStartPadding(layoutDirection),
+                    top = innerPadding.calculateTopPadding(),
+                    end = innerPadding.calculateEndPadding(layoutDirection),
+                    bottom = safeDrawingBottom,
+                )
             ) {
                 item {
                     SectionLabel(
@@ -202,8 +234,7 @@ fun CreateTileScreen(
                             .fillMaxWidth()
                             .padding(horizontal = 20.dp)
                             .animateItem(),
-                        value = uiState.nameField,
-                        onValueChange = { createTileViewModel.onNameChange(it) },
+                        state = createTileViewModel.nameState,
                         hint = "Reboot",
                         shape = RoundedCornerShape(50),
                         singleLine = true,
@@ -311,15 +342,10 @@ fun CreateTileScreen(
                             .fillMaxWidth()
                             .padding(horizontal = 20.dp)
                             .animateItem(),
-                        value = uiState.run {
-                            if (isToggleable || isActive) activeSubtitle else inactiveSubtitle
-                        },
-                        onValueChange = {
-                            if (uiState.isActive || uiState.isToggleable) {
-                                createTileViewModel.onActiveSubtitleChange(it)
-                            } else {
-                                createTileViewModel.onInactiveSubtitleChange(it)
-                            }
+                        state = if (uiState.isToggleable || uiState.isActive) {
+                            createTileViewModel.activeSubtitleState
+                        } else {
+                            createTileViewModel.inactiveSubtitleState
                         },
                         hint = stringResource(R.string.on_state),
                         shape = RoundedCornerShape(50),
@@ -348,8 +374,7 @@ fun CreateTileScreen(
                                 .fillMaxWidth()
                                 .padding(horizontal = 20.dp)
                                 .animateItem(),
-                            value = uiState.inactiveSubtitle,
-                            onValueChange = { createTileViewModel.onInactiveSubtitleChange(it) },
+                            state = createTileViewModel.inactiveSubtitleState,
                             hint = stringResource(R.string.off_state),
                             shape = RoundedCornerShape(50),
                             singleLine = true,
@@ -382,8 +407,7 @@ fun CreateTileScreen(
                             .padding(horizontal = 20.dp)
                             .animateContentSize()
                             .animateItem(),
-                        value = uiState.activeCommand,
-                        onValueChange = { createTileViewModel.onActiveCommandChange(it) },
+                        state = createTileViewModel.activeCommandState,
                         hint = stringResource(R.string.adb_command_hint),
                         shape = RoundedCornerShape(28.dp),
                         singleLine = false,
@@ -415,8 +439,7 @@ fun CreateTileScreen(
                                 .padding(horizontal = 20.dp)
                                 .animateContentSize()
                                 .animateItem(),
-                            value = uiState.inactiveCommand,
-                            onValueChange = { createTileViewModel.onInactiveCommandChange(it) },
+                            state = createTileViewModel.inactiveCommandState,
                             hint = stringResource(R.string.adb_command_hint),
                             shape = RoundedCornerShape(28.dp),
                             singleLine = false,
@@ -545,10 +568,12 @@ fun CreateTileScreen(
                     )
                 }
                 item {
-                    val previewSubtitle = uiState.run {
-                        if (isToggleable) {
-                            "${activeSubtitle.text} / ${inactiveSubtitle.text}"
-                        } else if (isActive) activeSubtitle.text else inactiveSubtitle.text
+                    val activeSub = createTileViewModel.activeSubtitleState.text
+                    val inactiveSub = createTileViewModel.inactiveSubtitleState.text
+                    val previewSubtitle = when {
+                        uiState.isToggleable -> "$activeSub / $inactiveSub"
+                        uiState.isActive -> activeSub.toString()
+                        else -> inactiveSub.toString()
                     }
 
                     val tileIconContent: @Composable () -> Unit = {
@@ -593,7 +618,7 @@ fun CreateTileScreen(
                                 .widthIn(min = 120.dp)
                                 .animateContentSize(),
                             iconContent = tileIconContent,
-                            title = uiState.nameField.text,
+                            title = createTileViewModel.nameState.text.toString(),
                             subtitle = previewSubtitle,
                             isActive = uiState.isActive,
                         )
@@ -684,8 +709,7 @@ private fun SectionLabel(
 @Composable
 private fun TextField(
     modifier: Modifier = Modifier,
-    value: TextFieldValue,
-    onValueChange: (TextFieldValue) -> Unit,
+    state: TextFieldState,
     hint: String,
     shape: RoundedCornerShape = RoundedCornerShape(28.dp),
     singleLine: Boolean = true,
@@ -707,20 +731,22 @@ private fun TextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
-                value = value,
-                onValueChange = { onValueChange(it) },
+                state = state,
                 textStyle = LocalTextStyle.current.copy(
                     fontSize = 16.sp,
                     color = MaterialTheme.colorScheme.onSecondaryContainer,
                     fontFamily = fontFamily,
                 ),
-                singleLine = singleLine,
-                minLines = minLines,
+                lineLimits = if (singleLine) {
+                    TextFieldLineLimits.SingleLine
+                } else {
+                    TextFieldLineLimits.MultiLine(minHeightInLines = minLines)
+                },
                 cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                 keyboardOptions = keyboardOptions,
-                decorationBox = { innerTextField ->
+                decorator = TextFieldDecorator { innerTextField ->
                     Box {
-                        if (value.text.isEmpty()) {
+                        if (state.text.isEmpty()) {
                             Text(
                                 text = hint,
                                 color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.5f),

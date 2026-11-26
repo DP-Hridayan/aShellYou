@@ -4,7 +4,6 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalGridApi
 import androidx.compose.foundation.layout.Grid
 import androidx.compose.foundation.layout.GridTrackSize
 import androidx.compose.foundation.layout.Spacer
@@ -69,7 +68,6 @@ fun FastbootRebootOptionsDialog(
     }
 }
 
-@OptIn(ExperimentalGridApi::class)
 @Composable
 internal fun FastbootRebootOptionsContent(
     modifier: Modifier = Modifier,
