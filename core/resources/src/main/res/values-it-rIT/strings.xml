@@ -883,6 +883,7 @@
     <string name="notification_settings" comment="Button label to open system notification settings screen">Impostazioni notifiche</string>
     <string name="notification_style_error" comment="Troubleshooting guide text explaining Xiaomi/MIUI notification shade issues with entering pairing code">Se non riesci a inserire il codice di accoppiamento dalla notifica, potrebbe essere necessario modificare l\'area delle notifiche su Android. Vai su Impostazioni notifiche ~ Stile notifica per modificare lo stile delle notifiche. Altrimenti potresti non essere in grado di inserire il codice di accoppiamento dalla notifica.</string>
     <string name="notification_styles" comment="Settings preference title for notification shade style options">Stili di notifica</string>
+    <string name="official_website" comment="Description under Website button in About screen">Sito ufficiale</string>
     <string name="official_wiki" comment="Title for official GitHub wiki link in feature guides bottom sheet">Wiki Ufficiale</string>
     <string name="off">Disattiva</string>
     <string name="off_state" comment="Quick Settings tile toggle state label">Disattivo</string>
@@ -1442,6 +1443,7 @@
     <string name="waiting_for_recovery" comment="Progress status shown after the sideload stream was opened while waiting for the target device recovery to request data">In attesa della recovery…</string>
     <string name="want_to_contribute_too" comment="Call-to-action banner in About screen inviting code or translation contributions">Vuoi contribuire anche tu?</string>
     <string name="warning" comment="Android log level name, shown in logcat filters">Attenzione</string>
+    <string name="website" comment="Button in About screen linking to official website">Sito</string>
     <string name="weekly" comment="Option in backup scheduler frequency selection">Settimanale</string>
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">Cosa desideri fare durante %1$s?</string>
     <string name="whats_new" comment="Header title for app release notes and changelog dialog">Novità!</string>
