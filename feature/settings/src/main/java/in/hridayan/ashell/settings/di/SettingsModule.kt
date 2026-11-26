@@ -10,8 +10,6 @@ import `in`.hridayan.ashell.core.common.data.SettingsDataStore
 import `in`.hridayan.ashell.core.common.data.repository.SettingsRepositoryImpl
 import `in`.hridayan.ashell.core.common.domain.repository.SettingsRepository
 import `in`.hridayan.ashell.settings.domain.usecase.ToggleSettingUseCase
-import kotlinx.serialization.json.Json
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -28,12 +26,4 @@ object SettingsModule {
     @Provides
     fun provideToggleSettingUseCase(repo: SettingsRepository): ToggleSettingUseCase =
         ToggleSettingUseCase(repo)
-
-    @Provides
-    @Singleton
-    fun provideJson(): Json = Json {
-        prettyPrint = true
-        isLenient = true
-        ignoreUnknownKeys = true
-    }
 }
