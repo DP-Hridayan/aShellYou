@@ -66,6 +66,6 @@
 <text x="460" y="475" text-anchor="start">0%</text>
 <text x="140" y="505" text-anchor="end"><![CDATA[Chinese Traditional]]></text>
 <rect x="150" y="491" width="300" height="14" fill="#E0E0E0" rx="8" ry="8" />
-<rect x="150" y="491" width="0" height="14" fill="#b3261e" rx="8" ry="8" />
-<text x="460" y="505" text-anchor="start">0%</text>
+<rect x="150" y="491" width="300" height="14" fill="#0f6b0f" rx="8" ry="8" />
+<text x="460" y="505" text-anchor="start">100%</text>
 </svg>
