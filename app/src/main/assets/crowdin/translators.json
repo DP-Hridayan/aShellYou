@@ -3,7 +3,7 @@
     "id": "16319000",
     "username": "DP-Hridayan",
     "name": "Hridayan (DP-Hridayan)",
-    "translated": 51144,
+    "translated": 59288,
     "approved": 65,
     "picture": "https://crowdin-static.cf-downloads.crowdin.com/avatar/16319000/medium/83750741692d1ecb16b7de139291cb30.png",
     "languages": [
@@ -14,6 +14,10 @@
       {
         "id": "zh-CN",
         "name": "Chinese Simplified"
+      },
+      {
+        "id": "zh-TW",
+        "name": "Chinese Traditional"
       },
       {
         "id": "fr",

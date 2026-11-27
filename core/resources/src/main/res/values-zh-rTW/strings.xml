@@ -2,7 +2,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="_import" comment="Action button to import theme or database file">匯入</string>
     <string name="_new" comment="Badge or tab label for new items">新增</string>
-    <string name="A_Z" translatable="false">A 到 Z</string>
     <string name="abort_command" comment="Toast warning shown when trying to perform an action while an ADB shell command is currently running">請先中止指令</string>
     <string name="about">關於</string>
     <string name="action_import">匯入</string>
@@ -10,10 +9,8 @@
     <string name="active_provider" comment="Settings item title for choosing which cloud AI provider the app uses">目前使用的服務提供者</string>
     <string name="active_slot" comment="Refers to the active A/B partition slot on a dual-slot Android device">目前使用的 Slot</string>
     <string name="activity" comment="Section title listing recent events, such as connections opened and closed">活動</string>
-    <string name="adb" translatable="false">ADB</string>
     <string name="adb_agent" comment="Name of the AI chat assistant persona in aShellYou">ADB 助理</string>
     <string name="adb_command" comment="Input field label for typing an ADB shell command">ADB 指令</string>
-    <string name="adb_command_hint" translatable="false">adb reboot</string>
     <string name="adb_command_off_state" comment="Label for the command executed when a Quick Settings tile is toggled to OFF state">ADB 指令（關閉時）</string>
     <string name="adb_command_on_state" comment="Label for the command executed when a Quick Settings tile is toggled to ON state">ADB 指令（開啟時）</string>
     <string name="adb_connected_to" comment="Output line confirming an ADB connection was established with the given host and port">已連線至 %1$s</string>
@@ -101,7 +98,6 @@
     <string name="app_is_locked_msg" comment="Message shown when the app is locked">使用螢幕鎖定、指紋或臉部辨識解鎖應用程式以繼續</string>
     <string name="app_lock_disabled_msg" comment="Toast message informing user that app lock was disabled because device screen lock was removed">應用程式驗證已停用：裝置螢幕鎖定已移除。</string>
     <string name="app_lock_setup_error_msg" comment="Dialog message when user tries to enable app lock but has no device screen lock configured">尚未設定裝置螢幕鎖定。請先在裝置設定中設定螢幕鎖定或生物辨識，才能啟用應用程式鎖定。</string>
-    <string name="app_name" translatable="false">aShell You</string>
     <string name="app_permissions" comment="Title for app permissions shortcut">應用程式權限</string>
     <string name="app_tagline" comment="App subtitle/tagline shown on welcome and about screens">ADB 指令就在指尖</string>
     <string name="apply">套用</string>
@@ -157,7 +153,6 @@
     <string name="boot_image" comment="File selection type label for Android kernel boot image file (.img)">開機映像檔</string>
     <string name="boot_image_sent" comment="Status shown when a temporary boot image was accepted by the bootloader via fastboot boot">開機映像檔已傳送</string>
     <string name="boot_into_fastboot" comment="Action button or dialog option to reboot target device into fastboot/bootloader mode">進入 Fastboot</string>
-    <string name="bootloader" comment="Device info label or fastboot section title for bootloader mode" translatable="false">Bootloader</string>
     <string name="btn_continue" comment="Action button label to proceed to next step in setup wizard">繼續</string>
     <string name="bundled" comment="Tab label in icon chooser for built-in icons that ship with the app">內建</string>
     <string name="cache_settings" comment="Settings section header for AI analysis response caching options">快取</string>
@@ -324,7 +319,6 @@
     <string name="critical">嚴重</string>
     <string name="critical_partition_ack" comment="Checkbox label where the user acknowledges the risk of flashing a critical partition">我了解，刷寫此分割區有極高風險，可能導致裝置永久無法使用。</string>
     <string name="critical_partition_warning" comment="Warning banner shown when a user types a critical bootloader or hardware partition">高風險分割區。刷入錯誤映像檔可能導致裝置永久損毀、無法開機。</string>
-    <string name="crowdin" translatable="false">Crowdin</string>
     <string name="crowdin_contribution_msg" comment="Description card in About screen linking to Crowdin translation portal">前往 Crowdin 翻譯平台協助翻譯</string>
     <string name="current_version" comment="About screen card label showing installed application version number">目前版本</string>
     <string name="custom" comment="Dropdown entry that lets the user type a value instead of picking a preset">自訂…</string>
@@ -574,7 +568,6 @@
     <string name="failed_to_open_usb_connection" comment="Error toast when USB OTG connection fails">無法開啟 USB 連線。是否已啟用 USB 偵錯？</string>
     <string name="failed_to_upload_file" comment="Error shown when uploading a file to the connected device fails and the device gave no reason">檔案上傳失敗</string>
     <string name="faqs" comment="Title for FAQs and troubleshooting feature guide">常見問題與疑難排解</string>
-    <string name="fastboot" comment="Refers to Fastboot mode protocol for Android bootloader partition flashing over OTG" translatable="false">Fastboot</string>
     <string name="fastboot_and_recovery" comment="Navigation menu item for Fastboot and Recovery tools screen">Fastboot 與 Recovery</string>
     <string name="fastboot_coming_soon" comment="Placeholder text for upcoming fastboot features">即將推出</string>
     <string name="fastboot_command_console" comment="Tab header for fastboot CLI console input/output">指令主控台</string>
@@ -642,7 +635,6 @@
     <string name="filter">篩選</string>
     <string name="filter_by_labels" comment="Chip/dialog title for filtering saved commands by custom labels">依標籤篩選</string>
     <string name="filter_profiles" comment="Title of the bottom sheet listing saved logcat filter profiles">篩選設定檔</string>
-    <string name="flash" comment="Action button to start fastboot partition flashing process" translatable="false">刷寫</string>
     <string name="flash_complete" comment="Status shown when a fastboot partition flash finished successfully">刷寫完成</string>
     <string name="flash_failed" comment="%1$s = error text returned by the bootloader. Shown when a fastboot partition flash fails">刷寫失敗：%1$s</string>
     <string name="flash_partition" comment="Dialog title for flashing a image file to selected partition over fastboot">刷寫分割區</string>
@@ -653,46 +645,9 @@
     <string name="folder_info" comment="Dialog header displaying directory metadata properties">資料夾資訊</string>
     <string name="folder_name" comment="Text field label for entering new directory name">資料夾名稱</string>
     <string name="folder_picker" comment="Dialog title for selecting a target directory">資料夾選擇器</string>
-    <string name="font_amatic_sc" comment="Font style name" translatable="false">Amatic SC</string>
-    <string name="font_cabin" comment="Font style name" translatable="false">Cabin</string>
-    <string name="font_caveat" comment="Font style name" translatable="false">Caveat</string>
-    <string name="font_comfortaa" comment="Font style name" translatable="false">Comfortaa</string>
-    <string name="font_crimson_pro" comment="Font style name" translatable="false">Crimson Pro</string>
-    <string name="font_dancing_script" comment="Font style name" translatable="false">Dancing Script</string>
-    <string name="font_display_text" comment="Sample text used to preview font styles" translatable="false">敏捷的棕色狐狸跳過懶狗。</string>
-    <string name="font_eb_garamond" comment="Font style name" translatable="false">EB Garamond</string>
-    <string name="font_exo_2" comment="Font style name" translatable="false">Exo 2</string>
     <string name="font_family" comment="Settings preference title for selecting application font family">字型系列</string>
-    <string name="font_google_sans" comment="Font style name" translatable="false">Google Sans</string>
-    <string name="font_heebo" comment="Font style name" translatable="false">Heebo</string>
     <string name="font_import_success" comment="Toast shown after a custom font file is successfully imported and saved">字型匯入成功</string>
-    <string name="font_inter" comment="Font style name" translatable="false">Inter</string>
-    <string name="font_josefin_sans" comment="Font style name" translatable="false">Josefin Sans</string>
-    <string name="font_karla" comment="Font style name" translatable="false">Karla</string>
-    <string name="font_lexend" comment="Font style name" translatable="false">Lexend</string>
-    <string name="font_lora" comment="Font style name" translatable="false">Lora</string>
-    <string name="font_manrope" comment="Font style name" translatable="false">Manrope</string>
-    <string name="font_montserrat" comment="Font style name" translatable="false">Montserrat</string>
-    <string name="font_noto_sans" comment="Font style name" translatable="false">Noto Sans</string>
-    <string name="font_nunito" comment="Font style name" translatable="false">Nunito</string>
-    <string name="font_open_sans" comment="Font style name" translatable="false">Open Sans</string>
-    <string name="font_oswald" comment="Font style name" translatable="false">Oswald</string>
-    <string name="font_outfit" comment="Font style name" translatable="false">Outfit</string>
-    <string name="font_pacifico" comment="Font style name" translatable="false">Pacifico</string>
-    <string name="font_playfair_display" comment="Font style name" translatable="false">Playfair Display</string>
-    <string name="font_playpen_sans" comment="Font style name" translatable="false">Playpen Sans</string>
-    <string name="font_plus_jakarta_sans" comment="Font style name" translatable="false">Plus Jakarta Sans</string>
-    <string name="font_public_sans" comment="Font style name" translatable="false">Public Sans</string>
-    <string name="font_quicksand" comment="Font style name" translatable="false">Quicksand</string>
-    <string name="font_raleway" comment="Font style name" translatable="false">Raleway</string>
-    <string name="font_roboto_flex" comment="Font style name" translatable="false">Roboto Flex</string>
-    <string name="font_rubik" comment="Font style name" translatable="false">Rubik</string>
-    <string name="font_shadows_into_light" comment="Font style name" translatable="false">Shadows Into Light</string>
     <string name="font_size_multiplier" comment="Settings preference title for adjusting font size scaling multiplier">字型大小倍率</string>
-    <string name="font_source_sans_3" comment="Font style name" translatable="false">Source Sans 3</string>
-    <string name="font_source_serif_4" comment="Font style name" translatable="false">Source Serif 4</string>
-    <string name="font_work_sans" comment="Font style name" translatable="false">Work Sans</string>
-    <string name="forget" comment="Action button to remove/forget a paired device" translatable="false">忘記</string>
     <string name="forget_device" comment="Button label in device details card to unpair/forget ADB device">忘記裝置</string>
     <string name="forget_device_confirmation" comment="%1$s = device name">確定要忘記 %1$s 嗎？之後必須重新配對才能連線。</string>
     <string name="forks" comment="GitHub repository metadata count label for project forks">分支</string>
@@ -712,12 +667,9 @@
     <string name="generate_tile" comment="Action button in Quick Settings builder to generate tile command via AI">產生快速設定磚</string>
     <string name="get_api_key" comment="Button linking to Google AI Studio website to create an API key">取得 API 金鑰</string>
     <string name="get_variables" comment="Action button in Fastboot screen to query fastboot device variables">取得變數</string>
-    <string name="github" translatable="false">GitHub</string>
     <string name="go_home" comment="Button label to navigate back to home screen dashboard">回首頁</string>
     <string name="go_to_terminal" comment="Button label to navigate to terminal command input screen">前往終端機</string>
-    <string name="google_drive" comment="Refers to Google Drive cloud storage service" translatable="false">Google 雲端硬碟</string>
     <string name="google_drive_backup" comment="Option label for Google Drive automated cloud backup">Google 雲端硬碟備份</string>
-    <string name="gpl_3_0" translatable="false">GPL-3.0</string>
     <string name="gpl_3_0_description" comment="Summary text explaining GNU General Public License v3 terms for aShellYou">aShell You 是自由軟體：你可以依自由軟體基金會發布的 GNU 通用公眾授權條款重新散布或修改本軟體，適用版本為第 3 版或（由你選擇）任何更新版本。</string>
     <string name="grant" comment="Button label to approve permission grant request">授予</string>
     <string name="grant_permission" comment="Action button to trigger system permission request dialog">授予權限</string>
@@ -812,15 +764,11 @@ aShell You 需要 Shizuku 權限才能執行快速設定磚指令。</string>
     <string name="local_file_does_not_exist" comment="Error shown when the chosen file to upload is no longer present on this device">本機檔案不存在</string>
     <string name="locked" comment="Status badge showing bootloader lock state is locked">已鎖定</string>
     <string name="log_buffer_size" comment="Title of the setting choosing how much memory the logcat buffer may use">Log 緩衝區大小</string>
-    <string name="logcat" comment="Refers to Android system logcat log streaming tool" translatable="false">Logcat</string>
     <string name="logcat_cleared" comment="Confirmation toast after clearing logcat buffer view">Log 已清除</string>
     <string name="logcat_copy_too_large" comment="Toast shown when the selected logcat entries are too large for the clipboard; suggests saving them to a file instead">Log 數量過多，無法複製。請改為儲存至檔案。</string>
     <string name="logcat_detail_package" comment="Field label for application package name in logcat entry inspector">套件</string>
     <string name="logcat_filter_level" comment="Filter menu title for selecting logcat log severity levels">Log 層級</string>
-    <string name="logcat_filter_pid" translatable="false">依 PID 篩選</string>
     <string name="logcat_filter_search_hint" comment="Placeholder text in logcat search bar">搜尋訊息…</string>
-    <string name="logcat_filter_tid" translatable="false">依 TID 篩選</string>
-    <string name="logcat_filter_uid" translatable="false">依 UID 篩選</string>
     <string name="logcat_is_running" comment="Status banner shown while background logcat collection is active">Logcat 正在執行</string>
     <string name="logcat_ive_granted_it" comment="Button in logcat permission dialog confirming user ran ADB grant command on PC">我已授予權限</string>
     <string name="logcat_no_logs" comment="Placeholder text in logcat screen when no log entries match current filters">目前沒有 Log</string>
@@ -885,7 +833,6 @@ aShell You 需要 Shizuku 權限才能執行快速設定磚指令。</string>
     <string name="models" comment="Refers to AI/ML models used for command analysis">模型</string>
     <string name="moderate">中等</string>
     <string name="modified" comment="File property: last modified date">已修改</string>
-    <string name="monospace" comment="Font style category name" translatable="false">等寬字型</string>
     <string name="monthly" comment="Option in backup scheduler frequency selection">每月</string>
     <string name="more">更多</string>
     <string name="most_used" comment="Sorting option for commands or bookmarks list">最常使用</string>
@@ -978,7 +925,6 @@ aShell You 需要 Shizuku 權限才能執行快速設定磚指令。</string>
     <string name="operation_complete" comment="Notification toast when file copy/move operation finishes">操作完成</string>
     <string name="operations" comment="Bottom sheet title for file transfer operations list">操作</string>
     <string name="or">或</string>
-    <string name="otg" comment="USB On-The-Go. Technical term, keep as OTG" translatable="false">OTG</string>
     <string name="other_details" comment="Expandable card title for additional device metadata details">其他詳細資訊</string>
     <string name="other_device" comment="Selection tab for target device in Logcat Viewer">其他裝置</string>
     <string name="output" comment="Header title for shell command output window">輸出</string>
@@ -1217,7 +1163,6 @@ aShell You 需要 Shizuku 權限才能執行快速設定磚指令。</string>
     <string name="reconnect_success" comment="Toast message confirming successful wireless ADB reconnection">已成功重新連線</string>
     <string name="reconnect_the_device" comment="Button prompt directing user to reconnect target ADB device">重新連線裝置</string>
     <string name="reconnecting" comment="Status shown over a frozen screen mirror while the app waits for the device connection to come back">正在重新連線…</string>
-    <string name="recovery" comment="Refers to Android System Recovery partition / boot mode" translatable="false">Recovery</string>
     <string name="recovery_not_responding" comment="Error shown when the target device recovery did not start requesting data after the sideload stream was opened">Recovery 沒有回應。請在 Recovery 中選擇「從 ADB 套用更新」後再試一次。</string>
     <string name="recovery_reported_failure" comment="Error shown when the target device recovery reported that installing the sideloaded package failed">Recovery 回報安裝失敗</string>
     <string name="refresh">重新整理</string>
@@ -1249,7 +1194,6 @@ aShell You 需要 Shizuku 權限才能執行快速設定磚指令。</string>
     <string name="restoring_backup" comment="Progress status text shown while restoring database from backup">正在還原備份…</string>
     <string name="resume" comment="Action button to resume paused logcat streaming or file download">繼續</string>
     <string name="retry" comment="Action button to retry failed network connection or command execution">重試</string>
-    <string name="root" translatable="false">Root</string>
     <string name="root_access_granted" comment="Toast notification confirming superuser root access granted to aShellYou">已取得 Root 權限！</string>
     <string name="root_unavailable" comment="Dialog title when root access check returns false">無法使用 Root</string>
     <string name="root_unavailable_message" comment="Dialog message explaining root access was not detected on device">無法偵測 Root 權限。請確認裝置已取得 Root 後再試，或改用其他 Logcat 來源。</string>
@@ -1336,7 +1280,6 @@ aShell You 需要 Shizuku 權限才能執行快速設定磚指令。</string>
     <string name="shell_connection_lost" comment="Error shown in the shell output when the connection to the device drops while a command is running">與裝置的連線已中斷</string>
     <string name="shell_output_saved_message" comment="%s = file path where output was saved">最後一個指令的輸出已匯出至「%s」</string>
     <string name="shell_output_saved_whole_message" comment="%s = file path where output was saved">Shell 輸出已匯出至「%s」</string>
-    <string name="shizuku" translatable="false">Shizuku</string>
     <string name="shizuku_not_installed" comment="Status banner when Shizuku service app is not installed on device">尚未安裝 Shizuku</string>
     <string name="shizuku_process_start_failed" comment="Inline shell error shown when the Shizuku helper service could not start the command. %1$s is the technical reason">Shizuku 無法啟動指令：%1$s</string>
     <string name="shizuku_service_unavailable_error" comment="Inline shell error shown when the Shizuku binder is null at command execution time">Shizuku 服務無法使用。請確認 Shizuku 或 Shizuku+ 正在執行且已授予權限。</string>
@@ -1434,7 +1377,6 @@ adb tcpip 5555
     <string name="tcpip_not_available_footer" comment="Note below the adb command in the TCP mode unavailable dialog. The port closes again when the device reboots.">連接埠開啟後，在裝置重新啟動前，此模式無需 USB 或 Wi-Fi 即可使用。</string>
     <string name="tcpip_not_available_instructions" comment="Body of the TCP mode unavailable dialog, shown above a copyable adb command. The command itself is shown separately.">你的裝置尚未啟用 TCP ADB。請先透過 USB 將裝置連接至電腦，並執行：</string>
     <string name="tcpip_not_available_title" comment="Dialog title shown when the adbd TCP port system property is not set on device">無法使用 TCP 模式</string>
-    <string name="telegram" comment="Button in About screen linking to official Telegram community group" translatable="false">Telegram</string>
     <string name="terminal" comment="Refers to shell command line terminal execution screen">終端機</string>
     <string name="terminal_font_style" comment="Settings option for choosing the font used in the ADB shell/terminal">終端機字型樣式</string>
     <string name="terms_of_service" comment="Title for the Terms of Service legal document">服務條款</string>
@@ -1532,7 +1474,6 @@ adb tcpip 5555
     <string name="what_to_do" comment="%1$s = ongoing action, e.g. 'copying' or 'moving'">%1$s 時你想要如何處理？</string>
     <string name="whats_new" comment="Header title for app release notes and changelog dialog">最新消息！</string>
     <string name="which_device_to_pair" comment="Dialog header prompting user to choose wireless pairing method or device">你想配對哪部裝置？</string>
-    <string name="wifi_adb" comment="Refers to Android Wireless Debugging ADB over Wi-Fi connection feature" translatable="false">Wi-Fi ADB</string>
     <string name="wifi_connection_required" comment="Detailed explanation of Wi-Fi requirements for Wireless Debugging ADB">使用無線偵錯功能時，裝置必須連上 Wi-Fi 網路。若 Wi-Fi 沒有網際網路連線，請關閉行動數據，以維持穩定的 Wi-Fi 連線。</string>
     <string name="wipe_cache_desc" comment="Description for predefined fastboot erase cache command">fastboot erase cache</string>
     <string name="wipe_cache_title" comment="Predefined fastboot command title: erase cache partition">清除 Cache</string>
@@ -1543,7 +1484,6 @@ adb tcpip 5555
     <string name="wipe_userdata_desc" comment="Description for predefined fastboot erase userdata command">fastboot erase userdata</string>
     <string name="wipe_userdata_title" comment="Predefined fastboot command title: erase userdata partition">清除 Userdata</string>
     <string name="wipe_warning" comment="Warning notice in fastboot partition wipe screen emphasizing data loss risk">這些操作無法復原，請謹慎操作。</string>
-    <string name="wireless_debugging" translatable="false">無線偵錯</string>
     <string name="wireless_debugging_guide_1" comment="Step 1 of Wireless Debugging setup walkthrough">前往「開發人員選項」&gt;「無線偵錯」，然後點選「使用配對碼配對裝置」。</string>
     <string name="wireless_debugging_guide_2" comment="Step 2 of Wireless Debugging setup walkthrough">在 aShell You 傳送的通知中輸入六位數配對碼。</string>
     <string name="wireless_debugging_guide_3" comment="Step 3 of Wireless Debugging setup walkthrough">返回應用程式，並在首頁點選「開始」。</string>
@@ -1551,7 +1491,6 @@ adb tcpip 5555
     <string name="wireless_not_connected" comment="Status banner shown when target device is not connected over Wireless Debugging">未連線</string>
     <string name="wireless_not_connected_message" comment="Instructional body text advising user to pair and connect device first">裝置尚未透過無線偵錯連線。請先配對並連線裝置。</string>
     <string name="writing_to_partition" comment="%1$s = partition name. Progress status after the image was sent while the bootloader writes it">正在寫入 %1$s…</string>
-    <string name="Z_A" translatable="false">Z 到 A</string>
     <plurals name="app_count" comment="Accessibility label of the stacked app icons on a logcat filter profile card; %1$d = number of apps the profile matches">
         <item quantity="other">%1$d 個應用程式</item>
     </plurals>
@@ -1856,4 +1795,3 @@ GitHub 版本新增 AI 聊天機器人，可在使用者同意後執行指令、
 新增動態 Material 主題。
 重新設計整體介面，帶來全新風格。</string>
 </resources>
-
